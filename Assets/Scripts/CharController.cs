@@ -40,6 +40,7 @@ public class CharController : MonoBehaviour
     {
         CorrectDirections();
 
+        //TODO: rename variables
         Vector3 correctMovement = (rightDir * Input.GetAxisRaw(HORIZONTAL) + forwardDir * Input.GetAxisRaw(VERTICAL)) * moveSpeed;
         moveAmount = Vector3.SmoothDamp(moveAmount, correctMovement, ref smoothMoveVel, .15f);
 
