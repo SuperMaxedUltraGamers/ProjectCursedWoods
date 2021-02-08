@@ -434,7 +434,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotationSpeed: 100
   zoomSpeed: 5
-  camLeadAmount: 1.5
+  camLeadAmount: 1
 --- !u!1 &596401689
 GameObject:
   m_ObjectHideFlags: 0
