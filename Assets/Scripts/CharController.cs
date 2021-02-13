@@ -40,16 +40,22 @@ public class CharController : MonoBehaviour
     {
         CorrectDirections();
 
-        //TODO: rename variables
-        Vector3 correctMovement = (rightDir * Input.GetAxisRaw(HORIZONTAL) + forwardDir * Input.GetAxisRaw(VERTICAL)) * moveSpeed;
-        moveAmount = Vector3.SmoothDamp(moveAmount, correctMovement, ref smoothMoveVel, .15f);
-
-        if (correctMovement.magnitude != 0f)
+        Vector2 inputDir = new Vector2(Input.GetAxisRaw(HORIZONTAL), Input.GetAxisRaw(VERTICAL));
+        if (inputDir.magnitude > 1f)
         {
-            transform.forward = correctMovement.normalized;
+            inputDir.Normalize();
+        }
+
+        Vector3 correctMoveDir = (rightDir * inputDir.x + forwardDir * inputDir.y) * moveSpeed;
+        moveAmount = Vector3.SmoothDamp(moveAmount, correctMoveDir, ref smoothMoveVel, .1f);
+
+        if (correctMoveDir.magnitude != 0f)
+        {
+            transform.forward = moveAmount.normalized;
         }
 
         velocity = new Vector3(moveAmount.x, rb.velocity.y, moveAmount.z);
+        print(velocity.magnitude);
     }
 
     private void Move(float deltaTime)
@@ -65,7 +71,7 @@ public class CharController : MonoBehaviour
         //TODO: maybe create check so that these are only calculated if camera has rotated.
         forwardDir = camT.forward;
         forwardDir.y = 0f;
-        forwardDir = forwardDir.normalized;
+        forwardDir.Normalize();
         rightDir = Quaternion.Euler(new Vector3(0f, 90f, 0f)) * forwardDir;
     }
 }
