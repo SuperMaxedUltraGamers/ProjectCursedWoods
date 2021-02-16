@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace CursedWoods
 {
@@ -7,7 +8,10 @@ namespace CursedWoods
         // TODO: Create and move these to some static and constant class or struct.
         public const string HORIZONTAL = "Horizontal";
         public const string VERTICAL = "Vertical";
-        public const string DASH = "Dash"; 
+        public const string DASH = "Dash";
+        public const string ATTACK = "Attack";
+        public const string SPELLCAST = "Spellcast";
+        public const string INTERACT = "Interact";
 
         /*
         [SerializeField]

@@ -25,6 +25,8 @@ namespace CursedWoods
         [SerializeField, Tooltip("How far the camera is focusing in front of the player.")]
         private float camLeadAmount = 1.5f;
 
+        private float maxPlayerVelMagnitudeMultiplayer = 6f;
+
         private void Awake()
         {
             camT = Camera.main.transform;
@@ -69,7 +71,12 @@ namespace CursedWoods
         private void FollowPlayer(float deltaTime)
         {
             Vector3 playerPosWithOffset = new Vector3(playerT.position.x, playerT.position.y + CAM_PARENT_Y_OFFSET, playerT.position.z);
-            Vector3 wantedPos = playerPosWithOffset + playerT.forward * camLeadAmount * playerRb.velocity.magnitude;
+            float playerVelMag = playerRb.velocity.magnitude;
+            if (playerVelMag > maxPlayerVelMagnitudeMultiplayer)
+            {
+                playerVelMag = maxPlayerVelMagnitudeMultiplayer;
+            }
+            Vector3 wantedPos = playerPosWithOffset + playerT.forward * camLeadAmount * playerVelMag;
             transform.position = Vector3.Lerp(transform.position, wantedPos, moveSpeed * deltaTime);
         }
     }
