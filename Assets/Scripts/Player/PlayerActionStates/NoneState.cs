@@ -25,13 +25,26 @@ namespace CursedWoods
         public override void HandleInput()
         {
             Vector2 inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
-            if (inputDir.magnitude != 0f)
-            {
-                actionStateManager.ChangeState(PlayerInputType.Move);
-            }
-            else if (Input.GetButtonDown(CharController.DASH))
+
+            if (Input.GetButtonDown(CharController.DASH))
             {
                 actionStateManager.ChangeState(PlayerInputType.Dash);
+            }
+            else if (Input.GetButtonDown(CharController.ATTACK))
+            {
+                actionStateManager.ChangeState(PlayerInputType.Attack);
+            }
+            else if (Input.GetButtonDown(CharController.SPELLCAST))
+            {
+                actionStateManager.ChangeState(PlayerInputType.Spellcast);
+            }
+            else if (Input.GetButtonDown(CharController.INTERACT))
+            {
+                actionStateManager.ChangeState(PlayerInputType.Interact);
+            }
+            else if (inputDir.magnitude != 0f)
+            {
+                actionStateManager.ChangeState(PlayerInputType.Move);
             }
         }
 
