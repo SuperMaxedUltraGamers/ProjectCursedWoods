@@ -6,6 +6,8 @@ namespace CursedWoods
 {
     public class PlayerActionStateManager : MonoBehaviour
     {
+        private CharController charController;
+
         public Rigidbody PlayerRb
         {
             get;
@@ -33,10 +35,19 @@ namespace CursedWoods
             private set;
         }
 
+        public CharController CharController
+        {
+            get
+            {
+                return charController;
+            }
+        }
+
         private void Awake()
         {
             PlayerRb = GetComponent<Rigidbody>();
             CamT = Camera.main.transform;
+            charController = GetComponent<CharController>();
         }
 
         private void Start()
@@ -68,7 +79,6 @@ namespace CursedWoods
 
             // Set type to idle at the start.
             CurrentState = GetStateByType(PlayerInputType.None);
-            CurrentState.Activate();
         }
 
         public bool ChangeState(PlayerInputType nextStateType)
@@ -87,11 +97,9 @@ namespace CursedWoods
             }
 
             CurrentState.TransitionOut();
-            CurrentState.Deactivate();
             PreviousState = CurrentState;
             CurrentState = nextState;
             CurrentState.TransitionIn();
-            CurrentState.Activate();
 
             return true;
         }

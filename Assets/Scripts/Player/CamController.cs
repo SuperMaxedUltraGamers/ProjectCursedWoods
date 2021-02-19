@@ -6,8 +6,8 @@ namespace CursedWoods
     {
         private const string HORIZONTAL_RS = "HorizontalRS";
         private const string VERTICAL_RS = "VerticalRS";
-        private const float MAX_HEIGHT_FROM_PLAYER = 14f;
-        private const float MIN_HEIGHT_FROM_PLAYER = 8f;
+        private const float MAX_HEIGHT_FROM_PLAYER = 8f;
+        private const float MIN_HEIGHT_FROM_PLAYER = 2f;
         private const float CAM_PARENT_Y_OFFSET = 2f;
 
         [SerializeField]
@@ -25,6 +25,8 @@ namespace CursedWoods
         [SerializeField, Tooltip("How far the camera is focusing in front of the player.")]
         private float camLeadAmount = 1.5f;
 
+        private float maxPlayerVelMagnitudeMultiplayer = 6f;
+
         private void Awake()
         {
             camT = Camera.main.transform;
@@ -34,25 +36,26 @@ namespace CursedWoods
 
         private void Update()
         {
-            CamMovement();
+            //CamMovement();
         }
 
         private void FixedUpdate()
         {
+            CamMovement(Time.fixedDeltaTime);
             FollowPlayer(Time.fixedDeltaTime);
         }
 
-        private void CamMovement()
+        private void CamMovement(float deltaTime)
         {
             // TODO: Maybe slerp the rotation
             float dir = Input.GetAxisRaw(HORIZONTAL_RS);
-            Vector3 rotation = new Vector3(0f, dir * rotationSpeed * Time.deltaTime, 0f);
-            transform.Rotate(rotation);
+            Quaternion rotation = Quaternion.Euler(0f, dir * rotationSpeed * deltaTime, 0f);
+            transform.rotation *= rotation;
 
-            float moveAmount = Input.GetAxisRaw(VERTICAL_RS) * zoomSpeed * Time.deltaTime;
+            float moveAmount = Input.GetAxisRaw(VERTICAL_RS) * zoomSpeed * deltaTime;
             Vector3 newCamPos = camT.position + camT.forward * moveAmount;
-            float maxCamHeight = playerT.position.y + MAX_HEIGHT_FROM_PLAYER;
-            float minCamHeight = playerT.position.y + MIN_HEIGHT_FROM_PLAYER;
+            float maxCamHeight = transform.position.y + MAX_HEIGHT_FROM_PLAYER;
+            float minCamHeight = transform.position.y + MIN_HEIGHT_FROM_PLAYER;
             if (newCamPos.y > maxCamHeight)
             {
                 newCamPos = new Vector3(camT.position.x, maxCamHeight, camT.position.z);
@@ -68,7 +71,12 @@ namespace CursedWoods
         private void FollowPlayer(float deltaTime)
         {
             Vector3 playerPosWithOffset = new Vector3(playerT.position.x, playerT.position.y + CAM_PARENT_Y_OFFSET, playerT.position.z);
-            Vector3 wantedPos = playerPosWithOffset + playerT.forward * camLeadAmount * playerRb.velocity.magnitude;
+            float playerVelMag = playerRb.velocity.magnitude;
+            if (playerVelMag > maxPlayerVelMagnitudeMultiplayer)
+            {
+                playerVelMag = maxPlayerVelMagnitudeMultiplayer;
+            }
+            Vector3 wantedPos = playerPosWithOffset + playerT.forward * camLeadAmount * playerVelMag;
             transform.position = Vector3.Lerp(transform.position, wantedPos, moveSpeed * deltaTime);
         }
     }

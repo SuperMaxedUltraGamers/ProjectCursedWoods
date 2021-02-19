@@ -13,14 +13,7 @@ namespace CursedWoods
 		// Defined in child classes
 		public abstract PlayerInputType Type { get; }
 
-		// Is this shit active or not yo.
-		public bool IsActive
-		{
-			get;
-			private set;
-		} = false;
-
-		public virtual void DaUpdate() { print("We in the PlayerActionBaseClass"); }
+		public virtual void DaUpdate() { }
 
 		public virtual void DaFixedUpdate() { }
 
@@ -29,16 +22,6 @@ namespace CursedWoods
 		public void Init(PlayerActionStateManager actionStateMan)
         {
 			actionStateManager = actionStateMan;
-		}
-
-		public virtual void Activate()
-		{
-			IsActive = true;
-		}
-
-		public virtual void Deactivate()
-		{
-			IsActive = false;
 		}
 
 		public virtual void TransitionIn()
