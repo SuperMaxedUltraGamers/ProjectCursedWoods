@@ -4,12 +4,16 @@ namespace CursedWoods
 {
     public class MoveState : PlayerActionStateBase
     {
+        private PlayerMover mover;
+        /*
         private float moveSpeed = 200f;
         private Vector3 moveAmount;
         private Vector3 smoothMoveVel;
         private Vector3 velocity;
         private Vector3 forwardDir, rightDir;
+        */
         private Vector2 inputDir;
+
 
         public override PlayerInputType Type
         {
@@ -25,11 +29,21 @@ namespace CursedWoods
             AddTargetState(PlayerInputType.Dash);
             AddTargetState(PlayerInputType.Attack);
             AddTargetState(PlayerInputType.Spellcast);
+
+            if (mover == null)
+            {
+                mover = GetComponent<PlayerMover>();
+            }
+        }
+
+        private void Start()
+        {
+            mover.Initialize(actionStateManager);
         }
 
         public override void HandleInput()
         {
-            inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
+            inputDir = mover.InputDir();
             
             if (Input.GetButtonDown(CharController.DASH))
             {
@@ -55,14 +69,15 @@ namespace CursedWoods
 
         public override void DaUpdate()
         {
-            Movement();
+            mover.Movement();
         }
 
         public override void DaFixedUpdate()
         {
-            Move(Time.fixedDeltaTime);
+            mover.Move(Time.fixedDeltaTime);
         }
 
+        /*
         private void Movement()
         {
             CorrectDirections();
@@ -80,12 +95,25 @@ namespace CursedWoods
                 transform.forward = moveAmount.normalized;
             }
 
-            velocity = new Vector3(moveAmount.x, actionStateManager.PlayerRb.velocity.y, moveAmount.z);
+            Vector3 rbVel = actionStateManager.PlayerRb.velocity;
+            if (actionStateManager.CharController.IsGrounded)
+            {
+                velocity = new Vector3(moveAmount.x, rbVel.y, moveAmount.z);
+            }
+            else
+            {
+                if (rbVel.y > 0f)
+                {
+                    velocity = new Vector3(moveAmount.x, 0f, moveAmount.z);
+                } else
+                {
+                    velocity = new Vector3(moveAmount.x, rbVel.y, moveAmount.z);
+                }
+            }
         }
 
         private void Move(float deltaTime)
         {
-            // Is the fucking deltatime necessary inside FixedUpdate???
             actionStateManager.PlayerRb.velocity = new Vector3(velocity.x * deltaTime, velocity.y, velocity.z * deltaTime);
         }
 
@@ -97,5 +125,6 @@ namespace CursedWoods
             forwardDir.Normalize();
             rightDir = Quaternion.Euler(new Vector3(0f, 90f, 0f)) * forwardDir;
         }
+        */
     }
 }

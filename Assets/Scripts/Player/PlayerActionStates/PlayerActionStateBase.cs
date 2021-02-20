@@ -8,7 +8,7 @@ namespace CursedWoods
 		// All the possible state we can change to from this state.
         private List<PlayerInputType> possibleStates = new List<PlayerInputType>();
 
-		protected PlayerActionStateManager actionStateManager;
+		protected PlayerActionStateManager actionStateManager = null;
 
 		// Defined in child classes
 		public abstract PlayerInputType Type { get; }
@@ -21,7 +21,10 @@ namespace CursedWoods
 
 		public void Init(PlayerActionStateManager actionStateMan)
         {
-			actionStateManager = actionStateMan;
+			if (actionStateManager == null)
+            {
+				actionStateManager = actionStateMan;
+			}
 		}
 
 		public virtual void TransitionIn()

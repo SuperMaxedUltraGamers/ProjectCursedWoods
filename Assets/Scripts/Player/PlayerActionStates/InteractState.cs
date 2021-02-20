@@ -17,5 +17,10 @@
             AddTargetState(PlayerInputType.Attack);
             AddTargetState(PlayerInputType.Spellcast);
         }
+
+        public override void DaUpdate()
+        {
+            print("InteractState");
+        }
     }
 }

@@ -22,11 +22,26 @@
         Interact
     }
 
-    public enum PlayerGroundType
+    public enum Spells
     {
-        None = 0,
-        Grounded,
-        LeftGround,
-        InAir
+        Fireball = 0,
+        IceRay,
+        MagicBeam,
+        Shockwave
+    }
+
+    public enum SpellType
+    {
+        Fire = 0,
+        Ice,
+        Magic,
+        Shock
+    }
+
+    public enum SpellMoveType
+    {
+        Hold = 0,
+        Restricted,
+        Free
     }
 }
