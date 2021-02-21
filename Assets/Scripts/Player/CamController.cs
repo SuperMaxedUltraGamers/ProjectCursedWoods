@@ -4,8 +4,6 @@ namespace CursedWoods
 {
     public class CamController : MonoBehaviour
     {
-        private const string HORIZONTAL_RS = "HorizontalRS";
-        private const string VERTICAL_RS = "VerticalRS";
         private const float MAX_HEIGHT_FROM_PLAYER = 8f;
         private const float MIN_HEIGHT_FROM_PLAYER = 2f;
         private const float CAM_PARENT_Y_OFFSET = 2f;
@@ -34,25 +32,27 @@ namespace CursedWoods
             //playerT.gameObject.GetComponent<CharController>().MoveEvent += FollowPlayer;
         }
 
-        private void Update()
-        {
-            //CamMovement();
-        }
-
         private void FixedUpdate()
         {
-            CamMovement(Time.fixedDeltaTime);
-            FollowPlayer(Time.fixedDeltaTime);
+            if (!CharController.IgnoreControl)
+            {
+                if (!CharController.IgnoreCameraControl)
+                {
+                    CamMovement(Time.fixedDeltaTime);
+                }
+
+                FollowPlayer(Time.fixedDeltaTime);
+            }
         }
 
         private void CamMovement(float deltaTime)
         {
             // TODO: Maybe slerp the rotation
-            float dir = Input.GetAxisRaw(HORIZONTAL_RS);
+            float dir = Input.GetAxisRaw(CharController.HORIZONTAL_RS);
             Quaternion rotation = Quaternion.Euler(0f, dir * rotationSpeed * deltaTime, 0f);
             transform.rotation *= rotation;
 
-            float moveAmount = Input.GetAxisRaw(VERTICAL_RS) * zoomSpeed * deltaTime;
+            float moveAmount = Input.GetAxisRaw(CharController.VERTICAL_RS) * zoomSpeed * deltaTime;
             Vector3 newCamPos = camT.position + camT.forward * moveAmount;
             float maxCamHeight = transform.position.y + MAX_HEIGHT_FROM_PLAYER;
             float minCamHeight = transform.position.y + MIN_HEIGHT_FROM_PLAYER;

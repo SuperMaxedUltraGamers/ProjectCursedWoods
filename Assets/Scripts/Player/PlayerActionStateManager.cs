@@ -6,8 +6,6 @@ namespace CursedWoods
 {
     public class PlayerActionStateManager : MonoBehaviour
     {
-        private CharController charController;
-
         public Rigidbody PlayerRb
         {
             get;
@@ -35,19 +33,13 @@ namespace CursedWoods
             private set;
         }
 
-        public CharController CharController
-        {
-            get
-            {
-                return charController;
-            }
-        }
+        public CharController CharController { get; private set; }
 
         private void Awake()
         {
             PlayerRb = GetComponent<Rigidbody>();
             CamT = Camera.main.transform;
-            charController = GetComponent<CharController>();
+            CharController = GetComponent<CharController>();
         }
 
         private void Start()

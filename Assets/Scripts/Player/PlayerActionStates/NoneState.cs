@@ -52,12 +52,23 @@ namespace CursedWoods
         {
             velocity = actionStateManager.PlayerRb.velocity;
             Vector3 slowedVel = velocity * 42f;
-            velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
+            if (actionStateManager.CharController.IsGrounded)
+            {
+                velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
+            } else
+            {
+                if (velocity.y > 0f)
+                {
+                    velocity = new Vector3(slowedVel.x, 0f, slowedVel.z);
+                } else
+                {
+                    velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
+                }
+            }
         }
 
         public override void DaFixedUpdate()
         {
-            // Is the fucking deltatime necessary inside FixedUpdate???
             actionStateManager.PlayerRb.velocity = new Vector3(velocity.x * Time.fixedDeltaTime, velocity.y, velocity.z * Time.fixedDeltaTime);
         }
     }
