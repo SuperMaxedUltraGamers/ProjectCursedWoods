@@ -32,7 +32,7 @@ namespace CursedWoods
             if (CoolDownTime > 0f)
             {
                 IsInCoolDown = true;
-                // Again bad practice to call coroutine while inside one..
+                // Again bad practice to call coroutine while inside one.. bad boy eetu
                 StartCoroutine(CooldownTimer());
             }
         }
