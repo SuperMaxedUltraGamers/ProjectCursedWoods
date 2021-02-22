@@ -28,35 +28,50 @@ namespace CursedWoods
 
             if (Input.GetButtonDown(CharController.DASH))
             {
+                actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Dash);
             }
             else if (Input.GetButtonDown(CharController.ATTACK))
             {
+                actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Attack);
             }
             else if (Input.GetButtonDown(CharController.SPELLCAST))
             {
+                actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Spellcast);
             }
             else if (Input.GetButtonDown(CharController.INTERACT))
             {
+                actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Interact);
             }
             else if (inputDir.magnitude != 0f)
             {
+                actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Move);
             }
         }
 
         public override void DaUpdate()
         {
-            velocity = actionStateManager.PlayerRb.velocity;
+            Rigidbody rb = actionStateManager.PlayerRb;
+            velocity = rb.velocity;
             Vector3 slowedVel = velocity * 42f;
             if (actionStateManager.CharController.IsGrounded)
             {
-                velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
+                if (velocity.y < 0f)
+                {
+                    rb.isKinematic = true;
+
+                }
+                else
+                {
+                    velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
+                }
             } else
             {
+                actionStateManager.PlayerRb.isKinematic = false;
                 if (velocity.y > 0f)
                 {
                     velocity = new Vector3(slowedVel.x, 0f, slowedVel.z);
