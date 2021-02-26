@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MagicBeamMat
+  m_Shader: {fileID: -6465566751694194690, guid: c945b97a997add747991d79a09bbb493,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_1F05C1DF:
+        m_Texture: {fileID: 2800000, guid: df5ffc1d02daa8745a7c4c91f6b118ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_866613EC:
+        m_Texture: {fileID: 10307, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_1AF288A9: 1
+    - Vector1_4DCF2EA: 0.41
+    - Vector1_5D49C07E: 1
+    - Vector1_60F296BB: 12
+    m_Colors:
+    - Color_D8FCF2E1: {r: 23.968628, g: 23.968628, b: 23.968628, a: 0}
+    - Vector2_1BA8D673: {r: 2, g: 0, b: 0, a: 0}
+    - Vector2_3B9664D3: {r: -5, g: 0, b: 0, a: 0}

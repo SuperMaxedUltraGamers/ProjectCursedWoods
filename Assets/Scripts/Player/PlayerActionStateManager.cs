@@ -61,7 +61,7 @@ namespace CursedWoods
         private void Init()
         {
             // Populates playerStates with all player move states.
-            for (int i=0; i<Enum.GetNames(typeof(PlayerInputType)).Length; i++)
+            for (int i = 0; i < Enum.GetNames(typeof(PlayerInputType)).Length; i++)
             {
                 PlayerActionStateBase state;
                 state = CreateStateByType((PlayerInputType)i);

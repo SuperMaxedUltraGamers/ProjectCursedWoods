@@ -38,7 +38,7 @@ namespace CursedWoods
 
         public override void DaUpdate()
         {
-            switch(caster.CurrentSpell.SpellMoveType)
+            switch (caster.CurrentSpell.SpellMoveType)
             {
                 case SpellMoveType.Hold:
                     if (caster.CurrentSpell.IsCasting)

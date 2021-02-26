@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 namespace CursedWoods
 {
     public class GroundCheck : MonoBehaviour

@@ -4,8 +4,8 @@
     {
         protected override void Awake()
         {
+            Init(true, 1000f, 25f);
             base.Awake();
-            Init(true, 5f, 25f);
         }
     }
 }

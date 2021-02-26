@@ -50,7 +50,7 @@ namespace CursedWoods
         {
             inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
             // AWFUL SINCE IF WE ARE IN COOLDOWN THEN WE SHOULD NOT EVEN COME TO THIS STATE
-            // JUST PUT FUCKING BOOLEANS TO CHARCONTROLLER TO AVOID THIS KINDA SHIT
+            // JUST PUT BOOLEANS TO CHARCONTROLLER TO AVOID THIS KINDA STUFF
             if (isDashInCoolDown)
             {
                 actionStateManager.ChangeState(nextState);

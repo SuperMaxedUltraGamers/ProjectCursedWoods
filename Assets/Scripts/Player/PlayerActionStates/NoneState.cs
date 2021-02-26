@@ -69,13 +69,15 @@ namespace CursedWoods
                 {
                     velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
                 }
-            } else
+            }
+            else
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 if (velocity.y > 0f)
                 {
                     velocity = new Vector3(slowedVel.x, 0f, slowedVel.z);
-                } else
+                }
+                else
                 {
                     velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
                 }

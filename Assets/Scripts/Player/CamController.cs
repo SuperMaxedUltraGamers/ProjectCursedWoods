@@ -28,8 +28,6 @@ namespace CursedWoods
         private void Awake()
         {
             camT = Camera.main.transform;
-            // TODO: unsubscribe FollowPlayer from MoveEvent in some reasonable spot.
-            //playerT.gameObject.GetComponent<CharController>().MoveEvent += FollowPlayer;
         }
 
         private void FixedUpdate()
@@ -76,6 +74,7 @@ namespace CursedWoods
             {
                 playerVelMag = maxPlayerVelMagnitudeMultiplayer;
             }
+
             Vector3 wantedPos = playerPosWithOffset + playerT.forward * camLeadAmount * playerVelMag;
             transform.position = Vector3.Lerp(transform.position, wantedPos, moveSpeed * deltaTime);
         }

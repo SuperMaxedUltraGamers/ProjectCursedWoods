@@ -2,35 +2,16 @@
 
 namespace CursedWoods
 {
-    public class ProjectileBase : MonoBehaviour, IProjectile
+    public class ProjectileBase : PoolObjectBase
     {
         protected Rigidbody rb;
         [SerializeField]
-        private float projectileSpeed = 10f;
-        protected bool isDestroyed = false;
+        protected float projectileSpeed = 10f;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-        }
-
-        public virtual void OnHit()
-        {
-            Destroy(gameObject);
-        }
-
-        public virtual void Launch()
-        {
-            rb.velocity = transform.forward * projectileSpeed;
-        }
-
-        protected virtual void OnTriggerEnter(Collider other)
-        {
-            if (!isDestroyed)
-            {
-                isDestroyed = true;
-                OnHit();
-            }
+            gameObject.SetActive(false);
         }
     }
 }

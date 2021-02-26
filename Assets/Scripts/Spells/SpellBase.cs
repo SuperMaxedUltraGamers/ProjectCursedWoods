@@ -4,43 +4,73 @@ namespace CursedWoods
 {
     public class SpellBase : MonoBehaviour, ISpell
     {
-        protected Vector3 startOffset;
-
-        public float CoolDownTime { get; protected set; }
-        public float CastTime { get; protected set; }
-
-        public bool IsInCoolDown
-        {
-            get;
-            protected set;
-        }
-
-        public bool IsCasting
-        {
-            get;
-            protected set;
-        }
-
-        public SpellType SpellType
-        {
-            get;
-            protected set;
-        }
-
-        public Spells Spell
-        {
-            get;
-            protected set;
-        }
-
-        public SpellMoveType SpellMoveType
-        {
-            get;
-            protected set;
-        }
+        #region Protected fields
 
         /// <summary>
-        /// Setups some variables yo.
+        /// The offset from player where this spell is "spawned" when casted.
+        /// </summary>
+        protected Vector3 startOffset;
+
+        /// <summary>
+        /// The type of object this spell "spawns" from object pool when casting a spell.
+        /// </summary>
+        [SerializeField]
+        protected ObjectPoolType objectPoolType;
+
+        #endregion Protected fields
+
+        #region Properties
+
+        /// <summary>
+        /// How long is this spell in cooldown after casting this spell.
+        /// </summary>
+        public float CoolDownTime { get; protected set; }
+
+        /// <summary>
+        /// How long it takes to cast this spell after player input.
+        /// </summary>
+        public float CastTime { get; protected set; }
+
+        /// <summary>
+        /// Is this spell in cooldown currently.
+        /// </summary>
+        public bool IsInCoolDown { get; protected set; }
+
+        /// <summary>
+        /// Is the player casting this spell currently.
+        /// </summary>
+        public bool IsCasting { get; protected set; }
+
+        /// <summary>
+        /// Determines what type of spell this is.
+        /// </summary>
+        public SpellType SpellType { get; protected set; }
+
+        /// <summary>
+        /// Determines which spell this is.
+        /// </summary>
+        public Spells Spell { get; protected set; }
+
+        /// <summary>
+        /// Determines how player can move while casting this spell.
+        /// </summary>
+        public SpellMoveType SpellMoveType { get; protected set; }
+
+        #endregion Properties
+
+        #region Public API
+
+        /// <summary>
+        /// Called in SpellCaster to cast this spell.
+        /// </summary>
+        public virtual void CastSpell() { }
+
+        #endregion Public API
+
+        #region Protected functionality
+
+        /// <summary>
+        /// Initialisation of this spell.
         /// </summary>
         /// <param name="spell">Which spell this is.</param>
         /// <param name="spellType">What type of spell this is.</param>
@@ -58,6 +88,6 @@ namespace CursedWoods
             startOffset = spellStartOffset;
         }
 
-        public virtual void CastSpell() { }
+        #endregion Protected functionality
     }
 }

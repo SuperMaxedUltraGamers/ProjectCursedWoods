@@ -312,8 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899d0c5326124024aa79acbcb3b48551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8878762246823812047, guid: fa381bc460f00e448b8f7f81b6aa8a14,
-    type: 3}
+  objectPoolType: 0
 --- !u!114 &2071664545653123089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3ba55caff6b4d44bae32ddc048db9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPoolType: 1
   hitScanPrefab: {fileID: 3652077989338533358, guid: 8a693d0f6ab2f764c848443a28fd4e30,
     type: 3}
 --- !u!114 &4207117003426257938
@@ -340,7 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0c06461d909942829e2cf8f06938e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitScanPrefab: {fileID: 4409867939312734592, guid: d581ad246d5e4ee4898f655fa5da5b57,
+  objectPoolType: 2
+  hitScanPrefab: {fileID: 3821676270380225576, guid: 594f0ecfcc22e3649b2fe765aea3d081,
     type: 3}
 --- !u!114 &2240055611560425908
 MonoBehaviour:
@@ -354,8 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d57f0f90f2b6c4ea7c94472dc7400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 7778901022743622262, guid: 3e21f88503214904dba08f75777ac4a2,
-    type: 3}
+  objectPoolType: 3
 --- !u!1 &3655255712769971096
 GameObject:
   m_ObjectHideFlags: 0

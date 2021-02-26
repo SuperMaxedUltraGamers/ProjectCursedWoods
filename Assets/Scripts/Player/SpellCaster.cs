@@ -17,7 +17,7 @@ namespace CursedWoods
         //private ISpell[] allSpells;
         //private Dictionary<Spells, ISpell> spellKeyValuePairs = new Dictionary<Spells, ISpell>();
 
-        // TODO: get rid of these and make some sort dictionary tat holds the spells,
+        // TODO: get rid of these and make some sort dictionary that holds the spells,
         //       problem is that you need to also attach the projectile etc. prefabs that the spells, maybe create data type for that?
         private SpellFireBall spellFireBall;
         private SpellIceRay spellIceRay;
@@ -57,25 +57,25 @@ namespace CursedWoods
                 CharController.IgnoreCameraControl = true;
                 isInSpellMenu = true;
                 Vector2 inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL_RS), Input.GetAxisRaw(CharController.VERTICAL_RS));
-                //print(inputDir);
+
                 if (inputDir.x >= 0f && inputDir.y >= 0f)
                 {
-                    print("Fireball selected");
+                    //print("Fireball selected");
                     CurrentSpell = spellFireBall;
                 }
                 else if (inputDir.x >= 0f && inputDir.y <= 0f)
                 {
-                    print("IceRaySingle selected");
+                    //print("IceRaySingle selected");
                     CurrentSpell = spellIceRay;
                 }
                 else if (inputDir.x <= 0f && inputDir.y <= 0f)
                 {
-                    print("MagicBeam selected");
+                    //print("MagicBeam selected");
                     CurrentSpell = spellMagicBeam;
                 }
                 else if (inputDir.x <= 0f && inputDir.y >= 0f)
                 {
-                    print("Shockwave selected");
+                    //print("Shockwave selected");
                     CurrentSpell = spellShockwave;
                 }
             }
