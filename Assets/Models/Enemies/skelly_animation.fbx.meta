@@ -1,14 +1,27 @@
 fileFormatVersion: 2
-guid: dd4dfdf56d48e744da99f42c275db2de
+guid: bc2c1597e7bdd0b4da139ae093dd9110
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
-  externalObjects:
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.007
-    second: {fileID: 2100000, guid: c939153ea10c10d41b6558625a735689, type: 2}
+      74: -3307874680886084311
+    second: skeleton_metarig.001|Action
+  - first:
+      74: 3568406819393379148
+    second: skeleton_metarig.001|idle
+  - first:
+      74: -8206143495086885879
+    second: skeleton_metarig.001|idle.001
+  - first:
+      74: -4877686588288520892
+    second: skeleton_metarig.001|skeleton_metarigAction
+  - first:
+      74: 4303969065318144895
+    second: skeleton_metarig.001|walk
+  - first:
+      74: -6686504186759467354
+    second: skeleton_metarig.001|walk.001
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -95,7 +108,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

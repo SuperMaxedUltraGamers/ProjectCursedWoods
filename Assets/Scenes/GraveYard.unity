@@ -333,7 +333,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -409,7 +409,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.487e-41, z: 0, w: 4.9375}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -467,7 +467,7 @@ PrefabInstance:
     - target: {fileID: 3655255712769971099, guid: 9117e9eef3c12c64d8aa6c1d375ba451,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.96
       objectReference: {fileID: 0}
     - target: {fileID: 3655255712769971099, guid: 9117e9eef3c12c64d8aa6c1d375ba451,
         type: 3}
@@ -941,7 +941,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1bccea2a02815624389997ab8be1c132,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1bccea2a02815624389997ab8be1c132,
         type: 3}
