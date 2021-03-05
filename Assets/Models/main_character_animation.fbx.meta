@@ -1,8 +1,35 @@
 fileFormatVersion: 2
-guid: 448c0187c3537b44797492c0259ae943
+guid: 1e75ce4d5cf505a4a9c57047ef03c1a7
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -7943887540378133014
+    second: Armature|0tpose
+  - first:
+      74: 6333072458638534383
+    second: Armature|0tpose.001
+  - first:
+      74: 885944232402757753
+    second: Armature|Action
+  - first:
+      74: -9125523489441110064
+    second: Armature|Action.001
+  - first:
+      74: 6027144835493129853
+    second: Armature|idle.004
+  - first:
+      74: -1719272599745167837
+    second: Armature|idle.005
+  - first:
+      74: 1303299601406483602
+    second: Armature|run
+  - first:
+      74: -3761853702796878811
+    second: Armature|walk.001
+  - first:
+      74: 1414462012489108034
+    second: Armature|walk.003
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -90,7 +117,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
