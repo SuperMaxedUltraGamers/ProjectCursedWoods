@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 8985608917434484889}
   m_Layer: 12
   m_Name: TestWeapon
-  m_TagString: Untagged
+  m_TagString: MeleeWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4879776781841722167
 Transform:
   m_ObjectHideFlags: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ced23e51ef6ed4b9dbfccb380ce9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 12
+  damageAmount: 80
   damageType: 4
 --- !u!54 &2998416865957046924
 Rigidbody:
@@ -59,7 +59,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0

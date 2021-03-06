@@ -50,11 +50,11 @@ namespace CursedWoods
 
         private void Update()
         {
-            if (Input.GetAxisRaw(CharController.OPEN_SPELLMENU) > 0f && !CurrentSpell.IsCasting)
+            if (Input.GetAxisRaw(GlobalVariables.OPEN_SPELLMENU) > 0f && !CurrentSpell.IsCasting)
             {
                 CharController.IgnoreCameraControl = true;
                 CharController.IsInSpellMenu = true;
-                Vector2 inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL_RS), Input.GetAxisRaw(CharController.VERTICAL_RS));
+                Vector2 inputDir = new Vector2(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
 
                 //print(inputDir.magnitude);
                 if (inputDir.magnitude > 0.4f)

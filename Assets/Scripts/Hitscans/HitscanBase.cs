@@ -3,7 +3,7 @@ using CursedWoods.Utils;
 
 namespace CursedWoods
 {
-    public class HitscanBase : PoolObjectBase, IHitscan
+    public class HitscanBase : PoolObjectBase, IHitscan, ICauseDamage
     {
         private Timer holdRayTimer;
         protected float holdRayInterval = 0.02f;
@@ -25,6 +25,10 @@ namespace CursedWoods
             get;
             protected set;
         } = false;
+
+        public DamageType DamageType { get; protected set; }
+
+        public int DamageAmount { get; protected set; }
 
         protected virtual void Awake()
         {
@@ -50,7 +54,7 @@ namespace CursedWoods
 
         private void Update()
         {
-            if (IsHoldingType && (Input.GetButtonUp(CharController.SPELLCAST) || CharController.IsInSpellMenu))
+            if (IsHoldingType && (Input.GetButtonUp(GlobalVariables.SPELLCAST) || CharController.IsInSpellMenu))
             {
                 IsFading = true;
             }
@@ -99,6 +103,13 @@ namespace CursedWoods
             }
         }
 
+        public void InitDamageInfo(int damageAmount, DamageType damageType)
+        {
+            DamageAmount = damageAmount;
+            DamageType = damageType;
+        }
+
+        // TODO: Maybe refactor and get rid of this init or InitDamageInfo, kinda confusing when initialising values from multiple places.
         public void Init(bool isHoldingType, float fadeOffSpeed, float rayMaxDistance)
         {
             IsHoldingType = isHoldingType;
@@ -112,6 +123,10 @@ namespace CursedWoods
             if (Physics.Raycast(transform.position, transform.forward, out hit, rayMaxDistance))
             {
                 // TODO: Do stuff
+                if (hit.collider.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
+                {
+                    hit.collider.gameObject.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                }
                 OnHit();
                 //Debug.DrawLine(transform.position, hit.point, Color.red, 1.0f, false);
                 lineRenderer.SetPosition(1, new Vector3(0f, 0f, hit.distance));

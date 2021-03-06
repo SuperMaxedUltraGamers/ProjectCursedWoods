@@ -4,6 +4,16 @@ namespace CursedWoods
 {
     public class SpellBase : MonoBehaviour, ISpell
     {
+        #region Private fields
+
+        /// <summary>
+        /// How much damage this spell causes before resistance calculations.
+        /// </summary>
+        [SerializeField, Tooltip("How much damage this spell causes before resistance calculations.")]
+        private int damageAmount;
+
+        #endregion Private fields
+
         #region Protected fields
 
         /// <summary>
@@ -42,9 +52,14 @@ namespace CursedWoods
         public bool IsCasting { get; protected set; }
 
         /// <summary>
-        /// Determines what type of spell this is.
+        /// Determines how much damage this spell does.
         /// </summary>
-        public DamageType SpellType { get; protected set; }
+        public int DamageAmount { get { return damageAmount; } set { damageAmount = value; } }
+
+        /// <summary>
+        /// Determines what type of damage this spell does.
+        /// </summary>
+        public DamageType DamageType { get; protected set; }
 
         /// <summary>
         /// Determines which spell this is.
@@ -81,7 +96,7 @@ namespace CursedWoods
         protected virtual void Init(Spells spell, DamageType spellType, PlayerMoveType spellMoveType, float castTime, float coolDownTime, Vector3 spellStartOffset)
         {
             Spell = spell;
-            SpellType = spellType;
+            DamageType = spellType;
             SpellMoveType = spellMoveType;
             CastTime = castTime;
             CoolDownTime = coolDownTime;

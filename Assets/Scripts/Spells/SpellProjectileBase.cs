@@ -6,7 +6,7 @@ namespace CursedWoods
     // TODO: refactor the class and it's child classes to not be generic since
     // it's not needed anymore, could potentially get rid of whole child classes too.
     public class SpellProjectileBase<T> : SpellBase
-        where T : Object, IPoolObject
+        where T : Object, IPoolObject, ICauseDamage
     {
         #region Public API
 
@@ -38,7 +38,8 @@ namespace CursedWoods
                 + transform.up * startOffset.y + transform.right * startOffset.z;
 
             // Get object from pool, assign and activate it.
-            IPoolObject projectile = GameMan.Instance.ObjPoolMan.GetObjectFromPool(objectPoolType);
+            T projectile = (T)GameMan.Instance.ObjPoolMan.GetObjectFromPool(objectPoolType);
+            projectile.InitDamageInfo(DamageAmount, DamageType);
             projectile.Activate(spawnPos, transform.rotation);
             IsCasting = false;
 

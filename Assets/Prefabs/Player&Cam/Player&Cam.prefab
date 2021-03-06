@@ -261,8 +261,8 @@ MonoBehaviour:
     resistance: 0
   - type: 4
     resistance: 0
-  baseHealth: 100
-  maxHealth: 200
+  startingHealth: 100
+  maxHealth: 100
   minHealth: 0
   minCauseStagger: 50
 --- !u!114 &3655255712326111168
@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899d0c5326124024aa79acbcb3b48551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 45
   objectPoolType: 0
 --- !u!114 &2071664545653123089
 MonoBehaviour:
@@ -341,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3ba55caff6b4d44bae32ddc048db9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 120
   objectPoolType: 1
   hitScanPrefab: {fileID: 3652077989338533358, guid: 8a693d0f6ab2f764c848443a28fd4e30,
     type: 3}
@@ -356,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e0c06461d909942829e2cf8f06938e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 12
   objectPoolType: 2
   hitScanPrefab: {fileID: 3821676270380225576, guid: 594f0ecfcc22e3649b2fe765aea3d081,
     type: 3}
@@ -371,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d57f0f90f2b6c4ea7c94472dc7400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 70
   objectPoolType: 3
 --- !u!114 &6097228360523818974
 MonoBehaviour:
@@ -386,7 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTime: 0.2
   damageDelay: 0.2
-  cooldownTime: 1
+  cooldownTime: 0.2
   meleeWeapon: {fileID: 4879776781841722164, guid: e311385507a38824dadeba135a17b3ad,
     type: 3}
   moveType: 2

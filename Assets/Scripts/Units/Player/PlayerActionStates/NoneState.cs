@@ -40,22 +40,22 @@ namespace CursedWoods
             
             //inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
 
-            if (Input.GetButtonDown(CharController.DASH) && CharController.CanMoveToDash)
+            if (Input.GetButtonDown(GlobalVariables.DASH) && CharController.CanMoveToDash)
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Dash);
             }
-            else if (Input.GetButtonDown(CharController.ATTACK))
+            else if (Input.GetButtonDown(GlobalVariables.ATTACK))
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Attack);
             }
-            else if (Input.GetButtonDown(CharController.SPELLCAST))
+            else if (Input.GetButtonDown(GlobalVariables.SPELLCAST))
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Spellcast);
             }
-            else if (Input.GetButtonDown(CharController.INTERACT))
+            else if (Input.GetButtonDown(GlobalVariables.INTERACT))
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Interact);

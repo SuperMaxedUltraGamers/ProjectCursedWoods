@@ -68,15 +68,15 @@ namespace CursedWoods
                 actionStateManager.ChangeState(nextState);
             }
             else */
-            if (Input.GetButtonDown(CharController.ATTACK))
+            if (Input.GetButtonDown(GlobalVariables.ATTACK))
             {
                 nextState = PlayerInputType.Attack;
             }
-            else if (Input.GetButtonDown(CharController.SPELLCAST))
+            else if (Input.GetButtonDown(GlobalVariables.SPELLCAST))
             {
                 nextState = PlayerInputType.Spellcast;
             }
-            else if (Input.GetButtonDown(CharController.INTERACT))
+            else if (Input.GetButtonDown(GlobalVariables.INTERACT))
             {
                 nextState = PlayerInputType.Interact;
             }

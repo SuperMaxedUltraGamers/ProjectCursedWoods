@@ -21,7 +21,7 @@
             get;
         }
 
-        DamageType SpellType
+        DamageType DamageType
         {
             get;
         }

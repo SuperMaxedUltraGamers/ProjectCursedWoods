@@ -60,7 +60,7 @@ namespace CursedWoods
 
         public Vector2 InputDir()
         {
-            inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
+            inputDir = new Vector2(Input.GetAxisRaw(GlobalVariables.HORIZONTAL), Input.GetAxisRaw(GlobalVariables.VERTICAL));
             return inputDir;
         }
 
@@ -170,14 +170,14 @@ namespace CursedWoods
                         velocity = new Vector3(moveAmount.x, rbVel.y, moveAmount.z);
                     }
                 }
-                
+
             }
             else
             {
                 NoneStateMovement();
             }
 
-            
+
             /*
             Vector3 rbVel = rb.velocity;
             if (actionStateManager.CharController.IsGrounded)
@@ -196,7 +196,7 @@ namespace CursedWoods
                 }
             }
             */
-            
+
         }
 
         private void CombatVelocity(float speedMultiplier)
@@ -211,7 +211,7 @@ namespace CursedWoods
 
             if (!CharController.IgnoreCameraControl)
             {
-                Vector3 lookDirInput = new Vector3(Input.GetAxisRaw(CharController.HORIZONTAL_RS), 0f, Input.GetAxisRaw(CharController.VERTICAL_RS));
+                Vector3 lookDirInput = new Vector3(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), 0f, Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
                 Vector3 correctLookDir = rightDir * lookDirInput.x + forwardDir * lookDirInput.z;
                 if (lookDirInput.magnitude != 0f)
                 {
@@ -238,7 +238,7 @@ namespace CursedWoods
                         velocity = new Vector3(moveAmount.x, rbVel.y, moveAmount.z);
                     }
                 }
-                
+
             }
             else
             {

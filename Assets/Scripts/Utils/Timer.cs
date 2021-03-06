@@ -94,8 +94,8 @@ namespace CursedWoods.Utils
 			IsRunning = false;
         }
 
-		public void Reset()
-		{
+        public void Reset()
+        {
 			// Call Stop instead of just setting IsRunning = false because we might add more functionality
 			// to Stop and when we call that method from here, this method will automatically get that functionality
 			// as well.

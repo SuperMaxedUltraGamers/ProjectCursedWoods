@@ -73,11 +73,11 @@ namespace CursedWoods
         private void ExploreCamMovement(float deltaTime)
         {
             // TODO: Maybe slerp the rotation
-            float dir = Input.GetAxisRaw(CharController.HORIZONTAL_RS);
+            float dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS);
             Quaternion rotation = Quaternion.Euler(0f, dir * rotationSpeed * deltaTime, 0f);
             transform.rotation *= rotation;
 
-            float moveAmount = Input.GetAxisRaw(CharController.VERTICAL_RS) * zoomSpeed * deltaTime;
+            float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * zoomSpeed * deltaTime;
             Vector3 newCamPos = camT.position + camT.forward * moveAmount;
             float maxCamHeight = transform.position.y + MAX_HEIGHT_FROM_PLAYER;
             float minCamHeight = transform.position.y + MIN_HEIGHT_FROM_PLAYER;

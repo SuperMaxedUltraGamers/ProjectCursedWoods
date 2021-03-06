@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace CursedWoods
 {
@@ -31,6 +32,8 @@ namespace CursedWoods
         /// </summary>
         private float targetScaleOffAmount = 0.1f;
 
+        private List<Collider> hitColliders = new List<Collider>();
+
         private void Update()
         {
             Scale(Time.deltaTime);
@@ -39,6 +42,7 @@ namespace CursedWoods
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
+            hitColliders.Clear();
             currentScale = startScale;
             transform.localScale = new Vector3(currentScale, currentScale, currentScale);
         }
@@ -59,7 +63,16 @@ namespace CursedWoods
 
         private void OnTriggerEnter(Collider other)
         {
-            //TODO: affect enemies
+            if (other.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
+            {
+                
+                if (!hitColliders.Contains(other))
+                {
+                    hitColliders.Add(other);
+
+                    other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                }
+            }
         }
     }
 }

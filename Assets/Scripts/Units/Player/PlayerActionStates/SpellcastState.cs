@@ -68,19 +68,19 @@ namespace CursedWoods
             inputDir = mover.InputDir();
             bool isCasting = caster.CurrentSpell.IsCasting;
 
-            if (Input.GetButton(CharController.SPELLCAST) && !isCasting)
+            if (Input.GetButton(GlobalVariables.SPELLCAST) && !isCasting)
             {
                 caster.CastSpell();
             }
-            else if (Input.GetButtonDown(CharController.ATTACK) && !isCasting)
+            else if (Input.GetButtonDown(GlobalVariables.ATTACK) && !isCasting)
             {
                 actionStateManager.ChangeState(PlayerInputType.Attack);
             }
-            else if (Input.GetButtonDown(CharController.DASH) && !isCasting && CharController.CanMoveToDash)
+            else if (Input.GetButtonDown(GlobalVariables.DASH) && !isCasting && CharController.CanMoveToDash)
             {
                 actionStateManager.ChangeState(PlayerInputType.Dash);
             }
-            else if (Input.GetButtonDown(CharController.INTERACT) && !isCasting)
+            else if (Input.GetButtonDown(GlobalVariables.INTERACT) && !isCasting)
             {
                 actionStateManager.ChangeState(PlayerInputType.Interact);
             }

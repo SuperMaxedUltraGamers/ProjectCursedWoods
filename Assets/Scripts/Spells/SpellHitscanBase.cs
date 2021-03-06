@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CursedWoods
 {
     public class SpellHitscanBase<T> : SpellBase
-        where T : Object, IHitscan, IPoolObject
+        where T : Object, IHitscan, IPoolObject, ICauseDamage
     {
         #region Protected fields
 
@@ -57,6 +57,7 @@ namespace CursedWoods
             {
                 // Get object from pool, assign and activate it.
                 hitScan = (T)GameMan.Instance.ObjPoolMan.GetObjectFromPool(objectPoolType);
+                hitScan.InitDamageInfo(DamageAmount, DamageType);
                 hitScan.Activate(spawnPos, transform.rotation);
             }
 

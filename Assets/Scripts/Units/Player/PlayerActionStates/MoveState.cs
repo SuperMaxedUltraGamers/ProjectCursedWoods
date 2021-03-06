@@ -35,19 +35,19 @@ namespace CursedWoods
         {
             inputDir = mover.InputDir();
 
-            if (Input.GetButtonDown(CharController.DASH) && CharController.CanMoveToDash)
+            if (Input.GetButtonDown(GlobalVariables.DASH) && CharController.CanMoveToDash)
             {
                 actionStateManager.ChangeState(PlayerInputType.Dash);
             }
-            else if (Input.GetButtonDown(CharController.ATTACK))
+            else if (Input.GetButtonDown(GlobalVariables.ATTACK))
             {
                 actionStateManager.ChangeState(PlayerInputType.Attack);
             }
-            else if (Input.GetButtonDown(CharController.SPELLCAST))
+            else if (Input.GetButtonDown(GlobalVariables.SPELLCAST))
             {
                 actionStateManager.ChangeState(PlayerInputType.Spellcast);
             }
-            else if (Input.GetButtonDown(CharController.INTERACT))
+            else if (Input.GetButtonDown(GlobalVariables.INTERACT))
             {
                 actionStateManager.ChangeState(PlayerInputType.Interact);
             }

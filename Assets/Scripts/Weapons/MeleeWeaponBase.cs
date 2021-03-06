@@ -29,7 +29,7 @@ namespace CursedWoods
         public void ToggleHitBox(bool isOn)
         {
             hitbox.enabled = isOn;
-            print(hitbox.enabled);
+            //print(hitbox.enabled);
         }
 
         public void ClearHitColliderList()
@@ -42,9 +42,13 @@ namespace CursedWoods
             if (!hitColliders.Contains(other))
             {
                 hitColliders.Add(other);
-                print("Enemy hit!");
-                other.GetComponent<IHealth>().DecreaseHealth(damageAmount, damageType);
-                // TODO: do stuff to the thing we collided
+
+                string otherTag = other.gameObject.tag;
+                if (otherTag.Equals(GlobalVariables.ENEMY_TAG))
+                {
+                    print("Enemy hit!");
+                    other.GetComponent<IHealth>().DecreaseHealth(damageAmount, damageType);
+                }
             }
         }
     }

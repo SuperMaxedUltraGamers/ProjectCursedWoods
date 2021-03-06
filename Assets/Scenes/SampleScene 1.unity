@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 376829803}
   m_Layer: 10
   m_Name: TestEnemy (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -443,7 +443,7 @@ MonoBehaviour:
     resistance: 0
   - type: 4
     resistance: 0
-  baseHealth: 100
+  startingHealth: 100
   maxHealth: 100
   minHealth: 0
   minCauseStagger: 50
@@ -533,11 +533,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestWeapon
       objectReference: {fileID: 0}
-    - target: {fileID: 4879776781841722165, guid: e311385507a38824dadeba135a17b3ad,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4879776781841722167, guid: e311385507a38824dadeba135a17b3ad,
         type: 3}
       propertyPath: m_RootOrder
@@ -593,11 +588,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8985608917434484889, guid: e311385507a38824dadeba135a17b3ad,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e311385507a38824dadeba135a17b3ad, type: 3}
 --- !u!114 &516939664 stripped
@@ -627,7 +617,7 @@ GameObject:
   - component: {fileID: 551300985}
   m_Layer: 10
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -655,7 +645,7 @@ MonoBehaviour:
     resistance: 0
   - type: 4
     resistance: 0
-  baseHealth: 100
+  startingHealth: 100
   maxHealth: 100
   minHealth: 0
   minCauseStagger: 50
@@ -1454,7 +1444,7 @@ GameObject:
   - component: {fileID: 877687291}
   m_Layer: 10
   m_Name: TestEnemy (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1482,7 +1472,7 @@ MonoBehaviour:
     resistance: 0
   - type: 4
     resistance: 0
-  baseHealth: 100
+  startingHealth: 100
   maxHealth: 100
   minHealth: 0
   minCauseStagger: 50

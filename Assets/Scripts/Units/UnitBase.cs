@@ -55,7 +55,6 @@ namespace CursedWoods
 
         protected virtual void Awake()
         {
-            print(dmgResInfo.Length);
             foreach (DamageResistanceInfo info in dmgResInfo)
             {
                 dmgResistances.Add(info.Type, info.Resistance);
@@ -101,6 +100,7 @@ namespace CursedWoods
                     CurrentHealth = MinHealth;
                     HealthChanged?.Invoke(CurrentHealth);
                     Die();
+                    print("dead");
                 }
                 else 
                 {
