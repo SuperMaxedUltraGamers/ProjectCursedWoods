@@ -1,19 +1,27 @@
 fileFormatVersion: 2
-guid: 9f05cea8cfde6e84a9381f97e825be4f
+guid: bc2c1597e7bdd0b4da139ae093dd9110
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
-  externalObjects:
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: fencebase
-    second: {fileID: 2100000, guid: f64465854bf81b248b80054b0ac4e74e, type: 2}
+      74: -3307874680886084311
+    second: skeleton_metarig.001|Action
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: iron fence
-    second: {fileID: 2100000, guid: 5e6114fa239c8d245935a290e9ffbb19, type: 2}
+      74: 3568406819393379148
+    second: skeleton_metarig.001|idle
+  - first:
+      74: -8206143495086885879
+    second: skeleton_metarig.001|idle.001
+  - first:
+      74: -4877686588288520892
+    second: skeleton_metarig.001|skeleton_metarigAction
+  - first:
+      74: 4303969065318144895
+    second: skeleton_metarig.001|walk
+  - first:
+      74: -6686504186759467354
+    second: skeleton_metarig.001|walk.001
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -100,7 +108,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
