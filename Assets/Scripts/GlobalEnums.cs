@@ -13,6 +13,12 @@
         Interact
     }
 
+    public enum PlayerControlType
+    {
+        Explore = 0,
+        Combat
+    }
+
     /// <summary>
     /// Every spell this game has.
     /// </summary>
@@ -28,21 +34,22 @@
     /// The type of spell, can be used to decrease or increase damage amount if 
     /// enemy is weak against certain type for example.
     /// </summary>
-    public enum SpellType
+    public enum DamageType
     {
         Fire = 0,
         Ice,
         Magic,
-        Shock
+        Shock,
+        Melee
     }
 
     /// <summary>
-    /// Determinates how player is alloved to move while casting whatever spell has this.
+    /// Determinates how player is alloved to move while doing some actions like attacking or spellcasting.
     /// </summary>
-    public enum SpellMoveType
+    public enum PlayerMoveType
     {
         Hold = 0,
-        Restricted,
+        HalfSpeed,
         Free
     }
 

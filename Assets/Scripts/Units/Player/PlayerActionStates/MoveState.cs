@@ -4,9 +4,6 @@ namespace CursedWoods
 {
     public class MoveState : PlayerActionStateBase
     {
-        private PlayerMover mover;
-        private Vector2 inputDir;
-
         public override PlayerInputType Type
         {
             get
@@ -30,6 +27,7 @@ namespace CursedWoods
 
         private void Start()
         {
+            // Null check inside the method so no worries.
             mover.Initialize(actionStateManager);
         }
 
@@ -37,7 +35,7 @@ namespace CursedWoods
         {
             inputDir = mover.InputDir();
 
-            if (Input.GetButtonDown(CharController.DASH))
+            if (Input.GetButtonDown(CharController.DASH) && CharController.CanMoveToDash)
             {
                 actionStateManager.ChangeState(PlayerInputType.Dash);
             }

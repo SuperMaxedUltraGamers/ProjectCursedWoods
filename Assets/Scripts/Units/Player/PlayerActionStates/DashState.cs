@@ -9,9 +9,9 @@ namespace CursedWoods
         private bool isDashing = false;
         private float dashHoldTime = 0.25f;
         private PlayerInputType nextState = PlayerInputType.None;
-        private Vector2 inputDir;
         private bool isDashInCoolDown = false;
         private float dashCoolDownTime = 1f;
+        private Vector3 dashDir;
 
         public override PlayerInputType Type
         {
@@ -27,6 +27,17 @@ namespace CursedWoods
             AddTargetState(PlayerInputType.Move);
             AddTargetState(PlayerInputType.Attack);
             AddTargetState(PlayerInputType.Spellcast);
+
+            if (mover == null)
+            {
+                mover = GetComponent<PlayerMover>();
+            }
+        }
+
+        private void Start()
+        {
+            // Null check inside the method so no worries.
+            mover.Initialize(actionStateManager);
         }
 
         public override void DaUpdate()
@@ -42,20 +53,22 @@ namespace CursedWoods
         {
             if (isDashing && !isDashInCoolDown)
             {
-                actionStateManager.PlayerRb.velocity = transform.forward * dashVel * Time.fixedDeltaTime;
+                actionStateManager.PlayerRb.velocity = dashDir * dashVel * Time.fixedDeltaTime;
             }
         }
 
         public override void HandleInput()
         {
-            inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
+            inputDir = mover.InputDir();
             // AWFUL SINCE IF WE ARE IN COOLDOWN THEN WE SHOULD NOT EVEN COME TO THIS STATE
             // JUST PUT BOOLEANS TO CHARCONTROLLER TO AVOID THIS KINDA STUFF
+            /*
             if (isDashInCoolDown)
             {
                 actionStateManager.ChangeState(nextState);
             }
-            else if (Input.GetButtonDown(CharController.ATTACK))
+            else */
+            if (Input.GetButtonDown(CharController.ATTACK))
             {
                 nextState = PlayerInputType.Attack;
             }
@@ -71,11 +84,21 @@ namespace CursedWoods
             {
                 nextState = PlayerInputType.Move;
             }
+            else if (inputDir.magnitude == 0f)
+            {
+                nextState = PlayerInputType.None;
+            }
         }
 
         public override void TransitionIn()
         {
             nextState = PlayerInputType.None;
+            CharController.CanMoveToDash = false;
+            dashDir = mover.GetCorrectMoverDir();
+            if (dashDir == Vector3.zero)
+            {
+                dashDir = transform.forward;
+            }
         }
 
         private IEnumerator DashHoldTimer()
@@ -92,6 +115,7 @@ namespace CursedWoods
         {
             yield return new WaitForSeconds(dashCoolDownTime);
             isDashInCoolDown = false;
+            CharController.CanMoveToDash = true;
         }
     }
 }

@@ -4,8 +4,7 @@ namespace CursedWoods
 {
     public class NoneState : PlayerActionStateBase
     {
-        private Vector3 velocity;
-
+        //private Vector3 velocity;
         public override PlayerInputType Type
         {
             get
@@ -20,13 +19,28 @@ namespace CursedWoods
             AddTargetState(PlayerInputType.Dash);
             AddTargetState(PlayerInputType.Attack);
             AddTargetState(PlayerInputType.Spellcast);
+
+            
+            if (mover == null)
+            {
+                mover = GetComponent<PlayerMover>();
+            }
+            
+        }
+
+        private void Start()
+        {
+            // Null check inside the method so no worries.
+            mover.Initialize(actionStateManager);
         }
 
         public override void HandleInput()
         {
-            Vector2 inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
+            inputDir = mover.InputDir();
+            
+            //inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
 
-            if (Input.GetButtonDown(CharController.DASH))
+            if (Input.GetButtonDown(CharController.DASH) && CharController.CanMoveToDash)
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Dash);
@@ -51,10 +65,14 @@ namespace CursedWoods
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Move);
             }
+            
         }
 
         public override void DaUpdate()
         {
+            mover.Movement();
+            
+            /*
             Rigidbody rb = actionStateManager.PlayerRb;
             velocity = rb.velocity;
             Vector3 slowedVel = velocity * 42f;
@@ -63,7 +81,6 @@ namespace CursedWoods
                 if (velocity.y < 0f)
                 {
                     rb.isKinematic = true;
-
                 }
                 else
                 {
@@ -82,11 +99,14 @@ namespace CursedWoods
                     velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
                 }
             }
+            */
+            
         }
 
         public override void DaFixedUpdate()
         {
-            actionStateManager.PlayerRb.velocity = new Vector3(velocity.x * Time.fixedDeltaTime, velocity.y, velocity.z * Time.fixedDeltaTime);
+            mover.Move(Time.fixedDeltaTime);
+            //actionStateManager.PlayerRb.velocity = new Vector3(velocity.x * Time.fixedDeltaTime, velocity.y, velocity.z * Time.fixedDeltaTime);
         }
     }
 }

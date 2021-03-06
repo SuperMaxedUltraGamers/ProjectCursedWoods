@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CursedWoods
 {
-    public class CharController : MonoBehaviour
+    public class CharController : UnitBase
     {
         // TODO: Create and move these to some static and constant class or struct.
         public const string HORIZONTAL = "Horizontal";
@@ -14,28 +15,23 @@ namespace CursedWoods
         public const string SPELLCAST = "Spellcast";
         public const string INTERACT = "Interact";
         public const string OPEN_SPELLMENU = "OpenSpellMenu";
+        public const string CHANGE_CONTROL_TYPE = "ChangeControlType";
 
         private GroundCheck groundCheck;
 
-        public bool IsGrounded
-        {
-            get;
-            private set;
-        }
+        public static event Action ControlTypeChanged;
 
-        public static bool IgnoreCameraControl
-        {
-            get;
-            set;
-        }
+        public bool IsGrounded { get; private set; }
 
-        public static bool IgnoreControl
-        {
-            get;
-            set;
-        }
+        public static bool CanMoveToDash { get; set; } = true;
 
-        private void Awake()
+        public static bool IgnoreCameraControl { get; set; }
+
+        public static bool IgnoreControl { get; set; }
+
+        public static bool IsInSpellMenu { get; set; }
+
+        protected override void Awake()
         {
             groundCheck = GetComponent<GroundCheck>();
         }
@@ -43,6 +39,15 @@ namespace CursedWoods
         private void Update()
         {
             IsGrounded = groundCheck.RayCastGround();
+
+            if (Input.GetButtonDown(CHANGE_CONTROL_TYPE))
+            {
+                ControlTypeChanged?.Invoke();
+            }
+        }
+
+        protected override void Die()
+        {
         }
     }
 }

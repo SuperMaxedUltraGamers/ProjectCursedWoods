@@ -21,12 +21,12 @@
             get;
         }
 
-        SpellType SpellType
+        DamageType SpellType
         {
             get;
         }
 
-        SpellMoveType SpellMoveType
+        PlayerMoveType SpellMoveType
         {
             get;
         }

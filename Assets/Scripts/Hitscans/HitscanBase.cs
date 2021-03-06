@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
+using CursedWoods.Utils;
 
 namespace CursedWoods
 {
     public class HitscanBase : PoolObjectBase, IHitscan
     {
+        private Timer holdRayTimer;
+        protected float holdRayInterval = 0.02f;
+        private bool IsHoldRayIntervalRunning = false;
+
         protected LineRenderer lineRenderer = null;
         protected float fadeOffSpeed;
         protected float rayMaxDistance;
@@ -24,13 +29,28 @@ namespace CursedWoods
         protected virtual void Awake()
         {
             lineRenderer = GetComponent<LineRenderer>();
+            holdRayTimer = gameObject.AddComponent<Timer>();
+            holdRayTimer.Set(holdRayInterval);
+
             //lineRenderer.enabled = false;
             gameObject.SetActive(false);
         }
 
+        private void OnEnable()
+        {
+            //print("enabled");
+            holdRayTimer.TimerCompleted += HoldRayInterval;
+        }
+
+        private void OnDisable()
+        {
+            //print("disabled");
+            holdRayTimer.TimerCompleted -= HoldRayInterval;
+        }
+
         private void Update()
         {
-            if (IsHoldingType && Input.GetButtonUp(CharController.SPELLCAST))
+            if (IsHoldingType && (Input.GetButtonUp(CharController.SPELLCAST) || CharController.IsInSpellMenu))
             {
                 IsFading = true;
             }
@@ -65,11 +85,18 @@ namespace CursedWoods
 
         public void HoldRay(Vector3 pos, Quaternion rot)
         {
-            //lineRenderer.enabled = true;
-            transform.position = pos;
-            transform.rotation = rot;
-            // TODO: reduce the raycasting amount for holding, doesnt need to happen every frame!
-            DoRayCast();
+
+            // TODO: only reduce the cast amount to damaging etc. so line renderer gets updated every frame so it doesnt look jittery
+            //print("called");
+            if (!IsHoldRayIntervalRunning)
+            {
+                IsHoldRayIntervalRunning = true;
+                //print("Holdray casted!");
+                transform.position = pos;
+                transform.rotation = rot;
+                DoRayCast();
+                holdRayTimer.Run();
+            }
         }
 
         public void Init(bool isHoldingType, float fadeOffSpeed, float rayMaxDistance)
@@ -105,8 +132,13 @@ namespace CursedWoods
             }
             else
             {
-                // TODO: fade alpha channel
+                // TODO: fade out
             }
+        }
+
+        private void HoldRayInterval()
+        {
+            IsHoldRayIntervalRunning = false;
         }
     }
 }

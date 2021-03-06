@@ -12,8 +12,6 @@ namespace CursedWoods
             private set;
         }
 
-        private bool isInSpellMenu = false;
-
         //private ISpell[] allSpells;
         //private Dictionary<Spells, ISpell> spellKeyValuePairs = new Dictionary<Spells, ISpell>();
 
@@ -52,43 +50,47 @@ namespace CursedWoods
 
         private void Update()
         {
-            if (Input.GetAxisRaw(CharController.OPEN_SPELLMENU) > 0f)
+            if (Input.GetAxisRaw(CharController.OPEN_SPELLMENU) > 0f && !CurrentSpell.IsCasting)
             {
                 CharController.IgnoreCameraControl = true;
-                isInSpellMenu = true;
+                CharController.IsInSpellMenu = true;
                 Vector2 inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL_RS), Input.GetAxisRaw(CharController.VERTICAL_RS));
 
-                if (inputDir.x >= 0f && inputDir.y >= 0f)
+                //print(inputDir.magnitude);
+                if (inputDir.magnitude > 0.4f)
                 {
-                    //print("Fireball selected");
-                    CurrentSpell = spellFireBall;
-                }
-                else if (inputDir.x >= 0f && inputDir.y <= 0f)
-                {
-                    //print("IceRaySingle selected");
-                    CurrentSpell = spellIceRay;
-                }
-                else if (inputDir.x <= 0f && inputDir.y <= 0f)
-                {
-                    //print("MagicBeam selected");
-                    CurrentSpell = spellMagicBeam;
-                }
-                else if (inputDir.x <= 0f && inputDir.y >= 0f)
-                {
-                    //print("Shockwave selected");
-                    CurrentSpell = spellShockwave;
+                    if (inputDir.x >= 0f && inputDir.y >= 0f)
+                    {
+                        //print("Fireball selected");
+                        CurrentSpell = spellFireBall;
+                    }
+                    else if (inputDir.x >= 0f && inputDir.y <= 0f)
+                    {
+                        //print("IceRaySingle selected");
+                        CurrentSpell = spellIceRay;
+                    }
+                    else if (inputDir.x <= 0f && inputDir.y <= 0f)
+                    {
+                        //print("MagicBeam selected");
+                        CurrentSpell = spellMagicBeam;
+                    }
+                    else if (inputDir.x <= 0f && inputDir.y >= 0f)
+                    {
+                        //print("Shockwave selected");
+                        CurrentSpell = spellShockwave;
+                    }
                 }
             }
             else
             {
                 CharController.IgnoreCameraControl = false;
-                isInSpellMenu = false;
+                CharController.IsInSpellMenu = false;
             }
         }
 
         public void CastSpell()
         {
-            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !isInSpellMenu)
+            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !CharController.IsInSpellMenu)
             {
                 CurrentSpell.CastSpell();
             }

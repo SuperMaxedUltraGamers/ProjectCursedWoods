@@ -5,9 +5,6 @@ namespace CursedWoods
     public class SpellcastState : PlayerActionStateBase
     {
         private SpellCaster caster;
-        private PlayerMover mover;
-
-        private Vector2 inputDir;
 
         public override PlayerInputType Type
         {
@@ -33,6 +30,7 @@ namespace CursedWoods
 
         private void Start()
         {
+            // Null check inside the method so no worries.
             mover.Initialize(actionStateManager);
         }
 
@@ -40,20 +38,21 @@ namespace CursedWoods
         {
             switch (caster.CurrentSpell.SpellMoveType)
             {
-                case SpellMoveType.Hold:
+                case PlayerMoveType.Hold:
                     if (caster.CurrentSpell.IsCasting)
                     {
-                        mover.SpellHoldMovement();
+                        mover.HoldMovement();
                     }
                     else
                     {
                         mover.Movement();
                     }
+
                     break;
-                case SpellMoveType.Restricted:
-                    // TODO: add restricted moving
+                case PlayerMoveType.HalfSpeed:
+                    mover.HalfSpeedMovement();
                     break;
-                case SpellMoveType.Free:
+                case PlayerMoveType.Free:
                     mover.Movement();
                     break;
             }
@@ -77,7 +76,7 @@ namespace CursedWoods
             {
                 actionStateManager.ChangeState(PlayerInputType.Attack);
             }
-            else if (Input.GetButtonDown(CharController.DASH) && !isCasting)
+            else if (Input.GetButtonDown(CharController.DASH) && !isCasting && CharController.CanMoveToDash)
             {
                 actionStateManager.ChangeState(PlayerInputType.Dash);
             }

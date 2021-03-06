@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 2071664545653123089}
   - component: {fileID: 4207117003426257938}
   - component: {fileID: 2240055611560425908}
+  - component: {fileID: 6097228360523818974}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -249,6 +250,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788c1b076c3288c498dea15b8050274b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgResInfo:
+  - type: 0
+    resistance: 0
+  - type: 1
+    resistance: 0
+  - type: 2
+    resistance: 0
+  - type: 3
+    resistance: 0
+  - type: 4
+    resistance: 0
+  baseHealth: 100
+  maxHealth: 200
+  minHealth: 0
+  minCauseStagger: 50
 --- !u!114 &3655255712326111168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +372,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPoolType: 3
+--- !u!114 &6097228360523818974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655255712326111179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f8a3c94d7a1a740ba2b60aa54b1361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTime: 0.2
+  damageDelay: 0.2
+  cooldownTime: 1
+  meleeWeapon: {fileID: 4879776781841722164, guid: e311385507a38824dadeba135a17b3ad,
+    type: 3}
+  moveType: 2
 --- !u!1 &3655255712769971096
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,12 +442,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 448c0187c3537b44797492c0259ae943,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 448c0187c3537b44797492c0259ae943,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 448c0187c3537b44797492c0259ae943,
         type: 3}

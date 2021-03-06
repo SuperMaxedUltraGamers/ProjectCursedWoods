@@ -6,7 +6,7 @@ namespace CursedWoods
     {
         private void Start()
         {
-            Init(Spells.Shockwave, SpellType.Shock, SpellMoveType.Hold, 0.5f, 5f, new Vector3(0f, -1f, 0f));
+            Init(Spells.Shockwave, DamageType.Shock, PlayerMoveType.Hold, 0.5f, 5f, new Vector3(0f, -1f, 0f));
         }
     }
 }

@@ -44,7 +44,7 @@ namespace CursedWoods
         /// <summary>
         /// Determines what type of spell this is.
         /// </summary>
-        public SpellType SpellType { get; protected set; }
+        public DamageType SpellType { get; protected set; }
 
         /// <summary>
         /// Determines which spell this is.
@@ -54,7 +54,7 @@ namespace CursedWoods
         /// <summary>
         /// Determines how player can move while casting this spell.
         /// </summary>
-        public SpellMoveType SpellMoveType { get; protected set; }
+        public PlayerMoveType SpellMoveType { get; protected set; }
 
         #endregion Properties
 
@@ -78,7 +78,7 @@ namespace CursedWoods
         /// <param name="castTime">Takes the casting animation's start downtime.</param>
         /// <param name="coolDownTime">Time until spell can be casted again after casting.</param>
         /// <param name="spellStartOffset">Offset vector from player position where the spell is spawned.</param>
-        protected virtual void Init(Spells spell, SpellType spellType, SpellMoveType spellMoveType, float castTime, float coolDownTime, Vector3 spellStartOffset)
+        protected virtual void Init(Spells spell, DamageType spellType, PlayerMoveType spellMoveType, float castTime, float coolDownTime, Vector3 spellStartOffset)
         {
             Spell = spell;
             SpellType = spellType;

@@ -9,6 +9,9 @@ namespace CursedWoods
         private List<PlayerInputType> possibleStates = new List<PlayerInputType>();
 
         protected PlayerActionStateManager actionStateManager = null;
+        protected PlayerMover mover;
+
+        protected Vector2 inputDir;
 
         // Defined in child classes
         public abstract PlayerInputType Type { get; }
