@@ -71,6 +71,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_002_collider
       objectReference: {fileID: 0}
+    - target: {fileID: 5820495980386981882, guid: 6c021feaf05f91d4a9c096246103a26e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6597033405013970240, guid: 6c021feaf05f91d4a9c096246103a26e,
         type: 3}
       propertyPath: m_RootOrder
