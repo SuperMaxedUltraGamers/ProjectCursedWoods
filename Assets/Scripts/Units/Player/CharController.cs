@@ -21,6 +21,7 @@ namespace CursedWoods
 
         protected override void Awake()
         {
+            base.Awake();
             groundCheck = GetComponent<GroundCheck>();
         }
 

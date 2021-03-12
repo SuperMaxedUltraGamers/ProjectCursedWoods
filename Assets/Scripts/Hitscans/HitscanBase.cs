@@ -6,7 +6,7 @@ namespace CursedWoods
     public class HitscanBase : PoolObjectBase, IHitscan, ICauseDamage
     {
         private Timer holdRayTimer;
-        protected float holdRayInterval = 0.02f;
+        protected float holdRayInterval = 0.1f;
         private bool IsHoldRayIntervalRunning = false;
 
         protected LineRenderer lineRenderer = null;
@@ -92,6 +92,7 @@ namespace CursedWoods
 
             // TODO: only reduce the cast amount to damaging etc. so line renderer gets updated every frame so it doesnt look jittery
             //print("called");
+            /*
             if (!IsHoldRayIntervalRunning)
             {
                 IsHoldRayIntervalRunning = true;
@@ -101,6 +102,11 @@ namespace CursedWoods
                 DoRayCast();
                 holdRayTimer.Run();
             }
+            */
+
+            transform.position = pos;
+            transform.rotation = rot;
+            DoRayCast();
         }
 
         public void InitDamageInfo(int damageAmount, DamageType damageType)
@@ -122,11 +128,24 @@ namespace CursedWoods
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, rayMaxDistance))
             {
-                // TODO: Do stuff
-                if (hit.collider.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
+                if (IsHoldingType && !IsHoldRayIntervalRunning)
                 {
-                    hit.collider.gameObject.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    IsHoldRayIntervalRunning = true;
+                    if (hit.collider.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
+                    {
+                        hit.collider.gameObject.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    }
+
+                    holdRayTimer.Run();
                 }
+                else if (!IsHoldingType)
+                {
+                    if (hit.collider.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
+                    {
+                        hit.collider.gameObject.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    }
+                }
+
                 OnHit();
                 //Debug.DrawLine(transform.position, hit.point, Color.red, 1.0f, false);
                 lineRenderer.SetPosition(1, new Vector3(0f, 0f, hit.distance));

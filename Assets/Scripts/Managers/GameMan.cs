@@ -45,6 +45,12 @@ namespace CursedWoods
             private set;
         }
 
+        public AIManager AIManager
+        {
+            get;
+            private set;
+        }
+
         #endregion Properties
 
         #region Unity messages
@@ -62,6 +68,7 @@ namespace CursedWoods
             }
 
             ObjPoolMan = GetComponent<ObjectPoolManager>();
+            AIManager = GetComponent<AIManager>();
             DontDestroyOnLoad(gameObject);
         }
 

@@ -261,8 +261,8 @@ MonoBehaviour:
     resistance: 0
   - type: 4
     resistance: 0
-  startingHealth: 100
-  maxHealth: 100
+  startingHealth: 1000
+  maxHealth: 1000
   minHealth: 0
   minCauseStagger: 50
 --- !u!114 &3655255712326111168

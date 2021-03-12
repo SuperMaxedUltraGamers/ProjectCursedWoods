@@ -1,77 +1,74 @@
 ﻿namespace CursedWoods
 {
-	public interface IHealth
-	{
-		/// <summary>
-		/// Event laukeaa aina, kun hahmon healthin määrä muuttuu.
-		/// </summary>
-		event System.Action<int> HealthChanged;
+    public interface IHealth
+    {
+        /// <summary>
+        /// This event is triggered every time the CurrentHealth changes.
+        /// </summary>
+        event System.Action<int> HealthChanged;
 
-		/// <summary>
-		/// If character takes massive damage, this causes them to knockback/staggger.
-		/// </summary>
-		event System.Action Staggered;
+        /// <summary>
+        /// If character takes massive damage, this causes them to knockback/staggger.
+        /// </summary>
+        event System.Action Staggered;
 
-		/// <summary>
-		/// Palauttaa hahmon tämänhetkisen healthin määrän.
-		/// </summary>
-		int CurrentHealth { get; }
+        /// <summary>
+        /// Returns character's current health.
+        /// </summary>
+        int CurrentHealth { get; }
 
-		/// <summary>
-		/// Healthin maksimimäärä.
-		/// CurrentHealth ei koskaan ylitä tätä määrää.
-		/// </summary>
-		int MaxHealth { get; }
+        /// <summary>
+        /// Health's maximum amount. CurrentHealth can never exceed this.
+        /// </summary>
+        int MaxHealth { get; }
 
-		/// <summary>
-		/// Healthin minimimäärä.
-		/// CurrentHealth ei koskaan alita tätä määrää.
-		/// </summary>
-		int MinHealth { get; }
+        /// <summary>
+        /// Health's minimum amount. CurrentHealth can never go beneath this.
+        /// </summary>
+        int MinHealth { get; }
 
-		/// <summary>
-		/// If health is decreased more than this value then invoke Staggered event.
-		/// </summary>
-		int MinCauseStagger { get; set; }
+        /// <summary>
+        /// If health is decreased more than this value then invoke Staggered event.
+        /// </summary>
+        int MinCauseStagger { get; set; }
 
-		/// <summary>
-		/// Kertoo, onko hahmo tällä hetkellä kuolematon vai ei. Jos pelaaja
-		/// (tai vihollinen) on kuolematon, healthia ei saa vähentää,
-		/// vaikka pelaaja saisikin osuman.
-		/// </summary>
-		bool IsImmortal { get; set; }
+        /// <summary>
+        /// Indicates weather the character is immortal atm. or not. Is the character
+        /// is immortal, CurrentHealth can't be reduced even though the character
+        /// is damaged.
+        /// </summary>
+        bool IsImmortal { get; set; }
 
-		/// <summary>
-		/// Kasvattaa healthin määrää parametrinä annetun amount:n verran.
-		/// Ei kuitenkaan koskaan ylitä MaxHealth:a
-		/// </summary>
-		/// <param name="amount">Määrä, jolla CurrentHealth:in määrää kasvatetaan</param>
-		void IncreaseHealth(int amount);
+        /// <summary>
+        /// Increases the CurrentHealth by the amount. CurrentHealth can never exceed MaxHealth.
+        /// </summary>
+        /// <param name="amount">The amount CurrentHealth is increased by.</param>
+        void IncreaseHealth(int amount);
 
-		/// <summary>
-		/// Vähentää healthin määrää parametrinä annetun amount:n verran.
-		/// Ei kuitenkaan koskaan alita MinHealth:a
-		/// </summary>
-		/// <param name="amount">Määrä, jolla CurrentHealth:in määrää vähennetään</param>
-		/// <param name="damageType">The type of damage we took.</param>
-		void DecreaseHealth(int amount, DamageType damageType);
+        /// <summary>
+        /// Decreases the CurrentHealth by the amount. CurrentHealth can never go beneath
+        /// MinHealth.
+        /// </summary>
+        /// <param name="amount">The amount CurrentHealth is decreased by.</param>
+        /// <param name="damageType">The type of damage we took.</param>
+        void DecreaseHealth(int amount, DamageType damageType);
 
-		/// <summary>
-		/// Increases the maximum health with the given amount.
-		/// </summary>
-		/// <param name="amount">The amount maximum health is increased.</param>
-		void IncreaseMaxHealth(int amount);
+        /// <summary>
+        /// Increases the maximum health with the given amount.
+        /// </summary>
+        /// <param name="amount">The amount maximum health is increased.</param>
+        void IncreaseMaxHealth(int amount);
 
-		/// <summary>
-		/// Decreases the maximum health with the given amount.
-		/// If CurrentHealth is larger than the new decreased MaxHealth then it is also decreased to the new MaxHealth amount.
-		/// </summary>
-		/// <param name="amount">The amount maximum health is decreased.</param>
-		void DecreaseMaxHealth(int amount);
+        /// <summary>
+        /// Decreases the maximum health with the given amount.
+        /// If CurrentHealth is larger than the new decreased MaxHealth then it is also decreased to the new MaxHealth amount.
+        /// </summary>
+        /// <param name="amount">The amount maximum health is decreased.</param>
+        void DecreaseMaxHealth(int amount);
 
-		/// <summary>
-		/// Alustaa komponentin arvot alkutilaan
-		/// </summary>
-		void ResetValues();
-	}
+        /// <summary>
+        /// Resets component's values to their original state.
+        /// </summary>
+        void ResetValues();
+    }
 }

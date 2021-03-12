@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4893434857814803526}
   - component: {fileID: 4893434857814803527}
   - component: {fileID: 6667789634518333286}
+  - component: {fileID: 1284753748778844192}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -64,3 +65,16 @@ MonoBehaviour:
     type: 3}
   magicBeamPool: {fileID: 949969152837701251, guid: be004b8ae1673ff48bf70e1d24a16100,
     type: 3}
+--- !u!114 &1284753748778844192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893434857814803520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bf07a79c872e646be0dc2bd5f821f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fleeAffectorReduceRate: 2

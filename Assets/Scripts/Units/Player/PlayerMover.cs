@@ -88,7 +88,8 @@ namespace CursedWoods
 
         public Vector3 GetCorrectMoverDir()
         {
-            return rightDir * inputDir.x + forwardDir * inputDir.y;
+            Vector3 correctDir = rightDir * inputDir.x + forwardDir * inputDir.y;
+            return correctDir.normalized;
         }
 
         private void MoverControlTypeChanged()
@@ -123,7 +124,7 @@ namespace CursedWoods
             forwardDir = actionStateManager.CamT.forward;
             forwardDir.y = 0f;
             forwardDir.Normalize();
-            rightDir = Quaternion.Euler(new Vector3(0f, 90f, 0f)) * forwardDir;
+            rightDir = Quaternion.Euler(0f, 90f, 0f) * forwardDir;
 
         }
 

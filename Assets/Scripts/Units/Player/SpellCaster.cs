@@ -6,12 +6,6 @@ namespace CursedWoods
 {
     public class SpellCaster : MonoBehaviour
     {
-        public ISpell CurrentSpell
-        {
-            get;
-            private set;
-        }
-
         //private ISpell[] allSpells;
         //private Dictionary<Spells, ISpell> spellKeyValuePairs = new Dictionary<Spells, ISpell>();
 
@@ -21,6 +15,20 @@ namespace CursedWoods
         private SpellIceRay spellIceRay;
         private SpellMagicBeam spellMagicBeam;
         private SpellShockwave spellShockwave;
+
+        private float menuFadeTransparency;
+        private float fadeSpeed = 20f;
+        private int spellGraphicIndex;
+
+        public event Action<float> SpellMenuTransIn;
+        public event Action<float> SpellMenuTransOut;
+        public event Action<Vector2, int> SelectionMoved;
+
+        public ISpell CurrentSpell
+        {
+            get;
+            private set;
+        }
 
         private void Awake()
         {
@@ -52,8 +60,18 @@ namespace CursedWoods
         {
             if (Input.GetAxisRaw(GlobalVariables.OPEN_SPELLMENU) > 0f && !CurrentSpell.IsCasting)
             {
+                if (menuFadeTransparency < 0.5f)
+                {
+                    menuFadeTransparency = Mathf.Lerp(menuFadeTransparency, 0.5f, Time.deltaTime * fadeSpeed);
+                    if (SpellMenuTransIn != null)
+                    {
+                        SpellMenuTransIn(menuFadeTransparency);
+                    }
+                }
+
                 CharController.IgnoreCameraControl = true;
                 CharController.IsInSpellMenu = true;
+
                 Vector2 inputDir = new Vector2(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
 
                 //print(inputDir.magnitude);
@@ -63,26 +81,44 @@ namespace CursedWoods
                     {
                         //print("Fireball selected");
                         CurrentSpell = spellFireBall;
+                        spellGraphicIndex = 1;
                     }
                     else if (inputDir.x >= 0f && inputDir.y <= 0f)
                     {
                         //print("IceRaySingle selected");
                         CurrentSpell = spellIceRay;
+                        spellGraphicIndex = 2;
                     }
                     else if (inputDir.x <= 0f && inputDir.y <= 0f)
                     {
                         //print("MagicBeam selected");
                         CurrentSpell = spellMagicBeam;
+                        spellGraphicIndex = 3;
                     }
                     else if (inputDir.x <= 0f && inputDir.y >= 0f)
                     {
                         //print("Shockwave selected");
                         CurrentSpell = spellShockwave;
+                        spellGraphicIndex = 4;
+                    }
+
+                    if (SelectionMoved != null)
+                    {
+                        SelectionMoved(inputDir, spellGraphicIndex);
                     }
                 }
             }
             else
             {
+                if (menuFadeTransparency > 0.01f)
+                {
+                    menuFadeTransparency = Mathf.Lerp(menuFadeTransparency, 0f, Time.deltaTime * fadeSpeed);
+                    if (SpellMenuTransOut != null)
+                    {
+                        SpellMenuTransOut(menuFadeTransparency);
+                    }
+                }
+
                 CharController.IgnoreCameraControl = false;
                 CharController.IsInSpellMenu = false;
             }

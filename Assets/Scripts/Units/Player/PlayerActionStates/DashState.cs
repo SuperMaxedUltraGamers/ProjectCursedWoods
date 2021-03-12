@@ -5,9 +5,9 @@ namespace CursedWoods
 {
     public class DashState : PlayerActionStateBase
     {
-        private float dashVel = 1000f;
+        private float dashVel = 750f;
         private bool isDashing = false;
-        private float dashHoldTime = 0.25f;
+        private float dashHoldTime = 0.2f;
         private PlayerInputType nextState = PlayerInputType.None;
         private bool isDashInCoolDown = false;
         private float dashCoolDownTime = 1f;
@@ -94,6 +94,7 @@ namespace CursedWoods
         {
             nextState = PlayerInputType.None;
             CharController.CanMoveToDash = false;
+            //GetComponent<IHealth>().IsImmortal = true;
             dashDir = mover.GetCorrectMoverDir();
             if (dashDir == Vector3.zero)
             {
@@ -106,6 +107,8 @@ namespace CursedWoods
             yield return new WaitForSeconds(dashHoldTime);
             isDashInCoolDown = true;
             isDashing = false;
+            //GetComponent<IHealth>().IsImmortal = false;
+
             // Bad practice to call coroutine inside other coroutine
             StartCoroutine(DashCoolDownTimer());
             actionStateManager.ChangeState(nextState);

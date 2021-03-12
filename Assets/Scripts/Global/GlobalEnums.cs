@@ -13,12 +13,6 @@
         Interact
     }
 
-    public enum PlayerControlType
-    {
-        Explore = 0,
-        Combat
-    }
-
     /// <summary>
     /// Every spell this game has.
     /// </summary>
@@ -63,5 +57,20 @@
         MagicBeam,
         Shockwave,
         Skeleton,
+    }
+
+    /// <summary>
+    /// List of all behaviours that enemy can have.
+    /// </summary>
+    public enum EnemyBehaviours
+    {
+        Idle = 0,
+        Patrol,
+        ChasePlayer,
+        AttackPlayer,
+        IncreaseDistanceToPlayer,
+        FleeFromPlayer,
+        Knockback,
+        Die
     }
 }

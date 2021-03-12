@@ -18,24 +18,43 @@ namespace CursedWoods
 
     public abstract class UnitBase : MonoBehaviour, IHealth
     {
+        /// <summary>
+        /// Damage resistance values against different damage types.
+        /// </summary>
         [SerializeField]
         private DamageResistanceInfo[] dmgResInfo;
+
+        /// <summary>
+        /// Table for damage types and their resistances.
+        /// </summary>
         private Dictionary<DamageType, int> dmgResistances = new Dictionary<DamageType, int>();
 
-        [SerializeField, Tooltip("The default/starting health, should never be larger than Max Health.")]
+        [SerializeField, Tooltip("The default/starting health, set to Max Health value if larger.")]
         private int startingHealth = 100;
 
+        /// <summary>
+        /// Unit's current maximum health.
+        /// </summary>
         [SerializeField]
         private int maxHealth;
 
+        /// <summary>
+        /// Unit's default maximum health, used if reseting the unit back to it's default values.
+        /// </summary>
         private int startingMaxHealth;
 
+        /// <summary>
+        /// If unit's health is reduced to this or to a lower value, the unit dies.
+        /// </summary>
         [SerializeField]
         private int minHealth;
 
         [SerializeField, Tooltip("If health is decreased more than this value then this character gets knocked back/staggered.")]
         private int minCauseStagger;
 
+        /// <summary>
+        /// Unit's default minimmum Cause Stagger value, used if reseting the unit back to it's default values.
+        /// </summary>
         private int startingMinCauseStagger;
 
         public int CurrentHealth { get; private set; }
@@ -48,7 +67,7 @@ namespace CursedWoods
 
         public bool IsImmortal { get; set; }
 
-        // This is for notifying UI
+        // This is for notifying UI and informing enemies if they took damage.
         public event Action<int> HealthChanged;
         // This is to fire knockback/stagger.
         public event Action Staggered;
@@ -81,37 +100,51 @@ namespace CursedWoods
                 CurrentHealth += amount;
             }
 
-            HealthChanged?.Invoke(CurrentHealth);
+            if (HealthChanged != null)
+            {
+                HealthChanged(CurrentHealth);
+            }
         }
 
         public void DecreaseHealth(int amount, DamageType damageType)
         {
             if (!IsImmortal)
             {
-                print("health before hit:" + CurrentHealth);
+                print($"health before hit: {CurrentHealth}");
                 if (!dmgResistances.TryGetValue(damageType, out int resistance))
                 {
-                    print("Unit had no resistance set against damagetype: " + damageType + " resistance left 0");
+                    print($"Unit had no resistance set against damagetype: {damageType} resistance left at 0%");
                 }
 
                 int dmgAmount = amount - amount * resistance / 100;
                 if (CurrentHealth - dmgAmount < MinHealth)
                 {
                     CurrentHealth = MinHealth;
-                    HealthChanged?.Invoke(CurrentHealth);
+                    if (HealthChanged != null)
+                    {
+                        HealthChanged(CurrentHealth);
+                    }
+
                     Die();
                     print("dead");
                 }
-                else 
+                else
                 {
                     CurrentHealth -= dmgAmount;
                     if (dmgAmount > MinCauseStagger)
                     {
-                        Staggered?.Invoke();
+                        if (Staggered != null)
+                        {
+                            Staggered();
+                        }
                     }
 
-                    HealthChanged?.Invoke(CurrentHealth);
-                    print("health after hit:" + CurrentHealth);
+                    if (HealthChanged != null)
+                    {
+                        HealthChanged(CurrentHealth);
+                    }
+
+                    print($"health after hit: {CurrentHealth}");
                 }
             }
         }
@@ -130,13 +163,16 @@ namespace CursedWoods
             }
         }
 
-        public void ResetValues()
+        public virtual void ResetValues()
         {
             CurrentHealth = startingHealth;
             MinCauseStagger = startingMinCauseStagger;
             MaxHealth = startingMaxHealth;
         }
 
+        /// <summary>
+        /// What happens when unit runs out of HP.
+        /// </summary>
         protected abstract void Die();
     }
 }
