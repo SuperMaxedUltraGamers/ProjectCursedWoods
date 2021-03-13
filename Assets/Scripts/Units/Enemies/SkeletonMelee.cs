@@ -106,47 +106,24 @@ namespace CursedWoods
                 case EnemyBehaviours.Patrol:
                     rb.velocity = transform.forward * patrolSpeed * Time.fixedDeltaTime;
                     break;
-                /*
-            case EnemyBehaviours.ChasePlayer:
-                agent.SetDestination(playerT.position);
-                break;
-                */
                 case EnemyBehaviours.AttackPlayer:
 
                     float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
                     if (distanceToPlayer > minComfortRange)
                     {
-                        //agent.SetDestination(playerT.position);
-                        //animator.SetFloat("Blend", 1f, 0.1f, Time.fixedDeltaTime);
                         animator.SetFloat("Blend", 0f, 0.1f, Time.fixedDeltaTime);
                         rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     }
-                    else // if (distanceToPlayer < minComfortRange)
+                    else
                     {
                         Vector3 vel = -transform.forward * backUpSpeed * Time.fixedDeltaTime;
                         rb.velocity = new Vector3(vel.x, rb.velocity.y, vel.z);
                         animator.SetFloat("Blend", 1f, 0.1f, Time.fixedDeltaTime);
                     }
-                    /*
-                    else
-                    {
-                        animator.SetFloat("Blend", 0f, 0.1f, Time.fixedDeltaTime);
-                    }
-                    */
-
-                    /*
-                    transform.rotation = Quaternion.Slerp(transform.rotation,
-                        Quaternion.LookRotation(playerT.position - transform.position, transform.up),
-                        Time.fixedDeltaTime * attackTrackingSpeed);
-                    */
-
-                    Vector3 dir = (new Vector3(playerT.position.x, transform.position.y, playerT.position.z) - transform.position).normalized;
-                    Quaternion wantedRot = Quaternion.LookRotation(dir);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, wantedRot, Time.deltaTime * attackTrackingSpeed);
 
                     break;
                 case EnemyBehaviours.FleeFromPlayer:
-                    rb.velocity = transform.forward * fleeSpeed * Time.deltaTime;
+                    rb.velocity = transform.forward * fleeSpeed * Time.fixedDeltaTime;
                     break;
             }
         }
@@ -263,6 +240,10 @@ namespace CursedWoods
             {
                 TransitionIn(hasRandomStateTime: true, AttackTrans);
             }
+
+            Vector3 dir = (new Vector3(playerT.position.x, transform.position.y, playerT.position.z) - transform.position).normalized;
+            Quaternion wantedRot = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, wantedRot, Time.deltaTime * attackTrackingSpeed);
         }
 
         private void Flee()
