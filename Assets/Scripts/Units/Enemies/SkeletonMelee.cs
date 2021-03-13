@@ -9,8 +9,8 @@ namespace CursedWoods
         private NavMeshAgent agent;
         private Animator animator;
         private Rigidbody rb;
+        private CapsuleCollider hitbox;
 
-        [SerializeField]
         private Transform playerT;
 
         private float minStateTime = 3f;
@@ -20,6 +20,7 @@ namespace CursedWoods
 
         private float animTimeBeforeDmg;
         private float animTimeAfterDmg;
+        private float dieAnimLength;
 
         [SerializeField]
         private int attackDamageAmount = 15;
@@ -50,6 +51,8 @@ namespace CursedWoods
         [SerializeField]
         private float fleeRotSpeed;
 
+        private float backUpSpeed = 0.5f;
+
         private delegate void TransitionDel();
 
         protected override void Awake()
@@ -58,12 +61,16 @@ namespace CursedWoods
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponentInChildren<Animator>();
             rb = GetComponent<Rigidbody>();
+            hitbox = GetComponent<CapsuleCollider>();
             animTimeBeforeDmg = 4f / 3f;
             animTimeAfterDmg = 5.042f / 3f - animTimeBeforeDmg;
+            dieAnimLength = 2f;
+            gameObject.SetActive(false);
         }
 
         private void Start()
         {
+            playerT = GameMan.Instance.PlayerT;
             RandomStateTime();
         }
 
@@ -112,18 +119,12 @@ namespace CursedWoods
                         //agent.SetDestination(playerT.position);
                         //animator.SetFloat("Blend", 1f, 0.1f, Time.fixedDeltaTime);
                         animator.SetFloat("Blend", 0f, 0.1f, Time.fixedDeltaTime);
+                        rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     }
                     else // if (distanceToPlayer < minComfortRange)
                     {
-                        /*
-                        transform.rotation = Quaternion.Slerp(transform.rotation,
-                            Quaternion.LookRotation(playerT.position - transform.position, transform.up),
-                            Time.fixedDeltaTime * attackTrackingSpeed);
-                        */
-                        transform.position = Vector3.Lerp(transform.position,
-                            transform.position - transform.forward * 0.5f,
-                            Time.fixedDeltaTime);
-
+                        Vector3 vel = -transform.forward * backUpSpeed * Time.fixedDeltaTime;
+                        rb.velocity = new Vector3(vel.x, rb.velocity.y, vel.z);
                         animator.SetFloat("Blend", 1f, 0.1f, Time.fixedDeltaTime);
                     }
                     /*
@@ -133,9 +134,15 @@ namespace CursedWoods
                     }
                     */
 
+                    /*
                     transform.rotation = Quaternion.Slerp(transform.rotation,
                         Quaternion.LookRotation(playerT.position - transform.position, transform.up),
                         Time.fixedDeltaTime * attackTrackingSpeed);
+                    */
+
+                    Vector3 dir = (new Vector3(playerT.position.x, transform.position.y, playerT.position.z) - transform.position).normalized;
+                    Quaternion wantedRot = Quaternion.LookRotation(dir);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, wantedRot, Time.deltaTime * attackTrackingSpeed);
 
                     break;
                 case EnemyBehaviours.FleeFromPlayer:
@@ -163,6 +170,26 @@ namespace CursedWoods
                     currentBehaviour = EnemyBehaviours.FleeFromPlayer;
                 }
             }
+        }
+
+        protected override void Die()
+        {
+            base.Die();
+            rb.isKinematic = true;
+            hitbox.enabled = false;
+            agent.enabled = false;
+            animator.SetBool("IsAttacking", false);
+            // TODO: play death anim
+            StartCoroutine(DieTimer());
+        }
+
+        public override void Activate(Vector3 pos, Quaternion rot)
+        {
+            base.Activate(pos, rot);
+            ResetValues();
+            currentBehaviour = EnemyBehaviours.Idle;
+            hitbox.enabled = true;
+            hasTransitionedIn = false;
         }
 
         private void Idle()
@@ -304,6 +331,8 @@ namespace CursedWoods
 
         private void AttackTrans()
         {
+            rb.isKinematic = false;
+            agent.enabled = false;
             animator.speed = 2f;
             StartCoroutine(AttackTimer());
             hasTransitionedIn = true;
@@ -312,7 +341,9 @@ namespace CursedWoods
 
         private void FleeTrans()
         {
-            StopAllCoroutines();
+            StopCoroutine(AttackTimer());
+            StopCoroutine(AttackEndTimer());
+            //StopAllCoroutines();
             animator.SetBool("IsAttacking", false);
             rb.isKinematic = false;
             animator.speed = 3f;
@@ -391,6 +422,12 @@ namespace CursedWoods
                     animator.SetBool("IsAttacking", false);
                 }
             }
+        }
+
+        private IEnumerator DieTimer()
+        {
+            yield return new WaitForSeconds(dieAnimLength);
+            Deactivate();
         }
     }
 }

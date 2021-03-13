@@ -89,21 +89,6 @@ namespace CursedWoods
 
         public void HoldRay(Vector3 pos, Quaternion rot)
         {
-
-            // TODO: only reduce the cast amount to damaging etc. so line renderer gets updated every frame so it doesnt look jittery
-            //print("called");
-            /*
-            if (!IsHoldRayIntervalRunning)
-            {
-                IsHoldRayIntervalRunning = true;
-                //print("Holdray casted!");
-                transform.position = pos;
-                transform.rotation = rot;
-                DoRayCast();
-                holdRayTimer.Run();
-            }
-            */
-
             transform.position = pos;
             transform.rotation = rot;
             DoRayCast();

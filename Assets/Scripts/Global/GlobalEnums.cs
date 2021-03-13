@@ -56,7 +56,7 @@
         IceRay,
         MagicBeam,
         Shockwave,
-        Skeleton,
+        SkeletonMelee,
     }
 
     /// <summary>
@@ -71,6 +71,6 @@
         IncreaseDistanceToPlayer,
         FleeFromPlayer,
         Knockback,
-        Die
+        Dead
     }
 }

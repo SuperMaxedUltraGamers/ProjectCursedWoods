@@ -18,6 +18,13 @@ namespace CursedWoods
 
         #endregion Constants and statics
 
+        #region Private fields
+
+        [SerializeField]
+        private Transform playerT;
+
+        #endregion Private fields
+
         #region Properties
 
         /// <summary>
@@ -49,6 +56,10 @@ namespace CursedWoods
         {
             get;
             private set;
+        }
+        public Transform PlayerT
+        {
+            get { return playerT; }
         }
 
         #endregion Properties

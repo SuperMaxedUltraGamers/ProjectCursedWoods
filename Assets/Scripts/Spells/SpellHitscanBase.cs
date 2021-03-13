@@ -9,12 +9,6 @@ namespace CursedWoods
         #region Protected fields
 
         /// <summary>
-        /// This spell's hitscan object prefab.
-        /// </summary>
-        [SerializeField]
-        protected T hitScanPrefab = null;
-
-        /// <summary>
         /// Current hitscan object.
         /// </summary>
         protected T hitScan = null;

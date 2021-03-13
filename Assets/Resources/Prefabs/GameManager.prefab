@@ -65,6 +65,8 @@ MonoBehaviour:
     type: 3}
   magicBeamPool: {fileID: 949969152837701251, guid: be004b8ae1673ff48bf70e1d24a16100,
     type: 3}
+  skeletonMeleePool: {fileID: 8184401001280415992, guid: 3a7994faaae13224397dd91c2badd99a,
+    type: 3}
 --- !u!114 &1284753748778844192
 MonoBehaviour:
   m_ObjectHideFlags: 0

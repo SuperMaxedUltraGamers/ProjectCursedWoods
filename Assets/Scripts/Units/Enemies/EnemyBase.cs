@@ -2,7 +2,7 @@
 
 namespace CursedWoods
 {
-    public abstract class EnemyBase : UnitBase
+    public abstract class EnemyBase : UnitPoolable
     {
         [SerializeField, Tooltip("Minimum distance from player to start attacking.")]
         protected float attackRange = 0.5f;
@@ -39,12 +39,11 @@ namespace CursedWoods
 
         protected override void Die()
         {
+            currentBehaviour = EnemyBehaviours.Dead;
             GameMan.Instance.AIManager.EnemyGotKilled -= CheckFleePossibility;
             HealthChanged -= TookDamage;
 
             GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
-            // TODO: Remove when object pool is implemented
-            Destroy(gameObject);
         }
     }
 }
