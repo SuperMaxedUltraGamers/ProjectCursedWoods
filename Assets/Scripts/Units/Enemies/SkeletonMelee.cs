@@ -149,7 +149,7 @@ namespace CursedWoods
             hasTransitionedIn = false;
         }
 
-        protected override void TookDamage(int dmg)
+        protected override void TookDamage(int currentHealth, int maxHealth)
         {
             if (currentBehaviour == EnemyBehaviours.Idle || currentBehaviour == EnemyBehaviours.Patrol)
             {

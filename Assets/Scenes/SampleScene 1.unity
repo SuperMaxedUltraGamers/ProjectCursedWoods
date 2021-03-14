@@ -5429,5 +5429,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MausoleumEnemyTriggerSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 5680023029877970458, guid: 2d1bf9afa2289d04baeb76f2c2a536b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d1bf9afa2289d04baeb76f2c2a536b8, type: 3}

@@ -5,7 +5,7 @@
         /// <summary>
         /// This event is triggered every time the CurrentHealth changes.
         /// </summary>
-        event System.Action<int> HealthChanged;
+        event System.Action<int, int> HealthChanged;
 
         /// <summary>
         /// If character takes massive damage, this causes them to knockback/staggger.

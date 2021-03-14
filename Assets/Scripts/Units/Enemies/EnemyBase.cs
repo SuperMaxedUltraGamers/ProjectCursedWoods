@@ -48,8 +48,9 @@ namespace CursedWoods
         /// For changing enemy's state upon taking damage if not in combat states.
         /// This is subscribed to HealthChanged event.
         /// </summary>
-        /// <param name="dmg">The amount of damage we took.</param>
-        protected abstract void TookDamage(int dmg);
+        /// <param name="currentHealth">The new/current health after taking damage.</param>
+        /// <param name="maxHealth">The current maximum health of the unit.</param>
+        protected abstract void TookDamage(int currentHealth, int maxHealth);
 
         /// <summary>
         /// For changing enemy's state when getting knocked back.
