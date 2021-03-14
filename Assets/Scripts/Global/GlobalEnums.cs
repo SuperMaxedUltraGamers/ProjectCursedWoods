@@ -18,7 +18,8 @@
     /// </summary>
     public enum Spells
     {
-        Fireball = 0,
+        None = 0,
+        Fireball,
         IceRay,
         MagicBeam,
         Shockwave
@@ -57,6 +58,11 @@
         MagicBeam,
         Shockwave,
         SkeletonMelee,
+    }
+
+    public enum EnemyType
+    {
+        SkeletonMelee = 0,
     }
 
     /// <summary>

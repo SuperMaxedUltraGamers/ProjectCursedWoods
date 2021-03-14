@@ -117,7 +117,6 @@ MonoBehaviour:
   attackRange: 1.7
   minComfortRange: 1.5
   cowardnessValue: 30
-  playerT: {fileID: 0}
   attackDamageAmount: 15
   attackTrackingSpeed: 40
   playerLayerMask:

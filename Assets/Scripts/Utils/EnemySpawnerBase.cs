@@ -2,29 +2,23 @@
 
 namespace CursedWoods.Utils
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawnerBase : MonoBehaviour
     {
-        [SerializeField, Tooltip("IMPORTANT! Only choose enemies even though the list contains more items.")]
-        private ObjectPoolType enemyType = ObjectPoolType.SkeletonMelee;
+        protected ObjectPoolType objectPoolType = ObjectPoolType.SkeletonMelee;
 
         [SerializeField]
-        private int spawnAmount;
+        protected EnemyType enemyType = EnemyType.SkeletonMelee;
 
         [SerializeField]
-        private float spawnInterval;
-        private float currentTime;
-        private bool isSpawning;
+        protected int spawnAmount;
 
         [SerializeField]
-        private bool spawningAtStart;
+        protected float spawnInterval;
+        protected float currentTime;
+        protected bool isSpawning;
 
         [SerializeField]
-        private Transform spawnPos;
-
-        private void Awake()
-        {
-            isSpawning = spawningAtStart;
-        }
+        protected Transform spawnPos;
 
         private void Update()
         {
@@ -41,24 +35,19 @@ namespace CursedWoods.Utils
             }
         }
 
-        public void StartSpawning()
-        {
-            isSpawning = true;
-        }
-
-        private void CheckSpawnSpot()
+        protected void CheckSpawnSpot()
         {
             if (!Physics.CheckSphere(spawnPos.position, 0.5f))
             {
-                Spawn(spawnPos.position, transform.rotation);
+                Spawn(spawnPos.position, spawnPos.rotation);
             }
             else if (!Physics.CheckSphere(spawnPos.position + spawnPos.right * 1.2f, 0.5f))
             {
-                Spawn(spawnPos.position + spawnPos.right, transform.rotation);
+                Spawn(spawnPos.position + spawnPos.right, spawnPos.rotation);
             }
             else if (!Physics.CheckSphere(spawnPos.position - spawnPos.right * 1.2f, 0.5f))
             {
-                Spawn(spawnPos.position - spawnPos.right, transform.rotation);
+                Spawn(spawnPos.position - spawnPos.right, spawnPos.rotation);
             }
             else
             {
@@ -66,9 +55,16 @@ namespace CursedWoods.Utils
             }
         }
 
-        private void Spawn(Vector3 pos, Quaternion rot)
+        protected void Spawn(Vector3 pos, Quaternion rot)
         {
-            IPoolObject enemy = GameMan.Instance.ObjPoolMan.GetObjectFromPool(enemyType);
+            switch (enemyType)
+            {
+                case EnemyType.SkeletonMelee:
+                    objectPoolType = ObjectPoolType.SkeletonMelee;
+                    break;
+            }
+
+            IPoolObject enemy = GameMan.Instance.ObjPoolMan.GetObjectFromPool(objectPoolType);
             enemy.Activate(pos, rot);
 
             spawnAmount--;

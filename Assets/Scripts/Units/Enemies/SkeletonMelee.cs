@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using CursedWoods.Utils;
 
 namespace CursedWoods
 {
@@ -13,6 +14,7 @@ namespace CursedWoods
 
         private Transform playerT;
 
+        private float animChangeDampTime = 0.1f;
         private float minStateTime = 3f;
         private float maxStateTime = 6f;
         private float timeOnCurrentState;
@@ -52,6 +54,9 @@ namespace CursedWoods
         private float fleeRotSpeed;
 
         private float backUpSpeed = 0.5f;
+
+        private float knockBackForce = 200f;
+        private float staggerTime = 4f;
 
         private delegate void TransitionDel();
 
@@ -93,6 +98,9 @@ namespace CursedWoods
                 case EnemyBehaviours.FleeFromPlayer:
                     Flee();
                     break;
+                case EnemyBehaviours.Knockback:
+                    KnockBack();
+                    break;
             }
         }
 
@@ -111,19 +119,23 @@ namespace CursedWoods
                     float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
                     if (distanceToPlayer > minComfortRange)
                     {
-                        animator.SetFloat("Blend", 0f, 0.1f, Time.fixedDeltaTime);
+                        animator.SetFloat("Blend", 0f, animChangeDampTime, Time.fixedDeltaTime);
                         rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     }
                     else
                     {
                         Vector3 vel = -transform.forward * backUpSpeed * Time.fixedDeltaTime;
                         rb.velocity = new Vector3(vel.x, rb.velocity.y, vel.z);
-                        animator.SetFloat("Blend", 1f, 0.1f, Time.fixedDeltaTime);
+                        animator.SetFloat("Blend", 1f, animChangeDampTime, Time.fixedDeltaTime);
                     }
 
                     break;
                 case EnemyBehaviours.FleeFromPlayer:
                     rb.velocity = transform.forward * fleeSpeed * Time.fixedDeltaTime;
+                    break;
+                case EnemyBehaviours.Knockback:
+                    Vector3 newVel = rb.velocity * 0.9f;
+                    rb.velocity = new Vector3(newVel.x, rb.velocity.y, newVel.z);
                     break;
             }
         }
@@ -134,6 +146,15 @@ namespace CursedWoods
             {
                 hasTransitionedIn = false;
                 currentBehaviour = EnemyBehaviours.ChasePlayer;
+            }
+        }
+
+        protected override void GotKnockedBack()
+        {
+            if (currentBehaviour != EnemyBehaviours.Knockback && currentBehaviour != EnemyBehaviours.Dead)
+            {
+                currentBehaviour = EnemyBehaviours.Knockback;
+                hasTransitionedIn = false;
             }
         }
 
@@ -156,6 +177,7 @@ namespace CursedWoods
             hitbox.enabled = false;
             agent.enabled = false;
             animator.SetBool("IsAttacking", false);
+            currentBehaviour = EnemyBehaviours.Dead;
             // TODO: play death anim
             StartCoroutine(DieTimer());
         }
@@ -181,8 +203,8 @@ namespace CursedWoods
                 TransitionIn(hasRandomStateTime: true, IdleTrans);
             }
 
-            animator.SetFloat("Blend", 0f, 0.1f, Time.deltaTime);
-            animator.SetFloat("TorsoBlend", 0f, 0.1f, Time.deltaTime);
+            animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
+            animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
 
             StateTimeFlow(EnemyBehaviours.Patrol);
         }
@@ -201,8 +223,8 @@ namespace CursedWoods
 
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * patrolRotSpeed);
 
-            animator.SetFloat("Blend", 1f, 0.1f, Time.deltaTime);
-            animator.SetFloat("TorsoBlend", 1f, 0.1f, Time.deltaTime);
+            animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
+            animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
 
             StateTimeFlow(EnemyBehaviours.Idle);
         }
@@ -229,8 +251,8 @@ namespace CursedWoods
             else
             {
                 agent.SetDestination(playerT.position);
-                animator.SetFloat("Blend", 1f, 0.1f, Time.deltaTime);
-                animator.SetFloat("TorsoBlend", 1f, 0.1f, Time.deltaTime);
+                animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
+                animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
             }
         }
 
@@ -241,9 +263,8 @@ namespace CursedWoods
                 TransitionIn(hasRandomStateTime: true, AttackTrans);
             }
 
-            Vector3 dir = (new Vector3(playerT.position.x, transform.position.y, playerT.position.z) - transform.position).normalized;
-            Quaternion wantedRot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, wantedRot, Time.deltaTime * attackTrackingSpeed);
+            newRotation = newRotation = MathUtils.GetLookRotationYAxis(playerT.position, transform.position, transform.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * attackTrackingSpeed);
         }
 
         private void Flee()
@@ -253,17 +274,23 @@ namespace CursedWoods
                 TransitionIn(hasRandomStateTime: false, FleeTrans);
             }
 
-            newRotation = Quaternion.LookRotation(transform.position - playerT.position, transform.up);
-            newRotation.x = 0f;
-            newRotation.z = 0f;
+            newRotation = MathUtils.GetLookRotationYAxis(transform.position, playerT.position, transform.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * fleeRotSpeed);
 
-            animator.SetFloat("Blend", 1f, 0.1f, Time.deltaTime);
-            animator.SetFloat("TorsoBlend", 1f, 0.1f, Time.deltaTime);
+            animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
+            animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
 
             if (Vector3.Distance(transform.position, playerT.position) > 35f)
             {
                 Die();
+            }
+        }
+
+        private void KnockBack()
+        {
+            if (!hasTransitionedIn)
+            {
+                TransitionIn(hasRandomStateTime: false, KnockBackTrans);
             }
         }
 
@@ -283,9 +310,8 @@ namespace CursedWoods
         {
             animator.speed = 1f;
             rb.isKinematic = false;
-            rb.velocity = Vector3.zero;
+            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             agent.enabled = false;
-            hasTransitionedIn = true;
         }
 
         private void PatrolTrans()
@@ -298,8 +324,6 @@ namespace CursedWoods
             {
                 newRotation = transform.rotation * Quaternion.Euler(0f, 180f, 0f);
             }
-
-            hasTransitionedIn = true;
         }
 
         private void ChaseTrans()
@@ -307,7 +331,6 @@ namespace CursedWoods
             animator.speed = 3f;
             rb.isKinematic = true;
             agent.enabled = true;
-            hasTransitionedIn = true;
         }
 
         private void AttackTrans()
@@ -316,20 +339,26 @@ namespace CursedWoods
             agent.enabled = false;
             animator.speed = 2f;
             StartCoroutine(AttackTimer());
-            hasTransitionedIn = true;
             animator.SetBool("IsAttacking", true);
         }
 
         private void FleeTrans()
         {
-            StopCoroutine(AttackTimer());
-            StopCoroutine(AttackEndTimer());
-            //StopAllCoroutines();
             animator.SetBool("IsAttacking", false);
             rb.isKinematic = false;
             animator.speed = 3f;
             agent.enabled = false;
-            hasTransitionedIn = true;
+        }
+
+        private void KnockBackTrans()
+        {
+            // TODO: play knockback anim
+            animator.SetBool("IsAttacking", false);
+            rb.isKinematic = false;
+            agent.enabled = false;
+            rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
+
+            StartCoroutine(KnockBackTimer());
         }
 
         private void RandomStateTime()
@@ -371,8 +400,7 @@ namespace CursedWoods
         private IEnumerator AttackTimer()
         {
             yield return new WaitForSeconds(animTimeBeforeDmg / animator.speed);
-            // Check if skeleton is dead.
-            if (CurrentHealth > MinHealth)
+            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
                 // TODO: do we need to be check if this object is still active?
 
@@ -388,8 +416,7 @@ namespace CursedWoods
         private IEnumerator AttackEndTimer()
         {
             yield return new WaitForSeconds(animTimeAfterDmg / animator.speed);
-            // Check if skeleton is dead.
-            if (CurrentHealth > MinHealth)
+            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
                 if (distanceToPlayer < attackRange)
@@ -409,6 +436,16 @@ namespace CursedWoods
         {
             yield return new WaitForSeconds(dieAnimLength);
             Deactivate();
+        }
+
+        private IEnumerator KnockBackTimer()
+        {
+            yield return new WaitForSeconds(staggerTime);
+            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer)
+            {
+                currentBehaviour = EnemyBehaviours.Idle;
+                hasTransitionedIn = false;
+            }
         }
     }
 }

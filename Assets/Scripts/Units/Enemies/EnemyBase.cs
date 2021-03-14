@@ -22,6 +22,7 @@ namespace CursedWoods
         {
             GameMan.Instance.AIManager.EnemyGotKilled += CheckFleePossibility;
             HealthChanged += TookDamage;
+            Staggered += GotKnockedBack;
         }
 
         /// <summary>
@@ -30,6 +31,11 @@ namespace CursedWoods
         /// </summary>
         /// <param name="dmg">The amount of damage we took.</param>
         protected abstract void TookDamage(int dmg);
+
+        /// <summary>
+        /// For changing enemy's state when getting knocked back.
+        /// This is subscribed to Staggered event.
+        protected abstract void GotKnockedBack();
 
         /// <summary>
         /// Used to check if this unit's state should be set to flee state.
@@ -42,6 +48,7 @@ namespace CursedWoods
             currentBehaviour = EnemyBehaviours.Dead;
             GameMan.Instance.AIManager.EnemyGotKilled -= CheckFleePossibility;
             HealthChanged -= TookDamage;
+            Staggered -= GotKnockedBack;
 
             GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
         }
