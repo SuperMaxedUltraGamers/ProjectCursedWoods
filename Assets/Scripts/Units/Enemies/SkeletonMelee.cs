@@ -56,7 +56,7 @@ namespace CursedWoods
         private float backUpSpeed = 0.5f;
 
         private float knockBackForce = 200f;
-        private float staggerTime = 4f;
+        private float knockBackstaggerTime = 4f;
 
         private delegate void TransitionDel();
 
@@ -440,7 +440,7 @@ namespace CursedWoods
 
         private IEnumerator KnockBackTimer()
         {
-            yield return new WaitForSeconds(staggerTime);
+            yield return new WaitForSeconds(knockBackstaggerTime);
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer)
             {
                 currentBehaviour = EnemyBehaviours.Idle;
