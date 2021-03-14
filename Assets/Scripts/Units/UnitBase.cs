@@ -18,6 +18,8 @@ namespace CursedWoods
 
     public abstract class UnitBase : MonoBehaviour, IHealth
     {
+        #region Private fields
+
         /// <summary>
         /// Damage resistance values against different damage types.
         /// </summary>
@@ -57,6 +59,10 @@ namespace CursedWoods
         /// </summary>
         private int startingMinCauseStagger;
 
+        #endregion Private fields
+
+        #region Properties
+
         public int CurrentHealth { get; private set; }
 
         public int MaxHealth { get { return maxHealth; } private set { maxHealth = value; } }
@@ -67,10 +73,19 @@ namespace CursedWoods
 
         public bool IsImmortal { get; set; }
 
+        #endregion Properties
+
+        #region Events
+
         // This is for notifying UI and informing enemies if they took damage.
         public event Action<int> HealthChanged;
+
         // This is to fire knockback/stagger.
         public event Action Staggered;
+
+        #endregion Events
+
+        #region Unity messages
 
         protected virtual void Awake()
         {
@@ -88,6 +103,10 @@ namespace CursedWoods
             startingMinCauseStagger = minCauseStagger;
             startingMaxHealth = maxHealth;
         }
+
+        #endregion Unity messages
+
+        #region Public API
 
         public void IncreaseHealth(int amount)
         {
@@ -170,9 +189,15 @@ namespace CursedWoods
             MaxHealth = startingMaxHealth;
         }
 
+        #endregion Public API
+
+        #region Protected API
+
         /// <summary>
         /// What happens when unit runs out of HP.
         /// </summary>
         protected abstract void Die();
+
+        #endregion Protected API
     }
 }

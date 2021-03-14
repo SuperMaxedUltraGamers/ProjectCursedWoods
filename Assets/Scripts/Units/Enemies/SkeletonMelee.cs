@@ -140,6 +140,15 @@ namespace CursedWoods
             }
         }
 
+        public override void Activate(Vector3 pos, Quaternion rot)
+        {
+            base.Activate(pos, rot);
+            ResetValues();
+            currentBehaviour = EnemyBehaviours.Idle;
+            hitbox.enabled = true;
+            hasTransitionedIn = false;
+        }
+
         protected override void TookDamage(int dmg)
         {
             if (currentBehaviour == EnemyBehaviours.Idle || currentBehaviour == EnemyBehaviours.Patrol)
@@ -180,15 +189,6 @@ namespace CursedWoods
             currentBehaviour = EnemyBehaviours.Dead;
             // TODO: play death anim
             StartCoroutine(DieTimer());
-        }
-
-        public override void Activate(Vector3 pos, Quaternion rot)
-        {
-            base.Activate(pos, rot);
-            ResetValues();
-            currentBehaviour = EnemyBehaviours.Idle;
-            hitbox.enabled = true;
-            hasTransitionedIn = false;
         }
 
         private void Idle()
@@ -402,8 +402,6 @@ namespace CursedWoods
             yield return new WaitForSeconds(animTimeBeforeDmg / animator.speed);
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
-                // TODO: do we need to be check if this object is still active?
-
                 if (Physics.Raycast(transform.position + transform.up, transform.forward, attackRange, playerLayerMask))
                 {
                     playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(attackDamageAmount, attackDmgType);

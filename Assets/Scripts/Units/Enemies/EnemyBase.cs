@@ -4,19 +4,34 @@ namespace CursedWoods
 {
     public abstract class EnemyBase : UnitPoolable
     {
-        [SerializeField, Tooltip("Minimum distance from player to start attacking.")]
+        #region Protected fields
+
+        /// <summary>
+        /// Minimum distance from player when to start attacking, also determinates the reach the of attack.
+        /// </summary>
+        [SerializeField, Tooltip("Minimum distance from player when to start attacking, also determinates the reach the of attack.")]
         protected float attackRange = 0.5f;
 
+        /// <summary>
+        /// Determinates how close the enemy wants to be to player at minimum.
+        /// </summary>
         [SerializeField, Tooltip("If we are closer than this to player, the enemy tries to increase the distance.")]
         protected float minComfortRange = 0f;
 
-        //[SerializeField, Tooltip("If we are further than this to player, the enemy tries to decrease the distance.")]
-        //protected float maxComfortRange = 0f;
-
+        /// <summary>
+        /// Determinates how easily enemy can flee from combat if other enemies dies on combat.
+        /// </summary>
         [SerializeField, Range(0, 100), Tooltip("How easily this enemy flees when other attacking enemy is killed. 0 never flees, 100 always flees.")]
         protected int cowardnessValue = 50;
 
+        /// <summary>
+        /// Determinates how enemy currently behaves. 
+        /// </summary>
         protected EnemyBehaviours currentBehaviour = EnemyBehaviours.Idle;
+
+        #endregion Protected fields
+
+        #region Unity messages
 
         private void OnEnable()
         {
@@ -24,6 +39,10 @@ namespace CursedWoods
             HealthChanged += TookDamage;
             Staggered += GotKnockedBack;
         }
+
+        #endregion Unity messages
+
+        #region Protected API
 
         /// <summary>
         /// For changing enemy's state upon taking damage if not in combat states.
@@ -52,5 +71,7 @@ namespace CursedWoods
 
             GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
         }
+
+        #endregion Protected API
     }
 }
