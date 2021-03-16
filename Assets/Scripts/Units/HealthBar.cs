@@ -10,7 +10,7 @@ namespace CursedWoods
         private UnitBase unitBase;
         [SerializeField]
         private Image healthBar;
-        private float changeSpeed = 0.3f;
+        private float changeSpeed = 0.24f;
 
         private void OnEnable()
         {
