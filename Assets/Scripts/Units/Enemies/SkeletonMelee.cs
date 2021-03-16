@@ -55,7 +55,7 @@ namespace CursedWoods
 
         private float backUpSpeed = 20f;
 
-        private float knockBackForce = 200f;
+        private float knockBackForce = 20000f;
         private float knockBackstaggerTime = 4f;
 
         private delegate void TransitionDel();
