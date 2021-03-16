@@ -233,6 +233,7 @@ namespace CursedWoods
             CurrentHealth = startingHealth;
             MinCauseStagger = startingMinCauseStagger;
             MaxHealth = startingMaxHealth;
+            InvokeHealthChangedEvent();
         }
 
         #endregion Public API
