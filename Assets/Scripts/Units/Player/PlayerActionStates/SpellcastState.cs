@@ -93,5 +93,15 @@ namespace CursedWoods
                 actionStateManager.ChangeState(PlayerInputType.None);
             }
         }
+
+        public override void TransitionIn()
+        {
+            CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_SPELLCAST);
+        }
+
+        public override void TransitionOut()
+        {
+            CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
+        }
     }
 }

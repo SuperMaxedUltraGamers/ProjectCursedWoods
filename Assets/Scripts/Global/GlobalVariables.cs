@@ -24,5 +24,20 @@
         public const string CHANGE_CONTROL_TYPE = "ChangeControlType";
 
         #endregion Input tags
+
+        #region Animation tags
+
+        public const string PLAYER_ANIM_TORSO_ANIM_VALUE = "TorsoAnimValue";
+
+        #endregion Animation tags
+
+        #region Animation values
+
+        public const int PLAYER_ANIM_NULL = 0;
+        public const int PLAYER_ANIM_MELEE = 1;
+        public const int PLAYER_ANIM_SPELLCAST = 2;
+        public const int PLAYER_ANIM_DEATH = 3;
+
+        #endregion Animation values
     }
 }

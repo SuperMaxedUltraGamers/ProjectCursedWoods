@@ -6,6 +6,7 @@ namespace CursedWoods
     public class CharController : UnitBase
     {
         private GroundCheck groundCheck;
+        private static Animator playerAnim;
 
         public static event Action ControlTypeChanged;
 
@@ -19,10 +20,13 @@ namespace CursedWoods
 
         public static bool IsInSpellMenu { get; set; }
 
+        public static Animator PlayerAnim { get { return playerAnim; } }
+
         protected override void Awake()
         {
             base.Awake();
             groundCheck = GetComponent<GroundCheck>();
+            playerAnim = GetComponentInChildren<Animator>();
         }
 
         private void Update()

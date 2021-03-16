@@ -5,14 +5,9 @@ namespace CursedWoods
 {
     public class MeleeAttackBase : MonoBehaviour, IMeleeAttack
     {
-        [SerializeField, Tooltip("How long is the window when we can cause damage.")]
         private float damageTime = 0.2f;
-
-        [SerializeField, Tooltip("How long before we start causing damage, aka how long until the animation has played far enough.")]
-        private float damageDelay = 0.2f;
-
-        [SerializeField]
-        private float cooldownTime = 1f;
+        private float damageDelay = 0.6f;
+        private float cooldownTime = 0.2f;
 
         private Timer damageTimer;
         private Timer damageDelayTimer;
@@ -69,6 +64,7 @@ namespace CursedWoods
         {
             if (!IsAttacking)
             {
+                CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_MELEE);
                 IsAttacking = true;
                 damageDelayTimer.Run();
             }
@@ -90,6 +86,7 @@ namespace CursedWoods
 
         private void CoolDownFinished()
         {
+            CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
             IsAttacking = false;
         }
     }

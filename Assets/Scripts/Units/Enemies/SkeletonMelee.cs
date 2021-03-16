@@ -22,7 +22,7 @@ namespace CursedWoods
 
         private float animTimeBeforeDmg;
         private float animTimeAfterDmg;
-        private float dieAnimLength;
+        private float deactivationAfterDeathTime;
 
         [SerializeField]
         private int attackDamageAmount = 15;
@@ -35,7 +35,7 @@ namespace CursedWoods
         private LayerMask playerLayerMask;
 
         [SerializeField, Tooltip("What distance from we notice the player in any direction.")]
-        private float playerCheckRadius = 5f;
+        private float playerCheckRadius = 30f;
 
         [SerializeField, Tooltip("How far away from player until giving up chasing.")]
         private float giveUpChaseDistance = 25f;
@@ -53,7 +53,7 @@ namespace CursedWoods
         [SerializeField]
         private float fleeRotSpeed;
 
-        private float backUpSpeed = 0.5f;
+        private float backUpSpeed = 20f;
 
         private float knockBackForce = 200f;
         private float knockBackstaggerTime = 4f;
@@ -69,7 +69,7 @@ namespace CursedWoods
             hitbox = GetComponent<CapsuleCollider>();
             animTimeBeforeDmg = 4f / 3f;
             animTimeAfterDmg = 5.042f / 3f - animTimeBeforeDmg;
-            dieAnimLength = 2f;
+            deactivationAfterDeathTime = 2f;
             gameObject.SetActive(false);
         }
 
@@ -116,7 +116,7 @@ namespace CursedWoods
                     break;
                 case EnemyBehaviours.AttackPlayer:
 
-                    float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
+                    float distanceToPlayer = GetDistanceToPlayer();
                     if (distanceToPlayer > minComfortRange)
                     {
                         animator.SetFloat("Blend", 0f, animChangeDampTime, Time.fixedDeltaTime);
@@ -186,8 +186,9 @@ namespace CursedWoods
             hitbox.enabled = false;
             agent.enabled = false;
             animator.SetBool("IsAttacking", false);
+            animator.SetBool("IsDead", true);
+            animator.speed = 3f;
             currentBehaviour = EnemyBehaviours.Dead;
-            // TODO: play death anim
             StartCoroutine(DieTimer());
         }
 
@@ -236,8 +237,7 @@ namespace CursedWoods
                 TransitionIn(hasRandomStateTime: false, ChaseTrans);
             }
 
-            float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
-
+            float distanceToPlayer = GetDistanceToPlayer();
             if (distanceToPlayer < attackRange)
             {
                 hasTransitionedIn = false;
@@ -280,7 +280,7 @@ namespace CursedWoods
             animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
             animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, playerT.position) > 35f)
+            if (GetDistanceToPlayer() > 1000f)
             {
                 Die();
             }
@@ -383,9 +383,16 @@ namespace CursedWoods
             }
         }
 
+        private float GetDistanceToPlayer()
+        {
+            Vector3 toPlayer = playerT.position - transform.position;
+            return Vector3.SqrMagnitude(toPlayer);
+        }
+
         private bool CheckForPlayerInRadius()
         {
-            if (Vector3.Distance(transform.position, playerT.position) < playerCheckRadius)
+            float distanceToPlayer = GetDistanceToPlayer();
+            if (distanceToPlayer < playerCheckRadius)
             {
                 hasTransitionedIn = false;
                 currentBehaviour = EnemyBehaviours.ChasePlayer;
@@ -416,7 +423,9 @@ namespace CursedWoods
             yield return new WaitForSeconds(animTimeAfterDmg / animator.speed);
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
-                float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
+
+                //float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
+                float distanceToPlayer = GetDistanceToPlayer();
                 if (distanceToPlayer < attackRange)
                 {
                     StartCoroutine(AttackTimer());
@@ -432,7 +441,7 @@ namespace CursedWoods
 
         private IEnumerator DieTimer()
         {
-            yield return new WaitForSeconds(dieAnimLength);
+            yield return new WaitForSeconds(deactivationAfterDeathTime);
             Deactivate();
         }
 

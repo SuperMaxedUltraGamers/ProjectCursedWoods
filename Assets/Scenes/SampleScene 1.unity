@@ -1807,6 +1807,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnerOnStart
       objectReference: {fileID: 0}
+    - target: {fileID: 352039143273584022, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 352039143273584023, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
       propertyPath: m_RootOrder
@@ -5296,7 +5301,7 @@ PrefabInstance:
     - target: {fileID: 5014950009479253152, guid: 2d1bf9afa2289d04baeb76f2c2a536b8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.86
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 5014950009479253152, guid: 2d1bf9afa2289d04baeb76f2c2a536b8,
         type: 3}

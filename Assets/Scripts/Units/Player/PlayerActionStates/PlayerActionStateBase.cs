@@ -32,12 +32,10 @@ namespace CursedWoods
 
         public virtual void TransitionIn()
         {
-
         }
 
         public virtual void TransitionOut()
         {
-
         }
 
         public bool IsValidTargetState(PlayerInputType targetState)

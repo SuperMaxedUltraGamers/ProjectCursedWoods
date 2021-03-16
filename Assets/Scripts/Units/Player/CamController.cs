@@ -7,8 +7,8 @@ namespace CursedWoods
         private const float MAX_HEIGHT_FROM_PLAYER = 8f;
         private const float MIN_HEIGHT_FROM_PLAYER = 2f;
         private const float CAM_PARENT_Y_OFFSET = 2f;
-        private const float COMBAT_MIN_DIST_FROM_PLAYER = 9f;
-        private const float COMBAT_MAX_DIST_FROM_PLAYER = 14f;
+        private const float COMBAT_MIN_DIST_FROM_PLAYER = 81.5f; //81.5f if not using sqrtmag then 9f
+        private const float COMBAT_MAX_DIST_FROM_PLAYER = 196f; //196f if not using sqrtmag then 14f
 
         [SerializeField]
         private Transform playerT;
@@ -77,17 +77,19 @@ namespace CursedWoods
             Quaternion rotation = Quaternion.Euler(0f, dir * rotationSpeed * deltaTime, 0f);
             transform.rotation *= rotation;
 
+            Vector3 camTPos = camT.position;
+            Vector3 transPos = transform.position;
             float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * zoomSpeed * deltaTime;
-            Vector3 newCamPos = camT.position + camT.forward * moveAmount;
-            float maxCamHeight = transform.position.y + MAX_HEIGHT_FROM_PLAYER;
-            float minCamHeight = transform.position.y + MIN_HEIGHT_FROM_PLAYER;
+            Vector3 newCamPos = camTPos + camT.forward * moveAmount;
+            float maxCamHeight = transPos.y + MAX_HEIGHT_FROM_PLAYER;
+            float minCamHeight = transPos.y + MIN_HEIGHT_FROM_PLAYER;
             if (newCamPos.y > maxCamHeight)
             {
-                newCamPos = new Vector3(camT.position.x, maxCamHeight, camT.position.z);
+                newCamPos = new Vector3(camTPos.x, maxCamHeight, camTPos.z);
             }
             else if (newCamPos.y < minCamHeight)
             {
-                newCamPos = new Vector3(camT.position.x, minCamHeight, camT.position.z);
+                newCamPos = new Vector3(camTPos.x, minCamHeight, camTPos.z);
             }
 
             camT.position = newCamPos;
@@ -95,8 +97,10 @@ namespace CursedWoods
 
         private void CombatCamMovement(float deltaTime)
         {
-            float distanceFromPlayer = Vector3.Distance(camT.position, playerT.position);
-            //print(distanceFromPlayer);
+            //float distanceFromPlayer = Vector3.Distance(camT.position, playerT.position);
+            Vector3 toPlayer = playerT.position - camT.position;
+            float distanceFromPlayer = Vector3.SqrMagnitude(toPlayer);
+            //print($"distance: {distanceFromPlayer}, sqrt: {sqrt}");
             if (distanceFromPlayer < COMBAT_MIN_DIST_FROM_PLAYER)
             {
                 Vector3 newCamPos = camT.position + -camT.forward * zoomSpeed * deltaTime;

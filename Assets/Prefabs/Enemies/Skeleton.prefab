@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5676495026260346326}
   - component: {fileID: 6037209245549736150}
   - component: {fileID: 1355827531845275668}
+  - component: {fileID: 5067036537013174407}
   m_Layer: 10
   m_Name: Skeleton
   m_TagString: Enemy
@@ -79,9 +80,9 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 500
-  m_StoppingDistance: 1.7
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -114,20 +115,34 @@ MonoBehaviour:
   maxHealth: 500
   minHealth: 0
   minCauseStagger: 50
-  attackRange: 1.7
-  minComfortRange: 1.5
+  attackRange: 3
+  minComfortRange: 2.2
   cowardnessValue: 30
   attackDamageAmount: 15
   attackTrackingSpeed: 40
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  playerCheckRadius: 5
-  giveUpChaseDistance: 25
+  playerCheckRadius: 35
+  giveUpChaseDistance: 350
   patrolSpeed: 50
   patrolRotSpeed: 4
   fleeSpeed: 200
   fleeRotSpeed: 5
+--- !u!114 &5067036537013174407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808244151742650360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bde5a743e5122b4da36d73be27f5a98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flinchBone: {fileID: 413675490205698729}
+  flinchAmount: 20
 --- !u!1001 &3026998754311188637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -200,6 +215,12 @@ PrefabInstance:
 --- !u!4 &6287029810134335250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9025788805526687631, guid: 13541af51f0b6fd4eb0d9cc5e4e4a9ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 3026998754311188637}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &413675490205698729 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3440650055117945396, guid: 13541af51f0b6fd4eb0d9cc5e4e4a9ae,
     type: 3}
   m_PrefabInstance: {fileID: 3026998754311188637}
   m_PrefabAsset: {fileID: 0}

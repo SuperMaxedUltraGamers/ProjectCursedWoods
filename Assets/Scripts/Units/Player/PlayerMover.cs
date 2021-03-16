@@ -147,6 +147,8 @@ namespace CursedWoods
                 inputDir.Normalize();
             }
 
+            AnimationBlend(Mathf.Abs(inputDir.magnitude) * 2f);
+
             Vector3 correctMoveDir = GetCorrectMoverDir() * moveSpeed * speedMultiplier;
             moveAmount = Vector3.SmoothDamp(moveAmount, correctMoveDir, ref smoothMoveVel, .1f);
 
@@ -207,6 +209,8 @@ namespace CursedWoods
                 inputDir.Normalize();
             }
 
+            AnimationBlend(Mathf.Abs(inputDir.magnitude) * 2f);
+
             Vector3 correctMoveDir = GetCorrectMoverDir() * moveSpeed * speedMultiplier;
             moveAmount = Vector3.SmoothDamp(moveAmount, correctMoveDir, ref smoothMoveVel, .1f);
 
@@ -216,7 +220,8 @@ namespace CursedWoods
                 Vector3 correctLookDir = rightDir * lookDirInput.x + forwardDir * lookDirInput.z;
                 if (lookDirInput.magnitude != 0f)
                 {
-                    transform.forward = Vector3.Lerp(transform.forward, correctLookDir.normalized, Time.deltaTime * combatRotationSpeed * (Vector3.Angle(transform.forward, correctLookDir.normalized) + 1f));
+                    Vector3 transForward = transform.forward;
+                    transform.forward = Vector3.Lerp(transForward, correctLookDir.normalized, Time.deltaTime * combatRotationSpeed * (Vector3.Angle(transForward, correctLookDir.normalized) + 1f));
                 }
             }
 
@@ -293,6 +298,12 @@ namespace CursedWoods
                     velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
                 }
             }
+        }
+
+        private void AnimationBlend(float blendValue)
+        {
+            CharController.PlayerAnim.SetFloat("Blend", blendValue);
+            CharController.PlayerAnim.SetFloat("TorsoBlend", blendValue);
         }
     }
 }

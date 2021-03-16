@@ -42,12 +42,15 @@ namespace CursedWoods
             bool isAttacking = attacker.IsAttacking;
 
             // Comment out if we dont want to be able to hold attack for continues strikes.
+            /*
             if (Input.GetButton(GlobalVariables.ATTACK) && !isAttacking)
             {
                 //print("Attacking!");
                 attacker.StartAttack();
             }
-            else if (Input.GetButtonDown(GlobalVariables.SPELLCAST) && !isAttacking)
+            else
+            */
+            if (Input.GetButtonDown(GlobalVariables.SPELLCAST) && !isAttacking)
             {
                 actionStateManager.ChangeState(PlayerInputType.Spellcast);
             }
@@ -91,6 +94,8 @@ namespace CursedWoods
                     mover.Movement();
                     break;
             }
+
+            elapsedTime += Time.deltaTime;
         }
 
         public override void DaFixedUpdate()
@@ -102,9 +107,17 @@ namespace CursedWoods
         {
             if (!attacker.IsAttacking)
             {
-                //print("Attacking!");
                 attacker.StartAttack();
             }
+
+            elapsedTime = 0f;
+        }
+
+        private float elapsedTime = 0f;
+
+        public override void TransitionOut()
+        {
+            print(elapsedTime);
         }
     }
 }

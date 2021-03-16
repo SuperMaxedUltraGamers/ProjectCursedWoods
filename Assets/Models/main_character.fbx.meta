@@ -14,6 +14,15 @@ ModelImporter:
     second: Armature|idle.002
   - first:
       74: 1303299601406483602
+    second: Run
+  - first:
+      74: -585034476917376886
+    second: Spellcast
+  - first:
+      74: -8863358574431085622
+    second: Attack
+  - first:
+      74: 1303299601406483602
     second: Armature|run
   - first:
       74: -585034476917376886
@@ -206,7 +215,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

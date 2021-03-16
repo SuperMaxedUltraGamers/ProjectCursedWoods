@@ -34,6 +34,8 @@ namespace CursedWoods
     {
         #region Private fields
 
+        private Flinch flinch;
+
         /// <summary>
         /// Damage resistance values against different damage types.
         /// </summary>
@@ -113,6 +115,8 @@ namespace CursedWoods
 
         protected virtual void Awake()
         {
+            flinch = GetComponent<Flinch>();
+
             // Go through the damage resitance info that is set in the inspector and assign those values to dictionary.
             foreach (DamageResistanceInfo info in dmgResInfo)
             {
@@ -191,6 +195,9 @@ namespace CursedWoods
                             Staggered();
                         }
                     }
+
+                    // Flinch effect.
+                    flinch.StartFlinch();
 
                     // Invoke HealtChanged event if it has subscribers.
                     InvokeHealthChangedEvent();
