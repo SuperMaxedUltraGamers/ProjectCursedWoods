@@ -18,7 +18,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -3761853702796878811, guid: 1e75ce4d5cf505a4a9c57047ef03c1a7,
+    m_Motion: {fileID: 7168293901883076996, guid: f545c20a38fc3dc4c8e3346571ca7fd2,
       type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
@@ -88,7 +88,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -3761853702796878811, guid: 1e75ce4d5cf505a4a9c57047ef03c1a7,
+    m_Motion: {fileID: 7168293901883076996, guid: f545c20a38fc3dc4c8e3346571ca7fd2,
       type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
@@ -179,19 +179,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: TorsoBlend
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: TorsoAnimValue
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

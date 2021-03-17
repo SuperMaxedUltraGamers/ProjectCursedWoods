@@ -21,6 +21,21 @@ ModelImporter:
   - first:
       74: -3920604059935690623
     second: skeleton_metarig.003|death
+  - first:
+      74: -4427558249024059366
+    second: skeleton_metarig.003|attack.001
+  - first:
+      74: 5039302605160469924
+    second: skeleton_metarig.003|idle.001
+  - first:
+      74: 4077009210318053788
+    second: skeleton_metarig.003|death.001
+  - first:
+      74: 8901983965544530743
+    second: skeleton_metarig.003|stagger.001
+  - first:
+      74: -961147740626105706
+    second: skeleton_metarig.003|flee.001
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -50,8 +65,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: skeleton_metarig.003|attack
-      takeName: skeleton_metarig.003|attack
+      name: skeleton_metarig.003|attack.001
+      takeName: skeleton_metarig.003|attack.001
       internalID: 0
       firstFrame: 0
       lastFrame: 121
@@ -79,8 +94,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: skeleton_metarig.003|idle
-      takeName: skeleton_metarig.003|idle
+      name: skeleton_metarig.003|idle.001
+      takeName: skeleton_metarig.003|idle.001
       internalID: 0
       firstFrame: 0
       lastFrame: 120
@@ -137,8 +152,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: skeleton_metarig.003|death
-      takeName: skeleton_metarig.003|death
+      name: skeleton_metarig.003|death.001
+      takeName: skeleton_metarig.003|death.001
       internalID: 0
       firstFrame: 0
       lastFrame: 87
@@ -149,6 +164,64 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: skeleton_metarig.003|stagger.001
+      takeName: skeleton_metarig.003|stagger.001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: skeleton_metarig.003|flee.001
+      takeName: skeleton_metarig.003|flee.001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
