@@ -19,6 +19,7 @@ namespace CursedWoods
 
         public override void CastSpell()
         {
+            base.CastSpell();
             IsCasting = true;
             if (CastTime > 0f)
             {
@@ -62,6 +63,7 @@ namespace CursedWoods
             }
             else if (!hitScan.IsHoldingType)
             {
+                GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
                 hitScan.ShootRay(spawnPos, transform.rotation);
             }
 

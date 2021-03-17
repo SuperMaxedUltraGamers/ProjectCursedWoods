@@ -19,6 +19,9 @@ namespace CursedWoods.UI
         private Image[] spellMenuSpellGraphics;
         private int previousGraphicIndex;
 
+        [SerializeField]
+        private GameObject interactPromt;
+
         private void Awake()
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
@@ -94,6 +97,11 @@ namespace CursedWoods.UI
             Color tempColor = img.color;
             tempColor.a = alpha;
             img.color = tempColor;
+        }
+
+        public void SetInteractPromtVisibility(bool visible)
+        {
+            interactPromt.SetActive(visible);
         }
     }
 }

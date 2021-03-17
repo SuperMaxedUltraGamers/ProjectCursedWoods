@@ -22,20 +22,20 @@ namespace CursedWoods
 
         public virtual void HandleInput() { }
 
-        public void Init(PlayerActionStateManager actionStateMan)
-        {
-            if (actionStateManager == null)
-            {
-                actionStateManager = actionStateMan;
-            }
-        }
-
         public virtual void TransitionIn()
         {
         }
 
         public virtual void TransitionOut()
         {
+        }
+
+        public void Init(PlayerActionStateManager actionStateMan)
+        {
+            if (actionStateManager == null)
+            {
+                actionStateManager = actionStateMan;
+            }
         }
 
         public bool IsValidTargetState(PlayerInputType targetState)

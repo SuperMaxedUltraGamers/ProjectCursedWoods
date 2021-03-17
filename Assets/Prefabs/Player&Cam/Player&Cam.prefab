@@ -183,6 +183,9 @@ MonoBehaviour:
   maxHealth: 1000
   minHealth: 0
   minCauseStagger: 50
+  interactableMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!114 &3902147016074279217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,7 +427,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

@@ -12,6 +12,7 @@ namespace CursedWoods
 
         public override void CastSpell()
         {
+            base.CastSpell();
             IsCasting = true;
             if (CastTime > 0f)
             {
@@ -42,6 +43,8 @@ namespace CursedWoods
             projectile.InitDamageInfo(DamageAmount, DamageType);
             projectile.Activate(spawnPos, transform.rotation);
             IsCasting = false;
+
+            GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
 
             // Start cooldown if the spell has cooldown.
             if (CoolDownTime > 0f)

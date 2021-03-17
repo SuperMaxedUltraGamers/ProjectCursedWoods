@@ -49,19 +49,22 @@ namespace CursedWoods
 
         private void OnEnable()
         {
-            CharController.ControlTypeChanged += CamControlTypeChanged;
+            GameMan.Instance.CharController.ControlTypeChanged += CamControlTypeChanged;
         }
 
         private void OnDisable()
         {
-            CharController.ControlTypeChanged -= CamControlTypeChanged;
+            if (GameMan.Instance != null)
+            {
+                GameMan.Instance.CharController.ControlTypeChanged -= CamControlTypeChanged;
+            }
         }
 
         private void FixedUpdate()
         {
-            if (!CharController.IgnoreControl)
+            if (!GameMan.Instance.CharController.IgnoreControl)
             {
-                if (!CharController.IgnoreCameraControl)
+                if (!GameMan.Instance.CharController.IgnoreCameraControl)
                 {
                     controlTypeCamMoveDel(Time.fixedDeltaTime);
                 }

@@ -54,7 +54,7 @@ namespace CursedWoods
 
         private void Update()
         {
-            if (IsHoldingType && (Input.GetButtonUp(GlobalVariables.SPELLCAST) || CharController.IsInSpellMenu))
+            if (IsHoldingType && (Input.GetButtonUp(GlobalVariables.SPELLCAST) || GameMan.Instance.CharController.IsInSpellMenu))
             {
                 IsFading = true;
             }

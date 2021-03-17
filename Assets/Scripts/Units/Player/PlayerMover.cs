@@ -35,7 +35,10 @@ namespace CursedWoods
 
         private void OnDisable()
         {
-            CharController.ControlTypeChanged -= MoverControlTypeChanged;
+            if (GameMan.Instance != null)
+            {
+                GameMan.Instance.CharController.ControlTypeChanged -= MoverControlTypeChanged;
+            }
         }
 
         public void Initialize(PlayerActionStateManager actionStateMan)
@@ -50,7 +53,7 @@ namespace CursedWoods
             if (controlTypeDel == null)
             {
                 controlTypeDel = ExploreStateMovement;
-                CharController.ControlTypeChanged += MoverControlTypeChanged;
+                GameMan.Instance.CharController.ControlTypeChanged += MoverControlTypeChanged;
                 //print("inited");
             }
 
@@ -89,7 +92,7 @@ namespace CursedWoods
         public Vector3 GetCorrectMoverDir()
         {
             Vector3 correctDir = rightDir * inputDir.x + forwardDir * inputDir.y;
-            return correctDir.normalized;
+            return correctDir;
         }
 
         private void MoverControlTypeChanged()
@@ -149,16 +152,22 @@ namespace CursedWoods
 
             AnimationBlend(Mathf.Abs(inputDir.magnitude) * 2f);
 
-            Vector3 correctMoveDir = GetCorrectMoverDir() * moveSpeed * speedMultiplier;
-            moveAmount = Vector3.SmoothDamp(moveAmount, correctMoveDir, ref smoothMoveVel, .1f);
+            Vector3 correctMoveDir = GetCorrectMoverDir();
+            if (correctMoveDir.magnitude > 1f)
+            {
+                correctMoveDir.Normalize();
+            }
 
-            if (correctMoveDir.magnitude != 0f)
+            Vector3 newMoveAmount = correctMoveDir * moveSpeed * speedMultiplier;
+            moveAmount = Vector3.SmoothDamp(moveAmount, newMoveAmount, ref smoothMoveVel, .1f);
+
+            if (newMoveAmount.magnitude != 0f)
             {
                 transform.forward = moveAmount.normalized;
 
                 rb.isKinematic = false;
                 Vector3 rbVel = rb.velocity;
-                if (actionStateManager.CharController.IsGrounded)
+                if (GameMan.Instance.CharController.IsGrounded)
                 {
                     velocity = new Vector3(moveAmount.x, rbVel.y, moveAmount.z);
                 }
@@ -211,10 +220,16 @@ namespace CursedWoods
 
             AnimationBlend(Mathf.Abs(inputDir.magnitude) * 2f);
 
-            Vector3 correctMoveDir = GetCorrectMoverDir() * moveSpeed * speedMultiplier;
-            moveAmount = Vector3.SmoothDamp(moveAmount, correctMoveDir, ref smoothMoveVel, .1f);
+            Vector3 correctMoveDir = GetCorrectMoverDir();
+            if (correctMoveDir.magnitude > 1f)
+            {
+                correctMoveDir.Normalize();
+            }
 
-            if (!CharController.IgnoreCameraControl)
+            Vector3 newMoveAmount = correctMoveDir * moveSpeed * speedMultiplier;
+            moveAmount = Vector3.SmoothDamp(moveAmount, newMoveAmount, ref smoothMoveVel, .1f);
+
+            if (!GameMan.Instance.CharController.IgnoreCameraControl)
             {
                 Vector3 lookDirInput = new Vector3(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), 0f, Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
                 Vector3 correctLookDir = rightDir * lookDirInput.x + forwardDir * lookDirInput.z;
@@ -225,11 +240,11 @@ namespace CursedWoods
                 }
             }
 
-            if (correctMoveDir.magnitude != 0f)
+            if (newMoveAmount.magnitude != 0f)
             {
                 rb.isKinematic = false;
                 Vector3 rbVel = rb.velocity;
-                if (actionStateManager.CharController.IsGrounded)
+                if (GameMan.Instance.CharController.IsGrounded)
                 {
                     velocity = new Vector3(moveAmount.x, rbVel.y, moveAmount.z);
                 }
@@ -275,7 +290,7 @@ namespace CursedWoods
         {
             velocity = rb.velocity;
             Vector3 slowedVel = velocity * 42f;
-            if (actionStateManager.CharController.IsGrounded)
+            if (GameMan.Instance.CharController.IsGrounded)
             {
                 if (velocity.y < 0f)
                 {
@@ -302,8 +317,8 @@ namespace CursedWoods
 
         private void AnimationBlend(float blendValue)
         {
-            CharController.PlayerAnim.SetFloat("Blend", blendValue);
-            CharController.PlayerAnim.SetFloat("TorsoBlend", blendValue);
+            GameMan.Instance.CharController.PlayerAnim.SetFloat("Blend", blendValue);
+            GameMan.Instance.CharController.PlayerAnim.SetFloat("TorsoBlend", blendValue);
         }
     }
 }

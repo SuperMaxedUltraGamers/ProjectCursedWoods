@@ -33,13 +33,10 @@ namespace CursedWoods
             private set;
         }
 
-        public CharController CharController { get; private set; }
-
         private void Awake()
         {
             PlayerRb = GetComponent<Rigidbody>();
             CamT = Camera.main.transform;
-            CharController = GetComponent<CharController>();
         }
 
         private void Start()
@@ -49,13 +46,19 @@ namespace CursedWoods
 
         private void Update()
         {
-            CurrentState.HandleInput();
-            CurrentState.DaUpdate();
+            if (!GameMan.Instance.CharController.IgnoreControl)
+            {
+                CurrentState.HandleInput();
+                CurrentState.DaUpdate();
+            }
         }
 
         private void FixedUpdate()
         {
-            CurrentState.DaFixedUpdate();
+            if (!GameMan.Instance.CharController.IgnoreControl)
+            {
+                CurrentState.DaFixedUpdate();
+            }
         }
 
         private void Init()

@@ -78,7 +78,10 @@ namespace CursedWoods
         /// <summary>
         /// Called in SpellCaster to cast this spell.
         /// </summary>
-        public virtual void CastSpell() { }
+        public virtual void CastSpell()
+        {
+            GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_SPELLCAST);
+        }
 
         #endregion Public API
 

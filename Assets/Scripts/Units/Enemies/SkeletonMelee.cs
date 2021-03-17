@@ -185,8 +185,7 @@ namespace CursedWoods
             rb.isKinematic = true;
             hitbox.enabled = false;
             agent.enabled = false;
-            animator.SetBool("IsAttacking", false);
-            animator.SetBool("IsDead", true);
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_DEATH);
             animator.speed = 3f;
             currentBehaviour = EnemyBehaviours.Dead;
             StartCoroutine(DieTimer());
@@ -312,6 +311,7 @@ namespace CursedWoods
             rb.isKinematic = false;
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             agent.enabled = false;
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
         private void PatrolTrans()
@@ -324,6 +324,8 @@ namespace CursedWoods
             {
                 newRotation = transform.rotation * Quaternion.Euler(0f, 180f, 0f);
             }
+
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
         private void ChaseTrans()
@@ -331,6 +333,7 @@ namespace CursedWoods
             animator.speed = 3f;
             rb.isKinematic = true;
             agent.enabled = true;
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
         private void AttackTrans()
@@ -338,13 +341,13 @@ namespace CursedWoods
             rb.isKinematic = false;
             agent.enabled = false;
             animator.speed = 2f;
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_ATTACK);
             StartCoroutine(AttackTimer());
-            animator.SetBool("IsAttacking", true);
         }
 
         private void FleeTrans()
         {
-            animator.SetBool("IsAttacking", false);
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_FLEE);
             rb.isKinematic = false;
             animator.speed = 3f;
             agent.enabled = false;
@@ -352,8 +355,8 @@ namespace CursedWoods
 
         private void KnockBackTrans()
         {
-            // TODO: play knockback anim
-            animator.SetBool("IsAttacking", false);
+            animator.speed = 1f;
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
             rb.isKinematic = false;
             agent.enabled = false;
             rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
@@ -423,8 +426,6 @@ namespace CursedWoods
             yield return new WaitForSeconds(animTimeAfterDmg / animator.speed);
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
-
-                //float distanceToPlayer = Vector3.Distance(transform.position, playerT.position);
                 float distanceToPlayer = GetDistanceToPlayer();
                 if (distanceToPlayer < attackRange)
                 {
@@ -434,7 +435,6 @@ namespace CursedWoods
                 {
                     currentBehaviour = EnemyBehaviours.ChasePlayer;
                     hasTransitionedIn = false;
-                    animator.SetBool("IsAttacking", false);
                 }
             }
         }

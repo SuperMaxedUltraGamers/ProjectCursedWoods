@@ -76,13 +76,9 @@ namespace CursedWoods
             {
                 actionStateManager.ChangeState(PlayerInputType.Attack);
             }
-            else if (Input.GetButtonDown(GlobalVariables.DASH) && !isCasting && CharController.CanMoveToDash)
+            else if (Input.GetButtonDown(GlobalVariables.DASH) && !isCasting && GameMan.Instance.CharController.CanMoveToDash)
             {
                 actionStateManager.ChangeState(PlayerInputType.Dash);
-            }
-            else if (Input.GetButtonDown(GlobalVariables.INTERACT) && !isCasting)
-            {
-                actionStateManager.ChangeState(PlayerInputType.Interact);
             }
             else if (inputDir.magnitude != 0f && !isCasting)
             {
@@ -96,12 +92,16 @@ namespace CursedWoods
 
         public override void TransitionIn()
         {
-            CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_SPELLCAST);
+            if (!caster.CurrentSpell.IsInCoolDown)
+            {
+                
+            }
+            //GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_SPELLCAST);
         }
 
         public override void TransitionOut()
         {
-            CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
+            GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
         }
     }
 }

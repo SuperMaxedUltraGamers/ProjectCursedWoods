@@ -41,7 +41,7 @@ namespace CursedWoods
 
         public override void Activate(Vector3 pos, Quaternion rot)
         {
-            base.Activate(pos, rot);
+            base.Activate(pos, rot * Quaternion.Euler(90f, 0f, 0f));
             hitColliders.Clear();
             currentScale = startScale;
             transform.localScale = new Vector3(currentScale, currentScale, currentScale);

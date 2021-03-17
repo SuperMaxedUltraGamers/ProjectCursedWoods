@@ -69,8 +69,8 @@ namespace CursedWoods
                     }
                 }
 
-                CharController.IgnoreCameraControl = true;
-                CharController.IsInSpellMenu = true;
+                GameMan.Instance.CharController.IgnoreCameraControl = true;
+                GameMan.Instance.CharController.IsInSpellMenu = true;
 
                 Vector2 inputDir = new Vector2(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
 
@@ -119,14 +119,14 @@ namespace CursedWoods
                     }
                 }
 
-                CharController.IgnoreCameraControl = false;
-                CharController.IsInSpellMenu = false;
+                GameMan.Instance.CharController.IgnoreCameraControl = false;
+                GameMan.Instance.CharController.IsInSpellMenu = false;
             }
         }
 
         public void CastSpell()
         {
-            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !CharController.IsInSpellMenu)
+            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !GameMan.Instance.CharController.IsInSpellMenu)
             {
                 CurrentSpell.CastSpell();
             }

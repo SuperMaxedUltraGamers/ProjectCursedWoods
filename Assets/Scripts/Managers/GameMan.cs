@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CursedWoods.UI;
 
 namespace CursedWoods
 {
@@ -16,12 +17,12 @@ namespace CursedWoods
         /// </summary>
         private static GameMan instance = null;
 
+        private static bool isQuitting = false;
+        private static object lockGO = new object();
+
         #endregion Constants and statics
 
         #region Private fields
-
-        [SerializeField]
-        private Transform playerT;
 
         #endregion Private fields
 
@@ -34,12 +35,25 @@ namespace CursedWoods
         {
             get
             {
-                if (instance == null)
+                if (isQuitting)
                 {
-                    instance = Instantiate(Resources.Load<GameMan>(GAME_MANAGER_PATH));
+                    return null;
                 }
 
-                return instance;
+                lock (lockGO)
+                {
+                    if (instance == null)
+                    {
+                        instance = Instantiate(Resources.Load<GameMan>(GAME_MANAGER_PATH));
+                        //GameObject singletonGO = new GameObject();
+                        //instance = singletonGO.AddComponent<GameMan>();
+                        //singletonGO.name = "GameManager";
+                        //DontDestroyOnLoad(singletonGO);
+                        DontDestroyOnLoad(instance);
+                    }
+
+                    return instance;
+                }
             }
         }
 
@@ -57,9 +71,22 @@ namespace CursedWoods
             get;
             private set;
         }
+
         public Transform PlayerT
         {
-            get { return playerT; }
+            get;
+            private set;
+        }
+
+        public CharController CharController
+        {
+            get;
+            private set;
+        }
+        public LevelUIManager LevelUIManager
+        {
+            get;
+            private set;
         }
 
         #endregion Properties
@@ -68,6 +95,7 @@ namespace CursedWoods
 
         private void Awake()
         {
+            /*
             if (instance == null)
             {
                 instance = this;
@@ -77,10 +105,24 @@ namespace CursedWoods
                 Destroy(gameObject);
                 return;
             }
+            */
 
             ObjPoolMan = GetComponent<ObjectPoolManager>();
             AIManager = GetComponent<AIManager>();
+            CharController = FindObjectOfType<CharController>();
+            LevelUIManager = FindObjectOfType<LevelUIManager>();
+            PlayerT = CharController.gameObject.transform;
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            isQuitting = true;
+        }
+
+        private void OnApplicationQuit()
+        {
+            isQuitting = true;
         }
 
         #endregion Unity messages

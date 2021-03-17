@@ -32,10 +32,10 @@ ModelImporter:
     second: skeleton_metarig.003|death.001
   - first:
       74: 8901983965544530743
-    second: skeleton_metarig.003|stagger.001
+    second: skeleton_metarig_003|stagger_001
   - first:
       74: -961147740626105706
-    second: skeleton_metarig.003|flee.001
+    second: skeleton_metarig_003|flee_001
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -181,7 +181,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: skeleton_metarig.003|stagger.001
+      name: skeleton_metarig_003|stagger_001
       takeName: skeleton_metarig.003|stagger.001
       internalID: 0
       firstFrame: 0
@@ -210,7 +210,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: skeleton_metarig.003|flee.001
+      name: skeleton_metarig_003|flee_001
       takeName: skeleton_metarig.003|flee.001
       internalID: 0
       firstFrame: 0

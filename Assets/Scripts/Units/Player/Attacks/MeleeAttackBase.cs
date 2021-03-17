@@ -64,7 +64,7 @@ namespace CursedWoods
         {
             if (!IsAttacking)
             {
-                CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_MELEE);
+                GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_MELEE);
                 IsAttacking = true;
                 damageDelayTimer.Run();
             }
@@ -86,7 +86,7 @@ namespace CursedWoods
 
         private void CoolDownFinished()
         {
-            CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
+            GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
             IsAttacking = false;
         }
     }

@@ -20,7 +20,6 @@ namespace CursedWoods
             AddTargetState(PlayerInputType.Move);
             AddTargetState(PlayerInputType.Spellcast);
             AddTargetState(PlayerInputType.Dash);
-            AddTargetState(PlayerInputType.Interact);
 
             attacker = GetComponent<MeleeAttackBase>();
 
@@ -54,13 +53,9 @@ namespace CursedWoods
             {
                 actionStateManager.ChangeState(PlayerInputType.Spellcast);
             }
-            else if (Input.GetButtonDown(GlobalVariables.DASH) && !isAttacking && CharController.CanMoveToDash)
+            else if (Input.GetButtonDown(GlobalVariables.DASH) && !isAttacking && GameMan.Instance.CharController.CanMoveToDash)
             {
                 actionStateManager.ChangeState(PlayerInputType.Dash);
-            }
-            else if (Input.GetButtonDown(GlobalVariables.INTERACT) && !isAttacking)
-            {
-                actionStateManager.ChangeState(PlayerInputType.Interact);
             }
             else if (inputDir.magnitude != 0f && !isAttacking)
             {

@@ -19,8 +19,8 @@ namespace CursedWoods
             AddTargetState(PlayerInputType.Dash);
             AddTargetState(PlayerInputType.Attack);
             AddTargetState(PlayerInputType.Spellcast);
+            AddTargetState(PlayerInputType.Interact);
 
-            
             if (mover == null)
             {
                 mover = GetComponent<PlayerMover>();
@@ -40,7 +40,7 @@ namespace CursedWoods
             
             //inputDir = new Vector2(Input.GetAxisRaw(CharController.HORIZONTAL), Input.GetAxisRaw(CharController.VERTICAL));
 
-            if (Input.GetButtonDown(GlobalVariables.DASH) && CharController.CanMoveToDash)
+            if (Input.GetButtonDown(GlobalVariables.DASH) && GameMan.Instance.CharController.CanMoveToDash)
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Dash);
@@ -55,7 +55,7 @@ namespace CursedWoods
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Spellcast);
             }
-            else if (Input.GetButtonDown(GlobalVariables.INTERACT))
+            else if (Input.GetButtonDown(GlobalVariables.INTERACT) && GameMan.Instance.CharController.CanInteract)
             {
                 actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Interact);

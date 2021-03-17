@@ -27,7 +27,7 @@
 
         #region Animation tags
 
-        public const string PLAYER_ANIM_TORSO_ANIM_VALUE = "TorsoAnimValue";
+        public const string UNIQUE_ANIM_VALUE = "UniqueAnimValue";
 
         #endregion Animation tags
 
@@ -36,7 +36,15 @@
         public const int PLAYER_ANIM_NULL = 0;
         public const int PLAYER_ANIM_MELEE = 1;
         public const int PLAYER_ANIM_SPELLCAST = 2;
-        public const int PLAYER_ANIM_DEATH = 3;
+        public const int PLAYER_ANIM_DASH = 3;
+        public const int PLAYER_ANIM_INTERACT = 4;
+        public const int PLAYER_ANIM_DEATH = 5;
+
+        public const int ENEMY_ANIM_NULL = 0;
+        public const int ENEMY_ANIM_ATTACK = 1;
+        public const int ENEMY_ANIM_FLEE = 2;
+        public const int ENEMY_ANIM_STAGGER = 3;
+        public const int ENEMY_ANIM_DEATH = 4;
 
         #endregion Animation values
     }
