@@ -6,20 +6,11 @@ namespace CursedWoods
 {
     public class PlayerActionStateManager : MonoBehaviour
     {
-        public Rigidbody PlayerRb
-        {
-            get;
-            private set;
-        }
-
-        public Transform CamT
-        {
-            get;
-            private set;
-        }
-
         // List of all the player action states aka stuff that happens from player inputs.
         private List<PlayerActionStateBase> playerActionStates = new List<PlayerActionStateBase>();
+
+        private MeleeUnlock meleeUnlock;
+        private SpellcastUnlock spellcastUnlock;
 
         public PlayerActionStateBase CurrentState
         {
@@ -33,15 +24,55 @@ namespace CursedWoods
             private set;
         }
 
+        public Rigidbody PlayerRb
+        {
+            get;
+            private set;
+        }
+
+        public Transform CamT
+        {
+            get;
+            private set;
+        }
+
         private void Awake()
         {
             PlayerRb = GetComponent<Rigidbody>();
             CamT = Camera.main.transform;
+            meleeUnlock = FindObjectOfType<MeleeUnlock>();
+            spellcastUnlock = FindObjectOfType<SpellcastUnlock>();
         }
 
         private void Start()
         {
             Init();
+        }
+
+        private void OnEnable()
+        {
+            if (meleeUnlock != null)
+            {
+                meleeUnlock.MeleeUnlocked += UnlockAttackState;
+            }
+
+            if (spellcastUnlock != null)
+            {
+                spellcastUnlock.SpellcastUnlocked += UnlockSpellcastState;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (meleeUnlock != null)
+            {
+                meleeUnlock.MeleeUnlocked -= UnlockAttackState;
+            }
+
+            if (spellcastUnlock != null)
+            {
+                spellcastUnlock.SpellcastUnlocked -= UnlockSpellcastState;
+            }
         }
 
         private void Update()
@@ -66,10 +97,24 @@ namespace CursedWoods
             // Populates playerStates with all player move states.
             for (int i = 0; i < Enum.GetNames(typeof(PlayerInputType)).Length; i++)
             {
-                PlayerActionStateBase state;
-                state = CreateStateByType((PlayerInputType)i);
-                state.Init(this);
-                playerActionStates.Add(state);
+                if (i == (int)PlayerInputType.Attack)
+                {
+                    if (GameMan.Instance.PlayerManager.IsAttackUnlocked)
+                    {
+                        UnlockAttackState();
+                    }
+                }
+                else if (i == (int)PlayerInputType.Spellcast)
+                {
+                    if (GameMan.Instance.PlayerManager.IsSpellCastUnlocked)
+                    {
+                        UnlockSpellcastState();
+                    }
+                }
+                else
+                {
+                    CreateNewState((PlayerInputType)i);
+                }
             }
 
             // Set type to idle at the start.
@@ -114,6 +159,14 @@ namespace CursedWoods
             return nextState;
         }
 
+        private void CreateNewState(PlayerInputType type)
+        {
+            PlayerActionStateBase state;
+            state = CreateStateByType(type);
+            state.Init(this);
+            playerActionStates.Add(state);
+        }
+
         private PlayerActionStateBase CreateStateByType(PlayerInputType wantedType)
         {
             PlayerActionStateBase wantedStage = null;
@@ -140,6 +193,18 @@ namespace CursedWoods
             }
 
             return wantedStage;
+        }
+
+        private void UnlockAttackState()
+        {
+            CreateNewState(PlayerInputType.Attack);
+            GameMan.Instance.CharController.Sword.SetActive(true);
+        }
+
+        private void UnlockSpellcastState()
+        {
+            CreateNewState(PlayerInputType.Spellcast);
+            GameMan.Instance.CharController.SpellBook.SetActive(true);
         }
     }
 }

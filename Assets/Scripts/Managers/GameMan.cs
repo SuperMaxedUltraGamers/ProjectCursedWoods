@@ -18,7 +18,7 @@ namespace CursedWoods
         private static GameMan instance = null;
 
         private static bool isQuitting = false;
-        private static object lockGO = new object();
+        private static object lockObj = new object();
 
         #endregion Constants and statics
 
@@ -40,7 +40,7 @@ namespace CursedWoods
                     return null;
                 }
 
-                lock (lockGO)
+                lock (lockObj)
                 {
                     if (instance == null)
                     {
@@ -67,6 +67,12 @@ namespace CursedWoods
         }
 
         public AIManager AIManager
+        {
+            get;
+            private set;
+        }
+
+        public PlayerManager PlayerManager
         {
             get;
             private set;
@@ -109,9 +115,16 @@ namespace CursedWoods
 
             ObjPoolMan = GetComponent<ObjectPoolManager>();
             AIManager = GetComponent<AIManager>();
+            PlayerManager = GetComponent<PlayerManager>();
             CharController = FindObjectOfType<CharController>();
             LevelUIManager = FindObjectOfType<LevelUIManager>();
             PlayerT = CharController.gameObject.transform;
+
+            PlayerManager.Initialize();
+            //PlayerManager.IsAttackUnlocked = true;
+            //PlayerManager.IsSpellCastUnlocked = true;
+            // TODO: load player unlocks from savefile and pass them to PlayerManager.
+
             DontDestroyOnLoad(gameObject);
         }
 

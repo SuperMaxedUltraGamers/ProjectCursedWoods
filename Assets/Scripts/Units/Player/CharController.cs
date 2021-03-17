@@ -7,6 +7,10 @@ namespace CursedWoods
     public class CharController : UnitBase
     {
         private GroundCheck groundCheck;
+        [SerializeField]
+        private GameObject spellBook;
+        [SerializeField]
+        private GameObject sword;
 
         [SerializeField]
         private LayerMask interactableMask;
@@ -31,6 +35,10 @@ namespace CursedWoods
         public LayerMask InteractableMask { get { return interactableMask; } }
 
         public Animator PlayerAnim { get; private set; }
+
+        public GameObject SpellBook { get { return spellBook; } }
+
+        public GameObject Sword { get { return sword; } }
 
         protected override void Awake()
         {

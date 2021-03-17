@@ -183,6 +183,8 @@ MonoBehaviour:
   maxHealth: 1000
   minHealth: 0
   minCauseStagger: 50
+  spellBook: {fileID: 8422123147347346916}
+  sword: {fileID: 1085315960108643515}
   interactableMask:
     serializedVersion: 2
     m_Bits: 16384
@@ -467,6 +469,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: sword
       objectReference: {fileID: 0}
+    - target: {fileID: 115307902930807142, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 779816810224301020, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
         type: 3}
       propertyPath: m_RootOrder
@@ -539,13 +546,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70, type: 3}
+--- !u!1 &1085315960108643515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 115307902930807142, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
+    type: 3}
+  m_PrefabInstance: {fileID: 1051158339669073373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8603128525554812476 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8787091461239970785, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
     type: 3}
   m_PrefabInstance: {fileID: 1051158339669073373}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1085315960108643515}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44ced23e51ef6ed4b9dbfccb380ce9ad, type: 3}
@@ -654,6 +667,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: main_character_animation
       objectReference: {fileID: 0}
+    - target: {fileID: 6892913063350648118, guid: 4e0a643d953167a4b9dd24e66e1c9b39,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9151383434978823086, guid: 4e0a643d953167a4b9dd24e66e1c9b39,
         type: 3}
       propertyPath: m_IsActive
@@ -676,6 +694,12 @@ Transform:
 --- !u!4 &5576079511811409984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7362216943426449554, guid: 4e0a643d953167a4b9dd24e66e1c9b39,
+    type: 3}
+  m_PrefabInstance: {fileID: 3119287586012657874}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8422123147347346916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6892913063350648118, guid: 4e0a643d953167a4b9dd24e66e1c9b39,
     type: 3}
   m_PrefabInstance: {fileID: 3119287586012657874}
   m_PrefabAsset: {fileID: 0}

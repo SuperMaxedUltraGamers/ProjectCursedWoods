@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace CursedWoods
 {
-    public class MeleeUnlock : InteractionBase
+    public class SpellcastUnlock : InteractionBase
     {
-        public event Action MeleeUnlocked;
+        public event Action SpellcastUnlocked;
         public override float Interaction()
         {
             base.Interaction();
-            if (MeleeUnlocked != null)
+            if (SpellcastUnlocked != null)
             {
-                MeleeUnlocked?.Invoke();
+                SpellcastUnlocked?.Invoke();
             }
 
             Destroy(gameObject, 0.2f);
