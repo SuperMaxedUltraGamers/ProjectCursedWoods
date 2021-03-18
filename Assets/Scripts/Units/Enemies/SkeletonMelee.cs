@@ -58,6 +58,8 @@ namespace CursedWoods
         private float knockBackForce = 20000f;
         private float knockBackstaggerTime = 4f;
 
+        private EnemyBehaviours lastBehaviour = EnemyBehaviours.Idle;
+
         private delegate void TransitionDel();
 
         protected override void Awake()
@@ -145,6 +147,7 @@ namespace CursedWoods
             base.Activate(pos, rot);
             ResetValues();
             currentBehaviour = EnemyBehaviours.Idle;
+            lastBehaviour = EnemyBehaviours.Idle;
             hitbox.enabled = true;
             hasTransitionedIn = false;
         }
@@ -154,6 +157,7 @@ namespace CursedWoods
             if (currentBehaviour == EnemyBehaviours.Idle || currentBehaviour == EnemyBehaviours.Patrol)
             {
                 hasTransitionedIn = false;
+                lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.ChasePlayer;
             }
         }
@@ -162,6 +166,7 @@ namespace CursedWoods
         {
             if (currentBehaviour != EnemyBehaviours.Knockback && currentBehaviour != EnemyBehaviours.Dead)
             {
+                lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.Knockback;
                 hasTransitionedIn = false;
             }
@@ -174,6 +179,7 @@ namespace CursedWoods
                 if (fleeAffectorValue * cowardnessValue + Random.Range(0, 21) >= 100)
                 {
                     hasTransitionedIn = false;
+                    lastBehaviour = currentBehaviour;
                     currentBehaviour = EnemyBehaviours.FleeFromPlayer;
                 }
             }
@@ -240,11 +246,13 @@ namespace CursedWoods
             if (distanceToPlayer < attackRange)
             {
                 hasTransitionedIn = false;
+                lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.AttackPlayer;
             }
             else if (distanceToPlayer > giveUpChaseDistance)
             {
                 hasTransitionedIn = false;
+                lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.Patrol;
             }
             else
@@ -398,6 +406,7 @@ namespace CursedWoods
             if (distanceToPlayer < playerCheckRadius)
             {
                 hasTransitionedIn = false;
+                lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.ChasePlayer;
                 return true;
             }
@@ -433,6 +442,7 @@ namespace CursedWoods
                 }
                 else if (distanceToPlayer > attackRange)
                 {
+                    lastBehaviour = currentBehaviour;
                     currentBehaviour = EnemyBehaviours.ChasePlayer;
                     hasTransitionedIn = false;
                 }
@@ -448,11 +458,18 @@ namespace CursedWoods
         private IEnumerator KnockBackTimer()
         {
             yield return new WaitForSeconds(knockBackstaggerTime);
-            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer)
+            if (currentBehaviour != EnemyBehaviours.Dead && lastBehaviour != EnemyBehaviours.FleeFromPlayer)
             {
+                lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.Idle;
-                hasTransitionedIn = false;
             }
+            else if (lastBehaviour == EnemyBehaviours.FleeFromPlayer)
+            {
+                lastBehaviour = currentBehaviour;
+                currentBehaviour = EnemyBehaviours.FleeFromPlayer;
+            }
+
+            hasTransitionedIn = false;
         }
     }
 }
