@@ -118,7 +118,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Treetrunk_001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3451118302482216456, guid: 555e1fd76cc3ccf4fb104d34b6423311, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 555e1fd76cc3ccf4fb104d34b6423311, type: 3}
 --- !u!4 &6954550296624316219 stripped
 Transform:
