@@ -23,7 +23,7 @@ namespace CursedWoods
             AddTargetState(PlayerInputType.Move);
             AddTargetState(PlayerInputType.Attack);
             AddTargetState(PlayerInputType.Spellcast);
-            
+
             if (mover == null)
             {
                 mover = GetComponent<PlayerMover>();
@@ -71,14 +71,25 @@ namespace CursedWoods
             {
                 isInteracting = true;
                 Collider[] colliders = Physics.OverlapSphere(transform.position, GameMan.Instance.CharController.InteractRadius, GameMan.Instance.CharController.InteractableMask);
-                if (colliders[0] != null)
+                if (colliders.Length > 0)
                 {
-                    InteractionBase interaction = colliders[0].GetComponent<InteractionBase>();
-                    // Get the animation/interactionTime from the interaction since the interaction object is responsible to play the correct animation.
-                    interactionTime = interaction.Interaction();
-                }
+                    if (colliders[0] != null)
+                    {
+                        InteractionBase interaction = colliders[0].GetComponent<InteractionBase>();
+                        // Get the animation/interactionTime from the interaction since the interaction object is responsible to play the correct animation.
+                        interactionTime = interaction.Interaction();
 
-                StartCoroutine(InteractTimer());
+                        StartCoroutine(InteractTimer());
+                    }
+                    else
+                    {
+                        actionStateManager.ChangeState(nextState);
+                    }
+                }
+                else
+                {
+                    actionStateManager.ChangeState(nextState);
+                }
             }
         }
 
