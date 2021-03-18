@@ -72,6 +72,7 @@ namespace CursedWoods
             animTimeBeforeDmg = 4f / 3f;
             animTimeAfterDmg = 5.042f / 3f - animTimeBeforeDmg;
             deactivationAfterDeathTime = 2f;
+            agent.enabled = false;
             gameObject.SetActive(false);
         }
 
