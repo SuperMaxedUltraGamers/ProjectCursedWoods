@@ -64,7 +64,7 @@ namespace CursedWoods
         /// <summary>
         /// Determines which spell this is.
         /// </summary>
-        public Spells Spell { get; protected set; }
+        public Spells SpellType { get; protected set; }
 
         /// <summary>
         /// Determines how player can move while casting this spell.
@@ -98,7 +98,7 @@ namespace CursedWoods
         /// <param name="spellStartOffset">Offset vector from player position where the spell is spawned.</param>
         protected virtual void Init(Spells spell, DamageType spellType, PlayerMoveType spellMoveType, float castTime, float coolDownTime, Vector3 spellStartOffset)
         {
-            Spell = spell;
+            SpellType = spell;
             DamageType = spellType;
             SpellMoveType = spellMoveType;
             CastTime = castTime;

@@ -132,6 +132,19 @@ namespace CursedWoods
             if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !GameMan.Instance.CharController.IsInSpellMenu)
             {
                 CurrentSpell.CastSpell();
+
+                switch (CurrentSpell.SpellType)
+                {
+                    case Spells.Fireball:
+                        GameMan.Instance.Audio.PlayEffect(GameMan.Instance.CharController.AudioSource, Data.AudioContainer.PlayerSFX.Fireball);
+                        break;
+                    case Spells.IceRay:
+                        break;
+                    case Spells.MagicBeam:
+                        break;
+                    case Spells.Shockwave:
+                        break;
+                }
             }
         }
     }

@@ -36,6 +36,8 @@ namespace CursedWoods
 
         public Animator PlayerAnim { get; private set; }
 
+        public AudioSource AudioSource { get; private set; }
+
         public GameObject SpellBook { get { return spellBook; } }
 
         public GameObject Sword { get { return sword; } }
@@ -45,6 +47,12 @@ namespace CursedWoods
             base.Awake();
             groundCheck = GetComponent<GroundCheck>();
             PlayerAnim = GetComponentInChildren<Animator>();
+            AudioSource = GetComponent<AudioSource>();
+            if (AudioSource == null)
+            {
+                AudioSource = gameObject.AddComponent<AudioSource>();
+            }
+
             interActionTimer = gameObject.AddComponent<Timer>();
             interActionTimer.Set(0.25f);
         }

@@ -21,6 +21,11 @@
             get;
         }
 
+        Spells SpellType
+        {
+            get;
+        }
+
         DamageType DamageType
         {
             get;

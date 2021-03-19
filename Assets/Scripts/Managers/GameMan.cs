@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using CursedWoods.UI;
+using CursedWoods.Data;
 
 namespace CursedWoods
 {
@@ -23,6 +25,12 @@ namespace CursedWoods
         #endregion Constants and statics
 
         #region Private fields
+
+        [SerializeField]
+        private AudioContainer audioData = null;
+
+        [SerializeField]
+        private AudioMixer mixer = null;
 
         #endregion Private fields
 
@@ -55,6 +63,12 @@ namespace CursedWoods
                     return instance;
                 }
             }
+        }
+
+        public AudioManager Audio
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -120,12 +134,22 @@ namespace CursedWoods
             LevelUIManager = FindObjectOfType<LevelUIManager>();
             PlayerT = CharController.gameObject.transform;
 
+            AudioSource audioSource = GetComponent<AudioSource>();
+            Audio = new AudioManager(audioSource, mixer, audioData);
             PlayerManager.Initialize();
             //PlayerManager.IsAttackUnlocked = true;
             //PlayerManager.IsSpellCastUnlocked = true;
             // TODO: load player unlocks from savefile and pass them to PlayerManager.
 
             DontDestroyOnLoad(gameObject);
+        }
+        private void OnValidate()
+        {
+            if (Audio != null)
+            {
+                Audio.SetVolume(0.5f, AudioManager.SoundGroup.Effect);
+                Audio.SetVolume(0.5f, AudioManager.SoundGroup.Music);
+            }
         }
 
         private void OnDestroy()
