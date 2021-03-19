@@ -53,12 +53,12 @@ namespace CursedWoods
         {
             if (meleeUnlock != null)
             {
-                meleeUnlock.MeleeUnlocked += UnlockAttackState;
+                meleeUnlock.Interacted += UnlockAttackState;
             }
 
             if (spellcastUnlock != null)
             {
-                spellcastUnlock.SpellcastUnlocked += UnlockSpellcastState;
+                spellcastUnlock.Interacted += UnlockSpellcastState;
             }
         }
 
@@ -66,12 +66,12 @@ namespace CursedWoods
         {
             if (meleeUnlock != null)
             {
-                meleeUnlock.MeleeUnlocked -= UnlockAttackState;
+                meleeUnlock.Interacted -= UnlockAttackState;
             }
 
             if (spellcastUnlock != null)
             {
-                spellcastUnlock.SpellcastUnlocked -= UnlockSpellcastState;
+                spellcastUnlock.Interacted -= UnlockSpellcastState;
             }
         }
 
@@ -199,12 +199,14 @@ namespace CursedWoods
         {
             CreateNewState(PlayerInputType.Attack);
             GameMan.Instance.CharController.Sword.SetActive(true);
+            GameMan.Instance.PlayerManager.IsAttackUnlocked = true;
         }
 
         private void UnlockSpellcastState()
         {
             CreateNewState(PlayerInputType.Spellcast);
             GameMan.Instance.CharController.SpellBook.SetActive(true);
+            GameMan.Instance.PlayerManager.IsSpellCastUnlocked = true;
         }
     }
 }

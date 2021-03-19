@@ -159,7 +159,7 @@ namespace CursedWoods
             // Check if unit is immortal and no damage should be taken.
             if (!IsImmortal)
             {
-                print($"health before hit: {CurrentHealth}");
+                //print($"health before hit: {CurrentHealth}");
 
                 // Check if we have resistance value set against the taken DamageType.
                 if (!dmgResistances.TryGetValue(damageType, out int resistance))
@@ -180,7 +180,7 @@ namespace CursedWoods
 
                     // Call the abstract Die method.
                     Die();
-                    print("dead");
+                    //print("dead");
                 }
                 else
                 {
@@ -201,7 +201,7 @@ namespace CursedWoods
 
                     // Invoke HealtChanged event if it has subscribers.
                     InvokeHealthChangedEvent();
-                    print($"health after hit: {CurrentHealth}");
+                    //print($"health after hit: {CurrentHealth}");
                 }
             }
         }

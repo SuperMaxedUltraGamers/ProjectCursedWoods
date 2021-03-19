@@ -112,7 +112,7 @@ namespace CursedWoods
 
         public override void TransitionOut()
         {
-            print(elapsedTime);
+            //print(elapsedTime);
         }
     }
 }

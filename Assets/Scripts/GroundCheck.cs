@@ -4,10 +4,8 @@ namespace CursedWoods
 {
     public class GroundCheck : MonoBehaviour
     {
-        [SerializeField]
         private float radius = 0.5f;
-        [SerializeField]
-        private float distance = 1.1f;
+        private float distance = 0.6f;
 
         public bool RayCastGround()
         {

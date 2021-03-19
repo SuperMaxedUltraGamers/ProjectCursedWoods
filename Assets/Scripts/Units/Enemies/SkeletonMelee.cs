@@ -461,8 +461,18 @@ namespace CursedWoods
             yield return new WaitForSeconds(knockBackstaggerTime);
             if (currentBehaviour != EnemyBehaviours.Dead && lastBehaviour != EnemyBehaviours.FleeFromPlayer)
             {
-                lastBehaviour = currentBehaviour;
-                currentBehaviour = EnemyBehaviours.Idle;
+                float distanceToPlayer = GetDistanceToPlayer();
+                // Dont necessarily have to check if in attackrange because we will move to attack from chase if close enough.
+                if (distanceToPlayer < giveUpChaseDistance)
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.ChasePlayer;
+                }
+                else
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.Idle;
+                }
             }
             else if (lastBehaviour == EnemyBehaviours.FleeFromPlayer)
             {

@@ -46,7 +46,7 @@ namespace CursedWoods
                 string otherTag = other.gameObject.tag;
                 if (otherTag.Equals(GlobalVariables.ENEMY_TAG))
                 {
-                    print("Enemy hit!");
+                    //print("Enemy hit!");
                     other.GetComponent<IHealth>().DecreaseHealth(damageAmount, damageType);
                 }
             }

@@ -24,13 +24,13 @@ namespace CursedWoods
 
         public bool IgnoreCameraControl { get; set; }
 
-        public bool IgnoreControl { get; set; }
+        public bool IgnoreControl { get; set; } = true;
 
         public bool IsInSpellMenu { get; set; }
 
         public bool CanInteract { get; private set; }
 
-        public float InteractRadius { get; private set; } = 1f;
+        public float InteractRadius { get; private set; } = 1.5f;
 
         public LayerMask InteractableMask { get { return interactableMask; } }
 

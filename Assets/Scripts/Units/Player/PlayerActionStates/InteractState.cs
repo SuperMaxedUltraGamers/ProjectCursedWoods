@@ -96,12 +96,12 @@ namespace CursedWoods
         public override void TransitionOut()
         {
             isInteracting = false;
-            // TODO: set animation to null
         }
 
         private IEnumerator InteractTimer()
         {
             yield return new WaitForSeconds(interactionTime);
+            GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
             actionStateManager.ChangeState(nextState);
         }
     }

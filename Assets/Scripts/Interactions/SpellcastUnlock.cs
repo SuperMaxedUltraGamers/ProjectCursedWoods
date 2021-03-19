@@ -1,21 +1,20 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CursedWoods
 {
     public class SpellcastUnlock : InteractionBase
     {
-        public event Action SpellcastUnlocked;
-        public override float Interaction()
+        [SerializeField]
+        private GameObject[] disableObjects;
+        protected override void AfterInteraction()
         {
-            base.Interaction();
-            if (SpellcastUnlocked != null)
+            foreach (GameObject go in disableObjects)
             {
-                SpellcastUnlocked?.Invoke();
+                go.SetActive(false);
             }
 
-            Destroy(gameObject, 0.2f);
-            return animTime;
+            GetComponent<Collider>().enabled = false;
+            this.enabled = false;
         }
     }
 }

@@ -112,8 +112,8 @@ MonoBehaviour:
     resistance: 10
   - type: 4
     resistance: 14
-  startingHealth: 500
-  maxHealth: 500
+  startingHealth: 200
+  maxHealth: 200
   minHealth: 0
   minCauseStagger: 50
   attackRange: 3
@@ -124,7 +124,7 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  playerCheckRadius: 35
+  playerCheckRadius: 100
   giveUpChaseDistance: 350
   patrolSpeed: 50
   patrolRotSpeed: 4

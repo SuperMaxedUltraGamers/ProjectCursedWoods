@@ -22,6 +22,13 @@ namespace CursedWoods.UI
         [SerializeField]
         private GameObject interactPromt;
 
+        [SerializeField]
+        private GameObject playerHealthBar;
+
+        [SerializeField]
+        private GameObject instructionScreen;
+        private bool hasSkippedInstructions;
+
         private void Awake()
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
@@ -39,6 +46,20 @@ namespace CursedWoods.UI
             playerSC.SpellMenuTransIn -= SpellMenuTransIn;
             playerSC.SpellMenuTransOut -= SpellMenuTransOut;
             playerSC.SelectionMoved -= UpdateSpellMenu;
+        }
+
+        private void Update()
+        {
+            if (!hasSkippedInstructions)
+            {
+                if (Input.GetButtonDown(GlobalVariables.INTERACT))
+                {
+                    playerHealthBar.SetActive(true);
+                    instructionScreen.SetActive(false);
+                    GameMan.Instance.CharController.IgnoreControl = false;
+                    hasSkippedInstructions = true;
+                }
+            }
         }
 
         private void SpellMenuTransIn(float transparency)

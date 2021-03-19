@@ -14,6 +14,9 @@ namespace CursedWoods
         public event Action<int> EnemyGotKilled;
 
         public int EnemiesAttackingAmount { get; set; }
+
+        public int EnemiesKilledAmount { get; private set; }
+
         public int EnemiesKilledFleeAffector
         {
             get
@@ -28,7 +31,11 @@ namespace CursedWoods
                     {
                         EnemyGotKilled(value);
                     }
+
+                    // Add one to enemieskilled.
+                    EnemiesKilledAmount++;
                 }
+
                 enemiesKilledFleeAffector = value;
                 fleeAffectorReduceTimer.Stop();
                 fleeAffectorReduceTimer.Run();

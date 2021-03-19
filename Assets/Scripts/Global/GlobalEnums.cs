@@ -79,4 +79,11 @@
         Knockback,
         Dead
     }
+
+    public enum Axis
+    {
+        AxisX = 0,
+        AxisY,
+        AxisZ
+    }
 }

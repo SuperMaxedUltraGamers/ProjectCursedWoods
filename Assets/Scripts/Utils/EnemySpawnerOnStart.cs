@@ -2,7 +2,7 @@
 {
     public class EnemySpawnerOnStart : EnemySpawnerBase
     {
-        private void Awake()
+        private void Start()
         {
             isSpawning = true;
         }
