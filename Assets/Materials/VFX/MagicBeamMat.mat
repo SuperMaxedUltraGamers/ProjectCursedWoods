@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MagicBeamMat
-  m_Shader: {fileID: -6465566751694194690, guid: c945b97a997add747991d79a09bbb493,
+  m_Shader: {fileID: -6465566751694194690, guid: 70dc35b477a5f9b44bd4947d6063b8bb,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

@@ -57,7 +57,11 @@ namespace CursedWoods.UI
                 if (Input.GetButtonDown(GlobalVariables.INTERACT))
                 {
                     playerHealthBar.SetActive(true);
-                    instructionScreen.SetActive(false);
+                    if (instructionScreen != null)
+                    {
+                        instructionScreen.SetActive(false);
+                    }
+
                     GameMan.Instance.CharController.IgnoreControl = false;
                     hasSkippedInstructions = true;
                 }

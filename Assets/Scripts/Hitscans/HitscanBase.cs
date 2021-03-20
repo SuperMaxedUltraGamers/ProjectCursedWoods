@@ -6,8 +6,9 @@ namespace CursedWoods
     public class HitscanBase : PoolObjectBase, IHitscan, ICauseDamage
     {
         private Timer holdRayTimer;
-        protected float holdRayInterval = 0.1f;
+        private int raycastMask;
         private bool IsHoldRayIntervalRunning = false;
+        protected float holdRayInterval = 0.1f;
 
         protected LineRenderer lineRenderer = null;
         protected float fadeOffSpeed;
@@ -32,9 +33,38 @@ namespace CursedWoods
 
         protected virtual void Awake()
         {
+            
             lineRenderer = GetComponent<LineRenderer>();
             holdRayTimer = gameObject.AddComponent<Timer>();
             holdRayTimer.Set(holdRayInterval);
+
+            // All the integer presentations of layers we want the raycast to collide with.
+            int[] layers = new int[6];
+            layers[0] = 0;
+            layers[1] = 8;
+            layers[2] = 9;
+            layers[3] = 10;
+            layers[4] = 11;
+            layers[5] = 14;
+
+            /*
+            int defaultLayer = 1 << layers[0];
+            int layer6 = 1 << layers[1];
+            int layer7 = 1 << layers[2];
+            int layer8 = 1 << layers[3];
+            int layer9 = 1 << layers[4];
+            int layer12 = 1 << layers[5];
+
+            raycastMask = defaultLayer | layer6 | layer7 | layer8 | layer9 | layer12;
+            */
+            // Create layermask from all the layers.
+            
+            foreach (int i in layers)
+            {
+                int layer = 1 << i;
+                raycastMask |= layer;
+            }
+            
 
             //lineRenderer.enabled = false;
             gameObject.SetActive(false);
@@ -111,7 +141,7 @@ namespace CursedWoods
         private void DoRayCast()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, rayMaxDistance))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, rayMaxDistance, raycastMask))
             {
                 if (IsHoldingType && !IsHoldRayIntervalRunning)
                 {

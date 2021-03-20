@@ -3864,6 +3864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1.5
+  interactionText: JaakkoYouToughGuy
   disableObjects: []
 --- !u!65 &1216137082
 BoxCollider:
@@ -4652,6 +4653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1.5
+  interactionText: JaakkoSoSexy
   disableObjects: []
 --- !u!1 &1592828945
 GameObject:

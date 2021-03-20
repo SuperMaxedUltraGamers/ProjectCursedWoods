@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MagicBeamParticle
-  m_Shader: {fileID: -6465566751694194690, guid: c945b97a997add747991d79a09bbb493,
+  m_Shader: {fileID: -6465566751694194690, guid: 70dc35b477a5f9b44bd4947d6063b8bb,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -34,6 +34,6 @@ Material:
     - Vector1_5D49C07E: 1
     - Vector1_60F296BB: 12
     m_Colors:
-    - Color_D8FCF2E1: {r: 42.722507, g: 42.722507, b: 42.722507, a: 0}
+    - Color_D8FCF2E1: {r: 33.89676, g: 33.89676, b: 33.89676, a: 0}
     - Vector2_1BA8D673: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_3B9664D3: {r: 2, g: 0, b: 0, a: 0}

@@ -80,7 +80,10 @@ namespace CursedWoods
             {
                 if (Input.GetButtonDown(GlobalVariables.CHANGE_CONTROL_TYPE))
                 {
-                    ControlTypeChanged?.Invoke();
+                    if (ControlTypeChanged != null)
+                    {
+                        ControlTypeChanged();
+                    }
                 }
 
                 if (CanInteract && Input.GetButtonDown(GlobalVariables.INTERACT))
