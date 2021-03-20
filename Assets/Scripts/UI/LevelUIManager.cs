@@ -21,6 +21,7 @@ namespace CursedWoods.UI
 
         [SerializeField]
         private GameObject interactPromt;
+        private Text interactText;
 
         [SerializeField]
         private GameObject playerHealthBar;
@@ -32,6 +33,7 @@ namespace CursedWoods.UI
         private void Awake()
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
+            interactText = interactPromt.GetComponentInChildren<Text>();
         }
 
         private void OnEnable()
@@ -120,8 +122,9 @@ namespace CursedWoods.UI
             img.color = tempColor;
         }
 
-        public void SetInteractPromtVisibility(bool visible)
+        public void SetInteractPromtVisibility(bool visible, string text)
         {
+            interactText.text = text;
             interactPromt.SetActive(visible);
         }
     }

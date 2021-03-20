@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1
+  interactionText: Pick up sword
   disableObjects:
   - {fileID: 8756170621023357377}
   - {fileID: 8501682973432544921}

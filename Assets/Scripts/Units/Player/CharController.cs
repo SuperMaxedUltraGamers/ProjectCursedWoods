@@ -100,6 +100,19 @@ namespace CursedWoods
 
         private void CheckForInterActions()
         {
+            Collider[] coll = Physics.OverlapSphere(transform.position, InteractRadius, InteractableMask);
+            if (coll.Length > 0)
+            {
+
+                CanInteract = true;
+                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: true, coll[0].gameObject.GetComponent<Interactable>().InteractionText);
+            }
+            else
+            {
+                CanInteract = false;
+                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: false, "");
+            }
+            /*
             if (Physics.CheckSphere(transform.position, InteractRadius, interactableMask))
             {
                 CanInteract = true;
@@ -110,6 +123,7 @@ namespace CursedWoods
                 CanInteract = false;
                 GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: false);
             }
+            */
 
             interActionTimer.Run();
         }

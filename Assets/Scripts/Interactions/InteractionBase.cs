@@ -9,6 +9,10 @@ namespace CursedWoods
         [SerializeField]
         protected float animTime = 1f;
         protected float afterInteractionTime = 0.1f;
+        [SerializeField]
+        protected string interactionText = "";
+
+        public override string InteractionText { get { return interactionText; } }
 
         public event Action Interacted;
 

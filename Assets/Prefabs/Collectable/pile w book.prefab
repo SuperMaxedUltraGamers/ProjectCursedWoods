@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1
+  interactionText: Pick up spellbook
   disableObjects:
   - {fileID: 3722380448608160387}
   - {fileID: 1870735527255483255}
