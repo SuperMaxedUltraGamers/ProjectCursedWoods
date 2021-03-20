@@ -129,18 +129,25 @@ namespace CursedWoods
 
         public void CastSpell()
         {
-            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !GameMan.Instance.CharController.IsInSpellMenu)
+            CharController controller = GameMan.Instance.CharController;
+            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !controller.IsInSpellMenu)
             {
                 CurrentSpell.CastSpell();
 
+                AudioSource audioSource = controller.AudioSource;
                 switch (CurrentSpell.SpellType)
                 {
                     case Spells.Fireball:
-                        GameMan.Instance.Audio.PlayEffect(GameMan.Instance.CharController.AudioSource, Data.AudioContainer.PlayerSFX.Fireball);
+                        GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
                         break;
                     case Spells.IceRay:
+                        GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.IceRay);
                         break;
                     case Spells.MagicBeam:
+                        if (!audioSource.isPlaying)
+                        {
+                            GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.MagicBeam);
+                        }
                         break;
                     case Spells.Shockwave:
                         break;

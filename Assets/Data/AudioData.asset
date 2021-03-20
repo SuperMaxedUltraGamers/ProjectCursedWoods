@@ -15,6 +15,10 @@ MonoBehaviour:
   playerSounds:
   - Effect: 3
     Clip: {fileID: 8300000, guid: 8f01803cb4295b847b0f05cf2b423126, type: 3}
+  - Effect: 4
+    Clip: {fileID: 8300000, guid: 873f4d83be6926244bf4b057ec264ae0, type: 3}
+  - Effect: 5
+    Clip: {fileID: 8300000, guid: 702e09db27267b34bb1f1a4571c1ff43, type: 3}
   skeletonSounds: []
   miscSounds: []
   musicClips: []

@@ -11,7 +11,7 @@ namespace CursedWoods.Data
             Interact,
             SwordSwoosh,
             Fireball,
-            Iceray,
+            IceRay,
             MagicBeam,
             Shockwave,
             TakeDamage,
