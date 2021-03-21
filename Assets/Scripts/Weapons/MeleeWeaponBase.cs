@@ -12,7 +12,7 @@ namespace CursedWoods
         protected int damageAmount = 0;
 
         [SerializeField]
-        private DamageType damageType = DamageType.Melee;
+        private DamageType damageType = DamageType.Physical;
 
         public int DamageAmount
         {
@@ -43,8 +43,8 @@ namespace CursedWoods
             {
                 hitColliders.Add(other);
 
-                string otherTag = other.gameObject.tag;
-                if (otherTag.Equals(GlobalVariables.ENEMY_TAG))
+                int otherLayer = other.gameObject.layer;
+                if (otherLayer == GlobalVariables.ENEMY_LAYER)
                 {
                     //print("Enemy hit!");
                     other.GetComponent<IHealth>().DecreaseHealth(damageAmount, damageType);

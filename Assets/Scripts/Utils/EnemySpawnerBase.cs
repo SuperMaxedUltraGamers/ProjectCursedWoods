@@ -62,6 +62,9 @@ namespace CursedWoods.Utils
                 case EnemyType.SkeletonMelee:
                     objectPoolType = ObjectPoolType.SkeletonMelee;
                     break;
+                case EnemyType.PossessedTree:
+                    objectPoolType = ObjectPoolType.PossessedTree;
+                    break;
             }
 
             IPoolObject enemy = GameMan.Instance.ObjPoolMan.GetObjectFromPool(objectPoolType);

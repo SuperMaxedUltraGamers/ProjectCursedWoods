@@ -5,7 +5,7 @@ using CursedWoods.Utils;
 
 namespace CursedWoods
 {
-    public class SkeletonMelee : EnemyBase
+    public class PossessedTree : EnemyBase
     {
         private NavMeshAgent agent;
         private Animator animator;
@@ -15,37 +15,33 @@ namespace CursedWoods
         private Transform playerT;
 
         private float animChangeDampTime = 0.1f;
-        private float minStateTime = 3f;
-        private float maxStateTime = 6f;
-        private float timeOnCurrentState;
         private bool hasTransitionedIn;
 
-        private float animTimeBeforeDmg;
-        private float animTimeAfterDmg;
         private float deactivationAfterDeathTime;
 
         [SerializeField]
-        private int attackDamageAmount = 15;
+        private int meleeDamageAmount = 50;
+        [SerializeField]
+        private int rangedDamageAmount = 25;
 
         [SerializeField]
         private float attackTrackingSpeed = 40;
-        private float meleeAttackRangeRealUnits = 1.755f;
-        private DamageType attackDmgType = DamageType.Physical;
+
+        private float meleeAttackRangeRealUnits = 3.75f;
+        private DamageType meleeAttackDmgType = DamageType.Physical;
+        [SerializeField]
+        private float rangedAttackRange = 200f;
+        private DamageType rangedAttackDmgType = DamageType.Physical;
 
         [SerializeField]
         private LayerMask playerLayerMask;
 
         [SerializeField, Tooltip("What distance from we notice the player in any direction.")]
-        private float playerCheckRadius = 30f;
+        private float playerCheckRadius = 100f;
 
         [SerializeField, Tooltip("How far away from player until giving up chasing.")]
-        private float giveUpChaseDistance = 25f;
+        private float giveUpChaseDistance = 350f;
 
-        [SerializeField]
-        private float patrolSpeed;
-
-        [SerializeField]
-        private float patrolRotSpeed;
         private Quaternion newRotation;
 
         [SerializeField]
@@ -53,12 +49,15 @@ namespace CursedWoods
 
         [SerializeField]
         private float fleeRotSpeed;
-        private int maxAddedCowardnessValue = 21;
+        private int maxAddedCowardnessValue = 5;
 
-        private float backUpSpeed = 20f;
+        private float backUpSpeed = 16f;
 
         private float knockBackForce = 20000f;
-        private float knockBackstaggerTime = 3.5f;
+        private float knockBackstaggerTime = 3f;
+
+        [SerializeField]
+        private Canvas healthBar;
 
         private EnemyBehaviours lastBehaviour = EnemyBehaviours.Idle;
 
@@ -71,17 +70,15 @@ namespace CursedWoods
             animator = GetComponentInChildren<Animator>();
             rb = GetComponent<Rigidbody>();
             hitbox = GetComponent<Collider>();
-            animTimeBeforeDmg = 4f / 3f;
-            animTimeAfterDmg = 5.042f / 3f - animTimeBeforeDmg;
             deactivationAfterDeathTime = 2f;
             agent.enabled = false;
+            healthBar.enabled = false;
             gameObject.SetActive(false);
         }
 
         private void Start()
         {
             playerT = GameMan.Instance.PlayerT;
-            RandomStateTime();
         }
 
         private void Update()
@@ -93,14 +90,14 @@ namespace CursedWoods
                 case EnemyBehaviours.Idle:
                     Idle();
                     break;
-                case EnemyBehaviours.Patrol:
-                    Patrol();
-                    break;
                 case EnemyBehaviours.ChasePlayer:
                     ChasePlayer();
                     break;
                 case EnemyBehaviours.MeleeAttackPlayer:
-                    AttackPlayer();
+                    MeleeAttackPlayer();
+                    break;
+                case EnemyBehaviours.RangeAttackPlayer:
+                    RangedAttackPlayer();
                     break;
                 case EnemyBehaviours.FleeFromPlayer:
                     Flee();
@@ -118,9 +115,6 @@ namespace CursedWoods
                 case EnemyBehaviours.Idle:
                     rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     break;
-                case EnemyBehaviours.Patrol:
-                    rb.velocity = transform.forward * patrolSpeed * Time.fixedDeltaTime;
-                    break;
                 case EnemyBehaviours.MeleeAttackPlayer:
 
                     float distanceToPlayer = GetDistanceToPlayer();
@@ -136,6 +130,10 @@ namespace CursedWoods
                         animator.SetFloat("Blend", 1f, animChangeDampTime, Time.fixedDeltaTime);
                     }
 
+                    break;
+                case EnemyBehaviours.RangeAttackPlayer:
+                    animator.SetFloat("Blend", 0f, animChangeDampTime, Time.fixedDeltaTime);
+                    rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     break;
                 case EnemyBehaviours.FleeFromPlayer:
                     rb.velocity = transform.forward * fleeSpeed * Time.fixedDeltaTime;
@@ -197,7 +195,6 @@ namespace CursedWoods
             hitbox.enabled = false;
             agent.enabled = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_DEATH);
-            animator.speed = 3f;
             currentBehaviour = EnemyBehaviours.Dead;
             StartCoroutine(DieTimer());
         }
@@ -211,40 +208,18 @@ namespace CursedWoods
 
             if (!hasTransitionedIn)
             {
-                TransitionIn(hasRandomStateTime: true, IdleTrans);
+                TransitionIn(IdleTrans);
             }
 
             animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
             animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
-
-            StateTimeFlow(EnemyBehaviours.Patrol);
-        }
-
-        private void Patrol()
-        {
-            if (CheckForPlayerInRadius())
-            {
-                return;
-            }
-
-            if (!hasTransitionedIn)
-            {
-                TransitionIn(hasRandomStateTime: true, PatrolTrans);
-            }
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * patrolRotSpeed);
-
-            animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
-            animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
-
-            StateTimeFlow(EnemyBehaviours.Idle);
         }
 
         private void ChasePlayer()
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(hasRandomStateTime: false, ChaseTrans);
+                TransitionIn(ChaseTrans);
             }
 
             float distanceToPlayer = GetDistanceToPlayer();
@@ -254,11 +229,17 @@ namespace CursedWoods
                 lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.MeleeAttackPlayer;
             }
+            else if (distanceToPlayer < rangedAttackRange)
+            {
+                hasTransitionedIn = false;
+                lastBehaviour = currentBehaviour;
+                currentBehaviour = EnemyBehaviours.MeleeAttackPlayer;
+            }
             else if (distanceToPlayer > giveUpChaseDistance)
             {
                 hasTransitionedIn = false;
                 lastBehaviour = currentBehaviour;
-                currentBehaviour = EnemyBehaviours.Patrol;
+                currentBehaviour = EnemyBehaviours.Idle;
             }
             else
             {
@@ -268,11 +249,22 @@ namespace CursedWoods
             }
         }
 
-        private void AttackPlayer()
+        private void MeleeAttackPlayer()
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(hasRandomStateTime: true, AttackTrans);
+                TransitionIn(MeleeAttackTrans);
+            }
+
+            newRotation = newRotation = MathUtils.GetLookRotationYAxis(playerT.position, transform.position, transform.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * attackTrackingSpeed);
+        }
+
+        private void RangedAttackPlayer()
+        {
+            if (!hasTransitionedIn)
+            {
+                TransitionIn(RangedAttackTrans);
             }
 
             newRotation = newRotation = MathUtils.GetLookRotationYAxis(playerT.position, transform.position, transform.up);
@@ -283,7 +275,7 @@ namespace CursedWoods
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(hasRandomStateTime: false, FleeTrans);
+                TransitionIn(FleeTrans);
             }
 
             newRotation = MathUtils.GetLookRotationYAxis(transform.position, playerT.position, transform.up);
@@ -302,101 +294,68 @@ namespace CursedWoods
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(hasRandomStateTime: false, KnockBackTrans);
+                TransitionIn(KnockBackTrans);
             }
         }
 
         // TRANSITIONS
-        private void TransitionIn(bool hasRandomStateTime, TransitionDel transitionDel)
+        private void TransitionIn(TransitionDel transitionDel)
         {
             transitionDel();
-            if (hasRandomStateTime)
-            {
-                RandomStateTime();
-            }
 
             hasTransitionedIn = true;
         }
 
         private void IdleTrans()
         {
-            animator.speed = 1f;
             rb.isKinematic = false;
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             agent.enabled = false;
-            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
-        }
-
-        private void PatrolTrans()
-        {
-            animator.speed = 1f;
-            agent.enabled = false;
-            rb.isKinematic = false;
-            newRotation = transform.rotation * Quaternion.Euler(0f, Random.Range(-180f, 180f), 0f);
-            if (Physics.Raycast(transform.position + transform.up, newRotation * Vector3.forward, 4f))
-            {
-                newRotation = transform.rotation * Quaternion.Euler(0f, 180f, 0f);
-            }
-
+            healthBar.enabled = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
         private void ChaseTrans()
         {
-            animator.speed = 3f;
             rb.isKinematic = true;
             agent.enabled = true;
+            healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
-        private void AttackTrans()
+        private void MeleeAttackTrans()
         {
             rb.isKinematic = false;
             agent.enabled = false;
-            animator.speed = 2f;
+            healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_MELEE_ATTACK);
-            StartCoroutine(AttackTimer());
+        }
+
+        private void RangedAttackTrans()
+        {
+            rb.isKinematic = false;
+            agent.enabled = false;
+            healthBar.enabled = true;
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_RANGED_ATTACK);
         }
 
         private void FleeTrans()
         {
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_FLEE);
             rb.isKinematic = false;
-            animator.speed = 3f;
             agent.enabled = false;
+            healthBar.enabled = true;
         }
 
         private void KnockBackTrans()
         {
-            animator.speed = 1f;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
             rb.isKinematic = false;
             agent.enabled = false;
+            healthBar.enabled = true;
             rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
 
             StartCoroutine(KnockBackTimer());
-        }
-
-        private void RandomStateTime()
-        {
-            timeOnCurrentState = Random.Range(minStateTime, maxStateTime);
-        }
-
-        private void StateTimeFlow(EnemyBehaviours nexState)
-        {
-            timeOnCurrentState -= Time.deltaTime;
-
-            if (timeOnCurrentState <= 0)
-            {
-                if (Random.Range(0f, 1f) > 0.25f)
-                {
-                    if (currentBehaviour != EnemyBehaviours.ChasePlayer && currentBehaviour != EnemyBehaviours.MeleeAttackPlayer)
-                    {
-                        currentBehaviour = nexState;
-                        hasTransitionedIn = false;
-                    }
-                }
-            }
         }
 
         private float GetDistanceToPlayer()
@@ -421,31 +380,62 @@ namespace CursedWoods
             }
         }
 
-        private IEnumerator AttackTimer()
+        // ANIMATION EVENTS
+        private void MeleeAttackAnimEvent()
         {
-            yield return new WaitForSeconds(animTimeBeforeDmg / animator.speed);
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
-                if (Physics.Raycast(transform.position + transform.up, transform.forward, meleeAttackRangeRealUnits, playerLayerMask))
+                if (Physics.Raycast(transform.position, transform.forward, meleeAttackRangeRealUnits, playerLayerMask))
                 {
-                    playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(attackDamageAmount, attackDmgType);
+                    playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(meleeDamageAmount, meleeAttackDmgType);
                 }
-
-                StartCoroutine(AttackEndTimer());
             }
         }
 
-        private IEnumerator AttackEndTimer()
+        private void MeleeAttackEndAnimEvent()
         {
-            yield return new WaitForSeconds(animTimeAfterDmg / animator.speed);
+            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
+            {
+                float distanceToPlayer = GetDistanceToPlayer();
+                if (distanceToPlayer < rangedAttackRange && distanceToPlayer > attackRange)
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.RangeAttackPlayer;
+                    hasTransitionedIn = false;
+                }
+                else if (distanceToPlayer > rangedAttackRange)
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.ChasePlayer;
+                    hasTransitionedIn = false;
+                }
+            }
+        }
+
+
+
+        private void RangedAttackAnimEvent()
+        {
+            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
+            {
+                PosTreeProjectile projectile = (PosTreeProjectile)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.TreeProjectile);
+                projectile.InitDamageInfo(rangedDamageAmount, rangedAttackDmgType);
+                projectile.Activate(transform.position + transform.forward * 2f + transform.up, transform.rotation);
+            }
+        }
+
+        private void RangedAttackEndAnimEvent()
+        {
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
                 float distanceToPlayer = GetDistanceToPlayer();
                 if (distanceToPlayer < attackRange)
                 {
-                    StartCoroutine(AttackTimer());
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.MeleeAttackPlayer;
+                    hasTransitionedIn = false;
                 }
-                else if (distanceToPlayer > attackRange)
+                else if (distanceToPlayer > rangedAttackRange)
                 {
                     lastBehaviour = currentBehaviour;
                     currentBehaviour = EnemyBehaviours.ChasePlayer;
@@ -457,6 +447,7 @@ namespace CursedWoods
         private IEnumerator DieTimer()
         {
             yield return new WaitForSeconds(deactivationAfterDeathTime);
+            healthBar.enabled = false;
             Deactivate();
         }
 

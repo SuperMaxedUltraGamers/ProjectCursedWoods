@@ -70,6 +70,10 @@ MonoBehaviour:
     type: 3}
   skeletonMeleePool: {fileID: 8184401001280415992, guid: 3a7994faaae13224397dd91c2badd99a,
     type: 3}
+  possessedTreePool: {fileID: 4151704267737390481, guid: 93832a9f38c94aa42a6ff4d00a7964e6,
+    type: 3}
+  posTreeProjectilePool: {fileID: 1212084607700601560, guid: 056bfdbf3ac13434baf50d27a89217a4,
+    type: 3}
 --- !u!114 &1284753748778844192
 MonoBehaviour:
   m_ObjectHideFlags: 0

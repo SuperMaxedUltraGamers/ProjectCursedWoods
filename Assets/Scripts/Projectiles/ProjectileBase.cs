@@ -4,7 +4,6 @@ namespace CursedWoods
 {
     public class ProjectileBase : PoolObjectBase, ICauseDamage
     {
-        protected Rigidbody rb;
         [SerializeField]
         protected float projectileSpeed = 10f;
 
@@ -14,7 +13,6 @@ namespace CursedWoods
 
         protected virtual void Awake()
         {
-            rb = GetComponent<Rigidbody>();
             gameObject.SetActive(false);
         }
 

@@ -3,7 +3,7 @@ using CursedWoods.Utils;
 
 namespace CursedWoods
 {
-    public class ProjectileFireBall : ProjectileBase
+    public class PosTreeProjectile : ProjectileBase
     {
         /// <summary>
         /// Used to prevent multiple triggers.
@@ -11,10 +11,11 @@ namespace CursedWoods
         private bool hasTriggered;
 
         private bool isMoving;
+
         /// <summary>
-        /// How long does the fireball live if no collision happens.
+        /// How long does the projectile live if no collision happens.
         /// </summary>
-        private float lifeTime = 4f;
+        private float lifeTime = 6f;
 
         private Timer lifeTimeTimer;
 
@@ -84,7 +85,7 @@ namespace CursedWoods
             {
                 /*
                 string otherTag = other.gameObject.tag;
-                if (otherTag.Equals(GlobalVariables.ENEMY_TAG))
+                if (otherTag.Equals(GlobalVariables.ENEMY_TAG) || otherTag.Equals(GlobalVariables.PLAYER_TAG))
                 {
                     other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
                     OnHit();
@@ -100,7 +101,7 @@ namespace CursedWoods
                 */
 
                 int otherLayer = other.gameObject.layer;
-                if (otherLayer == GlobalVariables.ENEMY_LAYER)
+                if (otherLayer == GlobalVariables.ENEMY_LAYER || otherLayer == GlobalVariables.PLAYER_LAYER)
                 {
                     other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
                     OnHit();

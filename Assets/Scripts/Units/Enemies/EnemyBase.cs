@@ -73,6 +73,17 @@ namespace CursedWoods
             GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
         }
 
+        protected void FallenThroughGroundKillCheck()
+        {
+            if (transform.position.y < -75f)
+            {
+                if (currentBehaviour != EnemyBehaviours.Dead)
+                {
+                    Die();
+                }
+            }
+        }
+
         #endregion Protected API
     }
 }

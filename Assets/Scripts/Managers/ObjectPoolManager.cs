@@ -39,6 +39,12 @@ namespace CursedWoods
         [SerializeField]
         private SkeletonMeleePool skeletonMeleePool = null;
 
+        [SerializeField]
+        private PossessedTreePool possessedTreePool = null;
+
+        [SerializeField]
+        private PosTreeProjectilePool posTreeProjectilePool = null;
+
         #endregion Private fields
 
         #region Unity messages
@@ -51,6 +57,8 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.IceRay, iceRayPool);
             poolByType.Add(ObjectPoolType.MagicBeam, magicBeamPool);
             poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
+            poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
+            poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
 
             // Populate each pool inside the dictionary.
             foreach (var pool in poolByType)

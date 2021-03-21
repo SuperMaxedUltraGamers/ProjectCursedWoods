@@ -35,7 +35,7 @@
         Ice,
         Magic,
         Shock,
-        Melee
+        Physical
     }
 
     /// <summary>
@@ -58,11 +58,14 @@
         MagicBeam,
         Shockwave,
         SkeletonMelee,
+        PossessedTree,
+        TreeProjectile
     }
 
     public enum EnemyType
     {
         SkeletonMelee = 0,
+        PossessedTree,
     }
 
     /// <summary>
@@ -73,8 +76,8 @@
         Idle = 0,
         Patrol,
         ChasePlayer,
-        AttackPlayer,
-        IncreaseDistanceToPlayer,
+        MeleeAttackPlayer,
+        RangeAttackPlayer,
         FleeFromPlayer,
         Knockback,
         Dead
