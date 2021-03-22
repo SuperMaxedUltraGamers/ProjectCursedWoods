@@ -8,6 +8,7 @@ namespace CursedWoods
     public class PossessedTree : EnemyBase
     {
         private NavMeshAgent agent;
+        private NavMeshObstacle obstacle;
         private Animator animator;
         private Rigidbody rb;
         private Collider hitbox;
@@ -17,7 +18,9 @@ namespace CursedWoods
         private float animChangeDampTime = 0.1f;
         private bool hasTransitionedIn;
 
-        private float deactivationAfterDeathTime;
+        private float deactivationAfterDeathTime = 7f;
+        private float deathDescendSpeed = 0.3f;
+        private bool isDescending;
 
         [SerializeField]
         private int meleeDamageAmount = 50;
@@ -67,11 +70,12 @@ namespace CursedWoods
         {
             base.Awake();
             agent = GetComponent<NavMeshAgent>();
+            obstacle = GetComponent<NavMeshObstacle>();
             animator = GetComponentInChildren<Animator>();
             rb = GetComponent<Rigidbody>();
             hitbox = GetComponent<Collider>();
-            deactivationAfterDeathTime = 2f;
             agent.enabled = false;
+            obstacle.enabled = false;
             healthBar.enabled = false;
             gameObject.SetActive(false);
         }
@@ -84,6 +88,7 @@ namespace CursedWoods
         private void Update()
         {
             FallenThroughGroundKillCheck();
+            //print(transform.position);
 
             switch (currentBehaviour)
             {
@@ -104,6 +109,14 @@ namespace CursedWoods
                     break;
                 case EnemyBehaviours.Knockback:
                     KnockBack();
+                    break;
+                case EnemyBehaviours.Dead:
+                    if (isDescending)
+                    {
+                        //print("descending");
+                        transform.position += -transform.up * deathDescendSpeed * Time.deltaTime;
+                    }
+
                     break;
             }
         }
@@ -154,6 +167,7 @@ namespace CursedWoods
             lastBehaviour = EnemyBehaviours.Idle;
             hitbox.enabled = true;
             hasTransitionedIn = false;
+            isDescending = false;
         }
 
         protected override void TookDamage(int currentHealth, int maxHealth)
@@ -195,9 +209,10 @@ namespace CursedWoods
             rb.isKinematic = true;
             hitbox.enabled = false;
             agent.enabled = false;
+            obstacle.enabled = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_DEATH);
             currentBehaviour = EnemyBehaviours.Dead;
-            StartCoroutine(DieTimer());
+            //StartCoroutine(DieTimer());
         }
 
         private void Idle()
@@ -299,6 +314,9 @@ namespace CursedWoods
             {
                 TransitionIn(KnockBackTrans);
             }
+
+            animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
+            animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
         }
 
         // TRANSITIONS
@@ -314,6 +332,7 @@ namespace CursedWoods
             rb.isKinematic = false;
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             agent.enabled = false;
+            obstacle.enabled = true;
             healthBar.enabled = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
@@ -321,29 +340,41 @@ namespace CursedWoods
         private void ChaseTrans()
         {
             rb.isKinematic = true;
+            obstacle.enabled = false;
             agent.enabled = true;
-            agent.isStopped = false;
+            //agent.isStopped = false;
             healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
         private void MeleeAttackTrans()
         {
+            // With these this cannot move backwards while meleeattacking.
+            //rb.isKinematic = true;
+            //rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            //agent.enabled = true;
+            //agent.isStopped = true;
+            // With these other agents can push this easily around.
             rb.isKinematic = false;
-            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
-            //agent.enabled = false;
-            agent.isStopped = true;
-            agent.SetDestination(transform.position);
+            agent.enabled = false;
+            obstacle.enabled = true;
+
             healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_MELEE_ATTACK);
         }
 
         private void RangedAttackTrans()
         {
+            // With these this cannot move backwards while meleeattacking.
+            //rb.isKinematic = true;
+            //rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            //agent.enabled = true;
+            //agent.isStopped = true;
+            // With these other agents can push this easily around.
             rb.isKinematic = false;
-            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
-            //agent.enabled = false;
-            agent.isStopped = true;
+            agent.enabled = false;
+            obstacle.enabled = true;
+
             healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_RANGED_ATTACK);
         }
@@ -353,10 +384,11 @@ namespace CursedWoods
             //animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_FLEE);
             // Remove these if we get flee animation.
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
-            animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
-            animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
+            //animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
+            //animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
             rb.isKinematic = false;
             agent.enabled = false;
+            obstacle.enabled = true;
             healthBar.enabled = true;
         }
 
@@ -365,10 +397,11 @@ namespace CursedWoods
             //animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
             // Remove these if we get stagger animation.
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
-            animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
-            animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
+            //animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
+            //animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
             rb.isKinematic = false;
             agent.enabled = false;
+            obstacle.enabled = true;
             healthBar.enabled = true;
             rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
 
@@ -429,8 +462,6 @@ namespace CursedWoods
             }
         }
 
-
-
         private void RangedAttackAnimEvent()
         {
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
@@ -461,10 +492,13 @@ namespace CursedWoods
             }
         }
 
+        // Called from animation event
         private IEnumerator DieTimer()
         {
-            yield return new WaitForSeconds(deactivationAfterDeathTime);
+            print("yeeet");
+            isDescending = true;
             healthBar.enabled = false;
+            yield return new WaitForSeconds(deactivationAfterDeathTime);
             Deactivate();
         }
 

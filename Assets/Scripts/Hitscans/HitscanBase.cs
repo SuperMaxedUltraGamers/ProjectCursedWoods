@@ -146,18 +146,32 @@ namespace CursedWoods
                 if (IsHoldingType && !IsHoldRayIntervalRunning)
                 {
                     IsHoldRayIntervalRunning = true;
+                    GameObject hitGO = hit.collider.gameObject;
+                    if (hitGO.layer == GlobalVariables.ENEMY_LAYER)
+                    {
+                        hitGO.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    }
+                    /*
                     if (hit.collider.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
                     {
                         hit.collider.gameObject.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
                     }
+                    */
 
                     holdRayTimer.Run();
                 }
                 else if (!IsHoldingType)
                 {
+                    /*
                     if (hit.collider.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
                     {
                         hit.collider.gameObject.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    }
+                    */
+                    GameObject hitGO = hit.collider.gameObject;
+                    if (hitGO.layer == GlobalVariables.ENEMY_LAYER)
+                    {
+                        hitGO.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
                     }
                 }
 

@@ -8,6 +8,7 @@ namespace CursedWoods
     public class SkeletonMelee : EnemyBase
     {
         private NavMeshAgent agent;
+        private NavMeshObstacle obstacle;
         private Animator animator;
         private Rigidbody rb;
         private Collider hitbox;
@@ -20,9 +21,11 @@ namespace CursedWoods
         private float timeOnCurrentState;
         private bool hasTransitionedIn;
 
-        private float animTimeBeforeDmg;
-        private float animTimeAfterDmg;
-        private float deactivationAfterDeathTime;
+        //private float animTimeBeforeDmg;
+        //private float animTimeAfterDmg;
+        private float deactivationAfterDeathTime = 7f;
+        private float deathAscendSpeed = 0.1f;
+        private bool isAscending;
 
         [SerializeField]
         private int attackDamageAmount = 15;
@@ -68,13 +71,15 @@ namespace CursedWoods
         {
             base.Awake();
             agent = GetComponent<NavMeshAgent>();
+            obstacle = GetComponent<NavMeshObstacle>();
             animator = GetComponentInChildren<Animator>();
             rb = GetComponent<Rigidbody>();
             hitbox = GetComponent<Collider>();
-            animTimeBeforeDmg = 4f / 3f;
-            animTimeAfterDmg = 5.042f / 3f - animTimeBeforeDmg;
-            deactivationAfterDeathTime = 2f;
+            //animTimeBeforeDmg = 4f / 3f;
+            //animTimeAfterDmg = 5.042f / 3f - animTimeBeforeDmg;
+            //deactivationAfterDeathTime = 2f;
             agent.enabled = false;
+            obstacle.enabled = false;
             gameObject.SetActive(false);
         }
 
@@ -108,6 +113,12 @@ namespace CursedWoods
                 case EnemyBehaviours.Knockback:
                     KnockBack();
                     break;
+                case EnemyBehaviours.Dead:
+                    if (isAscending)
+                    {
+                        transform.position += -transform.up * deathAscendSpeed * Time.deltaTime;
+                    }
+                    break;
             }
         }
 
@@ -121,6 +132,7 @@ namespace CursedWoods
                 case EnemyBehaviours.Patrol:
                     rb.velocity = transform.forward * patrolSpeed * Time.fixedDeltaTime;
                     break;
+
                 case EnemyBehaviours.MeleeAttackPlayer:
 
                     float distanceToPlayer = GetDistanceToPlayer();
@@ -137,6 +149,7 @@ namespace CursedWoods
                     }
 
                     break;
+
                 case EnemyBehaviours.FleeFromPlayer:
                     Vector3 fleeVel = transform.forward * fleeSpeed * Time.fixedDeltaTime;
                     rb.velocity = new Vector3(fleeVel.x, rb.velocity.y, fleeVel.z);
@@ -156,6 +169,7 @@ namespace CursedWoods
             lastBehaviour = EnemyBehaviours.Idle;
             hitbox.enabled = true;
             hasTransitionedIn = false;
+            isAscending = false;
         }
 
         protected override void TookDamage(int currentHealth, int maxHealth)
@@ -197,10 +211,11 @@ namespace CursedWoods
             rb.isKinematic = true;
             hitbox.enabled = false;
             agent.enabled = false;
+            obstacle.enabled = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_DEATH);
             animator.speed = 3f;
             currentBehaviour = EnemyBehaviours.Dead;
-            StartCoroutine(DieTimer());
+            //StartCoroutine(DieTimer());
         }
 
         private void Idle()
@@ -325,6 +340,7 @@ namespace CursedWoods
             rb.isKinematic = false;
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             agent.enabled = false;
+            obstacle.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
@@ -332,6 +348,7 @@ namespace CursedWoods
         {
             animator.speed = 1f;
             agent.enabled = false;
+            obstacle.enabled = true;
             rb.isKinematic = false;
             newRotation = transform.rotation * Quaternion.Euler(0f, Random.Range(-180f, 180f), 0f);
             if (Physics.Raycast(transform.position + transform.up, newRotation * Vector3.forward, 4f))
@@ -346,17 +363,25 @@ namespace CursedWoods
         {
             animator.speed = 3f;
             rb.isKinematic = true;
+            obstacle.enabled = false;
             agent.enabled = true;
+            //agent.isStopped = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
         private void AttackTrans()
         {
+            // With these this cannot move backwards while meleeattacking.
+            //rb.isKinematic = true;
+            //agent.enabled = true;
+            //agent.isStopped = true;
+            // With these other agents can push this easily around.
             rb.isKinematic = false;
             agent.enabled = false;
+            obstacle.enabled = true;
+
             animator.speed = 2f;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_MELEE_ATTACK);
-            StartCoroutine(AttackTimer());
         }
 
         private void FleeTrans()
@@ -365,6 +390,7 @@ namespace CursedWoods
             rb.isKinematic = false;
             animator.speed = 3f;
             agent.enabled = false;
+            obstacle.enabled = true;
         }
 
         private void KnockBackTrans()
@@ -373,6 +399,7 @@ namespace CursedWoods
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
             rb.isKinematic = false;
             agent.enabled = false;
+            obstacle.enabled = true;
             rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
 
             StartCoroutine(KnockBackTimer());
@@ -422,6 +449,7 @@ namespace CursedWoods
             }
         }
 
+        /*
         private IEnumerator AttackTimer()
         {
             yield return new WaitForSeconds(animTimeBeforeDmg / animator.speed);
@@ -454,9 +482,37 @@ namespace CursedWoods
                 }
             }
         }
+        */
 
+        private void AttackStartAnimEvent()
+        {
+            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
+            {
+                if (Physics.Raycast(transform.position + transform.up, transform.forward, meleeAttackRangeRealUnits, playerLayerMask))
+                {
+                    playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(attackDamageAmount, attackDmgType);
+                }
+            }
+        }
+
+        private void AttackEndAnimEvent()
+        {
+            if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
+            {
+                float distanceToPlayer = GetDistanceToPlayer();
+                if (distanceToPlayer > attackRange)
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.ChasePlayer;
+                    hasTransitionedIn = false;
+                }
+            }
+        }
+
+        // Called from animation event
         private IEnumerator DieTimer()
         {
+            isAscending = true;
             yield return new WaitForSeconds(deactivationAfterDeathTime);
             Deactivate();
         }
