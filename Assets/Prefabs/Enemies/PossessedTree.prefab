@@ -1164,8 +1164,8 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5829845236998753994}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.6
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   minCauseStagger: 100
   attackRange: 14
   minComfortRange: 5
-  cowardnessValue: 5
+  cowardnessValue: 15
   meleeDamageAmount: 60
   rangedDamageAmount: 25
   attackTrackingSpeed: 40
@@ -1216,8 +1216,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerCheckRadius: 14
-  giveUpChaseDistance: 450
-  fleeSpeed: 4
+  giveUpChaseDistance: 500
+  fleeSpeed: 40
   fleeRotSpeed: 2
   healthBar: {fileID: 6794948632629438057}
 --- !u!114 &6640184413995675538

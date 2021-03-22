@@ -581,21 +581,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: sword
       objectReference: {fileID: 0}
-    - target: {fileID: 115307902930807142, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
-        type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 115307902930807142, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 115307902930807142, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
-        type: 3}
-      propertyPath: m_TagString
-      value: MeleeWeapon
-      objectReference: {fileID: 0}
     - target: {fileID: 779816810224301020, guid: 53cf7e3bcf4506c4a8f99c10d63a5d70,
         type: 3}
       propertyPath: m_RootOrder

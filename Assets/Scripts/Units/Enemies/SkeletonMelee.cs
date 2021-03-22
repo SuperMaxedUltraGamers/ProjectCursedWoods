@@ -138,7 +138,8 @@ namespace CursedWoods
 
                     break;
                 case EnemyBehaviours.FleeFromPlayer:
-                    rb.velocity = transform.forward * fleeSpeed * Time.fixedDeltaTime;
+                    Vector3 fleeVel = transform.forward * fleeSpeed * Time.fixedDeltaTime;
+                    rb.velocity = new Vector3(fleeVel.x, rb.velocity.y, fleeVel.z);
                     break;
                 case EnemyBehaviours.Knockback:
                     Vector3 newVel = rb.velocity * 0.9f;

@@ -85,11 +85,6 @@ namespace CursedWoods
                         ControlTypeChanged();
                     }
                 }
-
-                if (CanInteract && Input.GetButtonDown(GlobalVariables.INTERACT))
-                {
-
-                }
             }
         }
 

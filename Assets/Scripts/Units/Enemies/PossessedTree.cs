@@ -136,11 +136,12 @@ namespace CursedWoods
                     rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     break;
                 case EnemyBehaviours.FleeFromPlayer:
-                    rb.velocity = transform.forward * fleeSpeed * Time.fixedDeltaTime;
+                    Vector3 fleeVel = transform.forward * fleeSpeed * Time.fixedDeltaTime;
+                    rb.velocity = new Vector3(fleeVel.x, rb.velocity.y, fleeVel.z);
                     break;
                 case EnemyBehaviours.Knockback:
-                    Vector3 newVel = rb.velocity * 0.9f;
-                    rb.velocity = new Vector3(newVel.x, rb.velocity.y, newVel.z);
+                    Vector3 knockbackVel = rb.velocity * 0.9f;
+                    rb.velocity = new Vector3(knockbackVel.x, rb.velocity.y, knockbackVel.z);
                     break;
             }
         }
@@ -233,7 +234,7 @@ namespace CursedWoods
             {
                 hasTransitionedIn = false;
                 lastBehaviour = currentBehaviour;
-                currentBehaviour = EnemyBehaviours.MeleeAttackPlayer;
+                currentBehaviour = EnemyBehaviours.RangeAttackPlayer;
             }
             else if (distanceToPlayer > giveUpChaseDistance)
             {
@@ -286,7 +287,9 @@ namespace CursedWoods
 
             if (GetDistanceToPlayer() > 1000f)
             {
-                Die();
+                hasTransitionedIn = false;
+                lastBehaviour = EnemyBehaviours.Idle;
+                currentBehaviour = EnemyBehaviours.Idle;
             }
         }
 
@@ -319,6 +322,7 @@ namespace CursedWoods
         {
             rb.isKinematic = true;
             agent.enabled = true;
+            agent.isStopped = false;
             healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
@@ -326,7 +330,10 @@ namespace CursedWoods
         private void MeleeAttackTrans()
         {
             rb.isKinematic = false;
-            agent.enabled = false;
+            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            //agent.enabled = false;
+            agent.isStopped = true;
+            agent.SetDestination(transform.position);
             healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_MELEE_ATTACK);
         }
@@ -334,14 +341,20 @@ namespace CursedWoods
         private void RangedAttackTrans()
         {
             rb.isKinematic = false;
-            agent.enabled = false;
+            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            //agent.enabled = false;
+            agent.isStopped = true;
             healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_RANGED_ATTACK);
         }
 
         private void FleeTrans()
         {
-            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_FLEE);
+            //animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_FLEE);
+            // Remove these if we get flee animation.
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
+            animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
+            animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
             rb.isKinematic = false;
             agent.enabled = false;
             healthBar.enabled = true;
@@ -349,7 +362,11 @@ namespace CursedWoods
 
         private void KnockBackTrans()
         {
-            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
+            //animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
+            // Remove these if we get stagger animation.
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
+            animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
+            animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
             rb.isKinematic = false;
             agent.enabled = false;
             healthBar.enabled = true;

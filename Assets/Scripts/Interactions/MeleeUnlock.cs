@@ -6,6 +6,7 @@ namespace CursedWoods
     {
         [SerializeField]
         private GameObject[] disableObjects;
+
         protected override void AfterInteraction()
         {
             foreach (GameObject go in disableObjects)

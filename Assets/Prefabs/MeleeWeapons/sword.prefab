@@ -14,13 +14,13 @@ GameObject:
   - component: {fileID: 8417511763427324902}
   - component: {fileID: 3844958003457562357}
   - component: {fileID: 8787091461239970785}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: sword
-  m_TagString: Untagged
+  m_TagString: MeleeWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &779816810224301020
 Transform:
   m_ObjectHideFlags: 0
