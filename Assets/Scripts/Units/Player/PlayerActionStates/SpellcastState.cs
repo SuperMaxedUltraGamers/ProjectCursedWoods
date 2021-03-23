@@ -24,7 +24,7 @@ namespace CursedWoods
             caster = GetComponent<SpellCaster>();
             if (mover == null)
             {
-                mover = GetComponent<PlayerMover>();
+                mover = GetComponent<NewPlayerMover>();
             }
         }
 
@@ -56,12 +56,16 @@ namespace CursedWoods
                     mover.Movement();
                     break;
             }
+
+            mover.Move(Time.deltaTime);
         }
 
+        /*
         public override void DaFixedUpdate()
         {
             mover.Move(Time.fixedDeltaTime);
         }
+        */
 
         public override void HandleInput()
         {

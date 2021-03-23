@@ -435,7 +435,7 @@ namespace CursedWoods
         {
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
-                if (Physics.Raycast(transform.position, transform.forward, meleeAttackRangeRealUnits, playerLayerMask))
+                if (Physics.Raycast(transform.position + transform.up, transform.forward, meleeAttackRangeRealUnits, playerLayerMask))
                 {
                     playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(meleeDamageAmount, meleeAttackDmgType);
                 }

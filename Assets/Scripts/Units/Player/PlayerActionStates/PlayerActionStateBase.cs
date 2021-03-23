@@ -9,7 +9,7 @@ namespace CursedWoods
         private List<PlayerInputType> possibleStates = new List<PlayerInputType>();
 
         protected PlayerActionStateManager actionStateManager = null;
-        protected PlayerMover mover;
+        protected NewPlayerMover mover;
 
         protected Vector2 inputDir;
 

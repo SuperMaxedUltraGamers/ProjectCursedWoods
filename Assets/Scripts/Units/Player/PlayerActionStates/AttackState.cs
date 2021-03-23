@@ -25,7 +25,7 @@ namespace CursedWoods
 
             if (mover == null)
             {
-                mover = GetComponent<PlayerMover>();
+                mover = GetComponent<NewPlayerMover>();
             }
         }
 
@@ -90,13 +90,16 @@ namespace CursedWoods
                     break;
             }
 
-            elapsedTime += Time.deltaTime;
+            mover.Move(Time.deltaTime);
+            //elapsedTime += Time.deltaTime;
         }
 
+        /*
         public override void DaFixedUpdate()
         {
             mover.Move(Time.fixedDeltaTime);
         }
+        */
 
         public override void TransitionIn()
         {
@@ -105,10 +108,10 @@ namespace CursedWoods
                 attacker.StartAttack();
             }
 
-            elapsedTime = 0f;
+            //elapsedTime = 0f;
         }
 
-        private float elapsedTime = 0f;
+        //private float elapsedTime = 0f;
 
         public override void TransitionOut()
         {

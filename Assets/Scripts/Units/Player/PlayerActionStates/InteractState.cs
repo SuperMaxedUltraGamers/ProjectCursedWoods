@@ -26,7 +26,7 @@ namespace CursedWoods
 
             if (mover == null)
             {
-                mover = GetComponent<PlayerMover>();
+                mover = GetComponent<NewPlayerMover>();
             }
         }
 
@@ -57,6 +57,7 @@ namespace CursedWoods
             }
         }
 
+        /*
         public override void DaFixedUpdate()
         {
             Vector3 vel = actionStateManager.PlayerRb.velocity;
@@ -64,6 +65,7 @@ namespace CursedWoods
             vel.z = 0f;
             actionStateManager.PlayerRb.velocity = vel;
         }
+        */
 
         public override void TransitionIn()
         {

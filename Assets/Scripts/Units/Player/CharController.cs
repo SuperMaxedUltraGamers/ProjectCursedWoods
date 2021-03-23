@@ -92,7 +92,7 @@ namespace CursedWoods
             GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_DEATH);
             IgnoreControl = true;
             GetComponent<CapsuleCollider>().enabled = false;
-            GetComponent<Rigidbody>().isKinematic = true;
+            //GetComponent<Rigidbody>().isKinematic = true;
         }
 
         private void CheckForInterActions()

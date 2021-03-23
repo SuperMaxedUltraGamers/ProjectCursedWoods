@@ -24,11 +24,13 @@ namespace CursedWoods
             private set;
         }
 
+        /*
         public Rigidbody PlayerRb
         {
             get;
             private set;
         }
+        */
 
         public Transform CamT
         {
@@ -38,7 +40,7 @@ namespace CursedWoods
 
         private void Awake()
         {
-            PlayerRb = GetComponent<Rigidbody>();
+            //PlayerRb = GetComponent<Rigidbody>();
             CamT = Camera.main.transform;
             meleeUnlock = FindObjectOfType<MeleeUnlock>();
             spellcastUnlock = FindObjectOfType<SpellcastUnlock>();

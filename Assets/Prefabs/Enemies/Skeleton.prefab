@@ -522,7 +522,7 @@ MonoBehaviour:
   minHealth: 0
   minCauseStagger: 50
   attackRange: 3
-  minComfortRange: 2.2
+  minComfortRange: 2.4
   cowardnessValue: 30
   attackDamageAmount: 15
   attackTrackingSpeed: 40

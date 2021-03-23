@@ -22,7 +22,7 @@ namespace CursedWoods
 
             if (mover == null)
             {
-                mover = GetComponent<PlayerMover>();
+                mover = GetComponent<NewPlayerMover>();
             }
         }
 
@@ -61,11 +61,14 @@ namespace CursedWoods
         public override void DaUpdate()
         {
             mover.Movement();
+            mover.Move(Time.deltaTime);
         }
 
+        /*
         public override void DaFixedUpdate()
         {
             mover.Move(Time.fixedDeltaTime);
         }
+        */
     }
 }

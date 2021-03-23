@@ -23,7 +23,7 @@ namespace CursedWoods
 
             if (mover == null)
             {
-                mover = GetComponent<PlayerMover>();
+                mover = GetComponent<NewPlayerMover>();
             }
             
         }
@@ -42,27 +42,27 @@ namespace CursedWoods
 
             if (Input.GetButtonDown(GlobalVariables.DASH) && GameMan.Instance.CharController.CanMoveToDash)
             {
-                actionStateManager.PlayerRb.isKinematic = false;
+                //actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Dash);
             }
             else if (Input.GetButtonDown(GlobalVariables.ATTACK))
             {
-                actionStateManager.PlayerRb.isKinematic = false;
+                //actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Attack);
             }
             else if (Input.GetButtonDown(GlobalVariables.SPELLCAST))
             {
-                actionStateManager.PlayerRb.isKinematic = false;
+                //actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Spellcast);
             }
             else if (Input.GetButtonDown(GlobalVariables.INTERACT) && GameMan.Instance.CharController.CanInteract)
             {
-                actionStateManager.PlayerRb.isKinematic = false;
+                //actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Interact);
             }
             else if (inputDir.magnitude != 0f)
             {
-                actionStateManager.PlayerRb.isKinematic = false;
+                //actionStateManager.PlayerRb.isKinematic = false;
                 actionStateManager.ChangeState(PlayerInputType.Move);
             }
             
@@ -71,42 +71,14 @@ namespace CursedWoods
         public override void DaUpdate()
         {
             mover.Movement();
-            
-            /*
-            Rigidbody rb = actionStateManager.PlayerRb;
-            velocity = rb.velocity;
-            Vector3 slowedVel = velocity * 42f;
-            if (actionStateManager.CharController.IsGrounded)
-            {
-                if (velocity.y < 0f)
-                {
-                    rb.isKinematic = true;
-                }
-                else
-                {
-                    velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
-                }
-            }
-            else
-            {
-                actionStateManager.PlayerRb.isKinematic = false;
-                if (velocity.y > 0f)
-                {
-                    velocity = new Vector3(slowedVel.x, 0f, slowedVel.z);
-                }
-                else
-                {
-                    velocity = new Vector3(slowedVel.x, velocity.y, slowedVel.z);
-                }
-            }
-            */
-            
+            mover.Move(Time.deltaTime);
         }
 
+        /*
         public override void DaFixedUpdate()
         {
             mover.Move(Time.fixedDeltaTime);
-            //actionStateManager.PlayerRb.velocity = new Vector3(velocity.x * Time.fixedDeltaTime, velocity.y, velocity.z * Time.fixedDeltaTime);
         }
+        */
     }
 }

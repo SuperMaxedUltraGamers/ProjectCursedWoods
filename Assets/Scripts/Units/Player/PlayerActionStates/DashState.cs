@@ -5,7 +5,9 @@ namespace CursedWoods
 {
     public class DashState : PlayerActionStateBase
     {
-        private float dashVel = 750f;
+        // Rigidbody movement dashVel
+        //private float dashVel = 750f;
+        private float dashVel = 15f;
         private float dashHoldTime = 0.2f;
         private PlayerInputType nextState = PlayerInputType.None;
         private float dashCoolDownTime = 1f;
@@ -28,7 +30,7 @@ namespace CursedWoods
 
             if (mover == null)
             {
-                mover = GetComponent<PlayerMover>();
+                mover = GetComponent<NewPlayerMover>();
             }
         }
 
@@ -38,10 +40,18 @@ namespace CursedWoods
             mover.Initialize(actionStateManager);
         }
 
+        public override void DaUpdate()
+        {
+            Vector3 moveAmount = dashDir * dashVel * Time.deltaTime;
+            mover.DashMovement(moveAmount);
+        }
+
+        /*
         public override void DaFixedUpdate()
         {
             actionStateManager.PlayerRb.velocity = dashDir * dashVel * Time.fixedDeltaTime;
         }
+        */
 
         public override void HandleInput()
         {
