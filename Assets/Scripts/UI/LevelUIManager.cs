@@ -34,6 +34,8 @@ namespace CursedWoods.UI
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
             interactText = interactPromt.GetComponentInChildren<Text>();
+            interactText.text = "";
+            interactPromt.SetActive(false);
         }
 
         private void OnEnable()

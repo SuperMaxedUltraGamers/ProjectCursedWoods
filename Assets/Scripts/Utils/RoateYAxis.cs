@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CursedWoods
+namespace CursedWoods.Utils
 {
     public class RoateYAxis : MonoBehaviour
     {

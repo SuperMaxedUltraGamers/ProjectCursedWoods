@@ -19,6 +19,8 @@ namespace CursedWoods
         [SerializeField]
         private AudioSource damageDeathAudioSource;
 
+        private Collider[] interactColliders;
+
         public event Action ControlTypeChanged;
 
         public bool IsGrounded { get; private set; }
@@ -97,12 +99,12 @@ namespace CursedWoods
 
         private void CheckForInterActions()
         {
-            Collider[] coll = Physics.OverlapSphere(transform.position, InteractRadius, InteractableMask);
-            if (coll.Length > 0)
+            interactColliders = Physics.OverlapSphere(transform.position, InteractRadius, InteractableMask);
+            if (interactColliders.Length > 0)
             {
 
                 CanInteract = true;
-                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: true, coll[0].gameObject.GetComponent<Interactable>().InteractionText);
+                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: true, interactColliders[0].gameObject.GetComponent<Interactable>().InteractionText);
             }
             else
             {

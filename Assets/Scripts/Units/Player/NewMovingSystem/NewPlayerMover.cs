@@ -229,7 +229,7 @@ namespace CursedWoods
         {
             if (GameMan.Instance.CharController.IsGrounded)
             {
-                velocity *= 0.9f;
+                velocity *= 0.8f;
             }
             else
             {

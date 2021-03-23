@@ -495,7 +495,6 @@ namespace CursedWoods
         // Called from animation event
         private IEnumerator DieTimer()
         {
-            print("yeeet");
             isDescending = true;
             healthBar.enabled = false;
             yield return new WaitForSeconds(deactivationAfterDeathTime);

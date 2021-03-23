@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1
-  interactionText: Pick up spellbook
+  interactionText: PICK UP SPELLBOOK
   disableObjects:
   - {fileID: 3722380448608160387}
   - {fileID: 1870735527255483255}
@@ -145,7 +145,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2214427761538968642}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
