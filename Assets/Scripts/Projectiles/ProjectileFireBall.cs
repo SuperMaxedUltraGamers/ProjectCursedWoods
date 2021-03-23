@@ -9,14 +9,16 @@ namespace CursedWoods
         /// Used to prevent multiple triggers.
         /// </summary>
         private bool hasTriggered;
-
         private bool isMoving;
+
         /// <summary>
         /// How long does the fireball live if no collision happens.
         /// </summary>
         private float lifeTime = 4f;
-
         private Timer lifeTimeTimer;
+
+        [SerializeField]
+        private GameObject particles;
 
         protected override void Awake()
         {
@@ -41,6 +43,7 @@ namespace CursedWoods
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
+            particles.SetActive(true);
             hasTriggered = false;
             lifeTimeTimer.Run();
             Launch();
@@ -53,8 +56,9 @@ namespace CursedWoods
         {
             hasTriggered = true;
             isMoving = false;
-            lifeTimeTimer.Stop();
-            Deactivate();
+            particles.SetActive(false);
+            //lifeTimeTimer.Stop();
+            //Deactivate();
         }
 
         private void LifeTimeOver()
@@ -68,6 +72,7 @@ namespace CursedWoods
         private void Launch()
         {
             isMoving = true;
+            GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
         }
 
         private void Update()

@@ -15,6 +15,8 @@ namespace CursedWoods
         protected float rayMaxDistance;
         protected float currentFadeOffAmount = 1f;
 
+        protected AudioSource audioSource;
+
         public bool IsHoldingType
         {
             get;
@@ -33,10 +35,12 @@ namespace CursedWoods
 
         protected virtual void Awake()
         {
-            
+
             lineRenderer = GetComponent<LineRenderer>();
             holdRayTimer = gameObject.AddComponent<Timer>();
             holdRayTimer.Set(holdRayInterval);
+
+            audioSource = gameObject.AddComponent<AudioSource>();
 
             // All the integer presentations of layers we want the raycast to collide with.
             int[] layers = new int[6];
@@ -47,24 +51,13 @@ namespace CursedWoods
             layers[4] = 11;
             layers[5] = 14;
 
-            /*
-            int defaultLayer = 1 << layers[0];
-            int layer6 = 1 << layers[1];
-            int layer7 = 1 << layers[2];
-            int layer8 = 1 << layers[3];
-            int layer9 = 1 << layers[4];
-            int layer12 = 1 << layers[5];
-
-            raycastMask = defaultLayer | layer6 | layer7 | layer8 | layer9 | layer12;
-            */
             // Create layermask from all the layers.
-            
             foreach (int i in layers)
             {
                 int layer = 1 << i;
                 raycastMask |= layer;
             }
-            
+
 
             //lineRenderer.enabled = false;
             gameObject.SetActive(false);
@@ -158,6 +151,12 @@ namespace CursedWoods
                     }
                     */
 
+                    // TODO: MAKE GLOBAL ENUM FOR AUDIOEFFECTS AND MAKE VARIABLE OUT OF THAT AND DO SWITCH CHECK HERE WHICH AUDIO TO PLAY!
+                    if (!audioSource.isPlaying)
+                    {
+                        GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.MagicBeam);
+                    }
+
                     holdRayTimer.Run();
                 }
                 else if (!IsHoldingType)
@@ -173,6 +172,9 @@ namespace CursedWoods
                     {
                         hitGO.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
                     }
+
+                    // TODO: MAKE GLOBAL ENUM FOR AUDIOEFFECTS AND MAKE VARIABLE OUT OF THAT AND DO SWITCH CHECK HERE WHICH AUDIO TO PLAY!
+                    GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.IceRay);
                 }
 
                 OnHit();

@@ -30,7 +30,7 @@ namespace CursedWoods
         /// <summary>
         /// What is the acceptable difference between shockwave's current scale and targetscale while lerping.
         /// </summary>
-        private float targetScaleOffAmount = 0.1f;
+        private float targetScaleOffAmount = 0.01f;
 
         private List<Collider> hitColliders = new List<Collider>();
 
@@ -44,8 +44,13 @@ namespace CursedWoods
             base.Activate(pos, rot * Quaternion.Euler(90f, 0f, 0f));
             hitColliders.Clear();
             currentScale = startScale;
+            targetScale = 10f;
+            isDecreasing = false;
             transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+            GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Shockwave);
         }
+
+        private bool isDecreasing = false;
 
         /// <summary>
         /// Scales the shockwave to it's targetscale and then deactivates it.
@@ -53,19 +58,33 @@ namespace CursedWoods
         /// <param name="deltaTime">Takes delta time, makes sure scaling is framerate independent.</param>
         private void Scale(float deltaTime)
         {
-            currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed * deltaTime);
-            transform.localScale = new Vector3(currentScale, currentScale, currentScale);
-            if (currentScale >= targetScale - targetScaleOffAmount)
+            if (!isDecreasing)
             {
-                Deactivate();
+                currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed * deltaTime);
+                transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+                if (currentScale >= targetScale - targetScaleOffAmount)
+                {
+                    targetScale = 0f;
+                    isDecreasing = true;
+                }
+            }
+            else
+            {
+                currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed / 2f * deltaTime);
+                transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+                if (!audioSource.isPlaying)
+                {
+                    Deactivate();
+                }
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
+            int otherLayer = other.gameObject.layer;
+            if (otherLayer == GlobalVariables.ENEMY_LAYER)
             {
-                
+
                 if (!hitColliders.Contains(other))
                 {
                     hitColliders.Add(other);

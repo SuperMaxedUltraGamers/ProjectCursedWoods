@@ -4,7 +4,7 @@
     {
         protected override void Awake()
         {
-            Init(false, 1f, 50f);
+            Init(false, 0.75f, 50f);
             base.Awake();
         }
     }

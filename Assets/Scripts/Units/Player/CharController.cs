@@ -16,6 +16,9 @@ namespace CursedWoods
         private LayerMask interactableMask;
         private Timer interActionTimer;
 
+        [SerializeField]
+        private AudioSource damageDeathAudioSource;
+
         public event Action ControlTypeChanged;
 
         public bool IsGrounded { get; private set; }
@@ -47,11 +50,7 @@ namespace CursedWoods
             base.Awake();
             groundCheck = GetComponent<GroundCheck>();
             PlayerAnim = GetComponentInChildren<Animator>();
-            AudioSource = GetComponent<AudioSource>();
-            if (AudioSource == null)
-            {
-                AudioSource = gameObject.AddComponent<AudioSource>();
-            }
+            AudioSource = damageDeathAudioSource;
 
             interActionTimer = gameObject.AddComponent<Timer>();
             interActionTimer.Set(0.25f);
