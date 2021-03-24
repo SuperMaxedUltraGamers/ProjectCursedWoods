@@ -73,6 +73,7 @@ namespace CursedWoods
 
                     GameMan.Instance.CharController.IgnoreCameraControl = true;
                     GameMan.Instance.CharController.IsInSpellMenu = true;
+                    Time.timeScale = 0.5f;
 
                     Vector2 inputDir = new Vector2(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
 
@@ -124,6 +125,7 @@ namespace CursedWoods
 
                 GameMan.Instance.CharController.IgnoreCameraControl = false;
                 GameMan.Instance.CharController.IsInSpellMenu = false;
+                Time.timeScale = 1f;
             }
         }
 
