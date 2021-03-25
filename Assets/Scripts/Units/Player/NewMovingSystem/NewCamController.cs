@@ -14,6 +14,7 @@ namespace CursedWoods
         private Transform playerT;
         private NewPlayerMover playerMover;
         private Transform camT;
+        private CharController charController;
 
         [SerializeField]
         private float moveSpeed = 2f;
@@ -46,26 +47,33 @@ namespace CursedWoods
             }
 
             playerMover = playerT.gameObject.GetComponent<NewPlayerMover>();
+            charController = playerT.gameObject.GetComponent<CharController>();
         }
 
         private void OnEnable()
         {
-            GameMan.Instance.CharController.ControlTypeChanged += CamControlTypeChanged;
+            // Shit is causing the GameMan to double.
+            //GameMan.Instance.CharController.ControlTypeChanged += CamControlTypeChanged;
+            charController.ControlTypeChanged += CamControlTypeChanged;
         }
 
         private void OnDisable()
         {
+            /*
             if (GameMan.Instance != null)
             {
                 GameMan.Instance.CharController.ControlTypeChanged -= CamControlTypeChanged;
             }
+            */
+
+            charController.ControlTypeChanged -= CamControlTypeChanged;
         }
 
         private void Update()
         {
-            if (!GameMan.Instance.CharController.IgnoreControl)
+            if (!charController.IgnoreControl)
             {
-                if (!GameMan.Instance.CharController.IgnoreCameraControl)
+                if (!charController.IgnoreCameraControl)
                 {
                     controlTypeCamMoveDel(Time.deltaTime);
                 }
@@ -147,7 +155,7 @@ namespace CursedWoods
             else
             {
                 wantedPos = playerPosWithOffset + playerT.forward * camLeadAmount * playerVelMag;
-                wantedPos += playerMover.Velocity * camLeadAmount / 1.5f;
+                wantedPos += playerMover.Velocity * camLeadAmount / 1.7f;
             }
 
             transform.position = Vector3.Lerp(transform.position, wantedPos, moveSpeed * deltaTime);

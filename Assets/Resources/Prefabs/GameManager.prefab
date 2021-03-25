@@ -74,6 +74,12 @@ MonoBehaviour:
     type: 3}
   posTreeProjectilePool: {fileID: 1212084607700601560, guid: 056bfdbf3ac13434baf50d27a89217a4,
     type: 3}
+  healthPickUpPool: {fileID: 4207342598645942877, guid: 3391b018925870246a48dc0094514bc1,
+    type: 3}
+  maxHealthPickUpPool: {fileID: 6346250432822766248, guid: 11db6ac758bd163459aa5843b8e04f3d,
+    type: 3}
+  maxHealthIncreasePool: {fileID: 4532378375050847044, guid: ba13a1ba1db303344a304753e182bcf6,
+    type: 3}
 --- !u!114 &1284753748778844192
 MonoBehaviour:
   m_ObjectHideFlags: 0

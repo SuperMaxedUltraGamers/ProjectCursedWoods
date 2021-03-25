@@ -9,20 +9,24 @@ namespace CursedWoods
         private LineRenderer combatLine;
         private bool useCombatLine;
         private float maxDrawDistance = 30f;
+        private CharController charController;
 
         private void Awake()
         {
             combatLine = GetComponent<LineRenderer>();
             combatLine.enabled = false;
+            charController = GetComponent<CharController>();
         }
 
         private void OnEnable()
         {
-            GameMan.Instance.CharController.ControlTypeChanged += ToggleLineRenderer;
+            //GameMan.Instance.CharController.ControlTypeChanged += ToggleLineRenderer;
+            charController.ControlTypeChanged += ToggleLineRenderer;
         }
 
         private void OnDisable()
         {
+            /*
             if (GameMan.Instance != null)
             {
                 GameMan.Instance.CharController.ControlTypeChanged -= ToggleLineRenderer;
@@ -32,6 +36,9 @@ namespace CursedWoods
             {
                 //print("GameMan was null, couldn't unsubscribe CombatLineRenderer from event.");
             }
+            */
+
+            charController.ControlTypeChanged -= ToggleLineRenderer;
         }
 
         private void Update()

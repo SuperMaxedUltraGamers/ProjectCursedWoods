@@ -52,13 +52,19 @@ namespace CursedWoods
                 {
                     if (instance == null)
                     {
-                        instance = Instantiate(Resources.Load<GameMan>(GAME_MANAGER_PATH));
-                        //GameObject singletonGO = new GameObject();
-                        //instance = singletonGO.AddComponent<GameMan>();
-                        //singletonGO.name = "GameManager";
-                        //DontDestroyOnLoad(singletonGO);
-                        DontDestroyOnLoad(instance);
+                        instance = FindObjectOfType<GameMan>();
+
+                        if (instance == null)
+                        {
+                            //instance = Instantiate(Resources.Load<GameMan>(GAME_MANAGER_PATH));
+                            GameObject singletonGO = new GameObject();
+                            instance = singletonGO.AddComponent<GameMan>();
+                            singletonGO.name = "GameManager";
+                            DontDestroyOnLoad(singletonGO);
+                            //DontDestroyOnLoad(instance);
+                        }
                     }
+                    
 
                     return instance;
                 }

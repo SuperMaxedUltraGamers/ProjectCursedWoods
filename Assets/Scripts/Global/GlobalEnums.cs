@@ -59,7 +59,10 @@
         Shockwave,
         SkeletonMelee,
         PossessedTree,
-        TreeProjectile
+        TreeProjectile,
+        HealthPickUp,
+        MaxHealthPickUp,
+        MaxHealthIncrease
     }
 
     public enum EnemyType

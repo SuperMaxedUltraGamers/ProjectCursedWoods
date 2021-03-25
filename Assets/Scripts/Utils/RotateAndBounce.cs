@@ -19,6 +19,11 @@ namespace CursedWoods.Utils
             originalPos = transform.position;
         }
 
+        public void SetOrigin(Vector3 position)
+        {
+            originalPos = position;
+        }
+
         private void Update()
         {
             angle += bounceSpeed * Time.deltaTime;

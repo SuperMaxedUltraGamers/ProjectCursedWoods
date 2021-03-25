@@ -45,6 +45,15 @@ namespace CursedWoods
         [SerializeField]
         private PosTreeProjectilePool posTreeProjectilePool = null;
 
+        [SerializeField]
+        private HealthPickUpPool healthPickUpPool = null;
+
+        [SerializeField]
+        private MaxHealthPickUpPool maxHealthPickUpPool = null;
+
+        [SerializeField]
+        private MaxHealthIncreasePool maxHealthIncreasePool = null;
+
         #endregion Private fields
 
         #region Unity messages
@@ -59,6 +68,9 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
             poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
             poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
+            poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
+            poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);
+            poolByType.Add(ObjectPoolType.MaxHealthIncrease, maxHealthIncreasePool);
 
             // Populate each pool inside the dictionary.
             foreach (var pool in poolByType)
