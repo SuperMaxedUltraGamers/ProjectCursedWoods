@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.043387327, g: 0.08037261, b: 0.122641504, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.06
@@ -19291,7 +19291,7 @@ TerrainCollider:
   m_GameObject: {fileID: 1335058693}
   m_Material: {fileID: 0}
   m_Enabled: 0
-  m_TerrainData: {fileID: 0}
+  m_TerrainData: {fileID: 15600000, guid: 7e7e6afbd18e16e4fb690baacc45eb66, type: 2}
   m_EnableTreeColliders: 0
 --- !u!218 &1335058695
 Terrain:
@@ -23566,7 +23566,7 @@ TerrainCollider:
   m_GameObject: {fileID: 1617789847}
   m_Material: {fileID: 0}
   m_Enabled: 0
-  m_TerrainData: {fileID: 0}
+  m_TerrainData: {fileID: 15600000, guid: 624b2631607295241ba5078a40d61663, type: 2}
   m_EnableTreeColliders: 0
 --- !u!218 &1617789849
 Terrain:
@@ -29097,8 +29097,8 @@ TerrainCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088102636}
   m_Material: {fileID: 0}
-  m_Enabled: 0
-  m_TerrainData: {fileID: 0}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 15600000, guid: da55e9808688d124e9da3b316ec03cc7, type: 2}
   m_EnableTreeColliders: 0
 --- !u!218 &2088102638
 Terrain:
