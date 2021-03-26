@@ -11681,6 +11681,12 @@ PrefabInstance:
       propertyPath: unitBase
       value: 
       objectReference: {fileID: 290532975}
+    - target: {fileID: 1637890510927170814, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2ed5e6bd889fe3d4cb34ddd1614fdb2e,
+        type: 3}
     - target: {fileID: 4733139627855204597, guid: e910e36bf1748c247b30022b1d4746b7,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -11695,6 +11701,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733139627855204597, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 184
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733139627855204597, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 4733139627855204597, guid: e910e36bf1748c247b30022b1d4746b7,
         type: 3}
