@@ -4259,6 +4259,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewPlayer&Cam
       objectReference: {fileID: 0}
+    - target: {fileID: 7353845378812090322, guid: d4b5df3c2c428c0499816e1995985b65,
+        type: 3}
+      propertyPath: camLeadAmount
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4b5df3c2c428c0499816e1995985b65, type: 3}
 --- !u!1 &1382672053

@@ -128,20 +128,22 @@ namespace CursedWoods
         private void ExploreFollowPlayer(float deltaTime)
         {
             Vector3 playerPosWithOffset = new Vector3(playerT.position.x, playerT.position.y + CAM_PARENT_Y_OFFSET, playerT.position.z);
-            float playerVelMag = playerMover.Velocity.magnitude;
+            //float playerVelMag = playerMover.Velocity.magnitude;
+            float playerVelMag = playerMover.CharacterController.velocity.magnitude;
             if (playerVelMag > maxPlayerVelMagnitudeMultiplayer)
             {
                 playerVelMag = maxPlayerVelMagnitudeMultiplayer;
             }
 
-            Vector3 wantedPos = playerPosWithOffset + playerT.forward * camLeadAmount * playerVelMag;
+            Vector3 wantedPos = playerPosWithOffset + playerT.forward * playerVelMag * (camLeadAmount + ((camT.position.y - transform.position.y) / 10f));
             transform.position = Vector3.Lerp(transform.position, wantedPos, moveSpeed * deltaTime);
         }
 
         private void CombatFollowPlayer(float deltaTime)
         {
             Vector3 playerPosWithOffset = new Vector3(playerT.position.x, playerT.position.y + CAM_PARENT_Y_OFFSET, playerT.position.z);
-            float playerVelMag = playerMover.Velocity.magnitude;
+            //float playerVelMag = playerMover.Velocity.magnitude;
+            float playerVelMag = playerMover.CharacterController.velocity.magnitude;
             if (playerVelMag > maxPlayerVelMagnitudeMultiplayer)
             {
                 playerVelMag = maxPlayerVelMagnitudeMultiplayer;

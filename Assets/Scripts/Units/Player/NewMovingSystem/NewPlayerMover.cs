@@ -24,6 +24,8 @@ namespace CursedWoods
 
         public Vector3 Velocity { get { return velocity; } }
 
+        public CharacterController CharacterController { get { return characterController; } }
+
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
