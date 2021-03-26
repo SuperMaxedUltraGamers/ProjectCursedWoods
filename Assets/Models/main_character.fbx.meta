@@ -45,6 +45,9 @@ ModelImporter:
   - first:
       74: 8363436409549982457
     second: Armature|interact
+  - first:
+      74: -2256045222801898970
+    second: Armature|swordfighting.001
   externalObjects: {}
   materials:
     materialImportMode: 1
