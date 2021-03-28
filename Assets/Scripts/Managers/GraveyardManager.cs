@@ -12,9 +12,9 @@ namespace CursedWoods
         [SerializeField]
         private int KillsToOpenSwordGate = 3;
         [SerializeField]
-        private int KillsToOpenBookGate = 8;
+        private int KillsToOpenBookGate = 6;
         [SerializeField]
-        private int KillsToOpenMiddleAreaGate = 20;
+        private int KillsToOpenMiddleAreaGate = 15;
 
         private bool isSwordGateOpened;
         private bool isBookGateOpened;
@@ -45,7 +45,7 @@ namespace CursedWoods
         {
             int killAmount = GameMan.Instance.AIManager.EnemiesKilledAmount;
 
-            if (killAmount == KillsToOpenSwordGate)
+            if (killAmount >= KillsToOpenSwordGate)
             {
                 if (!isSwordGateOpened)
                 {
@@ -58,7 +58,8 @@ namespace CursedWoods
                 }
 
             }
-            else if (killAmount == KillsToOpenBookGate)
+
+            if (killAmount >= KillsToOpenBookGate)
             {
                 if (!isBookGateOpened)
                 {
@@ -70,7 +71,8 @@ namespace CursedWoods
                     isBookGateOpened = true;
                 }
             }
-            else if (killAmount == KillsToOpenMiddleAreaGate)
+
+            if (killAmount >= KillsToOpenMiddleAreaGate)
             {
                 if (!isMiddleAreaGateOpened)
                 {
