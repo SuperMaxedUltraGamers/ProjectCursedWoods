@@ -13,8 +13,6 @@ namespace CursedWoods
         private Rigidbody rb;
         private Collider hitbox;
 
-        private Transform playerT;
-
         private float animChangeDampTime = 0.1f;
         private float minStateTime = 3f;
         private float maxStateTime = 6f;
@@ -83,9 +81,9 @@ namespace CursedWoods
             gameObject.SetActive(false);
         }
 
-        private void Start()
+        protected override void Start()
         {
-            playerT = GameMan.Instance.PlayerT;
+            base.Start();
             RandomStateTime();
         }
 
@@ -425,12 +423,6 @@ namespace CursedWoods
                     }
                 }
             }
-        }
-
-        private float GetDistanceToPlayer()
-        {
-            Vector3 toPlayer = playerT.position - transform.position;
-            return Vector3.SqrMagnitude(toPlayer);
         }
 
         private bool CheckForPlayerInRadius()

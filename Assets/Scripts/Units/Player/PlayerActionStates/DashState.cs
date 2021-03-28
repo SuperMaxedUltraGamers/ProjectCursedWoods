@@ -13,6 +13,8 @@ namespace CursedWoods
         private float dashCoolDownTime = 1f;
         private Vector3 dashDir;
 
+        private PlayerParticleManager particleManager;
+
         public override PlayerInputType Type
         {
             get
@@ -32,6 +34,8 @@ namespace CursedWoods
             {
                 mover = GetComponent<NewPlayerMover>();
             }
+
+            particleManager = GetComponent<PlayerParticleManager>();
         }
 
         private void Start()
@@ -86,6 +90,9 @@ namespace CursedWoods
                 dashDir = transform.forward;
             }
 
+            //IPoolObject dashparticles = GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DashParticle);
+            //dashparticles.Activate(transform.position + transform.forward, transform.rotation);
+            particleManager.DashParticles.Play();
             StartCoroutine(DashHoldTimer());
         }
 

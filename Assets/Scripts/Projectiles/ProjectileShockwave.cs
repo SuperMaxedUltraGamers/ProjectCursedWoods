@@ -47,7 +47,7 @@ namespace CursedWoods
             targetScale = 10f;
             isDecreasing = false;
             transform.localScale = new Vector3(currentScale, currentScale, currentScale);
-            GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Shockwave);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Shockwave);
         }
 
         private bool isDecreasing = false;

@@ -27,6 +27,7 @@
         public const string INTERACT = "Interact";
         public const string OPEN_SPELLMENU = "OpenSpellMenu";
         public const string CHANGE_CONTROL_TYPE = "ChangeControlType";
+        public const string PAUSE = "Pause";
 
         #endregion Input tags
 
@@ -53,5 +54,12 @@
         public const int ENEMY_ANIM_RANGED_ATTACK = 5;
 
         #endregion Animation values
+
+        #region Scene tags
+
+        public const string MAIN_MENU = "MainMenu";
+        public const string GRAVEYARD = "Graveyard&more";
+
+        #endregion Scene tags
     }
 }

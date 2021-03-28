@@ -29,6 +29,9 @@ namespace CursedWoods
         /// </summary>
         protected EnemyBehaviours currentBehaviour = EnemyBehaviours.Idle;
 
+        protected Transform playerT;
+
+
         #endregion Protected fields
 
         #region Unity messages
@@ -38,6 +41,11 @@ namespace CursedWoods
             GameMan.Instance.AIManager.EnemyGotKilled += CheckFleePossibility;
             HealthChanged += TookDamage;
             Staggered += GotKnockedBack;
+        }
+
+        protected virtual void Start()
+        {
+            playerT = GameMan.Instance.PlayerT;
         }
 
         #endregion Unity messages
@@ -71,6 +79,12 @@ namespace CursedWoods
             Staggered -= GotKnockedBack;
 
             GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
+        }
+
+        protected float GetDistanceToPlayer()
+        {
+            Vector3 toPlayer = playerT.position - transform.position;
+            return Vector3.SqrMagnitude(toPlayer);
         }
 
         protected void FallenThroughGroundKillCheck()

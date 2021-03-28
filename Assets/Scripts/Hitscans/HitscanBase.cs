@@ -15,6 +15,7 @@ namespace CursedWoods
         protected float rayMaxDistance;
         protected float currentFadeOffAmount = 1f;
 
+        [SerializeField]
         protected AudioSource audioSource;
 
         public bool IsHoldingType
@@ -39,8 +40,6 @@ namespace CursedWoods
             lineRenderer = GetComponent<LineRenderer>();
             holdRayTimer = gameObject.AddComponent<Timer>();
             holdRayTimer.Set(holdRayInterval);
-
-            audioSource = gameObject.AddComponent<AudioSource>();
 
             // All the integer presentations of layers we want the raycast to collide with.
             int[] layers = new int[6];
@@ -154,7 +153,7 @@ namespace CursedWoods
                     // TODO: MAKE GLOBAL ENUM FOR AUDIOEFFECTS AND MAKE VARIABLE OUT OF THAT AND DO SWITCH CHECK HERE WHICH AUDIO TO PLAY!
                     if (!audioSource.isPlaying)
                     {
-                        GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.MagicBeam);
+                        Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.MagicBeam);
                     }
 
                     holdRayTimer.Run();
@@ -174,7 +173,7 @@ namespace CursedWoods
                     }
 
                     // TODO: MAKE GLOBAL ENUM FOR AUDIOEFFECTS AND MAKE VARIABLE OUT OF THAT AND DO SWITCH CHECK HERE WHICH AUDIO TO PLAY!
-                    GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.IceRay);
+                    Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.IceRay);
                 }
 
                 OnHit();

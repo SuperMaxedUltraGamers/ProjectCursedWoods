@@ -6,6 +6,8 @@ namespace CursedWoods
     {
         [SerializeField]
         protected float projectileSpeed = 10f;
+
+        [SerializeField]
         protected AudioSource audioSource;
 
         public DamageType DamageType { get; protected set; }
@@ -14,7 +16,6 @@ namespace CursedWoods
 
         protected virtual void Awake()
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
             gameObject.SetActive(false);
         }
 

@@ -13,8 +13,6 @@ namespace CursedWoods
         private Rigidbody rb;
         private Collider hitbox;
 
-        private Transform playerT;
-
         private float animChangeDampTime = 0.1f;
         private bool hasTransitionedIn;
 
@@ -78,11 +76,6 @@ namespace CursedWoods
             obstacle.enabled = false;
             healthBar.enabled = false;
             gameObject.SetActive(false);
-        }
-
-        private void Start()
-        {
-            playerT = GameMan.Instance.PlayerT;
         }
 
         private void Update()
@@ -406,12 +399,6 @@ namespace CursedWoods
             rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
 
             StartCoroutine(KnockBackTimer());
-        }
-
-        private float GetDistanceToPlayer()
-        {
-            Vector3 toPlayer = playerT.position - transform.position;
-            return Vector3.SqrMagnitude(toPlayer);
         }
 
         private bool CheckForPlayerInRadius()

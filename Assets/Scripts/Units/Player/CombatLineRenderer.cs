@@ -22,6 +22,7 @@ namespace CursedWoods
         {
             //GameMan.Instance.CharController.ControlTypeChanged += ToggleLineRenderer;
             charController.ControlTypeChanged += ToggleLineRenderer;
+            Settings.CombatLineValueChange += LineRendererCheck;
         }
 
         private void OnDisable()
@@ -39,6 +40,15 @@ namespace CursedWoods
             */
 
             charController.ControlTypeChanged -= ToggleLineRenderer;
+
+            /*
+            if (Settings.Instance != null)
+            {
+                Settings.CombatLineValueChange -= LineRendererCheck;
+            }
+            */
+
+            Settings.CombatLineValueChange -= LineRendererCheck;
         }
 
         private void Update()
@@ -51,15 +61,41 @@ namespace CursedWoods
 
         private void ToggleLineRenderer()
         {
+
             if (useCombatLine)
             {
                 useCombatLine = false;
-                combatLine.enabled = false;
+                //if (Settings.Instance.UseCombatLineRenderer)
+                //{
+                    combatLine.enabled = false;
+                //}
             }
             else
             {
+
                 useCombatLine = true;
-                combatLine.enabled = true;
+                if (Settings.Instance.UseCombatLineRenderer)
+                {
+                    combatLine.enabled = true;
+                }
+            }
+        }
+
+        private void LineRendererCheck(bool isOn)
+        {
+            if (isOn)
+            {
+                if (useCombatLine)
+                {
+                    combatLine.enabled = true;
+                }
+            }
+            else
+            {
+                if (useCombatLine)
+                {
+                    combatLine.enabled = false;
+                }
             }
         }
 

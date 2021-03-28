@@ -72,7 +72,7 @@ namespace CursedWoods
         private void Launch()
         {
             isMoving = true;
-            GameMan.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
         }
 
         private void Update()

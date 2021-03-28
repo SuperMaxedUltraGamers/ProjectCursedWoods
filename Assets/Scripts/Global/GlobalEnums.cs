@@ -62,7 +62,8 @@
         TreeProjectile,
         HealthPickUp,
         MaxHealthPickUp,
-        MaxHealthIncrease
+        MaxHealthIncrease,
+        HitParticles
     }
 
     public enum EnemyType

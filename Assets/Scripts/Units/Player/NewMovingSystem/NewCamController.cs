@@ -18,10 +18,10 @@ namespace CursedWoods
 
         [SerializeField]
         private float moveSpeed = 2f;
-        [SerializeField]
-        private float rotationSpeed = 5f;
-        [SerializeField]
-        private float zoomSpeed = 5f;
+        //[SerializeField]
+        //private float rotationSpeed = 5f;
+        //[SerializeField]
+        //private float zoomSpeed = 5f;
         [SerializeField, Tooltip("How far the camera is focusing in front of the player.")]
         private float camLeadAmount = 1.5f;
 
@@ -71,6 +71,7 @@ namespace CursedWoods
 
         private void Update()
         {
+            //RaycastToPlayer();
             if (!charController.IgnoreControl)
             {
                 if (!charController.IgnoreCameraControl)
@@ -82,16 +83,33 @@ namespace CursedWoods
             }
         }
 
+        /*
+        [SerializeField]
+        private LayerMask raycastMask;
+
+        private void RaycastToPlayer()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(camT.position, camT.forward, out hit, 10f, raycastMask))
+            {
+                print("yyee");
+                Color color = hit.collider.GetComponent<Renderer>().material.color = new Color(0f, 0f, 0f);
+                //color.a = 0.5f;
+                //hit.collider.GetComponent<Renderer>().material.color = color;
+            }
+        }
+        */
+
         private void ExploreCamMovement(float deltaTime)
         {
             // TODO: Maybe slerp the rotation
             float dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS);
-            Quaternion rotation = Quaternion.Euler(0f, dir * rotationSpeed * deltaTime, 0f);
+            Quaternion rotation = Quaternion.Euler(0f, dir * Settings.Instance.CameraRotationSpeed * deltaTime, 0f);
             transform.rotation *= rotation;
 
             Vector3 camTPos = camT.position;
             Vector3 transPos = transform.position;
-            float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * zoomSpeed * deltaTime;
+            float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * Settings.Instance.CameraZoomSpeed * deltaTime;
             Vector3 newCamPos = camTPos + camT.forward * moveAmount;
             float maxCamHeight = transPos.y + MAX_HEIGHT_FROM_PLAYER;
             float minCamHeight = transPos.y + MIN_HEIGHT_FROM_PLAYER;
@@ -115,12 +133,12 @@ namespace CursedWoods
             //print($"distance: {distanceFromPlayer}, sqrt: {sqrt}");
             if (distanceFromPlayer < COMBAT_MIN_DIST_FROM_PLAYER)
             {
-                Vector3 newCamPos = camT.position + -camT.forward * zoomSpeed * deltaTime;
+                Vector3 newCamPos = camT.position + -camT.forward * Settings.Instance.CameraZoomSpeed * deltaTime;
                 camT.position = Vector3.Lerp(camT.position, newCamPos, deltaTime * combatZoomSmoothAmount);
             }
             else if (distanceFromPlayer > COMBAT_MAX_DIST_FROM_PLAYER)
             {
-                Vector3 newCamPos = camT.position + camT.forward * zoomSpeed * deltaTime;
+                Vector3 newCamPos = camT.position + camT.forward * Settings.Instance.CameraZoomSpeed * deltaTime;
                 camT.position = Vector3.Lerp(camT.position, newCamPos, deltaTime * combatZoomSmoothAmount);
             }
         }

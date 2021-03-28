@@ -72,7 +72,8 @@ namespace CursedWoods
             if (!isInteracting)
             {
                 isInteracting = true;
-                Collider[] colliders = Physics.OverlapSphere(transform.position, GameMan.Instance.CharController.InteractRadius, GameMan.Instance.CharController.InteractableMask);
+                CharController charController = GameMan.Instance.CharController;
+                Collider[] colliders = Physics.OverlapSphere(transform.position, charController.InteractRadius, charController.InteractableMask);
                 if (colliders.Length > 0)
                 {
                     if (colliders[0] != null)

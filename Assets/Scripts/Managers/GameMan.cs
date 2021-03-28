@@ -12,7 +12,7 @@ namespace CursedWoods
         /// <summary>
         /// Game manager prefab file path.
         /// </summary>
-        private const string GAME_MANAGER_PATH = "Prefabs/GameManager";
+        //private const string GAME_MANAGER_PATH = "Prefabs/GameManager";
 
         /// <summary>
         /// Only instance of the game manager.
@@ -26,11 +26,13 @@ namespace CursedWoods
 
         #region Private fields
 
+        /*
         [SerializeField]
         private AudioContainer audioData = null;
 
         [SerializeField]
         private AudioMixer mixer = null;
+        */
 
         #endregion Private fields
 
@@ -71,11 +73,13 @@ namespace CursedWoods
             }
         }
 
+        /*
         public AudioManager Audio
         {
             get;
             private set;
         }
+        */
 
         /// <summary>
         /// Property for easy access to the object pool manager.
@@ -140,8 +144,8 @@ namespace CursedWoods
             LevelUIManager = FindObjectOfType<LevelUIManager>();
             PlayerT = CharController.gameObject.transform;
 
-            AudioSource audioSource = GetComponent<AudioSource>();
-            Audio = new AudioManager(audioSource, mixer, audioData);
+            //AudioSource audioSource = GetComponent<AudioSource>();
+            //Audio = new AudioManager(audioSource, mixer, audioData);
             PlayerManager.Initialize();
             //PlayerManager.IsAttackUnlocked = true;
             //PlayerManager.IsSpellCastUnlocked = true;
@@ -149,6 +153,8 @@ namespace CursedWoods
 
             DontDestroyOnLoad(gameObject);
         }
+
+        /*
         private void OnValidate()
         {
             if (Audio != null)
@@ -157,6 +163,7 @@ namespace CursedWoods
                 Audio.SetVolume(0.5f, AudioManager.SoundGroup.Music);
             }
         }
+        */
 
         private void OnDestroy()
         {

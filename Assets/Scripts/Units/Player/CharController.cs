@@ -19,7 +19,7 @@ namespace CursedWoods
         [SerializeField]
         private AudioSource damageDeathAudioSource;
 
-        private Collider[] interactColliders;
+        private Collider interactCollider;
 
         public event Action ControlTypeChanged;
 
@@ -29,7 +29,7 @@ namespace CursedWoods
 
         public bool IgnoreCameraControl { get; set; }
 
-        public bool IgnoreControl { get; set; } = true;
+        public bool IgnoreControl { get; set; }
 
         public bool IsInSpellMenu { get; set; }
 
@@ -56,6 +56,7 @@ namespace CursedWoods
 
             interActionTimer = gameObject.AddComponent<Timer>();
             interActionTimer.Set(0.25f);
+            interactCollider = null;
         }
 
         private void OnEnable()
@@ -99,12 +100,11 @@ namespace CursedWoods
 
         private void CheckForInterActions()
         {
-            interactColliders = Physics.OverlapSphere(transform.position, InteractRadius, InteractableMask);
-            if (interactColliders.Length > 0)
+            if (Physics.CheckSphere(transform.position, InteractRadius, interactableMask))
             {
-
+                interactCollider = Physics.OverlapSphere(transform.position, InteractRadius, InteractableMask)[0];
                 CanInteract = true;
-                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: true, interactColliders[0].gameObject.GetComponent<Interactable>().InteractionText);
+                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: true, interactCollider.gameObject.GetComponent<Interactable>().InteractionText);
             }
             else
             {

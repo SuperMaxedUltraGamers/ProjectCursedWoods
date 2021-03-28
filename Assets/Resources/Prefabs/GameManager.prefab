@@ -80,6 +80,8 @@ MonoBehaviour:
     type: 3}
   maxHealthIncreasePool: {fileID: 4532378375050847044, guid: ba13a1ba1db303344a304753e182bcf6,
     type: 3}
+  dashParticlePool: {fileID: 3432329347401937586, guid: 9843948a65b59514c8b89a3596b4cfae,
+    type: 3}
 --- !u!114 &1284753748778844192
 MonoBehaviour:
   m_ObjectHideFlags: 0

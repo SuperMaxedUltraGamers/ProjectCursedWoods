@@ -15,7 +15,7 @@ namespace CursedWoods
 
         private CharacterController characterController;
 
-        private float combatRotationSpeed = 0.25f;
+        //private float combatRotationSpeed = 0.25f;
 
         private PlayerActionStateManager actionStateManager;
 
@@ -205,7 +205,7 @@ namespace CursedWoods
                 if (lookDirInput.magnitude != 0f)
                 {
                     Vector3 transForward = transform.forward;
-                    transform.forward = Vector3.Lerp(transForward, correctLookDir.normalized, Time.deltaTime * combatRotationSpeed * (Vector3.Angle(transForward, correctLookDir.normalized) + 1f));
+                    transform.forward = Vector3.Lerp(transForward, correctLookDir.normalized, Time.deltaTime * Settings.Instance.CombatRotSmoothAmount * (Vector3.Angle(transForward, correctLookDir.normalized) + 1f));
                 }
             }
 

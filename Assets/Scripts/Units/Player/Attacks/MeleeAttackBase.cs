@@ -48,16 +48,16 @@ namespace CursedWoods
 
         private void OnEnable()
         {
-            damageDelayTimer.TimerCompleted += Attack;
-            damageTimer.TimerCompleted += CloseDamageWindow;
-            cooldownTimer.TimerCompleted += CoolDownFinished;
+            //damageDelayTimer.TimerCompleted += Attack;
+            //damageTimer.TimerCompleted += CloseDamageWindow;
+            //cooldownTimer.TimerCompleted += CoolDownFinished;
         }
 
         private void OnDisable()
         {
-            damageDelayTimer.TimerCompleted -= Attack;
-            damageTimer.TimerCompleted -= CloseDamageWindow;
-            cooldownTimer.TimerCompleted -= CoolDownFinished;
+            //damageDelayTimer.TimerCompleted -= Attack;
+            //damageTimer.TimerCompleted -= CloseDamageWindow;
+            //cooldownTimer.TimerCompleted -= CoolDownFinished;
         }
 
         public void StartAttack()
@@ -66,25 +66,25 @@ namespace CursedWoods
             {
                 GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_MELEE);
                 IsAttacking = true;
-                damageDelayTimer.Run();
+                //damageDelayTimer.Run();
             }
         }
 
-        private void Attack()
+        private void OpenDamageWindowAnimEvent()
         {
             // TODO: anims etc.
             meleeWeapon.ClearHitColliderList();
             meleeWeapon.ToggleHitBox(true);
-            damageTimer.Run();
+            //damageTimer.Run();
         }
 
-        private void CloseDamageWindow()
+        private void CloseDamageWindowAnimEvent()
         {
             meleeWeapon.ToggleHitBox(false);
-            cooldownTimer.Run();
+            //cooldownTimer.Run();
         }
 
-        private void CoolDownFinished()
+        private void EndAttackAnimEvent()
         {
             GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_NULL);
             IsAttacking = false;
