@@ -21,7 +21,7 @@ namespace CursedWoods
 
         private Collider interactCollider;
 
-        public event Action ControlTypeChanged;
+        public static event Action ControlTypeChanged;
 
         public bool IsGrounded { get; private set; }
 

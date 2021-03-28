@@ -13,7 +13,11 @@ namespace CursedWoods
         private Vector2 inputDir;
         private float gravity = 0.2f;
 
+        //Unity character controller
         private CharacterController characterController;
+
+        //Custom char controller
+        private CharController charController;
 
         //private float combatRotationSpeed = 0.25f;
 
@@ -29,14 +33,27 @@ namespace CursedWoods
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
+            charController = GetComponent<CharController>();
+        }
+
+        private void OnEnable()
+        {
+            //charController.ControlTypeChanged += MoverControlTypeChanged;
+            CharController.ControlTypeChanged += MoverControlTypeChanged;
         }
 
         private void OnDisable()
         {
+            /*
             if (GameMan.Instance != null)
             {
                 GameMan.Instance.CharController.ControlTypeChanged -= MoverControlTypeChanged;
             }
+            */
+
+            //charController.ControlTypeChanged -= MoverControlTypeChanged;
+
+            CharController.ControlTypeChanged -= MoverControlTypeChanged;
         }
 
         public void Initialize(PlayerActionStateManager actionStateMan)
@@ -49,7 +66,8 @@ namespace CursedWoods
             if (controlTypeDel == null)
             {
                 controlTypeDel = ExploreStateMovement;
-                GameMan.Instance.CharController.ControlTypeChanged += MoverControlTypeChanged;
+                //GameMan.Instance.CharController.ControlTypeChanged += MoverControlTypeChanged;
+                //charController.ControlTypeChanged += MoverControlTypeChanged;
             }
 
             //print("inited");

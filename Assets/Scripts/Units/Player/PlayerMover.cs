@@ -37,7 +37,8 @@ namespace CursedWoods
         {
             if (GameMan.Instance != null)
             {
-                GameMan.Instance.CharController.ControlTypeChanged -= MoverControlTypeChanged;
+                //GameMan.Instance.CharController.ControlTypeChanged -= MoverControlTypeChanged;
+                CharController.ControlTypeChanged -= MoverControlTypeChanged;
             }
         }
 
@@ -53,7 +54,8 @@ namespace CursedWoods
             if (controlTypeDel == null)
             {
                 controlTypeDel = ExploreStateMovement;
-                GameMan.Instance.CharController.ControlTypeChanged += MoverControlTypeChanged;
+                //GameMan.Instance.CharController.ControlTypeChanged += MoverControlTypeChanged;
+                CharController.ControlTypeChanged += MoverControlTypeChanged;
                 //print("inited");
             }
 

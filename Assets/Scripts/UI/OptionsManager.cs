@@ -33,14 +33,7 @@ namespace CursedWoods.UI
             combatRotSmoothSlider.onValueChanged.AddListener(delegate { CombatRotSmoothValueCheck(); });
             combatLineToggle.onValueChanged.AddListener(delegate { LineRendererToggle(); });
 
-            MusicVolValCheck();
-            SFXVolValCheck();
-            CamRotSpeedValueCheck();
-            CamZoomSpeedValueCheck();
-            CombatRotSmoothValueCheck();
-
-            InitializeVolumeSlider(musicVolumeSlider, AudioManager.SoundGroup.Music);
-            InitializeVolumeSlider(SFXVolumeSlider, AudioManager.SoundGroup.Effect);
+            InitializeOptions();
         }
 
         protected void LineRendererToggle()
@@ -80,6 +73,17 @@ namespace CursedWoods.UI
             {
                 volumeSlider.value = volume;
             }
+        }
+
+        private void InitializeOptions()
+        {
+            combatLineToggle.isOn = Settings.Instance.UseCombatLineRenderer;
+            camRotSpeedSlider.value = Settings.Instance.CameraRotationSpeed;
+            camZoomSpeedSlider.value = Settings.Instance.CameraZoomSpeed;
+            combatRotSmoothSlider.value = Settings.Instance.CombatRotSmoothAmount;
+
+            InitializeVolumeSlider(musicVolumeSlider, AudioManager.SoundGroup.Music);
+            InitializeVolumeSlider(SFXVolumeSlider, AudioManager.SoundGroup.Effect);
         }
     }
 }

@@ -54,7 +54,8 @@ namespace CursedWoods
         {
             // Shit is causing the GameMan to double.
             //GameMan.Instance.CharController.ControlTypeChanged += CamControlTypeChanged;
-            charController.ControlTypeChanged += CamControlTypeChanged;
+            //charController.ControlTypeChanged += CamControlTypeChanged;
+            CharController.ControlTypeChanged += CamControlTypeChanged;
         }
 
         private void OnDisable()
@@ -66,7 +67,8 @@ namespace CursedWoods
             }
             */
 
-            charController.ControlTypeChanged -= CamControlTypeChanged;
+            //charController.ControlTypeChanged -= CamControlTypeChanged;
+            CharController.ControlTypeChanged -= CamControlTypeChanged;
         }
 
         private void Update()

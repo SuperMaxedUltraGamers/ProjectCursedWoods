@@ -49,15 +49,20 @@ namespace CursedWoods
 
         private void OnEnable()
         {
-            GameMan.Instance.CharController.ControlTypeChanged += CamControlTypeChanged;
+            //GameMan.Instance.CharController.ControlTypeChanged += CamControlTypeChanged;
+            CharController.ControlTypeChanged += CamControlTypeChanged;
         }
 
         private void OnDisable()
         {
+            /*
             if (GameMan.Instance != null)
             {
                 GameMan.Instance.CharController.ControlTypeChanged -= CamControlTypeChanged;
             }
+            */
+
+            CharController.ControlTypeChanged -= CamControlTypeChanged;
         }
 
         private void FixedUpdate()

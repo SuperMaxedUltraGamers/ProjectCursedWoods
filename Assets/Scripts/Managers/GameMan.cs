@@ -12,15 +12,15 @@ namespace CursedWoods
         /// <summary>
         /// Game manager prefab file path.
         /// </summary>
-        //private const string GAME_MANAGER_PATH = "Prefabs/GameManager";
+        private const string GAME_MANAGER_PATH = "Prefabs/GameManager";
 
         /// <summary>
         /// Only instance of the game manager.
         /// </summary>
         private static GameMan instance = null;
 
-        private static bool isQuitting = false;
-        private static object lockObj = new object();
+        //private static bool isQuitting = false;
+        //private static object lockObj = new object();
 
         #endregion Constants and statics
 
@@ -45,6 +45,24 @@ namespace CursedWoods
         {
             get
             {
+                if (instance == null)
+                {
+                    // We don't have the one and only instance of this class created yet.
+                    // Let's do that now. Resources.Load loads the asset from Resources folder.
+
+                    // Remember to instantiate prefab before using it!
+                    instance = Instantiate(Resources.Load<GameMan>(GAME_MANAGER_PATH));
+                }
+
+                return instance;
+            }
+        }
+
+        /*
+        public static GameMan Instance
+        {
+            get
+            {
                 if (isQuitting)
                 {
                     return null;
@@ -58,7 +76,6 @@ namespace CursedWoods
 
                         if (instance == null)
                         {
-                            //instance = Instantiate(Resources.Load<GameMan>(GAME_MANAGER_PATH));
                             GameObject singletonGO = new GameObject();
                             instance = singletonGO.AddComponent<GameMan>();
                             singletonGO.name = "GameManager";
@@ -72,6 +89,7 @@ namespace CursedWoods
                 }
             }
         }
+        */
 
         /*
         public AudioManager Audio
@@ -125,17 +143,18 @@ namespace CursedWoods
 
         private void Awake()
         {
-            /*
             if (instance == null)
-            {
-                instance = this;
-            }
-            else if (instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            */
+			{
+				// The one and the only instance of this class is not created yet
+				instance = this;
+			}
+			else if (instance != this)
+			{
+				// The instance already exists and I am not the instance!
+				// Destroy this object!
+				Destroy(gameObject);
+				return;
+			}
 
             ObjPoolMan = GetComponent<ObjectPoolManager>();
             AIManager = GetComponent<AIManager>();
@@ -165,6 +184,7 @@ namespace CursedWoods
         }
         */
 
+        /*
         private void OnDestroy()
         {
             isQuitting = true;
@@ -174,6 +194,7 @@ namespace CursedWoods
         {
             isQuitting = true;
         }
+        */
 
         #endregion Unity messages
     }
