@@ -214,6 +214,7 @@ namespace CursedWoods
         public void IncreaseMaxHealth(int amount)
         {
             MaxHealth += amount;
+            CurrentHealth = MaxHealth;
 
             // Invoke HealtChanged event if it has subscribers.
             InvokeHealthChangedEvent();
