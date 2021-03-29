@@ -455,7 +455,7 @@ namespace CursedWoods
             {
                 PosTreeProjectile projectile = (PosTreeProjectile)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.TreeProjectile);
                 projectile.InitDamageInfo(rangedDamageAmount, rangedAttackDmgType);
-                projectile.Activate(transform.position + transform.forward * 2f + transform.up, transform.rotation);
+                projectile.Activate(transform.position + transform.forward * 2f + transform.up * 1.5f, transform.rotation);
             }
         }
 
