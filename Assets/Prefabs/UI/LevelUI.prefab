@@ -110,6 +110,11 @@ PrefabInstance:
       propertyPath: unitBase
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2523859928835140621, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 5180601771759401800}
     - target: {fileID: 2536054430072560126, guid: e910e36bf1748c247b30022b1d4746b7,
         type: 3}
       propertyPath: eventSystem

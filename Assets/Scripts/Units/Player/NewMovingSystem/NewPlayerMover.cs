@@ -112,6 +112,11 @@ namespace CursedWoods
             characterController.Move(moveAmount);
         }
 
+        public void InteractMovement()
+        {
+            velocity = Vector3.zero;
+        }
+
         private void MoverControlTypeChanged()
         {
             if (controlTypeDel == ExploreStateMovement)

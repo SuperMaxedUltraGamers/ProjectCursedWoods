@@ -145,6 +145,11 @@ namespace CursedWoods.UI
             TogglePauseMenu();
         }
 
+        public void LoadGameButton()
+        {
+            SceneManager.LoadScene(GlobalVariables.GRAVEYARD);
+        }
+
         public void ControlsMenu()
         {
             controlsMenu.SetActive(true);

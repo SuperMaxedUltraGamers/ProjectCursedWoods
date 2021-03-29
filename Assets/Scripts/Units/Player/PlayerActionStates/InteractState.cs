@@ -57,6 +57,12 @@ namespace CursedWoods
             }
         }
 
+        public override void DaUpdate()
+        {
+            mover.InteractMovement();
+            mover.Move(Time.deltaTime);
+        }
+
         /*
         public override void DaFixedUpdate()
         {
