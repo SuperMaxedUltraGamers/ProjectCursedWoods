@@ -505,8 +505,8 @@ namespace CursedWoods
         private IEnumerator DieTimer()
         {
             isAscending = true;
-            int spawnHealthDecider = Random.Range(0, 101);
-            if (spawnHealthDecider < 10)
+            int spawnHealthDecider = Random.Range(0, 100);
+            if (spawnHealthDecider < 15)
             {
                 HealthPickUp health = (HealthPickUp) GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
                 health.Activate(transform.position, transform.rotation);

@@ -1193,17 +1193,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgResInfo:
   - type: 0
-    resistance: 5
+    resistance: 0
   - type: 1
-    resistance: 44
+    resistance: 52
   - type: 2
-    resistance: 64
+    resistance: 68
   - type: 3
-    resistance: 70
+    resistance: 80
   - type: 4
-    resistance: 21
-  startingHealth: 500
-  maxHealth: 500
+    resistance: 27
+  startingHealth: 400
+  maxHealth: 400
   minHealth: 0
   minCauseStagger: 100
   attackRange: 14
