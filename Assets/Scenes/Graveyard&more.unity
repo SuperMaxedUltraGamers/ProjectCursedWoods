@@ -6458,6 +6458,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewPlayer&Cam
       objectReference: {fileID: 0}
+    - target: {fileID: 500558782287053244, guid: d4b5df3c2c428c0499816e1995985b65,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825922710256689332, guid: d4b5df3c2c428c0499816e1995985b65,
+        type: 3}
+      propertyPath: m_RenderShadows
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4b5df3c2c428c0499816e1995985b65, type: 3}
 --- !u!114 &290532974 stripped
@@ -15963,7 +15973,7 @@ Light:
     m_Strength: 0.762
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 4
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
