@@ -46,8 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1c7d0a85a9a634798d85cec709304d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioData: {fileID: 11400000, guid: 5d75e8f691c8d09448ec7947f4146dd2, type: 2}
-  mixer: {fileID: 24100000, guid: 0b99380f8bc7cc3478dcf393572abdb3, type: 2}
 --- !u!114 &6667789634518333286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +78,7 @@ MonoBehaviour:
     type: 3}
   maxHealthIncreasePool: {fileID: 4532378375050847044, guid: ba13a1ba1db303344a304753e182bcf6,
     type: 3}
-  dashParticlePool: {fileID: 3432329347401937586, guid: 9843948a65b59514c8b89a3596b4cfae,
+  damageNumberPool: {fileID: 4709010488591998198, guid: dc4e0fdacb47aa44a9d780695cc23272,
     type: 3}
 --- !u!114 &1284753748778844192
 MonoBehaviour:

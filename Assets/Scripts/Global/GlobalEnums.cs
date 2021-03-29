@@ -63,7 +63,8 @@
         HealthPickUp,
         MaxHealthPickUp,
         MaxHealthIncrease,
-        HitParticles
+        HitParticles,
+        DamageNumber
     }
 
     public enum EnemyType

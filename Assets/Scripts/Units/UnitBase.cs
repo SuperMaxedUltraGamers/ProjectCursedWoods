@@ -170,6 +170,11 @@ namespace CursedWoods
                 // Calculate the real damage amount we take after resitance is taken into account.
                 int dmgAmount = amount - amount * resistance / 100;
 
+                // TODO: spawn damage numbers
+                DamageNumber dmgNumber = (DamageNumber) GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DamageNumber);
+                dmgNumber.Activate(transform.position + transform.up * 2f, transform.rotation);
+                dmgNumber.SetDamageNumber(dmgAmount);
+
                 // Check if we die from the taken damage or just reduce health.
                 if (CurrentHealth - dmgAmount < MinHealth)
                 {

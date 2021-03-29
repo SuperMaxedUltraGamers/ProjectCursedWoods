@@ -54,6 +54,9 @@ namespace CursedWoods
         [SerializeField]
         private MaxHealthIncreasePool maxHealthIncreasePool = null;
 
+        [SerializeField]
+        private DamageNumberPool damageNumberPool = null;
+
         #endregion Private fields
 
         #region Unity messages
@@ -71,6 +74,7 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthIncrease, maxHealthIncreasePool);
+            poolByType.Add(ObjectPoolType.DamageNumber, damageNumberPool);
 
             // Populate each pool inside the dictionary.
             foreach (var pool in poolByType)
