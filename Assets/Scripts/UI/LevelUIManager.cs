@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace CursedWoods.UI
 {
@@ -164,7 +165,7 @@ namespace CursedWoods.UI
 
         public void MainMenuButton()
         {
-            // TODO: load main menu
+            SceneManager.LoadScene(GlobalVariables.MAIN_MENU);
         }
 
         public void QuitButton()
