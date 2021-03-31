@@ -147,7 +147,7 @@ namespace CursedWoods.UI
 
         public void LoadGameButton()
         {
-            SceneManager.LoadScene(GlobalVariables.GRAVEYARD);
+            GameMan.Instance.LoadGame();
         }
 
         public void ControlsMenu()

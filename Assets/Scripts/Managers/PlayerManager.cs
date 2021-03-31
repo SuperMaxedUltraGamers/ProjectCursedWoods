@@ -11,8 +11,15 @@ namespace CursedWoods
 
         public Dictionary<int, bool> spellUnlockInfo = new Dictionary<int, bool>();
 
+        // TODO: add other progress info and load from here e.g. player health.
+
         public void Initialize()
         {
+            IsAttackUnlocked = false;
+            IsSpellCastUnlocked = false;
+
+            spellUnlockInfo.Clear();
+
             for (int i=0; i< Enum.GetNames(typeof(Spells)).Length; i++)
             {
                 spellUnlockInfo.Add(i, false);

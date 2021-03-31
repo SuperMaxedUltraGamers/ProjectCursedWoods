@@ -58,6 +58,13 @@ namespace CursedWoods
             fleeAffectorReduceTimer.TimerCompleted -= ReduceFleeAffector;
         }
 
+        public void ResetProgress()
+        {
+            fleeAffectorReduceRate = 2f;
+            enemiesKilledFleeAffector = 0;
+            EnemiesKilledAmount = 0;
+        }
+
         private void ReduceFleeAffector()
         {
             if (EnemiesKilledFleeAffector > 0)

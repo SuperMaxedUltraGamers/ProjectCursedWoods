@@ -63,6 +63,8 @@ namespace CursedWoods
 
         private void Awake()
         {
+            // Initialized from GameMan now.
+            /*
             // Add all the individual pools to the dictionary.
             poolByType.Add(ObjectPoolType.Fireball, fireBallPool);
             poolByType.Add(ObjectPoolType.Shockwave, shockwavePool);
@@ -81,6 +83,7 @@ namespace CursedWoods
             {
                 pool.Value.CreateObjects();
             }
+            */
         }
 
         #endregion Unity messages
@@ -103,7 +106,51 @@ namespace CursedWoods
             return wantedObject;
         }
 
+        public void InitializeGraveyardObjectPool()
+        {
+            ClearPools();
+
+            // Add all the individual pools to the dictionary.
+            poolByType.Add(ObjectPoolType.Fireball, fireBallPool);
+            poolByType.Add(ObjectPoolType.Shockwave, shockwavePool);
+            poolByType.Add(ObjectPoolType.IceRay, iceRayPool);
+            poolByType.Add(ObjectPoolType.MagicBeam, magicBeamPool);
+            poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
+            poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
+            poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
+            poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
+            poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);
+            poolByType.Add(ObjectPoolType.MaxHealthIncrease, maxHealthIncreasePool);
+            poolByType.Add(ObjectPoolType.DamageNumber, damageNumberPool);
+
+            // Populate each pool inside the dictionary.
+            foreach (var pool in poolByType)
+            {
+                pool.Value.CreateObjects();
+            }
+        }
+
+        public void InitializeMainMenuObjectPool()
+        {
+            ClearPools();
+        }
+
         #endregion Public API
 
+
+        #region
+
+        private void ClearPools()
+        {
+            // Clear pools.
+            foreach (var pool in poolByType)
+            {
+                pool.Value.ClearPool();
+            }
+
+            poolByType.Clear();
+        }
+
+        #endregion
     }
 }

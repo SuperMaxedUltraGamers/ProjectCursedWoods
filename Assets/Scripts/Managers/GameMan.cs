@@ -2,6 +2,7 @@
 using UnityEngine.Audio;
 using CursedWoods.UI;
 using CursedWoods.Data;
+using UnityEngine.SceneManagement;
 
 namespace CursedWoods
 {
@@ -156,6 +157,7 @@ namespace CursedWoods
 				return;
 			}
 
+            /*
             ObjPoolMan = GetComponent<ObjectPoolManager>();
             AIManager = GetComponent<AIManager>();
             PlayerManager = GetComponent<PlayerManager>();
@@ -169,8 +171,126 @@ namespace CursedWoods
             //PlayerManager.IsAttackUnlocked = true;
             //PlayerManager.IsSpellCastUnlocked = true;
             // TODO: load player unlocks from savefile and pass them to PlayerManager.
+            */
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += InitializeGameMan;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= InitializeGameMan;
+        }
+
+        public void NewGame()
+        {
+            if (PlayerManager == null)
+            {
+                PlayerManager = GetComponent<PlayerManager>();
+            }
+
+            PlayerManager.Initialize();
+
+            if (AIManager == null)
+            {
+                AIManager = GetComponent<AIManager>();
+            }
+
+            AIManager.ResetProgress();
+
+            // TODO: reset other progress
+
+            SceneManager.LoadScene(GlobalVariables.GRAVEYARD);
+        }
+
+        public void LoadGame()
+        {
+            // TODO: Load progress values from file.
+            // TODO: load correct scene.
+        }
+
+        private void InitializeGameMan(Scene scene, LoadSceneMode mode)
+        {
+            // TODO: load player unlocks from savefile and pass them to PlayerManager and other player progress and stuff.
+            string scneneName = scene.name;
+            switch(scneneName)
+            {
+                case GlobalVariables.MAIN_MENU:
+                    //print("mainmenu init");
+                    MainMenuInit();
+                    break;
+                case GlobalVariables.GRAVEYARD:
+                    //print("graveyard init");
+                    GraveyardInit();
+                    break;
+            }
+        }
+
+        private void MainMenuInit()
+        {
+            if (CharController != null)
+            {
+                //Destroy(CharController.transform.root);
+                Destroy(PlayerT.root);
+                // Kinda useless to set these null.
+                PlayerT = null;
+                CharController = null;
+            }
+
+            // TODO: Reset or nullify AIManager or do nothing?
+            /*
+            if (AIManager != null)
+            {
+                
+            }
+            */
+
+            // TODO: Reset PlayerManager progress etc.??
+
+            if (LevelUIManager != null)
+            {
+                Destroy(LevelUIManager.transform.root);
+                // Kinda useless to set this null.
+                LevelUIManager = null;
+            }
+        }
+
+        private void GraveyardInit()
+        {
+            if (ObjPoolMan == null)
+            {
+                ObjPoolMan = GetComponent<ObjectPoolManager>();
+            }
+
+            /*
+            if (AIManager == null)
+            {
+                AIManager = GetComponent<AIManager>();
+            }
+            */
+
+            /*
+            if (PlayerManager == null)
+            {
+                PlayerManager = GetComponent<PlayerManager>();
+                PlayerManager.Initialize();
+            }
+            */
+
+            CharController = FindObjectOfType<CharController>();
+            LevelUIManager = FindObjectOfType<LevelUIManager>();
+            PlayerT = CharController.gameObject.transform;
+
+            //AudioSource audioSource = GetComponent<AudioSource>();
+            //Audio = new AudioManager(audioSource, mixer, audioData);
+            ObjPoolMan.InitializeGraveyardObjectPool();
+            //PlayerManager.IsAttackUnlocked = true;
+            //PlayerManager.IsSpellCastUnlocked = true;
+            // TODO: load player unlocks from savefile and pass them to PlayerManager.
         }
 
         /*

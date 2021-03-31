@@ -22,6 +22,7 @@ namespace CursedWoods
         {
             //GameMan.Instance.CharController.ControlTypeChanged += ToggleLineRenderer;
             //charController.ControlTypeChanged += ToggleLineRenderer;
+
             CharController.ControlTypeChanged += ToggleLineRenderer;
             Settings.CombatLineValueChange += LineRendererCheck;
         }
@@ -41,7 +42,7 @@ namespace CursedWoods
             */
 
             //charController.ControlTypeChanged -= ToggleLineRenderer;
-            CharController.ControlTypeChanged += ToggleLineRenderer;
+            CharController.ControlTypeChanged -= ToggleLineRenderer;
 
             /*
             if (Settings.Instance != null)

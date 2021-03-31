@@ -68,6 +68,17 @@ namespace CursedWoods
             pool.Enqueue((T)obj);
         }
 
+        public void ClearPool()
+        {
+            foreach (var go in pool)
+            {
+                //go.Deactivate();
+                Destroy(go);
+            }
+
+            pool.Clear();
+        }
+
         #endregion Public API
     }
 }

@@ -25,14 +25,12 @@ namespace CursedWoods.UI
 
         public void NewGameButton()
         {
-            // TODO: Set progress values to default values.
-            SceneManager.LoadScene(GlobalVariables.GRAVEYARD);
+            GameMan.Instance.NewGame();
         }
 
         public void LoadGameButton()
         {
-            // TODO: Load progress values from file.
-            // TODO: load correct scene.
+            GameMan.Instance.LoadGame();
         }
 
         public void ControlsMenuButton()

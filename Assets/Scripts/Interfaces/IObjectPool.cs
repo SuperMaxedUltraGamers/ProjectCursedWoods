@@ -18,5 +18,10 @@
         /// </summary>
         /// <param name="obj">The object which is returned to this pool.</param>
         void ReturnObject(IPoolObject obj);
+
+        /// <summary>
+        /// Clears the pool from all the objects.
+        /// </summary>
+        void ClearPool();
     }
 }

@@ -82,7 +82,15 @@ namespace CursedWoods
 
         public void Movement()
         {
-            controlTypeDel(1f);
+            // TODO: This movement can get called before this class is initialized so controlTypeDel might still be null, find better order to init things or script order!
+            if (controlTypeDel == null)
+            {
+                print("the fuck");
+            }
+            else
+            {
+                controlTypeDel(1f);
+            }
         }
 
         public void Move(float deltaTime)
@@ -221,7 +229,7 @@ namespace CursedWoods
             Vector3 newMoveAmount = correctMoveDir * moveSpeed * speedMultiplier;
             moveAmount = Vector3.SmoothDamp(moveAmount, newMoveAmount, ref smoothMoveVel, .1f);
 
-            if (!GameMan.Instance.CharController.IgnoreCameraControl)
+            if (!charController.IgnoreCameraControl)
             {
                 Vector3 lookDirInput = new Vector3(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), 0f, Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
                 Vector3 correctLookDir = rightDir * lookDirInput.x + forwardDir * lookDirInput.z;
@@ -234,7 +242,7 @@ namespace CursedWoods
 
             if (newMoveAmount.magnitude != 0f)
             {
-                if (GameMan.Instance.CharController.IsGrounded)
+                if (charController.IsGrounded)
                 {
                     velocity = new Vector3(moveAmount.x, 0f, moveAmount.z);
                 }
@@ -252,7 +260,7 @@ namespace CursedWoods
 
         private void NoneStateMovement()
         {
-            if (GameMan.Instance.CharController.IsGrounded)
+            if (charController.IsGrounded)
             {
                 velocity *= 0.8f;
             }
@@ -266,8 +274,8 @@ namespace CursedWoods
 
         private void AnimationBlend(float blendValue)
         {
-            GameMan.Instance.CharController.PlayerAnim.SetFloat("Blend", blendValue);
-            GameMan.Instance.CharController.PlayerAnim.SetFloat("TorsoBlend", blendValue);
+            charController.PlayerAnim.SetFloat("Blend", blendValue);
+            charController.PlayerAnim.SetFloat("TorsoBlend", blendValue);
         }
     }
 }

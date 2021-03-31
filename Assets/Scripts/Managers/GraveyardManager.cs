@@ -29,6 +29,10 @@ namespace CursedWoods
         {
             checkKillsTimer = gameObject.AddComponent<Timer>();
             checkKillsTimer.Set(killsTimerInterval);
+        }
+
+        private void Start()
+        {
             checkKillsTimer.Run();
         }
 
