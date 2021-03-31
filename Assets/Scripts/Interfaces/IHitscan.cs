@@ -13,5 +13,7 @@ namespace CursedWoods
         void HoldRay(Vector3 pos, Quaternion rot);
 
         void OnHit();
+
+        void AfterRay(Vector3 startPos, Vector3 endPos);
     }
 }

@@ -227,6 +227,23 @@ namespace CursedWoods
                     //print("graveyard init");
                     GraveyardInit();
                     break;
+                case "SampleScene 1":
+                    if (PlayerManager == null)
+                    {
+                        PlayerManager = GetComponent<PlayerManager>();
+                    }
+
+                    PlayerManager.Initialize();
+
+                    if (AIManager == null)
+                    {
+                        AIManager = GetComponent<AIManager>();
+                    }
+
+                    AIManager.ResetProgress();
+
+                    GraveyardInit();
+                    break;
             }
         }
 

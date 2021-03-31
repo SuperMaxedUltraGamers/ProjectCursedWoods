@@ -95,9 +95,13 @@ namespace CursedWoods
             IsFading = false;
         }
 
-        public void OnHit()
+        public virtual void OnHit()
         {
-            //print("NOTHING HAPPENED, HUH!");
+            // TODO: spawn particles at hit point.
+        }
+
+        public virtual void AfterRay(Vector3 startPos, Vector3 endPos)
+        {
         }
 
         public void ShootRay(Vector3 pos, Quaternion rot)
@@ -133,7 +137,8 @@ namespace CursedWoods
         private void DoRayCast()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, rayMaxDistance, raycastMask))
+            Vector3 transPos = transform.position;
+            if (Physics.Raycast(transPos, transform.forward, out hit, rayMaxDistance, raycastMask))
             {
                 if (IsHoldingType && !IsHoldRayIntervalRunning)
                 {
@@ -176,12 +181,15 @@ namespace CursedWoods
                     Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.IceRay);
                 }
 
-                OnHit();
+                float hitDistance = hit.distance;
+                AfterRay(transPos, transPos + transform.forward * hitDistance);
                 //Debug.DrawLine(transform.position, hit.point, Color.red, 1.0f, false);
-                lineRenderer.SetPosition(1, new Vector3(0f, 0f, hit.distance));
+                lineRenderer.SetPosition(1, new Vector3(0f, 0f, hitDistance));
             }
             else
             {
+                
+                AfterRay(transPos, transPos + transform.forward * rayMaxDistance);
                 //Debug.DrawLine(transform.position, transform.position + (transform.forward * rayMaxDistance), Color.green, 1f, false);
                 lineRenderer.SetPosition(1, new Vector3(0f, 0f, rayMaxDistance));
             }
@@ -196,7 +204,7 @@ namespace CursedWoods
             }
             else
             {
-                // TODO: fade out
+                lineRenderer.material.SetFloat("Vector1_5210E671", currentFadeOffAmount);
             }
         }
 
