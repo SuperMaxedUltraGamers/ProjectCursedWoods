@@ -87,9 +87,11 @@ namespace CursedWoods
             return Vector3.SqrMagnitude(toPlayer);
         }
 
-        protected void FallenThroughGroundKillCheck()
+        protected void YAxisKillCheck()
         {
-            if (transform.position.y < -75f)
+            float posY = transform.position.y;
+            // TODO: take into account enemy origin height or give possibility to ignore height kill check.
+            if (posY < -75f || posY > 7.5f)
             {
                 if (currentBehaviour != EnemyBehaviours.Dead)
                 {

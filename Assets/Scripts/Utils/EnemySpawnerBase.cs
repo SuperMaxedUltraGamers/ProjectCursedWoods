@@ -18,7 +18,49 @@ namespace CursedWoods.Utils
         protected bool isSpawning;
 
         [SerializeField]
-        protected Transform spawnPos;
+        protected Transform spawnPosT;
+        protected Vector3 spawnPos;
+
+        protected float spawnSpaceRadius = 0.5f;
+        private float ySpawnOffset;
+        private float maxLinecastDistance = 5f;
+
+        protected virtual void Start()
+        {
+            int layerMask = 1 << 0;
+            spawnPos = spawnPosT.position;
+
+            switch (enemyType)
+            {
+                case EnemyType.SkeletonMelee:
+                    objectPoolType = ObjectPoolType.SkeletonMelee;
+                    RaycastHit hit;
+                    if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
+                    {
+                        ySpawnOffset = hit.distance -0.01f;
+                    }
+                    else
+                    {
+                        ySpawnOffset = maxLinecastDistance;
+                    }
+
+                    spawnSpaceRadius = 0.5f;
+                    break;
+                case EnemyType.PossessedTree:
+                    objectPoolType = ObjectPoolType.PossessedTree;
+                    if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
+                    {
+                        ySpawnOffset = hit.distance;
+                    }
+                    else
+                    {
+                        ySpawnOffset = maxLinecastDistance;
+                    }
+
+                    spawnSpaceRadius = 0.6f;
+                    break;
+            }
+        }
 
         private void Update()
         {
@@ -33,21 +75,27 @@ namespace CursedWoods.Utils
                     }
                 }
             }
+            else
+            {
+                this.enabled = false;
+            }
         }
 
         protected void CheckSpawnSpot()
         {
-            if (!Physics.CheckSphere(spawnPos.position, 0.5f))
+            float horizontalSpawnOffset = spawnSpaceRadius * 2f;
+            float horizontalCheckOffset = horizontalSpawnOffset + 0.2f;
+            if (!Physics.CheckSphere(spawnPos, spawnSpaceRadius))
             {
-                Spawn(spawnPos.position, spawnPos.rotation);
+                Spawn(spawnPos + -Vector3.up * ySpawnOffset, spawnPosT.rotation);
             }
-            else if (!Physics.CheckSphere(spawnPos.position + spawnPos.right * 1.2f, 0.5f))
+            else if (!Physics.CheckSphere(spawnPos + spawnPosT.right * horizontalCheckOffset, spawnSpaceRadius))
             {
-                Spawn(spawnPos.position + spawnPos.right, spawnPos.rotation);
+                Spawn(spawnPos + spawnPosT.right * horizontalSpawnOffset + -Vector3.up * ySpawnOffset, spawnPosT.rotation);
             }
-            else if (!Physics.CheckSphere(spawnPos.position - spawnPos.right * 1.2f, 0.5f))
+            else if (!Physics.CheckSphere(spawnPos + -spawnPosT.right * horizontalCheckOffset, spawnSpaceRadius))
             {
-                Spawn(spawnPos.position - spawnPos.right, spawnPos.rotation);
+                Spawn(spawnPos - spawnPosT.right * horizontalSpawnOffset + -Vector3.up * ySpawnOffset, spawnPosT.rotation);
             }
             else
             {
@@ -57,16 +105,6 @@ namespace CursedWoods.Utils
 
         protected void Spawn(Vector3 pos, Quaternion rot)
         {
-            switch (enemyType)
-            {
-                case EnemyType.SkeletonMelee:
-                    objectPoolType = ObjectPoolType.SkeletonMelee;
-                    break;
-                case EnemyType.PossessedTree:
-                    objectPoolType = ObjectPoolType.PossessedTree;
-                    break;
-            }
-
             IPoolObject enemy = GameMan.Instance.ObjPoolMan.GetObjectFromPool(objectPoolType);
             enemy.Activate(pos, rot);
 

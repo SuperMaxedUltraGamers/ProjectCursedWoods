@@ -8,7 +8,7 @@ namespace CursedWoods
         private ParticleSystem mainParticles;
         //[SerializeField]
         //private ParticleSystem trailParticles;
-        private float lerpTime = 0.1f;
+        private float lerpTime = 0.2f;
         private Vector3 startPos;
         private Vector3 endPos;
         private float elapsedTime;

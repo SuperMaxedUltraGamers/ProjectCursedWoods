@@ -32,10 +32,10 @@ namespace CursedWoods
 
         public virtual void Activate(Vector3 pos, Quaternion rot)
         {
-            gameObject.SetActive(true);
             IsInUse = true;
             transform.position = pos;
             transform.rotation = rot;
+            gameObject.SetActive(true);
         }
 
         public virtual void Deactivate()

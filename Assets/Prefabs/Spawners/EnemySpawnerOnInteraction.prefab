@@ -77,5 +77,5 @@ MonoBehaviour:
   enemyType: 0
   spawnAmount: 5
   spawnInterval: 3
-  spawnPos: {fileID: 2855613319264855766}
+  spawnPosT: {fileID: 2855613319264855766}
   interaction: {fileID: 0}

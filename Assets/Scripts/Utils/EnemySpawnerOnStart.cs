@@ -2,8 +2,9 @@
 {
     public class EnemySpawnerOnStart : EnemySpawnerBase
     {
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             isSpawning = true;
         }
     }

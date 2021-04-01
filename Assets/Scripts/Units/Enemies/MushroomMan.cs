@@ -80,7 +80,7 @@ namespace CursedWoods
 
         private void Update()
         {
-            FallenThroughGroundKillCheck();
+            YAxisKillCheck();
 
             switch (currentBehaviour)
             {
