@@ -8,7 +8,7 @@ namespace CursedWoods
         private Timer holdRayTimer;
         private int raycastMask;
         private bool IsHoldRayIntervalRunning = false;
-        protected float holdRayInterval = 0.1f;
+        protected float holdRayInterval = 0.2f;
 
         protected LineRenderer lineRenderer = null;
         protected float fadeOffSpeed;
@@ -83,7 +83,6 @@ namespace CursedWoods
 
             if (IsFading)
             {
-                //print("fading");
                 Fade();
             }
         }
@@ -92,6 +91,7 @@ namespace CursedWoods
         {
             base.Activate(pos, rot);
             currentFadeOffAmount = 1f;
+            lineRenderer.material.SetFloat("_Transparency", 1f);
             IsFading = false;
         }
 
@@ -100,7 +100,7 @@ namespace CursedWoods
             // TODO: spawn particles at hit point.
         }
 
-        public virtual void AfterRay(Vector3 startPos, Vector3 endPos)
+        public virtual void AfterRay(Vector3 startPos, Vector3 endPos, bool wasHit)
         {
         }
 
@@ -182,14 +182,13 @@ namespace CursedWoods
                 }
 
                 float hitDistance = hit.distance;
-                AfterRay(transPos, transPos + transform.forward * hitDistance);
+                AfterRay(transPos, hit.point, wasHit: true);
                 //Debug.DrawLine(transform.position, hit.point, Color.red, 1.0f, false);
                 lineRenderer.SetPosition(1, new Vector3(0f, 0f, hitDistance));
             }
             else
             {
-                
-                AfterRay(transPos, transPos + transform.forward * rayMaxDistance);
+                AfterRay(transPos, transPos + transform.forward * rayMaxDistance, wasHit: false);
                 //Debug.DrawLine(transform.position, transform.position + (transform.forward * rayMaxDistance), Color.green, 1f, false);
                 lineRenderer.SetPosition(1, new Vector3(0f, 0f, rayMaxDistance));
             }
@@ -204,7 +203,7 @@ namespace CursedWoods
             }
             else
             {
-                lineRenderer.material.SetFloat("Vector1_5210E671", currentFadeOffAmount);
+                lineRenderer.material.SetFloat("_Transparency", currentFadeOffAmount);
             }
         }
 

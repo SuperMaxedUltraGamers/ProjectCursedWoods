@@ -13,7 +13,7 @@ namespace CursedWoods
             base.Awake();
         }
 
-        public override void AfterRay(Vector3 startPos, Vector3 endPos)
+        public override void AfterRay(Vector3 startPos, Vector3 endPos, bool wasHit)
         {
             runThruParticles.Initialize(startPos, endPos);
         }

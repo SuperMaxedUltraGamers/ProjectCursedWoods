@@ -14,6 +14,6 @@ namespace CursedWoods
 
         void OnHit();
 
-        void AfterRay(Vector3 startPos, Vector3 endPos);
+        void AfterRay(Vector3 startPos, Vector3 endPos, bool wasHit);
     }
 }
