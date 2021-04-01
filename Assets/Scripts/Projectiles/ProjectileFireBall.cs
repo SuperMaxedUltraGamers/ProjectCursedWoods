@@ -19,6 +19,9 @@ namespace CursedWoods
 
         [SerializeField]
         private GameObject particles;
+        [SerializeField]
+        private ParticleSystem hitParticles;
+        private float hitParticleSFXLength = 2f;
 
         protected override void Awake()
         {
@@ -57,12 +60,17 @@ namespace CursedWoods
             hasTriggered = true;
             isMoving = false;
             particles.SetActive(false);
+            lifeTimeTimer.Set(hitParticleSFXLength);
+            lifeTimeTimer.Run();
+            hitParticles.Play();
             //lifeTimeTimer.Stop();
             //Deactivate();
         }
 
         private void LifeTimeOver()
         {
+            // Does not need to get called since should always be finished by the time SFX has played and lifetime will end.
+            //hitParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             Deactivate();
         }
 
