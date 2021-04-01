@@ -129,7 +129,7 @@ namespace CursedWoods
                         isMatSet = false;
                         if (lastHitColl != null)
                         {
-                            lastHitRenderer = lastHitColl.GetComponent<Renderer>();
+                            lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
                             lastHitRenderer.materials = lastHitMats;
                         }
                     }
@@ -137,7 +137,7 @@ namespace CursedWoods
                     if (!isMatSet)
                     {
                         lastHitColl = temp;
-                        lastHitRenderer = lastHitColl.GetComponent<Renderer>();
+                        lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
                         lastHitMats = lastHitRenderer.materials;
                         int length = lastHitMats.Length;
                         Material[] tempMats = new Material[length];

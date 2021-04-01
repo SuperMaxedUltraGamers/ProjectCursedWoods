@@ -244,6 +244,7 @@ namespace CursedWoods
 
                     GraveyardInit();
                     break;
+#if (UNITY_EDITOR)
                 case "SampleScene 1":
                     if (PlayerManager == null)
                     {
@@ -261,6 +262,7 @@ namespace CursedWoods
 
                     GraveyardInit();
                     break;
+#endif
             }
         }
 
