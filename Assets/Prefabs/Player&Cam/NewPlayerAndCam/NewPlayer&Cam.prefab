@@ -79,6 +79,10 @@ MonoBehaviour:
   playerT: {fileID: 500558781997053097}
   moveSpeed: 2
   camLeadAmount: 0.6
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 1
+  transparentBlack: {fileID: 2100000, guid: 923ce43d6cf97a647bf7cee86d79cd3a, type: 2}
 --- !u!1 &500558781997053101
 GameObject:
   m_ObjectHideFlags: 0

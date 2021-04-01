@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CursedWoods.Utils;
+using UnityEngine;
 
 namespace CursedWoods
 {
@@ -33,6 +34,22 @@ namespace CursedWoods
         private ControlTypeDel controlTypeCamMoveDel;
         private ControlTypeDel controlTypeFollowPlayerDel;
 
+
+        [SerializeField]
+        private LayerMask raycastMask;
+        [SerializeField]
+        private Material transparentBlack;
+        private float fadeSpeed = 5f;
+        private bool isMatSet;
+        private bool changeMatBack;
+
+        private Material[] lastHitMats;
+        private Collider lastHitColl;
+        private Color transparentMatColor;
+        private Renderer lastHitRenderer;
+        private float stayBehindTimeBeforeFadeMat = 0f;
+        private float stayedBehindTime;
+
         private void Awake()
         {
             camT = Camera.main.transform;
@@ -48,6 +65,8 @@ namespace CursedWoods
 
             playerMover = playerT.gameObject.GetComponent<NewPlayerMover>();
             charController = playerT.gameObject.GetComponent<CharController>();
+
+            transparentMatColor = transparentBlack.color;
         }
 
         private void OnEnable()
@@ -73,7 +92,6 @@ namespace CursedWoods
 
         private void Update()
         {
-            //RaycastToPlayer();
             if (!charController.IgnoreControl)
             {
                 if (!charController.IgnoreCameraControl)
@@ -83,24 +101,82 @@ namespace CursedWoods
 
                 controlTypeFollowPlayerDel(Time.deltaTime);
             }
+
+            LinecastToPlayer();
         }
 
-        /*
-        [SerializeField]
-        private LayerMask raycastMask;
-
-        private void RaycastToPlayer()
+        private void LinecastToPlayer()
         {
             RaycastHit hit;
-            if (Physics.Raycast(camT.position, camT.forward, out hit, 10f, raycastMask))
+            if (Physics.Linecast(camT.position, playerT.position, out hit, raycastMask))
             {
-                print("yyee");
-                Color color = hit.collider.GetComponent<Renderer>().material.color = new Color(0f, 0f, 0f);
-                //color.a = 0.5f;
-                //hit.collider.GetComponent<Renderer>().material.color = color;
+                if (stayedBehindTime > stayBehindTimeBeforeFadeMat)
+                {
+                    
+                    if (transparentMatColor.a > 0.3f)
+                    {
+                        transparentMatColor.a -= Time.deltaTime * fadeSpeed;
+                    }
+
+                    //transparentMatColor.a = Mathf.Lerp(transparentMatColor.a, 0.3f, Time.deltaTime * fadeSpeed);
+                    transparentBlack.color = transparentMatColor;
+
+                    Collider temp = hit.collider;
+                    if (temp != lastHitColl)
+                    {
+                        transparentMatColor.a = 1f;
+                        transparentBlack.color = transparentMatColor;
+                        isMatSet = false;
+                        if (lastHitColl != null)
+                        {
+                            lastHitRenderer = lastHitColl.GetComponent<Renderer>();
+                            lastHitRenderer.materials = lastHitMats;
+                        }
+                    }
+
+                    if (!isMatSet)
+                    {
+                        lastHitColl = temp;
+                        lastHitRenderer = lastHitColl.GetComponent<Renderer>();
+                        lastHitMats = lastHitRenderer.materials;
+                        int length = lastHitMats.Length;
+                        Material[] tempMats = new Material[length];
+                        for (int i = 0; i < length; i++)
+                        {
+                            tempMats[i] = transparentBlack;
+                        }
+
+                        lastHitRenderer.materials = tempMats;
+                        isMatSet = true;
+                        changeMatBack = true;
+                    }
+                }
+                else
+                {
+                    stayedBehindTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (changeMatBack)
+                {
+                    if (transparentMatColor.a < 0.75f)
+                    {
+                        transparentMatColor.a += Time.deltaTime * fadeSpeed;
+                        //transparentMatColor.a = Mathf.Lerp(transparentMatColor.a, 0.8f, Time.deltaTime * fadeSpeed);
+                        transparentBlack.color = transparentMatColor;
+                    }
+                    else
+                    {
+                        lastHitRenderer.materials = lastHitMats;
+                        changeMatBack = false;
+                        isMatSet = false;
+                        stayedBehindTime = 0f;
+                    }
+                }
             }
         }
-        */
+
 
         private void ExploreCamMovement(float deltaTime)
         {

@@ -225,6 +225,23 @@ namespace CursedWoods
                     break;
                 case GlobalVariables.GRAVEYARD:
                     //print("graveyard init");
+
+#if (UNITY_EDITOR)
+                    if (PlayerManager == null)
+                    {
+                        PlayerManager = GetComponent<PlayerManager>();
+                    }
+
+                    PlayerManager.Initialize();
+
+                    if (AIManager == null)
+                    {
+                        AIManager = GetComponent<AIManager>();
+                    }
+
+                    AIManager.ResetProgress();
+#endif
+
                     GraveyardInit();
                     break;
                 case "SampleScene 1":
@@ -333,6 +350,6 @@ namespace CursedWoods
         }
         */
 
-        #endregion Unity messages
+#endregion Unity messages
     }
 }
