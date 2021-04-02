@@ -1,4 +1,5 @@
 ﻿using CursedWoods.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CursedWoods
@@ -40,23 +41,14 @@ namespace CursedWoods
         [SerializeField]
         private Material transparentBlack;
         private float fadeSpeed = 5f;
-        private bool isMatSet;
-        private bool changeMatBack;
-
-        private Material[] lastHitMats;
-        private Collider lastHitColl;
         private Color transparentMatColor;
-        private Renderer lastHitRenderer;
-        private float stayBehindTimeBeforeFadeMat = 0f;
-        private float stayedBehindTime;
 
-        private Material[] lastHitMats2;
-        private Collider lastHitColl2;
-        private Color transparentMatColor2;
-        private Renderer lastHitRenderer2;
-        private bool isMatSet2;
-        private bool changeMatBack2;
-        private Material transparentBlack2;
+        private List<Collider> currentColliders = new List<Collider>();
+        private List<Collider> lastColliders = new List<Collider>();
+        private List<Renderer> currentRenderers = new List<Renderer>();
+        private List<Renderer> lastRenderers = new List<Renderer>();
+        private List<Material[]> currentOgMats = new List<Material[]>();
+        private List<Material[]> lastOgMats = new List<Material[]>();
 
         private void Awake()
         {
@@ -75,9 +67,6 @@ namespace CursedWoods
             charController = playerT.gameObject.GetComponent<CharController>();
 
             transparentMatColor = transparentBlack.color;
-
-            transparentBlack2 = transparentBlack;
-            transparentMatColor2 = transparentBlack2.color;
         }
 
         private void OnEnable()
@@ -118,71 +107,132 @@ namespace CursedWoods
 
         private void LinecastToPlayer()
         {
-            RaycastHit hit;
-            if (Physics.Linecast(camT.position, playerT.position, out hit, raycastMask))
+            Vector3 castStartPos = camT.position;
+            Vector3 castEndPos = playerT.position;
+            currentColliders.Clear();
+            currentRenderers.Clear();
+            currentOgMats.Clear();
+
+            while (Physics.Linecast(castStartPos, castEndPos, out RaycastHit hit, raycastMask))
             {
-                if (stayedBehindTime > stayBehindTimeBeforeFadeMat)
+                Collider hitCollider = hit.collider;
+                Collider[] hitGOColliders = hit.collider.GetComponentsInChildren<Collider>();
+                bool containsCollider = false;
+                for (int i = 0; i<hitGOColliders.Length; i++)
                 {
-
-                    if (transparentMatColor.a > 0.3f)
+                    if (lastColliders.Contains(hitGOColliders[i]))
                     {
-                        transparentMatColor.a -= Time.deltaTime * fadeSpeed;
+                        hitCollider = hitGOColliders[i];
+                        containsCollider = true;
                     }
+                }
 
-                    transparentBlack.color = transparentMatColor;
-
-                    Collider temp = hit.collider;
-                    if (temp != lastHitColl)
-                    {
-                        transparentMatColor.a = 1f;
-                        transparentBlack.color = transparentMatColor;
-                        isMatSet = false;
-                        if (lastHitColl != null)
-                        {
-                            lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
-                            lastHitRenderer.materials = lastHitMats;
-                        }
-                    }
-
-                    if (!isMatSet)
-                    {
-                        lastHitColl = temp;
-                        lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
-                        lastHitMats = lastHitRenderer.materials;
-                        int length = lastHitMats.Length;
-                        Material[] tempMats = new Material[length];
-                        for (int i = 0; i < length; i++)
-                        {
-                            tempMats[i] = transparentBlack;
-                        }
-
-                        lastHitRenderer.materials = tempMats;
-                        isMatSet = true;
-                        changeMatBack = true;
-                    }
+                if (containsCollider)
+                {
+                    int index = lastColliders.IndexOf(hitCollider);
+                    currentColliders.Add(lastColliders[index]);
+                    currentRenderers.Add(lastRenderers[index]);
+                    currentOgMats.Add(lastOgMats[index]);
                 }
                 else
                 {
-                    stayedBehindTime += Time.deltaTime;
+                    currentColliders.Add(hitCollider);
+                    Renderer hitRenderer = hitCollider.GetComponentInChildren<Renderer>();
+                    currentRenderers.Add(hitRenderer);
+                    currentOgMats.Add(hitRenderer.materials);
                 }
+
+                castStartPos = hit.point + camT.forward * 0.2f;
+            }
+
+            if (currentColliders.Count > 0)
+            {
+                if (transparentMatColor.a > 0.3f)
+                {
+                    transparentMatColor.a -= Time.deltaTime * fadeSpeed;
+                }
+
+                transparentBlack.color = transparentMatColor;
             }
             else
             {
-                if (changeMatBack)
+                if (transparentMatColor.a < 0.8f)
                 {
-                    if (transparentMatColor.a < 0.75f)
+                    transparentMatColor.a = 0.8f;
+                    transparentBlack.color = transparentMatColor;
+                }
+            }
+
+            for (int i = 0; i<lastColliders.Count; i++)
+            {
+                if (lastColliders[i] != null)
+                {
+                    lastRenderers[i] = lastColliders[i].GetComponentInChildren<Renderer>();
+                    lastRenderers[i].materials = lastOgMats[i];
+                }
+            }
+
+            for (int i = 0; i<currentOgMats.Count; i++)
+            {
+                int length = currentOgMats[i].Length;
+                Material[] tempMats = new Material[length];
+                for (int j = 0; j<length; j++)
+                {
+                    tempMats[j] = transparentBlack;
+                }
+
+                currentRenderers[i].materials = tempMats;
+            }
+
+            if (lastColliders.Count > currentColliders.Count)
+            {
+                for (int i = 0; i<lastColliders.Count; i++)
+                {
+                    if (!currentColliders.Contains(lastColliders[i]))
                     {
-                        transparentMatColor.a += Time.deltaTime * fadeSpeed;
-                        transparentBlack.color = transparentMatColor;
-                    }
-                    else
-                    {
-                        lastHitRenderer.materials = lastHitMats;
-                        changeMatBack = false;
-                        isMatSet = false;
-                        stayedBehindTime = 0f;
+                        lastRenderers[i].materials = lastOgMats[i];
+
+                        /*
+                        int length = lastOgMats[i].Length;
+                        Material[] tempMats = new Material[length];
+                        for (int j = 0; j<length; j++)
+                        {
+                            tempMats[j] = lastOgMats[i][j];
+                        }
+
+                        lastRenderers[i].materials = tempMats;
+                        */
                     }
                 }
+            }
+
+            lastColliders.Clear();
+            lastRenderers.Clear();
+            lastOgMats.Clear();
+
+            for (int i = 0; i<currentColliders.Count; i++)
+            {
+                lastColliders.Add(currentColliders[i]);
+            }
+
+            for (int i = 0; i<currentRenderers.Count; i++)
+            {
+                lastRenderers.Add(currentRenderers[i]);
+            }
+
+            for (int i = 0; i<currentOgMats.Count; i++)
+            {
+                /*
+                int length = currentOgMats[i].Length;
+                Material[] tempMats = new Material[length];
+                for (int j = 0; j<length; j++)
+                {
+                    tempMats[j] = currentOgMats[i][j];
+                }
+
+                lastOgMats.Add(tempMats);
+                */
+                lastOgMats.Add(currentOgMats[i]);
             }
         }
 
