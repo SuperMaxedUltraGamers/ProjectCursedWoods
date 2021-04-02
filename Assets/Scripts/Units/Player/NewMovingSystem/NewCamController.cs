@@ -116,9 +116,6 @@ namespace CursedWoods
             LinecastToPlayer();
         }
 
-        private bool secondCastHasHit;
-        private Collider temp2;
-
         private void LinecastToPlayer()
         {
             RaycastHit hit;
@@ -126,7 +123,7 @@ namespace CursedWoods
             {
                 if (stayedBehindTime > stayBehindTimeBeforeFadeMat)
                 {
-                    
+
                     if (transparentMatColor.a > 0.3f)
                     {
                         transparentMatColor.a -= Time.deltaTime * fadeSpeed;
@@ -142,51 +139,16 @@ namespace CursedWoods
                         isMatSet = false;
                         if (lastHitColl != null)
                         {
-                            if (secondCastHasHit)
-                            {
-                                if (temp == temp2)
-                                {
-                                    lastHitRenderer.materials = lastHitMats2;
-                                }
-                                else
-                                {
-                                    lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
-                                    lastHitRenderer.materials = lastHitMats;
-                                }
-
-                                secondCastHasHit = false;
-                            }
-                            else
-                            {
-                                lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
-                                lastHitRenderer.materials = lastHitMats;
-                            }
+                            lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
+                            lastHitRenderer.materials = lastHitMats;
                         }
                     }
 
                     if (!isMatSet)
                     {
                         lastHitColl = temp;
-                        if (secondCastHasHit)
-                        {
-                            if (lastHitColl == temp2)
-                            {
-                                lastHitMats = lastHitMats2;
-                            }
-                            else
-                            {
-                                lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
-                                lastHitMats = lastHitRenderer.materials;
-                            }
-
-                            secondCastHasHit = false;
-                        }
-                        else
-                        {
-                            lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
-                            lastHitMats = lastHitRenderer.materials;
-                        }
-
+                        lastHitRenderer = lastHitColl.GetComponentInChildren<Renderer>();
+                        lastHitMats = lastHitRenderer.materials;
                         int length = lastHitMats.Length;
                         Material[] tempMats = new Material[length];
                         for (int i = 0; i < length; i++)
@@ -197,62 +159,6 @@ namespace CursedWoods
                         lastHitRenderer.materials = tempMats;
                         isMatSet = true;
                         changeMatBack = true;
-                    }
-
-                    RaycastHit hit2;
-                    if (Physics.Linecast(hit.point + camT.forward * 0.1f, playerT.position, out hit2, raycastMask))
-                    {
-                        temp2 = hit2.collider;
-                        if (temp2 != lastHitColl2)
-                        {
-                            transparentMatColor2.a = 1f;
-                            transparentBlack2.color = transparentMatColor2;
-                            isMatSet2 = false;
-                            if (lastHitColl2 != null)
-                            {
-                                lastHitRenderer2 = lastHitColl2.GetComponentInChildren<Renderer>();
-                                lastHitRenderer2.materials = lastHitMats2;
-                            }
-                        }
-
-                        if (!isMatSet2)
-                        {
-                            lastHitColl2 = temp2;
-                            lastHitRenderer2 = lastHitColl2.GetComponentInChildren<Renderer>();
-                            lastHitMats2 = lastHitRenderer2.materials;
-                            int length2 = lastHitMats2.Length;
-                            Material[] tempMats2 = new Material[length2];
-                            for (int i = 0; i < length2; i++)
-                            {
-                                tempMats2[i] = transparentBlack2;
-                            }
-
-                            lastHitRenderer2.materials = tempMats2;
-                            isMatSet2 = true;
-                            changeMatBack2 = true;
-                        }
-
-                        secondCastHasHit = true;
-                    }
-                    else
-                    {
-                        if (changeMatBack2)
-                        {
-                            if (transparentMatColor2.a < 0.75f)
-                            {
-                                transparentMatColor2.a += Time.deltaTime * fadeSpeed;
-                                transparentBlack2.color = transparentMatColor2;
-                            }
-                            else
-                            {
-                                lastHitRenderer2.materials = lastHitMats2;
-                                changeMatBack2 = false;
-                                isMatSet2 = false;
-                                stayedBehindTime = 0f;
-                            }
-                        }
-
-                        secondCastHasHit = false;
                     }
                 }
                 else
@@ -277,8 +183,6 @@ namespace CursedWoods
                         stayedBehindTime = 0f;
                     }
                 }
-
-                secondCastHasHit = false;
             }
         }
 

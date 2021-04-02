@@ -109,6 +109,7 @@ namespace CursedWoods
                 else if (otherLayer == GlobalVariables.PLAYER_MELEE_LAYER)
                 {
                     transform.rotation = GameMan.Instance.PlayerT.rotation;
+                    DamageAmount *= 5;
                 }
                 else
                 {
