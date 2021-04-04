@@ -130,9 +130,7 @@ namespace CursedWoods
                 case EnemyBehaviours.Patrol:
                     rb.velocity = transform.forward * patrolSpeed * Time.fixedDeltaTime;
                     break;
-
                 case EnemyBehaviours.MeleeAttackPlayer:
-
                     float distanceToPlayer = GetDistanceToPlayer();
                     if (distanceToPlayer > minComfortRange)
                     {
@@ -147,7 +145,6 @@ namespace CursedWoods
                     }
 
                     break;
-
                 case EnemyBehaviours.FleeFromPlayer:
                     Vector3 fleeVel = transform.forward * fleeSpeed * Time.fixedDeltaTime;
                     rb.velocity = new Vector3(fleeVel.x, rb.velocity.y, fleeVel.z);

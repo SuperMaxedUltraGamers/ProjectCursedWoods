@@ -517,6 +517,8 @@ MonoBehaviour:
     resistance: 10
   - type: 4
     resistance: 14
+  - type: 5
+    resistance: 90
   startingHealth: 200
   maxHealth: 200
   minHealth: 0

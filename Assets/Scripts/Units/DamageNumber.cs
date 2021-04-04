@@ -32,9 +32,10 @@ namespace CursedWoods
             currentLifeTime = lifeTime;
         }
 
-        public void SetDamageNumber(int damageAmount)
+        public void SetDamageNumber(int damageAmount, Color numberColor)
         {
             textMeshProUGUI.text = damageAmount.ToString();
+            textMeshProUGUI.color = numberColor;
         }
     }
 }

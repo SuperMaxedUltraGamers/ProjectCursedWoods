@@ -70,7 +70,11 @@ MonoBehaviour:
     type: 3}
   possessedTreePool: {fileID: 4151704267737390481, guid: 93832a9f38c94aa42a6ff4d00a7964e6,
     type: 3}
+  mushroomEnemyPool: {fileID: 2031236233875234133, guid: 85b202953d3522748bde876c01c099e0,
+    type: 3}
   posTreeProjectilePool: {fileID: 1212084607700601560, guid: 056bfdbf3ac13434baf50d27a89217a4,
+    type: 3}
+  mushroomProjectilePool: {fileID: 119847959403396359, guid: 013ca7ab3e7e7344d851c76b7a89ebb6,
     type: 3}
   healthPickUpPool: {fileID: 4207342598645942877, guid: 3391b018925870246a48dc0094514bc1,
     type: 3}

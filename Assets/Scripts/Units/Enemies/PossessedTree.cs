@@ -122,7 +122,6 @@ namespace CursedWoods
                     rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     break;
                 case EnemyBehaviours.MeleeAttackPlayer:
-
                     float distanceToPlayer = GetDistanceToPlayer();
                     if (distanceToPlayer > minComfortRange)
                     {

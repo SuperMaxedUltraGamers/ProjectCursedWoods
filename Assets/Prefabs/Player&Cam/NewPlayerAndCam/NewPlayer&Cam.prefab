@@ -172,10 +172,13 @@ MonoBehaviour:
     resistance: 0
   - type: 4
     resistance: 0
+  - type: 5
+    resistance: 0
   startingHealth: 1000
   maxHealth: 1000
   minHealth: 0
   minCauseStagger: 50
+  dmgNumberSpawnYOffset: 1
   spellBook: {fileID: 4914559584412895347}
   sword: {fileID: 4601184151410948396}
   interactableMask:
@@ -1263,11 +1266,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5060940695762923499, guid: 4e0a643d953167a4b9dd24e66e1c9b39,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 5060940695762923499, guid: 4e0a643d953167a4b9dd24e66e1c9b39,
         type: 3}

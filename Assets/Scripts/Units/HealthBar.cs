@@ -22,7 +22,7 @@ namespace CursedWoods
             unitBase.HealthChanged -= HealthChange;
         }
 
-        private void HealthChange(int currentHealth, int maxHealth)
+        protected virtual void HealthChange(int currentHealth, int maxHealth)
         {
             float healthPercent = currentHealth / (float) maxHealth;
             StartCoroutine(ChangeHealth(healthPercent));

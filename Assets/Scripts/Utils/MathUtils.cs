@@ -11,5 +11,11 @@ namespace CursedWoods.Utils
             wantedRot.z = 0f;
             return wantedRot;
         }
+
+        public static float GetDistanceToPlayer(Vector3 myPos)
+        {
+            Vector3 toPlayer = GameMan.Instance.PlayerT.position - myPos;
+            return Vector3.SqrMagnitude(toPlayer);
+        }
     }
 }

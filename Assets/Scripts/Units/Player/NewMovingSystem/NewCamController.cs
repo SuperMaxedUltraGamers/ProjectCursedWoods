@@ -1,5 +1,4 @@
-﻿using CursedWoods.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace CursedWoods
@@ -41,7 +40,7 @@ namespace CursedWoods
         [SerializeField]
         private Material transparentBlack;
         private float fadeSpeed = 5f;
-        private Color transparentMatColor;
+        //private Color transparentMatColor;
 
         private List<Collider> currentColliders = new List<Collider>();
         private List<Collider> lastColliders = new List<Collider>();
@@ -66,7 +65,7 @@ namespace CursedWoods
             playerMover = playerT.gameObject.GetComponent<NewPlayerMover>();
             charController = playerT.gameObject.GetComponent<CharController>();
 
-            transparentMatColor = transparentBlack.color;
+            //transparentMatColor = transparentBlack.color;
         }
 
         private void OnEnable()
@@ -107,7 +106,7 @@ namespace CursedWoods
 
         private void LinecastToPlayer()
         {
-            Vector3 castStartPos = camT.position;
+            Vector3 castStartPos = camT.position - camT.forward * 0.1f;
             Vector3 castEndPos = playerT.position;
             currentColliders.Clear();
             currentRenderers.Clear();
@@ -130,9 +129,20 @@ namespace CursedWoods
                 if (containsCollider)
                 {
                     int index = lastColliders.IndexOf(hitCollider);
+                    
+                    /*
+                    if (lastRenderers[index].material.GetFloat("_AlphaValueInverse") <= 0f)
+                    {
+                        currentColliders.Add(lastColliders[index]);
+                        currentRenderers.Add(lastRenderers[index]);
+                        currentOgMats.Add(lastOgMats[index]);
+                    }
+                    */
+                    
                     currentColliders.Add(lastColliders[index]);
                     currentRenderers.Add(lastRenderers[index]);
                     currentOgMats.Add(lastOgMats[index]);
+                    
                 }
                 else
                 {
@@ -145,23 +155,54 @@ namespace CursedWoods
                 castStartPos = hit.point + camT.forward * 0.2f;
             }
 
+            float alpha = transparentBlack.GetFloat("_AlphaValueInverse");
             if (currentColliders.Count > 0)
             {
+                if (alpha < 1f)
+                {
+                    alpha += Time.deltaTime * fadeSpeed;
+                    if (alpha > 1f)
+                    {
+                        alpha = 1f;
+                    }
+                }
+                /*
                 if (transparentMatColor.a > 0.3f)
                 {
                     transparentMatColor.a -= Time.deltaTime * fadeSpeed;
                 }
+                */
 
-                transparentBlack.color = transparentMatColor;
+                //transparentBlack.color = transparentMatColor;
             }
             else
             {
+                /*
                 if (transparentMatColor.a < 0.8f)
                 {
                     transparentMatColor.a = 0.8f;
                     transparentBlack.color = transparentMatColor;
                 }
+                */
+
+                /*
+                alpha = transparentBlack.GetFloat("_AlphaValueInverse");
+                if (alpha > 0f)
+                {
+                    alpha -= Time.deltaTime * fadeSpeed;
+                    if (alpha < 0f)
+                    {
+                        alpha = 0f;
+                    }
+
+                    transparentBlack.SetFloat("_AlphaValueInverse", alpha);
+                }
+                */
+
+                alpha = 0f;
             }
+
+            transparentBlack.SetFloat("_AlphaValueInverse", alpha);
 
             for (int i = 0; i<lastColliders.Count; i++)
             {
@@ -206,9 +247,44 @@ namespace CursedWoods
                 }
             }
 
+            /*
+            List<Collider> removeColls = new List<Collider>();
+            List<Renderer> removeRends = new List<Renderer>();
+            List<Material[]> removeMats = new List<Material[]>();
+            for (int i = 0; 1<lastRenderers.Count; i++)
+            {
+                if (lastRenderers[i].material.GetFloat("_AlphaValueInverse") <= 0)
+                {
+                    removeColls.Add(lastColliders[i]);
+                    removeRends.Add(lastRenderers[i]);
+                    removeMats.Add(lastOgMats[i]);
+                    //lastColliders.RemoveAt(i);
+                    //lastRenderers.RemoveAt(i);
+                    //lastOgMats.RemoveAt(i);
+                }
+            }
+
+            foreach (Collider coll in removeColls)
+            {
+                lastColliders.Remove(coll);
+            }
+
+            foreach (Renderer rend in removeRends)
+            {
+                lastRenderers.Remove(rend);
+            }
+
+            foreach (Material[] mats in removeMats)
+            {
+                lastOgMats.Remove(mats);
+            }
+            */
+
+            
             lastColliders.Clear();
             lastRenderers.Clear();
             lastOgMats.Clear();
+            
 
             for (int i = 0; i<currentColliders.Count; i++)
             {

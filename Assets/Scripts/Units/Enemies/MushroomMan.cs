@@ -14,6 +14,9 @@ namespace CursedWoods
         private Collider hitbox;
 
         private float animChangeDampTime = 0.1f;
+        private float minStateTime = 4.5f;
+        private float maxStateTime = 7f;
+        private float timeOnCurrentState;
         private bool hasTransitionedIn;
 
         private float deactivationAfterDeathTime = 7f;
@@ -28,7 +31,7 @@ namespace CursedWoods
         [SerializeField]
         private float attackTrackingSpeed = 40;
 
-        private float meleeAttackRangeRealUnits = 3.75f;
+        private float meleeAttackRangeRealUnits = 1.8f;
         private DamageType meleeAttackDmgType = DamageType.Physical;
         [SerializeField]
         private float rangedAttackRange = 200f;
@@ -43,6 +46,12 @@ namespace CursedWoods
         [SerializeField, Tooltip("How far away from player until giving up chasing.")]
         private float giveUpChaseDistance = 350f;
 
+        [SerializeField]
+        private float patrolSpeed;
+
+        [SerializeField]
+        private float patrolRotSpeed;
+
         private Quaternion newRotation;
 
         [SerializeField]
@@ -50,7 +59,7 @@ namespace CursedWoods
 
         [SerializeField]
         private float fleeRotSpeed;
-        private int maxAddedCowardnessValue = 5;
+        private int maxAddedCowardnessValue = 10;
 
         private float backUpSpeed = 16f;
 
@@ -87,6 +96,9 @@ namespace CursedWoods
                 case EnemyBehaviours.Idle:
                     Idle();
                     break;
+                case EnemyBehaviours.Patrol:
+                    Patrol();
+                    break;
                 case EnemyBehaviours.ChasePlayer:
                     ChasePlayer();
                     break;
@@ -119,8 +131,10 @@ namespace CursedWoods
                 case EnemyBehaviours.Idle:
                     rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     break;
+                case EnemyBehaviours.Patrol:
+                    rb.velocity = transform.forward * patrolSpeed * Time.fixedDeltaTime;
+                    break;
                 case EnemyBehaviours.MeleeAttackPlayer:
-
                     float distanceToPlayer = GetDistanceToPlayer();
                     if (distanceToPlayer > minComfortRange)
                     {
@@ -215,18 +229,40 @@ namespace CursedWoods
 
             if (!hasTransitionedIn)
             {
-                TransitionIn(IdleTrans);
+                TransitionIn(hasRandomStateTime: true, IdleTrans);
             }
 
             animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
             animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
+
+            StateTimeFlow(EnemyBehaviours.Patrol);
+        }
+
+        private void Patrol()
+        {
+            if (CheckForPlayerInRadius())
+            {
+                return;
+            }
+
+            if (!hasTransitionedIn)
+            {
+                TransitionIn(hasRandomStateTime: true, PatrolTrans);
+            }
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * patrolRotSpeed);
+
+            animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
+            animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
+
+            StateTimeFlow(EnemyBehaviours.Idle);
         }
 
         private void ChasePlayer()
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(ChaseTrans);
+                TransitionIn(hasRandomStateTime: true, ChaseTrans);
             }
 
             float distanceToPlayer = GetDistanceToPlayer();
@@ -236,12 +272,14 @@ namespace CursedWoods
                 lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.MeleeAttackPlayer;
             }
+            /*
             else if (distanceToPlayer < rangedAttackRange)
             {
                 hasTransitionedIn = false;
                 lastBehaviour = currentBehaviour;
                 currentBehaviour = EnemyBehaviours.RangeAttackPlayer;
             }
+            */
             else if (distanceToPlayer > giveUpChaseDistance)
             {
                 hasTransitionedIn = false;
@@ -254,13 +292,15 @@ namespace CursedWoods
                 animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
                 animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
             }
+
+            StateTimeFlow(EnemyBehaviours.RangeAttackPlayer);
         }
 
         private void MeleeAttackPlayer()
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(MeleeAttackTrans);
+                TransitionIn(hasRandomStateTime: false, MeleeAttackTrans);
             }
 
             newRotation = newRotation = MathUtils.GetLookRotationYAxis(playerT.position, transform.position, transform.up);
@@ -271,7 +311,7 @@ namespace CursedWoods
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(RangedAttackTrans);
+                TransitionIn(hasRandomStateTime: false, RangedAttackTrans);
             }
 
             newRotation = newRotation = MathUtils.GetLookRotationYAxis(playerT.position, transform.position, transform.up);
@@ -282,7 +322,7 @@ namespace CursedWoods
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(FleeTrans);
+                TransitionIn(hasRandomStateTime: false, FleeTrans);
             }
 
             newRotation = MathUtils.GetLookRotationYAxis(transform.position, playerT.position, transform.up);
@@ -303,7 +343,7 @@ namespace CursedWoods
         {
             if (!hasTransitionedIn)
             {
-                TransitionIn(KnockBackTrans);
+                TransitionIn(hasRandomStateTime: false, KnockBackTrans);
             }
 
             animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
@@ -311,25 +351,47 @@ namespace CursedWoods
         }
 
         // TRANSITIONS
-        private void TransitionIn(TransitionDel transitionDel)
+        private void TransitionIn(bool hasRandomStateTime, TransitionDel transitionDel)
         {
             transitionDel();
+            if (hasRandomStateTime)
+            {
+                RandomStateTime();
+            }
 
             hasTransitionedIn = true;
         }
 
         private void IdleTrans()
         {
+            animator.speed = 1f;
             rb.isKinematic = false;
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             agent.enabled = false;
             obstacle.enabled = true;
-            healthBar.enabled = false;
+            healthBar.enabled = true;
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
+        }
+
+        private void PatrolTrans()
+        {
+            animator.speed = 1f;
+            agent.enabled = false;
+            obstacle.enabled = true;
+            rb.isKinematic = false;
+            healthBar.enabled = true;
+            newRotation = transform.rotation * Quaternion.Euler(0f, Random.Range(-180f, 180f), 0f);
+            if (Physics.Raycast(transform.position + transform.up, newRotation * Vector3.forward, 4f))
+            {
+                newRotation = transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+            }
+
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
         private void ChaseTrans()
         {
+            animator.speed = 1.5f;
             rb.isKinematic = true;
             obstacle.enabled = false;
             agent.enabled = true;
@@ -340,6 +402,7 @@ namespace CursedWoods
 
         private void MeleeAttackTrans()
         {
+            animator.speed = 1f;
             rb.isKinematic = false;
             agent.enabled = false;
             obstacle.enabled = true;
@@ -350,6 +413,7 @@ namespace CursedWoods
 
         private void RangedAttackTrans()
         {
+            animator.speed = 1f;
             rb.isKinematic = false;
             agent.enabled = false;
             obstacle.enabled = true;
@@ -360,6 +424,7 @@ namespace CursedWoods
 
         private void FleeTrans()
         {
+            animator.speed = 1.5f;
             //animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_FLEE);
             // Remove these if we get flee animation.
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
@@ -373,9 +438,10 @@ namespace CursedWoods
 
         private void KnockBackTrans()
         {
+            animator.speed = 1f;
             //animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
             // Remove these if we get stagger animation.
-            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_STAGGER);
             //animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
             //animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
             rb.isKinematic = false;
@@ -385,6 +451,28 @@ namespace CursedWoods
             rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
 
             StartCoroutine(KnockBackTimer());
+        }
+        private void RandomStateTime()
+        {
+            timeOnCurrentState = Random.Range(minStateTime, maxStateTime);
+        }
+
+        private void StateTimeFlow(EnemyBehaviours nexState)
+        {
+            timeOnCurrentState -= Time.deltaTime;
+
+            if (timeOnCurrentState <= 0)
+            {
+                if (Random.Range(0f, 1f) > 0.25f)
+                {
+                    if (currentBehaviour != EnemyBehaviours.MeleeAttackPlayer && currentBehaviour != EnemyBehaviours.RangeAttackPlayer)
+                    {
+                        lastBehaviour = currentBehaviour;
+                        currentBehaviour = nexState;
+                        hasTransitionedIn = false;
+                    }
+                }
+            }
         }
 
         private bool CheckForPlayerInRadius()
@@ -420,18 +508,34 @@ namespace CursedWoods
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
                 float distanceToPlayer = GetDistanceToPlayer();
-                if (distanceToPlayer < rangedAttackRange && distanceToPlayer > attackRange)
+                if ((distanceToPlayer > attackRange && distanceToPlayer < attackRange * 3f) || distanceToPlayer > rangedAttackRange)
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.ChasePlayer;
+                    hasTransitionedIn = false;
+                }
+                else if (distanceToPlayer < rangedAttackRange)
                 {
                     lastBehaviour = currentBehaviour;
                     currentBehaviour = EnemyBehaviours.RangeAttackPlayer;
                     hasTransitionedIn = false;
                 }
+                /*
                 else if (distanceToPlayer > rangedAttackRange)
                 {
                     lastBehaviour = currentBehaviour;
                     currentBehaviour = EnemyBehaviours.ChasePlayer;
                     hasTransitionedIn = false;
                 }
+                */
+                /*
+                else
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.ChasePlayer;
+                    hasTransitionedIn = false;
+                }
+                */
             }
         }
 
@@ -439,7 +543,7 @@ namespace CursedWoods
         {
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
-                PosTreeProjectile projectile = (PosTreeProjectile)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.TreeProjectile);
+                MushroomProjectile projectile = (MushroomProjectile)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MushroomProjectile);
                 projectile.InitDamageInfo(rangedDamageAmount, rangedAttackDmgType);
                 projectile.Activate(transform.position + transform.forward * 2f + transform.up, transform.rotation);
             }
@@ -456,7 +560,15 @@ namespace CursedWoods
                     currentBehaviour = EnemyBehaviours.MeleeAttackPlayer;
                     hasTransitionedIn = false;
                 }
+                /*
                 else if (distanceToPlayer > rangedAttackRange)
+                {
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.ChasePlayer;
+                    hasTransitionedIn = false;
+                }
+                */
+                else
                 {
                     lastBehaviour = currentBehaviour;
                     currentBehaviour = EnemyBehaviours.ChasePlayer;

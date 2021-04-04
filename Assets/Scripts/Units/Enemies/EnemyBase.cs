@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CursedWoods.Utils;
+using UnityEngine;
 
 namespace CursedWoods
 {
@@ -83,8 +84,7 @@ namespace CursedWoods
 
         protected float GetDistanceToPlayer()
         {
-            Vector3 toPlayer = playerT.position - transform.position;
-            return Vector3.SqrMagnitude(toPlayer);
+            return MathUtils.GetDistanceToPlayer(transform.position);
         }
 
         protected void YAxisKillCheck()

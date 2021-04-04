@@ -35,7 +35,8 @@
         Ice,
         Magic,
         Shock,
-        Physical
+        Physical,
+        Poison
     }
 
     /// <summary>
@@ -59,7 +60,9 @@
         Shockwave,
         SkeletonMelee,
         PossessedTree,
+        MushroomEnemy,
         TreeProjectile,
+        MushroomProjectile,
         HealthPickUp,
         MaxHealthPickUp,
         MaxHealthIncrease,
@@ -71,6 +74,7 @@
     {
         SkeletonMelee = 0,
         PossessedTree,
+        MushroomEnemy
     }
 
     /// <summary>

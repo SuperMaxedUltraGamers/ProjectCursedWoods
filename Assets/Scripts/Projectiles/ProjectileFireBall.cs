@@ -22,10 +22,12 @@ namespace CursedWoods
         [SerializeField]
         private ParticleSystem hitParticles;
         private float hitParticleSFXLength = 2f;
+        private Collider hitBox;
 
         protected override void Awake()
         {
             base.Awake();
+            hitBox = GetComponent<Collider>();
             lifeTimeTimer = gameObject.AddComponent<Timer>();
             lifeTimeTimer.Set(lifeTime);
         }
@@ -43,11 +45,21 @@ namespace CursedWoods
             }
         }
 
+        private void Update()
+        {
+            if (isMoving)
+            {
+                transform.position += transform.forward * projectileSpeed * Time.deltaTime;
+            }
+        }
+
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
+            hitBox.enabled = true;
             particles.SetActive(true);
             hasTriggered = false;
+            DamageAmount = OgDamageAmount;
             lifeTimeTimer.Run();
             Launch();
         }
@@ -83,14 +95,6 @@ namespace CursedWoods
             Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
         }
 
-        private void Update()
-        {
-            if (isMoving)
-            {
-                transform.position += transform.forward * projectileSpeed * Time.deltaTime;
-            }
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (!hasTriggered)
@@ -117,14 +121,17 @@ namespace CursedWoods
                 {
                     other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
                     OnHit();
+                    hitBox.enabled = false;
                 }
                 else if (otherLayer == GlobalVariables.PLAYER_MELEE_LAYER)
                 {
                     transform.rotation = GameMan.Instance.PlayerT.rotation;
+                    DamageAmount *= 5;
                 }
                 else
                 {
                     OnHit();
+                    hitBox.enabled = false;
                 }
             }
         }

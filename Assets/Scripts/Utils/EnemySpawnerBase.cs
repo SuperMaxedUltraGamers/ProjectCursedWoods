@@ -30,14 +30,14 @@ namespace CursedWoods.Utils
             int layerMask = 1 << 0;
             spawnPos = spawnPosT.position;
 
+            RaycastHit hit;
             switch (enemyType)
             {
                 case EnemyType.SkeletonMelee:
                     objectPoolType = ObjectPoolType.SkeletonMelee;
-                    RaycastHit hit;
                     if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
                     {
-                        ySpawnOffset = hit.distance -0.01f;
+                        ySpawnOffset = hit.distance - 0.01f;
                     }
                     else
                     {
@@ -59,6 +59,20 @@ namespace CursedWoods.Utils
 
                     spawnSpaceRadius = 0.6f;
                     break;
+                case EnemyType.MushroomEnemy:
+                    objectPoolType = ObjectPoolType.MushroomEnemy;
+                    if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
+                    {
+                        ySpawnOffset = hit.distance;
+                    }
+                    else
+                    {
+                        ySpawnOffset = maxLinecastDistance;
+                    }
+
+                    spawnSpaceRadius = 0.6f;
+                    break;
+
             }
         }
 

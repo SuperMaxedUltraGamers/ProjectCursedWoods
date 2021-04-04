@@ -1166,7 +1166,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5829845236998753994}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
-  m_Radius: 0.9
+  m_Radius: 1
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1202,6 +1202,8 @@ MonoBehaviour:
     resistance: 80
   - type: 4
     resistance: 27
+  - type: 5
+    resistance: 75
   startingHealth: 400
   maxHealth: 400
   minHealth: 0
@@ -1258,8 +1260,8 @@ NavMeshObstacle:
   m_GameObject: {fileID: 5829845236998753994}
   m_Enabled: 0
   serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Shape: 0
+  m_Extents: {x: 0.9, y: 0.5, z: 0.9}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1

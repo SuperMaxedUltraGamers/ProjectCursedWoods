@@ -57,6 +57,8 @@ namespace CursedWoods
             interActionTimer = gameObject.AddComponent<Timer>();
             interActionTimer.Set(0.25f);
             interactCollider = null;
+
+            dmgNumberColor = Color.red;
         }
 
         private void OnEnable()

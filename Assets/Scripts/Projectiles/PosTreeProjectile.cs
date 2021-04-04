@@ -43,6 +43,7 @@ namespace CursedWoods
         {
             base.Activate(pos, rot);
             hasTriggered = false;
+            DamageAmount = OgDamageAmount;
             lifeTimeTimer.Run();
             Launch();
         }

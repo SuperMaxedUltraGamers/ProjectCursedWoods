@@ -81,7 +81,16 @@ namespace CursedWoods
         /// </summary>
         private int startingMinCauseStagger;
 
+        [SerializeField]
+        private float dmgNumberSpawnYOffset = 2f;
+
         #endregion Private fields
+
+        #region Protected fields
+
+        protected Color dmgNumberColor = Color.white;
+
+        #endregion Protected fields
 
         #region Properties
 
@@ -170,43 +179,48 @@ namespace CursedWoods
                 // Calculate the real damage amount we take after resitance is taken into account.
                 int dmgAmount = amount - amount * resistance / 100;
 
-                // TODO: spawn damage numbers
-                DamageNumber dmgNumber = (DamageNumber) GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DamageNumber);
-                dmgNumber.Activate(transform.position + transform.up * 2f, transform.rotation);
-                dmgNumber.SetDamageNumber(dmgAmount);
+                
 
-                // Check if we die from the taken damage or just reduce health.
-                if (CurrentHealth - dmgAmount < MinHealth)
+                if (dmgAmount > 0)
                 {
-                    CurrentHealth = MinHealth;
+                    // Spawn damage numbers
+                    DamageNumber dmgNumber = (DamageNumber)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DamageNumber);
+                    dmgNumber.Activate(transform.position + transform.up * dmgNumberSpawnYOffset, transform.rotation);
+                    dmgNumber.SetDamageNumber(dmgAmount, dmgNumberColor);
 
-                    // Invoke HealtChanged event if it has subscribers.
-                    InvokeHealthChangedEvent();
-
-                    // Call the abstract Die method.
-                    Die();
-                    //print("dead");
-                }
-                else
-                {
-                    CurrentHealth -= dmgAmount;
-
-                    // Check if the taken damage is large enough to cause the unit to stagger/knockback.
-                    if (dmgAmount > MinCauseStagger)
+                    // Check if we die from the taken damage or just reduce health.
+                    if (CurrentHealth - dmgAmount < MinHealth)
                     {
-                        // Invoke Staggered event if it has subscribers.
-                        if (Staggered != null)
-                        {
-                            Staggered();
-                        }
+                        CurrentHealth = MinHealth;
+
+                        // Invoke HealtChanged event if it has subscribers.
+                        InvokeHealthChangedEvent();
+
+                        // Call the abstract Die method.
+                        Die();
+                        //print("dead");
                     }
+                    else
+                    {
+                        CurrentHealth -= dmgAmount;
 
-                    // Flinch effect.
-                    flinch.StartFlinch();
+                        // Check if the taken damage is large enough to cause the unit to stagger/knockback.
+                        if (dmgAmount > MinCauseStagger)
+                        {
+                            // Invoke Staggered event if it has subscribers.
+                            if (Staggered != null)
+                            {
+                                Staggered();
+                            }
+                        }
 
-                    // Invoke HealtChanged event if it has subscribers.
-                    InvokeHealthChangedEvent();
-                    //print($"health after hit: {CurrentHealth}");
+                        // Flinch effect.
+                        flinch.StartFlinch();
+
+                        // Invoke HealtChanged event if it has subscribers.
+                        InvokeHealthChangedEvent();
+                        //print($"health after hit: {CurrentHealth}");
+                    }
                 }
             }
         }
