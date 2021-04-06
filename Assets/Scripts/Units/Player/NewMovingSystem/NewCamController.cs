@@ -322,20 +322,18 @@ namespace CursedWoods
 
             Vector3 camTPos = camT.position;
             Vector3 transPos = transform.position;
-            float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * Settings.Instance.CameraZoomSpeed * deltaTime;
-            Vector3 newCamPos = camTPos + camT.forward * moveAmount;
+            float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * Settings.Instance.CameraZoomSpeed;
+            Vector3 newCamPos = camTPos + camT.forward * moveAmount * deltaTime;
             float maxCamHeight = transPos.y + MAX_HEIGHT_FROM_PLAYER;
             float minCamHeight = transPos.y + MIN_HEIGHT_FROM_PLAYER;
-            if (newCamPos.y > maxCamHeight)
+
+            if (newCamPos.y < maxCamHeight && newCamPos.y > minCamHeight)
             {
-                newCamPos = new Vector3(camTPos.x, maxCamHeight, camTPos.z);
-            }
-            else if (newCamPos.y < minCamHeight)
-            {
-                newCamPos = new Vector3(camTPos.x, minCamHeight, camTPos.z);
+                camT.position = newCamPos;
+                // Prolly need to change to this when using mousescroll to zoom
+                //camT.position = Vector3.Lerp(camT.position, newCamPos, deltaTime * combatZoomSmoothAmount * 10f);
             }
 
-            camT.position = newCamPos;
         }
 
         private void CombatCamMovement(float deltaTime)
@@ -366,7 +364,7 @@ namespace CursedWoods
                 playerVelMag = maxPlayerVelMagnitudeMultiplayer;
             }
 
-            Vector3 wantedPos = playerPosWithOffset + playerT.forward * playerVelMag * (camLeadAmount + ((camT.position.y - transform.position.y) / 10f));
+            Vector3 wantedPos = playerPosWithOffset + playerT.forward * playerVelMag * (camLeadAmount + ((camT.position.y - transform.position.y) / 10f) * deltaTime);
             transform.position = Vector3.Lerp(transform.position, wantedPos, moveSpeed * deltaTime);
         }
 

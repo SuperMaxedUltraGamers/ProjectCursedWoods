@@ -165,6 +165,7 @@ namespace CursedWoods
             hitbox.enabled = true;
             hasTransitionedIn = false;
             isAscending = false;
+            healthBar.enabled = true;
         }
 
         protected override void TookDamage(int currentHealth, int maxHealth)

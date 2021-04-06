@@ -10,7 +10,9 @@
         public const string PLAYER_TAG = "Player";
 
         public const int PLAYER_LAYER = 8;
+        public const int PLAYER_PROJECTILE_LAYER = 9;
         public const int ENEMY_LAYER = 10;
+        public const int ENEMY_PROJECTILE_LAYER = 11;
         public const int PLAYER_MELEE_LAYER = 12;
 
         #endregion Collision tags

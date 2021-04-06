@@ -66,9 +66,6 @@ namespace CursedWoods
         private float knockBackForce = 20000f;
         private float knockBackstaggerTime = 3f;
 
-        [SerializeField]
-        private Canvas healthBar;
-
         private EnemyBehaviours lastBehaviour = EnemyBehaviours.Idle;
 
         private delegate void TransitionDel();
@@ -83,7 +80,6 @@ namespace CursedWoods
             hitbox = GetComponent<Collider>();
             agent.enabled = false;
             obstacle.enabled = false;
-            healthBar.enabled = false;
             gameObject.SetActive(false);
         }
 
@@ -173,6 +169,7 @@ namespace CursedWoods
             hitbox.enabled = true;
             hasTransitionedIn = false;
             isDescending = false;
+            healthBar.enabled = true;
         }
 
         protected override void TookDamage(int currentHealth, int maxHealth)
@@ -369,7 +366,6 @@ namespace CursedWoods
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             agent.enabled = false;
             obstacle.enabled = true;
-            healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
@@ -379,7 +375,6 @@ namespace CursedWoods
             agent.enabled = false;
             obstacle.enabled = true;
             rb.isKinematic = false;
-            healthBar.enabled = true;
             newRotation = transform.rotation * Quaternion.Euler(0f, Random.Range(-180f, 180f), 0f);
             if (Physics.Raycast(transform.position + transform.up, newRotation * Vector3.forward, 4f))
             {
@@ -396,7 +391,6 @@ namespace CursedWoods
             obstacle.enabled = false;
             agent.enabled = true;
             //agent.isStopped = false;
-            healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
         }
 
@@ -406,8 +400,6 @@ namespace CursedWoods
             rb.isKinematic = false;
             agent.enabled = false;
             obstacle.enabled = true;
-
-            healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_MELEE_ATTACK);
         }
 
@@ -417,8 +409,6 @@ namespace CursedWoods
             rb.isKinematic = false;
             agent.enabled = false;
             obstacle.enabled = true;
-
-            healthBar.enabled = true;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_RANGED_ATTACK);
         }
 
@@ -433,7 +423,6 @@ namespace CursedWoods
             rb.isKinematic = false;
             agent.enabled = false;
             obstacle.enabled = true;
-            healthBar.enabled = true;
         }
 
         private void KnockBackTrans()
@@ -447,7 +436,6 @@ namespace CursedWoods
             rb.isKinematic = false;
             agent.enabled = false;
             obstacle.enabled = true;
-            healthBar.enabled = true;
             rb.AddRelativeForce(new Vector3(0f, knockBackForce, -knockBackForce * 5f));
 
             StartCoroutine(KnockBackTimer());
@@ -581,9 +569,8 @@ namespace CursedWoods
         private IEnumerator DieTimer()
         {
             isDescending = true;
-            healthBar.enabled = false;
 
-            int spawnHealthDecider = Random.Range(0, 101);
+            int spawnHealthDecider = Random.Range(0, 100);
             if (spawnHealthDecider < 10)
             {
                 MaxHealthPickUp health = (MaxHealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MaxHealthPickUp);

@@ -1208,6 +1208,7 @@ MonoBehaviour:
   maxHealth: 400
   minHealth: 0
   minCauseStagger: 100
+  dmgNumberSpawnYOffset: 2
   attackRange: 14
   minComfortRange: 5
   cowardnessValue: 15
@@ -1250,7 +1251,7 @@ CapsuleCollider:
   m_Radius: 0.6
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1, z: 0.4}
 --- !u!208 &4509118461521322596
 NavMeshObstacle:
   m_ObjectHideFlags: 0

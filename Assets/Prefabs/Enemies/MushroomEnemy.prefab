@@ -1123,7 +1123,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.6
+  m_Radius: 0.85
   m_Height: 2.7
   m_Direction: 1
   m_Center: {x: 0, y: 1.35, z: 0}
@@ -1181,7 +1181,7 @@ MonoBehaviour:
   - type: 0
     resistance: 10
   - type: 1
-    resistance: 20
+    resistance: 42
   - type: 2
     resistance: 66
   - type: 3
@@ -1206,7 +1206,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerCheckRadius: 150
-  giveUpChaseDistance: 400
+  giveUpChaseDistance: 500
   patrolSpeed: 90
   patrolRotSpeed: 4
   fleeSpeed: 200

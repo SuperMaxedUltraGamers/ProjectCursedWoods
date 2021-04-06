@@ -46,7 +46,6 @@ namespace CursedWoods
                 int otherLayer = other.gameObject.layer;
                 if (otherLayer == GlobalVariables.ENEMY_LAYER)
                 {
-                    //print("Enemy hit!");
                     other.GetComponent<IHealth>().DecreaseHealth(damageAmount, damageType);
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using CursedWoods.Utils;
+using System.Collections;
 using UnityEngine;
 
 namespace CursedWoods
@@ -78,20 +79,21 @@ namespace CursedWoods
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
+            gameObject.layer = GlobalVariables.ENEMY_PROJECTILE_LAYER;
             hitBox.radius = ogRadius;
             hitBox.enabled = true;
             isHit = false;
-            DamageAmount = OgDamageAmount;
             transform.localScale = Vector3.one;
             Launch(pos);
             mesh.SetActive(true);
         }
 
-        private void OnHit()
+        public override void OnHit()
         {
             hitBox.enabled = false;
             isHit = true;
             mesh.SetActive(false);
+            areaDamageIntervalTimer.Run();
             poisonCloud.Play();
             lifeTimeTimer.Run();
         }
@@ -138,16 +140,24 @@ namespace CursedWoods
                 }
                 else if (otherLayer == GlobalVariables.PLAYER_MELEE_LAYER)
                 {
+                    gameObject.layer = GlobalVariables.PLAYER_PROJECTILE_LAYER;
                     transform.rotation = GameMan.Instance.PlayerT.rotation;
                     projectileVerticalSpeed = projectileLaunchVerticalSpeed;
-                    DamageAmount *= 5;
+                    StartCoroutine(DmgChange());
                 }
                 else
                 {
                     OnHit();
                 }
+            }
+        }
 
-                areaDamageIntervalTimer.Run();
+        private IEnumerator DmgChange()
+        {
+            yield return 0;
+            if (!isHit)
+            {
+                DamageAmount *= 5;
             }
         }
     }

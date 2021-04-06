@@ -250,7 +250,6 @@ namespace CursedWoods
                 {
                     velocity.y -= gravity;
                 }
-
             }
             else
             {

@@ -36,7 +36,8 @@
         Magic,
         Shock,
         Physical,
-        Poison
+        Poison,
+        KillTrigger
     }
 
     /// <summary>

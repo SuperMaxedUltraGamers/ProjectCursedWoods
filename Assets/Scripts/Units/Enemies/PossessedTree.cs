@@ -28,7 +28,7 @@ namespace CursedWoods
         [SerializeField]
         private float attackTrackingSpeed = 40;
 
-        private float meleeAttackRangeRealUnits = 3.75f;
+        private float meleeAttackRangeRealUnits = 3.45f;
         private DamageType meleeAttackDmgType = DamageType.Physical;
         [SerializeField]
         private float rangedAttackRange = 200f;
@@ -57,9 +57,6 @@ namespace CursedWoods
         private float knockBackForce = 20000f;
         private float knockBackstaggerTime = 3f;
 
-        [SerializeField]
-        private Canvas healthBar;
-
         private EnemyBehaviours lastBehaviour = EnemyBehaviours.Idle;
 
         private delegate void TransitionDel();
@@ -74,7 +71,6 @@ namespace CursedWoods
             hitbox = GetComponent<Collider>();
             agent.enabled = false;
             obstacle.enabled = false;
-            healthBar.enabled = false;
             gameObject.SetActive(false);
         }
 
@@ -482,7 +478,6 @@ namespace CursedWoods
         private IEnumerator DieTimer()
         {
             isDescending = true;
-            healthBar.enabled = false;
 
             int spawnHealthDecider = Random.Range(0, 100);
             if (spawnHealthDecider < 20)

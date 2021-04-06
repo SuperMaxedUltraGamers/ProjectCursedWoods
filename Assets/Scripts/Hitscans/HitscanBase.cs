@@ -48,7 +48,7 @@ namespace CursedWoods
             layers[2] = 9;
             layers[3] = 10;
             layers[4] = 11;
-            layers[5] = 14;
+            //layers[5] = 14; interactable
 
             // Create layermask from all the layers.
             foreach (int i in layers)
@@ -175,6 +175,10 @@ namespace CursedWoods
                     if (hitGO.layer == GlobalVariables.ENEMY_LAYER)
                     {
                         hitGO.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    }
+                    else if (hitGO.layer == GlobalVariables.ENEMY_PROJECTILE_LAYER)
+                    {
+                        hitGO.GetComponent<ProjectileBase>().OnHit();
                     }
 
                     // TODO: MAKE GLOBAL ENUM FOR AUDIOEFFECTS AND MAKE VARIABLE OUT OF THAT AND DO SWITCH CHECK HERE WHICH AUDIO TO PLAY!

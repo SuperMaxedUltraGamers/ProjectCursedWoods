@@ -523,16 +523,18 @@ MonoBehaviour:
   maxHealth: 200
   minHealth: 0
   minCauseStagger: 50
+  dmgNumberSpawnYOffset: 2
   attackRange: 3
   minComfortRange: 2.4
   cowardnessValue: 30
+  healthBar: {fileID: 9153612791139247587}
   attackDamageAmount: 15
   attackTrackingSpeed: 40
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
   playerCheckRadius: 100
-  giveUpChaseDistance: 350
+  giveUpChaseDistance: 500
   patrolSpeed: 50
   patrolRotSpeed: 4
   fleeSpeed: 200
@@ -3031,6 +3033,12 @@ PrefabInstance:
 --- !u!224 &9153612791139247586 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 174001343062170107, guid: f9d3d5f3df7c6fb498b784b5255477bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 9034791607907056665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &9153612791139247587 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 174001343062170106, guid: f9d3d5f3df7c6fb498b784b5255477bc,
     type: 3}
   m_PrefabInstance: {fileID: 9034791607907056665}
   m_PrefabAsset: {fileID: 0}

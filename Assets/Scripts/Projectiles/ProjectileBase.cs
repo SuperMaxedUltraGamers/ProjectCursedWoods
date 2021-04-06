@@ -14,8 +14,6 @@ namespace CursedWoods
 
         public int DamageAmount { get; protected set; }
 
-        public int OgDamageAmount { get; private set; }
-
         protected virtual void Awake()
         {
             gameObject.SetActive(false);
@@ -25,7 +23,8 @@ namespace CursedWoods
         {
             DamageAmount = damageAmount;
             DamageType = damageType;
-            OgDamageAmount = DamageAmount;
         }
+
+        public virtual void OnHit() { }
     }
 }

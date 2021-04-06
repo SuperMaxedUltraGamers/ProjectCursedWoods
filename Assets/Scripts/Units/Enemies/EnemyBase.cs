@@ -25,6 +25,9 @@ namespace CursedWoods
         [SerializeField, Range(0, 100), Tooltip("How easily this enemy flees when other attacking enemy is killed. 0 never flees, 100 always flees.")]
         protected int cowardnessValue = 50;
 
+        [SerializeField]
+        protected Canvas healthBar;
+
         /// <summary>
         /// Determinates how enemy currently behaves. 
         /// </summary>
@@ -78,6 +81,7 @@ namespace CursedWoods
             GameMan.Instance.AIManager.EnemyGotKilled -= CheckFleePossibility;
             HealthChanged -= TookDamage;
             Staggered -= GotKnockedBack;
+            healthBar.enabled = false;
 
             GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
         }

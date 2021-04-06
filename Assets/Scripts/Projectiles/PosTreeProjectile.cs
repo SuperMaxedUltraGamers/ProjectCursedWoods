@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using CursedWoods.Utils;
+using System.Collections;
 
 namespace CursedWoods
 {
@@ -8,7 +9,7 @@ namespace CursedWoods
         /// <summary>
         /// Used to prevent multiple triggers.
         /// </summary>
-        private bool hasTriggered;
+        private bool isHit;
 
         private bool isMoving;
 
@@ -42,8 +43,8 @@ namespace CursedWoods
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
-            hasTriggered = false;
-            DamageAmount = OgDamageAmount;
+            gameObject.layer = GlobalVariables.ENEMY_PROJECTILE_LAYER;
+            isHit = false;
             lifeTimeTimer.Run();
             Launch();
         }
@@ -51,9 +52,9 @@ namespace CursedWoods
         /// <summary>
         /// What happens when the fireball hits something.
         /// </summary>
-        private void OnHit()
+        public override void OnHit()
         {
-            hasTriggered = true;
+            isHit = true;
             isMoving = false;
             lifeTimeTimer.Stop();
             Deactivate();
@@ -82,7 +83,7 @@ namespace CursedWoods
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!hasTriggered)
+            if (!isHit)
             {
                 /*
                 string otherTag = other.gameObject.tag;
@@ -109,13 +110,23 @@ namespace CursedWoods
                 }
                 else if (otherLayer == GlobalVariables.PLAYER_MELEE_LAYER)
                 {
+                    gameObject.layer = GlobalVariables.PLAYER_PROJECTILE_LAYER;
                     transform.rotation = GameMan.Instance.PlayerT.rotation;
-                    DamageAmount *= 5;
+                    StartCoroutine(DmgChange());
                 }
                 else
                 {
                     OnHit();
                 }
+            }
+        }
+
+        private IEnumerator DmgChange()
+        {
+            yield return 0;
+            if (!isHit)
+            {
+                DamageAmount *= 5;
             }
         }
     }
