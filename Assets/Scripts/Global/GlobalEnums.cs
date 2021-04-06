@@ -67,7 +67,7 @@
         HealthPickUp,
         MaxHealthPickUp,
         MaxHealthIncrease,
-        HitParticles,
+        MeleeHitParticles,
         DamageNumber
     }
 

@@ -10,6 +10,8 @@ namespace CursedWoods
         [SerializeField]
         private Vector3 rotOffset;
         private Timer lifeTimeTimer;
+        [SerializeField]
+        private ParticleSystem mainParticles;
 
         protected virtual void Awake()
         {
@@ -31,7 +33,14 @@ namespace CursedWoods
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot * Quaternion.Euler(rotOffset));
+            mainParticles.Play(true);
             lifeTimeTimer.Run();
+        }
+
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            mainParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
     }
 }

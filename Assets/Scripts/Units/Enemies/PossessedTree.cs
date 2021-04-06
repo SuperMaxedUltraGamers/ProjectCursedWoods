@@ -417,8 +417,10 @@ namespace CursedWoods
         {
             if (currentBehaviour != EnemyBehaviours.Dead && currentBehaviour != EnemyBehaviours.FleeFromPlayer && currentBehaviour != EnemyBehaviours.Knockback)
             {
-                if (Physics.Raycast(transform.position + transform.up, transform.forward, meleeAttackRangeRealUnits, playerLayerMask))
+                if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hit, meleeAttackRangeRealUnits, playerLayerMask))
                 {
+                    ParticleEffectBase hitParticles = (ParticleEffectBase)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MeleeHitParticles);
+                    hitParticles.Activate(hit.point, Quaternion.identity);
                     playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(meleeDamageAmount, meleeAttackDmgType);
                 }
             }

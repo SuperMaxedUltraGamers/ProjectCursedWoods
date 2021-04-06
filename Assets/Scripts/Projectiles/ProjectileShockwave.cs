@@ -16,11 +16,13 @@ namespace CursedWoods
         /// </summary>
         [SerializeField]
         private float scaleSpeed = 5f;
+        private float startScaleSpeed = 5f;
 
         /// <summary>
         /// The starting scale of the shockwave.
         /// </summary>
         private float startScale = 0.1f;
+
 
         /// <summary>
         /// The current scale of the shockwave.
@@ -32,7 +34,15 @@ namespace CursedWoods
         /// </summary>
         private float targetScaleOffAmount = 0.01f;
 
+        private ParticleSystem particles;
+
         private List<Collider> hitColliders = new List<Collider>();
+
+        protected override void Awake()
+        {
+            base.Awake();
+            particles = GetComponentInChildren<ParticleSystem>();
+        }
 
         private void Update()
         {
@@ -45,9 +55,11 @@ namespace CursedWoods
             hitColliders.Clear();
             currentScale = startScale;
             targetScale = 10f;
+            scaleSpeed = startScaleSpeed;
             isDecreasing = false;
             transform.localScale = new Vector3(currentScale, currentScale, currentScale);
             Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Shockwave);
+            particles.Play();
         }
 
         private bool isDecreasing = false;
@@ -61,7 +73,7 @@ namespace CursedWoods
             if (!isDecreasing)
             {
                 currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed * deltaTime);
-                transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+                transform.localScale = Vector3.one * currentScale;
                 if (currentScale >= targetScale - targetScaleOffAmount)
                 {
                     targetScale = 0f;
@@ -70,8 +82,9 @@ namespace CursedWoods
             }
             else
             {
+                scaleSpeed *= Time.deltaTime * 2f + 1f;
                 currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed / 2f * deltaTime);
-                transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+                transform.localScale = Vector3.one * currentScale;
                 if (!audioSource.isPlaying)
                 {
                     Deactivate();

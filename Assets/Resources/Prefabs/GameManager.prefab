@@ -84,6 +84,8 @@ MonoBehaviour:
     type: 3}
   damageNumberPool: {fileID: 4709010488591998198, guid: dc4e0fdacb47aa44a9d780695cc23272,
     type: 3}
+  meleeHitParticlePool: {fileID: 690239195404732252, guid: b22662ca1f7ad604ca7e46fbfbee6f35,
+    type: 3}
 --- !u!114 &1284753748778844192
 MonoBehaviour:
   m_ObjectHideFlags: 0

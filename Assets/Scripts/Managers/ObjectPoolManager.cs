@@ -63,6 +63,9 @@ namespace CursedWoods
         [SerializeField]
         private DamageNumberPool damageNumberPool = null;
 
+        [SerializeField]
+        private MeleeHitParticlePool meleeHitParticlePool = null;
+
         #endregion Private fields
 
         #region Unity messages
@@ -130,6 +133,7 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.DamageNumber, damageNumberPool);
             poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
             poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
+            poolByType.Add(ObjectPoolType.MeleeHitParticles, meleeHitParticlePool);
 
             // Populate each pool inside the dictionary.
             foreach (var pool in poolByType)

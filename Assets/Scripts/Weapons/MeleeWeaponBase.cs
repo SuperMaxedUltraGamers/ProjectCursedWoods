@@ -46,6 +46,8 @@ namespace CursedWoods
                 int otherLayer = other.gameObject.layer;
                 if (otherLayer == GlobalVariables.ENEMY_LAYER)
                 {
+                    ParticleEffectBase hitParticles = (ParticleEffectBase)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MeleeHitParticles);
+                    hitParticles.Activate(transform.position, Quaternion.identity);
                     other.GetComponent<IHealth>().DecreaseHealth(damageAmount, damageType);
                 }
             }
