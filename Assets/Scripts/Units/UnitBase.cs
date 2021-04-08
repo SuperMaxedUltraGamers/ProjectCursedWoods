@@ -149,13 +149,16 @@ namespace CursedWoods
 
         public void IncreaseHealth(int amount)
         {
+
             // Make sure CurrentHealth does not exceed MaxHealth.
             if (CurrentHealth + amount > MaxHealth)
             {
+                SpawnDamageNumbers(MaxHealth - CurrentHealth, Color.green);
                 CurrentHealth = MaxHealth;
             }
             else
             {
+                SpawnDamageNumbers(amount, Color.green);
                 CurrentHealth += amount;
             }
 
@@ -179,14 +182,9 @@ namespace CursedWoods
                 // Calculate the real damage amount we take after resitance is taken into account.
                 int dmgAmount = amount - amount * resistance / 100;
 
-                
-
                 if (dmgAmount > 0)
                 {
-                    // Spawn damage numbers
-                    DamageNumber dmgNumber = (DamageNumber)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DamageNumber);
-                    dmgNumber.Activate(transform.position + transform.up * dmgNumberSpawnYOffset, transform.rotation);
-                    dmgNumber.SetDamageNumber(dmgAmount, dmgNumberColor);
+                    SpawnDamageNumbers(dmgAmount, dmgNumberColor);
 
                     // Check if we die from the taken damage or just reduce health.
                     if (CurrentHealth - dmgAmount < MinHealth)
@@ -228,6 +226,7 @@ namespace CursedWoods
         public void IncreaseMaxHealth(int amount)
         {
             MaxHealth += amount;
+            SpawnDamageNumbers(MaxHealth - CurrentHealth, Color.green);
             CurrentHealth = MaxHealth;
 
             // Invoke HealtChanged event if it has subscribers.
@@ -280,6 +279,13 @@ namespace CursedWoods
             }
         }
 
+        private void SpawnDamageNumbers(int displayNumber, Color numberColor)
+        {
+            // Spawn damage numbers
+            DamageNumber dmgNumber = (DamageNumber)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DamageNumber);
+            dmgNumber.Activate(transform.position + transform.up * dmgNumberSpawnYOffset, transform.rotation);
+            dmgNumber.SetDamageNumber(displayNumber, numberColor);
+        }
         #endregion Private functionality
     }
 }

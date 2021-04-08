@@ -10,6 +10,7 @@ namespace CursedWoods.UI
     {
         [SerializeField]
         private SpellCaster playerSC;
+        private UnitBase playerUnit;
 
         [SerializeField]
         private EventSystem eventSystem;
@@ -33,6 +34,7 @@ namespace CursedWoods.UI
         private GameObject playerHealthBar;
 
         private bool isPaused = false;
+        private bool isGameOver = false;
 
         [SerializeField]
         private GameObject pauseMenu;
@@ -46,10 +48,14 @@ namespace CursedWoods.UI
         [SerializeField]
         private GameObject optionsMenu;
 
+        [SerializeField]
+        private GameObject gameOverMenu;
+
         private void Awake()
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
             interactText = interactPromt.GetComponentInChildren<TextMeshProUGUI>();
+            playerUnit = playerSC.GetComponent<CharController>();
             interactText.text = "";
             interactPromt.SetActive(false);
         }
@@ -59,6 +65,7 @@ namespace CursedWoods.UI
             playerSC.SpellMenuTransIn += SpellMenuTransIn;
             playerSC.SpellMenuTransOut += SpellMenuTransOut;
             playerSC.SelectionMoved += UpdateSpellMenu;
+            playerUnit.HealthChanged += OpenGameOverScreen;
         }
 
         private void OnDisable()
@@ -66,6 +73,7 @@ namespace CursedWoods.UI
             playerSC.SpellMenuTransIn -= SpellMenuTransIn;
             playerSC.SpellMenuTransOut -= SpellMenuTransOut;
             playerSC.SelectionMoved -= UpdateSpellMenu;
+            playerUnit.HealthChanged -= OpenGameOverScreen;
         }
 
         private void Update()
@@ -152,20 +160,24 @@ namespace CursedWoods.UI
 
         public void ControlsMenu()
         {
+            eventSystem.SetSelectedGameObject(null);
             controlsMenu.SetActive(true);
             pauseMenu.SetActive(false);
         }
 
         public void OptionsButton()
         {
+            eventSystem.SetSelectedGameObject(null);
             optionsMenu.SetActive(true);
             pauseMenu.SetActive(false);
         }
 
         public void QuitMenuButton()
         {
+            eventSystem.SetSelectedGameObject(null);
             quitMenu.SetActive(true);
             pauseMenu.SetActive(false);
+            gameOverMenu.SetActive(false);
         }
 
         public void MainMenuButton()
@@ -180,32 +192,69 @@ namespace CursedWoods.UI
 
         public void BackOutToPauseMenu()
         {
-            pauseMenu.SetActive(true);
-            optionsMenu.SetActive(false);
+            eventSystem.SetSelectedGameObject(null);
+            if (isGameOver)
+            {
+                BackOutToGameOverMenu();
+            }
+            else
+            {
+                pauseMenu.SetActive(true);
+                optionsMenu.SetActive(false);
+                quitMenu.SetActive(false);
+                controlsMenu.SetActive(false);
+            }
+        }
+
+        public void BackOutToGameOverMenu()
+        {
+            gameOverMenu.SetActive(true);
             quitMenu.SetActive(false);
-            controlsMenu.SetActive(false);
+        }
+
+        public void RestartLevelButton()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         private void TogglePauseMenu()
         {
-            if (isPaused)
+            if (!isGameOver)
             {
-                isPaused = false;
-                GameMan.Instance.CharController.IgnoreControl = false;
-                Time.timeScale = 1f;
+                if (isPaused)
+                {
+                    isPaused = false;
+                    GameMan.Instance.CharController.IgnoreControl = false;
+                    Time.timeScale = 1f;
+                    eventSystem.SetSelectedGameObject(null);
+                    optionsMenu.SetActive(false);
+                    quitMenu.SetActive(false);
+                    controlsMenu.SetActive(false);
+                    pauseMenu.SetActive(false);
+                }
+                else
+                {
+                    isPaused = true;
+                    GameMan.Instance.CharController.IgnoreControl = true;
+                    Time.timeScale = 0f;
+                    pauseMenu.SetActive(true);
+                    interactPromt.SetActive(false);
+                }
+            }
+        }
+
+        private void OpenGameOverScreen(int currentHealth, int maxHealth)
+        {
+            if (currentHealth <= 0 && !isGameOver)
+            {
+                isGameOver = true;
                 eventSystem.SetSelectedGameObject(null);
                 optionsMenu.SetActive(false);
                 quitMenu.SetActive(false);
                 controlsMenu.SetActive(false);
                 pauseMenu.SetActive(false);
-            }
-            else
-            {
-                isPaused = true;
-                GameMan.Instance.CharController.IgnoreControl = true;
-                Time.timeScale = 0f;
-                pauseMenu.SetActive(true);
-                interactPromt.SetActive(false);
+                spellMenu.SetActive(false);
+                gameOverMenu.SetActive(true);
             }
         }
     }

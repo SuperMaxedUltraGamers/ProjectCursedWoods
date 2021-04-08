@@ -235,6 +235,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5165266136059656704, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 5180601771759401800}
     - target: {fileID: 6415240188922685651, guid: e910e36bf1748c247b30022b1d4746b7,
         type: 3}
       propertyPath: eventSystem

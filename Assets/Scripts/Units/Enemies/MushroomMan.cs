@@ -500,7 +500,6 @@ namespace CursedWoods
             {
                 Random.InitState((int)System.DateTime.Now.Ticks);
                 float f = Random.Range(0f, 1f);
-                print("random " + f + " change " + changeStatePercent);
                 if (f < changeStatePercent)
                 {
                     if (currentBehaviour != EnemyBehaviours.MeleeAttackPlayer && currentBehaviour != EnemyBehaviours.RangeAttackPlayer)

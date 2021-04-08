@@ -535,11 +535,12 @@ MonoBehaviour:
     m_Bits: 256
   playerCheckRadius: 100
   giveUpChaseDistance: 500
-  patrolRbSpeed: 40
+  patrolRbSpeed: 50
   patrolRotSpeed: 4
+  patrolAroundSpawnPoint: 1
+  patrolAreaRadius: 50
   fleeSpeed: 200
   fleeRotSpeed: 5
-  patrolAroundSpawnPoint: 1
 --- !u!114 &5067036537013174407
 MonoBehaviour:
   m_ObjectHideFlags: 0
