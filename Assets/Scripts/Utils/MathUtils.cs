@@ -17,5 +17,11 @@ namespace CursedWoods.Utils
             Vector3 toPlayer = GameMan.Instance.PlayerT.position - myPos;
             return Vector3.SqrMagnitude(toPlayer);
         }
+
+        public static float GetDistanceToPos(Vector3 pos, Vector3 myPos)
+        {
+            Vector3 toPos = pos - myPos;
+            return Vector3.SqrMagnitude(toPos);
+        }
     }
 }

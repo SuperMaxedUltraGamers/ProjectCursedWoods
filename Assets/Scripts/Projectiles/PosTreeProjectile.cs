@@ -18,13 +18,20 @@ namespace CursedWoods
         /// </summary>
         private float lifeTime = 6f;
 
+        private Collider hitbox;
         private Timer lifeTimeTimer;
+        private MeshRenderer meshRenderer;
+        private ParticleSystem hitParticles;
+        private float hitParticleSFXLength = 2f;
 
         protected override void Awake()
         {
             base.Awake();
+            hitbox = GetComponent<Collider>();
             lifeTimeTimer = gameObject.AddComponent<Timer>();
             lifeTimeTimer.Set(lifeTime);
+            hitParticles = GetComponentInChildren<ParticleSystem>();
+            meshRenderer = GetComponentInChildren<MeshRenderer>();
         }
 
         private void OnEnable()
@@ -43,8 +50,10 @@ namespace CursedWoods
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
-            gameObject.layer = GlobalVariables.ENEMY_PROJECTILE_LAYER;
             isHit = false;
+            hitbox.enabled = true;
+            meshRenderer.enabled = true;
+            gameObject.layer = GlobalVariables.ENEMY_PROJECTILE_LAYER;
             lifeTimeTimer.Run();
             Launch();
         }
@@ -56,8 +65,13 @@ namespace CursedWoods
         {
             isHit = true;
             isMoving = false;
+            hitbox.enabled = false;
+            meshRenderer.enabled = false;
             lifeTimeTimer.Stop();
-            Deactivate();
+            lifeTimeTimer.Set(hitParticleSFXLength);
+            lifeTimeTimer.Run();
+            hitParticles.Play();
+            //Deactivate();
         }
 
         private void LifeTimeOver()

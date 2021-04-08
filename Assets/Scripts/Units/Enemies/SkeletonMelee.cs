@@ -43,11 +43,19 @@ namespace CursedWoods
         private float giveUpChaseDistance = 25f;
 
         [SerializeField]
-        private float patrolSpeed;
-
+        private float patrolRbSpeed;
         [SerializeField]
         private float patrolRotSpeed;
+        [SerializeField]
+        private bool patrolAroundSpawnPoint = true;
+        [SerializeField, Tooltip("Not in Unity units.")]
+        private float patrolAreaRadius = 50f; // Not in unity units.
+        private float chaseAgentSpeed = 3.5f;
+        private float patrolAgentSpeed;
+        private bool isPatrolReturningToSpawn;
+
         private Quaternion newRotation;
+        private Vector3 spawnPoint;
 
         [SerializeField]
         private float fleeSpeed;
@@ -76,6 +84,8 @@ namespace CursedWoods
             //animTimeBeforeDmg = 4f / 3f;
             //animTimeAfterDmg = 5.042f / 3f - animTimeBeforeDmg;
             //deactivationAfterDeathTime = 2f;
+            chaseAgentSpeed = agent.speed;
+            patrolAgentSpeed = chaseAgentSpeed / 3f;
             agent.enabled = false;
             obstacle.enabled = false;
             gameObject.SetActive(false);
@@ -128,7 +138,11 @@ namespace CursedWoods
                     rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
                     break;
                 case EnemyBehaviours.Patrol:
-                    rb.velocity = transform.forward * patrolSpeed * Time.fixedDeltaTime;
+                    if (!isPatrolReturningToSpawn)
+                    {
+                        rb.velocity = transform.forward * patrolRbSpeed * Time.fixedDeltaTime;
+                    }
+
                     break;
                 case EnemyBehaviours.MeleeAttackPlayer:
                     float distanceToPlayer = GetDistanceToPlayer();
@@ -166,6 +180,7 @@ namespace CursedWoods
             hasTransitionedIn = false;
             isAscending = false;
             healthBar.enabled = true;
+            spawnPoint = pos;
         }
 
         protected override void TookDamage(int currentHealth, int maxHealth)
@@ -229,7 +244,7 @@ namespace CursedWoods
             animator.SetFloat("Blend", 0f, animChangeDampTime, Time.deltaTime);
             animator.SetFloat("TorsoBlend", 0f, animChangeDampTime, Time.deltaTime);
 
-            StateTimeFlow(EnemyBehaviours.Patrol);
+            StateTimeFlow(EnemyBehaviours.Patrol, 0.85f);
         }
 
         private void Patrol()
@@ -244,12 +259,27 @@ namespace CursedWoods
                 TransitionIn(hasRandomStateTime: true, PatrolTrans);
             }
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * patrolRotSpeed);
-
             animator.SetFloat("Blend", 1f, animChangeDampTime, Time.deltaTime);
             animator.SetFloat("TorsoBlend", 1f, animChangeDampTime, Time.deltaTime);
 
-            StateTimeFlow(EnemyBehaviours.Idle);
+            if (isPatrolReturningToSpawn)
+            {
+                if (MathUtils.GetDistanceToPos(spawnPoint, transform.position) < 10f)
+                {
+                    hasTransitionedIn = false;
+                    lastBehaviour = currentBehaviour;
+                    currentBehaviour = EnemyBehaviours.Idle;
+                }
+                else
+                {
+                    StateTimeFlow(EnemyBehaviours.Idle, 0.25f);
+                }
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * patrolRotSpeed);
+                StateTimeFlow(EnemyBehaviours.Idle, 0.80f);
+            }
         }
 
         private void ChasePlayer()
@@ -343,13 +373,30 @@ namespace CursedWoods
         private void PatrolTrans()
         {
             animator.speed = 1f;
-            agent.enabled = false;
-            obstacle.enabled = true;
-            rb.isKinematic = false;
-            newRotation = transform.rotation * Quaternion.Euler(0f, Random.Range(-180f, 180f), 0f);
-            if (Physics.Raycast(transform.position + transform.up, newRotation * Vector3.forward, 4f))
+
+            float distanceToSpawn = MathUtils.GetDistanceToPos(spawnPoint, transform.position);
+            if (patrolAroundSpawnPoint && distanceToSpawn > patrolAreaRadius)
             {
-                newRotation = transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+                isPatrolReturningToSpawn = true;
+                agent.speed = patrolAgentSpeed;
+                rb.isKinematic = true;
+                obstacle.enabled = false;
+                agent.enabled = true;
+                agent.SetDestination(spawnPoint);
+            }
+            else
+            {
+                isPatrolReturningToSpawn = false;
+                agent.enabled = false;
+                obstacle.enabled = true;
+                rb.isKinematic = false;
+
+                Quaternion transRot = transform.rotation;
+                newRotation = transRot * Quaternion.Euler(0f, Random.Range(-180f, 180f), 0f);
+                if (Physics.Raycast(transform.position + transform.up, newRotation * Vector3.forward, 4f))
+                {
+                    newRotation = transRot * Quaternion.Euler(0f, 180f, 0f);
+                }
             }
 
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
@@ -360,6 +407,7 @@ namespace CursedWoods
             animator.speed = 3f;
             rb.isKinematic = true;
             obstacle.enabled = false;
+            agent.speed = chaseAgentSpeed;
             agent.enabled = true;
             //agent.isStopped = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_NULL);
@@ -406,19 +454,24 @@ namespace CursedWoods
             timeOnCurrentState = Random.Range(minStateTime, maxStateTime);
         }
 
-        private void StateTimeFlow(EnemyBehaviours nexState)
+        private void StateTimeFlow(EnemyBehaviours nexState, float changeStatePercent)
         {
             timeOnCurrentState -= Time.deltaTime;
 
             if (timeOnCurrentState <= 0)
             {
-                if (Random.Range(0f, 1f) > 0.25f)
+                Random.InitState((int)System.DateTime.Now.Ticks);
+                if (Random.Range(0f, 1f) < changeStatePercent)
                 {
                     if (currentBehaviour != EnemyBehaviours.ChasePlayer && currentBehaviour != EnemyBehaviours.MeleeAttackPlayer)
                     {
                         currentBehaviour = nexState;
                         hasTransitionedIn = false;
                     }
+                }
+                else
+                {
+                    RandomStateTime();
                 }
             }
         }
@@ -508,7 +561,7 @@ namespace CursedWoods
             int spawnHealthDecider = Random.Range(0, 100);
             if (spawnHealthDecider < 15)
             {
-                HealthPickUp health = (HealthPickUp) GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
+                HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
                 health.Activate(transform.position, transform.rotation);
             }
 

@@ -1198,6 +1198,7 @@ MonoBehaviour:
   attackRange: 5.6
   minComfortRange: 5
   cowardnessValue: 20
+  healthBar: {fileID: 7809620586056300499}
   meleeDamageAmount: 80
   rangedDamageAmount: 8
   attackTrackingSpeed: 40
@@ -1207,11 +1208,12 @@ MonoBehaviour:
     m_Bits: 256
   playerCheckRadius: 150
   giveUpChaseDistance: 500
-  patrolSpeed: 90
+  patrolRbSpeed: 90
   patrolRotSpeed: 4
+  patrolAroundSpawnPoint: 1
+  patrolAreaRadius: 50
   fleeSpeed: 200
   fleeRotSpeed: 5
-  healthBar: {fileID: 7809620586056300499}
 --- !u!114 &2597115778526402139
 MonoBehaviour:
   m_ObjectHideFlags: 0
