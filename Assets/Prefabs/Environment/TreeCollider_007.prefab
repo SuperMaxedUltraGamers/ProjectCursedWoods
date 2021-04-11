@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1310423753266127908}
   - component: {fileID: 4785370144643954359}
   m_Layer: 0
-  m_Name: Tree_007
+  m_Name: TreeCollider_007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,4 +128,4 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4.34
-  m_Center: {x: 0.19167233, y: 6.59, z: -0.07562518}
+  m_Center: {x: 0.19167233, y: 7.79, z: -0.07562518}
