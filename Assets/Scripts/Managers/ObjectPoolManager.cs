@@ -46,6 +46,9 @@ namespace CursedWoods
         private MushroomEnemyPool mushroomEnemyPool = null;
 
         [SerializeField]
+        private SkeletonBossPool skeletonBossPool = null;
+
+        [SerializeField]
         private PosTreeProjectilePool posTreeProjectilePool = null;
 
         [SerializeField]
@@ -126,13 +129,14 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.MagicBeam, magicBeamPool);
             poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
             poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
+            poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
+            poolByType.Add(ObjectPoolType.SkeletonBoss, skeletonBossPool);
             poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
+            poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
             poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthIncrease, maxHealthIncreasePool);
             poolByType.Add(ObjectPoolType.DamageNumber, damageNumberPool);
-            poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
-            poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
             poolByType.Add(ObjectPoolType.MeleeHitParticles, meleeHitParticlePool);
 
             // Populate each pool inside the dictionary.

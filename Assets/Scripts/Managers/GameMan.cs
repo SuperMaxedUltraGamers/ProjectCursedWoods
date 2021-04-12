@@ -132,6 +132,7 @@ namespace CursedWoods
             get;
             private set;
         }
+
         public LevelUIManager LevelUIManager
         {
             get;

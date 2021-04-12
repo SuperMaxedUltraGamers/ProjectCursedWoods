@@ -2103,7 +2103,7 @@ PrefabInstance:
     - target: {fileID: 352039143273584020, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
       propertyPath: enemyType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 352039143273584020, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
@@ -3991,7 +3991,6 @@ MonoBehaviour:
   interactions:
   - {fileID: 1567280954}
   - {fileID: 1216137081}
-  graveyardMan: {fileID: 0}
   gateType: 0
   rotateAmount: 90
   rotSpeed: 5
@@ -4198,6 +4197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animTime: 1.5
   interactionText: JaakkoYouToughGuy
+  disableAfterInteraction: 1
   disableObjects: []
 --- !u!65 &1216137082
 BoxCollider:
@@ -5137,6 +5137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animTime: 1.5
   interactionText: JaakkoSoSexy
+  disableAfterInteraction: 1
   disableObjects: []
 --- !u!1 &1592828945
 GameObject:
@@ -6257,6 +6258,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073376898}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &362738472143359054
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129336, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362738470847129339, guid: 5248dc299f029524d981ec0747a1cb8b,
+        type: 3}
+      propertyPath: m_Name
+      value: SkeletonBossPool
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5248dc299f029524d981ec0747a1cb8b, type: 3}
 --- !u!1001 &1740060942915556213
 PrefabInstance:
   m_ObjectHideFlags: 0

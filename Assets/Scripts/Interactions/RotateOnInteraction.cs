@@ -11,8 +11,8 @@ namespace CursedWoods
             MiddleAreaGate
         }
 
-        [SerializeField, Tooltip("Leave unassigned if no need to use!")]
-        private GraveyardManager graveyardMan;
+        //[SerializeField, Tooltip("Leave unassigned if no need to use!")]
+        //private GraveyardManager graveyardMan;
         [SerializeField]
         private GraveyardGate gateType;
         [SerializeField]
@@ -59,6 +59,7 @@ namespace CursedWoods
         protected override void OnEnable()
         {
             base.OnEnable();
+            /*
             if (graveyardMan != null)
             {
                 switch (gateType)
@@ -74,11 +75,13 @@ namespace CursedWoods
                         break;
                 }
             }
+            */
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
+            /*
             if (graveyardMan != null)
             {
                 switch (gateType)
@@ -94,8 +97,8 @@ namespace CursedWoods
                         break;
                 }
             }
+            */
         }
-
 
         private void Update()
         {

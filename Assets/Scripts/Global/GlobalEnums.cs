@@ -62,6 +62,7 @@
         SkeletonMelee,
         PossessedTree,
         MushroomEnemy,
+        SkeletonBoss,
         TreeProjectile,
         MushroomProjectile,
         HealthPickUp,
@@ -75,7 +76,8 @@
     {
         SkeletonMelee = 0,
         PossessedTree,
-        MushroomEnemy
+        MushroomEnemy,
+        SkeletonBoss
     }
 
     /// <summary>
@@ -98,5 +100,14 @@
         AxisX = 0,
         AxisY,
         AxisZ
+    }
+
+    public enum KeyType
+    {
+        KeyE = 0,
+        KeyJ,
+        KeyM,
+        KeyS,
+        KeyV
     }
 }

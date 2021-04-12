@@ -481,16 +481,19 @@ namespace CursedWoods
         {
             isDescending = true;
 
-            int spawnHealthDecider = Random.Range(0, 100);
-            if (spawnHealthDecider < 20)
+            if (canSpawnHealthOnDeath)
             {
-                MaxHealthPickUp health = (MaxHealthPickUp) GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MaxHealthPickUp);
-                health.Activate(transform.position, transform.rotation);
-            }
-            else if (spawnHealthDecider < 60)
-            {
-                HealthPickUp health = (HealthPickUp) GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
-                health.Activate(transform.position, transform.rotation);
+                int spawnHealthDecider = Random.Range(0, 100);
+                if (spawnHealthDecider < 20)
+                {
+                    MaxHealthPickUp health = (MaxHealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MaxHealthPickUp);
+                    health.Activate(transform.position, transform.rotation);
+                }
+                else if (spawnHealthDecider < 60)
+                {
+                    HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
+                    health.Activate(transform.position, transform.rotation);
+                }
             }
 
             yield return new WaitForSeconds(deactivationAfterDeathTime);

@@ -9,7 +9,9 @@ namespace CursedWoods
         public bool IsAttackUnlocked { get; set; }
         public bool IsSpellCastUnlocked { get; set; }
 
-        public Dictionary<int, bool> spellUnlockInfo = new Dictionary<int, bool>();
+        public Dictionary<Spells, bool> spellUnlockInfo = new Dictionary<Spells, bool>();
+
+        public Dictionary<KeyType, bool> keyCollectInfo = new Dictionary<KeyType, bool>();
 
         // TODO: add other progress info and load from here e.g. player health.
 
@@ -20,20 +22,35 @@ namespace CursedWoods
 
             spellUnlockInfo.Clear();
 
-            for (int i=0; i< Enum.GetNames(typeof(Spells)).Length; i++)
+            for (int i = 0; i < Enum.GetNames(typeof(Spells)).Length; i++)
             {
-                spellUnlockInfo.Add(i, false);
+                spellUnlockInfo.Add((Spells)i, false);
+            }
+
+            for (int i = 0; i < Enum.GetNames(typeof(KeyType)).Length; i++)
+            {
+                keyCollectInfo.Add((KeyType)i, false);
             }
         }
 
         public void UnlockSpellByType(Spells spell)
         {
-            spellUnlockInfo[(int)spell] = true;
+            spellUnlockInfo[spell] = true;
         }
 
         public bool GetSpellLockStatus(Spells spell)
         {
-            return spellUnlockInfo[(int)spell];
+            return spellUnlockInfo[spell];
+        }
+
+        public void CollectedKey(KeyType key)
+        {
+            keyCollectInfo[key] = true;
+        }
+
+        public bool GetKeyCollectedStatus(KeyType key)
+        {
+            return keyCollectInfo[key];
         }
     }
 }

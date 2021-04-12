@@ -558,11 +558,15 @@ namespace CursedWoods
         private IEnumerator DieTimer()
         {
             isAscending = true;
-            int spawnHealthDecider = Random.Range(0, 100);
-            if (spawnHealthDecider < 15)
+
+            if (canSpawnHealthOnDeath)
             {
-                HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
-                health.Activate(transform.position, transform.rotation);
+                int spawnHealthDecider = Random.Range(0, 100);
+                if (spawnHealthDecider < 15)
+                {
+                    HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
+                    health.Activate(transform.position, transform.rotation);
+                }
             }
 
             yield return new WaitForSeconds(deactivationAfterDeathTime);
