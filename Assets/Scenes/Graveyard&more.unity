@@ -48401,7 +48401,7 @@ GameObject:
   - component: {fileID: 2000465150}
   - component: {fileID: 2000465151}
   m_Layer: 0
-  m_Name: TreeNavMesh
+  m_Name: MushroomNavMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48447,7 +48447,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.26666668
+  m_VoxelSize: 0.2
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: f988039ead747de4986d97795e2a7f2c, type: 2}
 --- !u!1001 &2004305998
