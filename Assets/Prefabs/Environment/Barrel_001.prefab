@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7764561823103614236
+--- !u!1 &7591906106759068406
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6956534728435836838}
-  - component: {fileID: 6279505447478700035}
-  - component: {fileID: 8124985925660433609}
-  - component: {fileID: 5252604302629172805}
-  - component: {fileID: 7232231896997240852}
-  - component: {fileID: 4138980896076550798}
+  - component: {fileID: 7066164093267107916}
+  - component: {fileID: 6178891790825910249}
+  - component: {fileID: 8240217401020488483}
+  - component: {fileID: 5771129540044807033}
   m_Layer: 0
-  m_Name: Treetrunk_001
+  m_Name: Barrel_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6956534728435836838
+--- !u!4 &7066164093267107916
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7764561823103614236}
+  m_GameObject: {fileID: 7591906106759068406}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -56.81038, y: 0.0020682998, z: -118.97475}
+  m_LocalPosition: {x: 46.8, y: 0.000042238047, z: 220.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6279505447478700035
+--- !u!33 &6178891790825910249
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7764561823103614236}
-  m_Mesh: {fileID: 5609948416824656656, guid: 555e1fd76cc3ccf4fb104d34b6423311, type: 3}
---- !u!23 &8124985925660433609
+  m_GameObject: {fileID: 7591906106759068406}
+  m_Mesh: {fileID: -7958080427481108640, guid: 431afe07a63021147984655841037b80, type: 3}
+--- !u!23 &8240217401020488483
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7764561823103614236}
+  m_GameObject: {fileID: 7591906106759068406}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +59,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b886a25bdfc142a4ab510fcd35e1ef2c, type: 2}
+  - {fileID: -8067726398312463513, guid: 431afe07a63021147984655841037b80, type: 3}
+  - {fileID: -6508200441215780310, guid: 431afe07a63021147984655841037b80, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,49 +81,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5252604302629172805
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7764561823103614236}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5609948416824656656, guid: 555e1fd76cc3ccf4fb104d34b6423311, type: 3}
---- !u!136 &7232231896997240852
+--- !u!136 &5771129540044807033
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7764561823103614236}
+  m_GameObject: {fileID: 7591906106759068406}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.72
-  m_Height: 2.72
+  m_Radius: 0.48940828
+  m_Height: 1.36
   m_Direction: 1
-  m_Center: {x: -0.17200011, y: 1.0345734, z: 0.09027314}
---- !u!205 &4138980896076550798
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7764561823103614236}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
-  m_Size: 1
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0
-    fadeTransitionWidth: 0
-    renderers: []
-  m_Enabled: 1
+  m_Center: {x: 0, y: 0.54952776, z: 0}
