@@ -48,7 +48,13 @@ namespace CursedWoods
                 {
                     ParticleEffectBase hitParticles = (ParticleEffectBase)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MeleeHitParticles);
                     hitParticles.Activate(transform.position, Quaternion.identity);
-                    other.GetComponent<IHealth>().DecreaseHealth(damageAmount, damageType);
+                    IHealth otherHealth = other.GetComponent<IHealth>();
+                    if (otherHealth == null)
+                    {
+                        otherHealth = other.GetComponentInParent<IHealth>();
+                    }
+
+                    otherHealth.DecreaseHealth(damageAmount, damageType);
                 }
             }
         }

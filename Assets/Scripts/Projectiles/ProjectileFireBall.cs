@@ -118,7 +118,13 @@ namespace CursedWoods
                 int otherLayer = other.gameObject.layer;
                 if (otherLayer == GlobalVariables.ENEMY_LAYER)
                 {
-                    other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    IHealth otherHealth = other.GetComponent<IHealth>();
+                    if (otherHealth == null)
+                    {
+                        otherHealth = other.GetComponentInParent<IHealth>();
+                    }
+
+                    otherHealth.DecreaseHealth(DamageAmount, DamageType);
                     OnHit();
                     hitBox.enabled = false;
                 }

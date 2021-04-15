@@ -14,6 +14,7 @@
         public const int ENEMY_LAYER = 10;
         public const int ENEMY_PROJECTILE_LAYER = 11;
         public const int PLAYER_MELEE_LAYER = 12;
+        public const int INTERACTABLE_LAYER = 14;
 
         #endregion Collision tags
 
@@ -54,6 +55,13 @@
         public const int ENEMY_ANIM_STAGGER = 3;
         public const int ENEMY_ANIM_DEATH = 4;
         public const int ENEMY_ANIM_RANGED_ATTACK = 5;
+
+        public const int TREEBOSS_ANIM_IDLE = 0;
+        public const int TREEBOSS_ANIM_SLAM_ATTACK = 1;
+        public const int TREEBOSS_ANIM_SWEEP_RIGHT = 2;
+        public const int TREEBOSS_ANIM_SWEEP_LEFT = 3;
+        public const int TREEBOSS_ANIM_DEATH = 4;
+        public const int TREEBOSS_ANIM_ROOT_ATTACK = 5;
 
         #endregion Animation values
 

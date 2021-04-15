@@ -63,6 +63,7 @@
         PossessedTree,
         MushroomEnemy,
         SkeletonBoss,
+        TreeBoss,
         TreeProjectile,
         MushroomProjectile,
         HealthPickUp,
@@ -77,11 +78,12 @@
         SkeletonMelee = 0,
         PossessedTree,
         MushroomEnemy,
-        SkeletonBoss
+        SkeletonBoss,
+        TreeBoss
     }
 
     /// <summary>
-    /// List of all behaviours that enemy can have.
+    /// List of all behaviours that normal enemy can have.
     /// </summary>
     public enum EnemyBehaviours
     {
@@ -92,6 +94,18 @@
         RangeAttackPlayer,
         FleeFromPlayer,
         Knockback,
+        Dead
+    }
+
+    public enum TreeBossBehaviours
+    {
+        Sleep = 0,
+        Awaking,
+        Idle,
+        SlamAttack,
+        SweepRight,
+        SweepLeft,
+        RootAttack,
         Dead
     }
 

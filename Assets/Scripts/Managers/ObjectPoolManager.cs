@@ -49,6 +49,9 @@ namespace CursedWoods
         private SkeletonBossPool skeletonBossPool = null;
 
         [SerializeField]
+        private TreeBossPool treeBossPool = null;
+
+        [SerializeField]
         private PosTreeProjectilePool posTreeProjectilePool = null;
 
         [SerializeField]
@@ -131,6 +134,7 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
             poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
             poolByType.Add(ObjectPoolType.SkeletonBoss, skeletonBossPool);
+            poolByType.Add(ObjectPoolType.TreeBoss, treeBossPool);
             poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
             poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
             poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);

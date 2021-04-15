@@ -55,6 +55,10 @@ namespace CursedWoods.UI
         private Image displayInfoTextBG = null;
         private TextMeshProUGUI displayInfoText;
 
+        [SerializeField]
+        private GameObject bossHealthBarGO = null;
+        private BossHealthBar bossHealthBar = null;
+
         private void Awake()
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
@@ -64,6 +68,7 @@ namespace CursedWoods.UI
             interactPromt.SetActive(false);
             displayInfoText = displayInfoTextBG.GetComponentInChildren<TextMeshProUGUI>();
             displayInfoText.text = "";
+            bossHealthBar = GetComponent<BossHealthBar>();
         }
 
         private void OnEnable()
@@ -88,6 +93,18 @@ namespace CursedWoods.UI
             {
                 TogglePauseMenu();
             }
+        }
+
+        public void ConfigureBossHealthBar(UnitBase currentBoss, string bossName, int currentHealth, int maxHealth)
+        {
+            bossHealthBarGO.SetActive(true);
+            bossHealthBar.ConfigureBossHealthBar(currentBoss, bossName, currentHealth, maxHealth);
+        }
+
+        public void DisableBossHealthBar()
+        {
+            bossHealthBar.DisableBossHealthBar();
+            bossHealthBarGO.SetActive(false);
         }
 
         public void SetInteractPromtVisibility(bool visible, string text)
@@ -279,6 +296,7 @@ namespace CursedWoods.UI
                 pauseMenu.SetActive(false);
                 spellMenu.SetActive(false);
                 gameOverMenu.SetActive(true);
+                bossHealthBarGO.SetActive(false);
             }
         }
     }

@@ -312,7 +312,6 @@ namespace CursedWoods
             }
         }
 
-
         private void ExploreCamMovement(float deltaTime)
         {
             // TODO: Maybe slerp the rotation
