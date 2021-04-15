@@ -316,12 +316,26 @@ namespace CursedWoods
         {
             // TODO: Maybe slerp the rotation
             float dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS);
+            if (Input.GetButton(GlobalVariables.ROT_CAM_RIGHT))
+            {
+                dir = 1f;
+            }
+            else if (Input.GetButton(GlobalVariables.ROT_CAM_LEFT))
+            {
+                dir = -1f;
+            }
+
             Quaternion rotation = Quaternion.Euler(0f, dir * Settings.Instance.CameraRotationSpeed * deltaTime, 0f);
             transform.rotation *= rotation;
 
             Vector3 camTPos = camT.position;
             Vector3 transPos = transform.position;
             float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * Settings.Instance.CameraZoomSpeed;
+            if (moveAmount == 0f)
+            {
+                moveAmount = Input.GetAxisRaw(GlobalVariables.MOUSE_SCROLL) * 750;
+            }
+
             Vector3 newCamPos = camTPos + camT.forward * moveAmount * deltaTime;
             float maxCamHeight = transPos.y + MAX_HEIGHT_FROM_PLAYER;
             float minCamHeight = transPos.y + MIN_HEIGHT_FROM_PLAYER;
@@ -332,7 +346,6 @@ namespace CursedWoods
                 // Prolly need to change to this when using mousescroll to zoom
                 //camT.position = Vector3.Lerp(camT.position, newCamPos, deltaTime * combatZoomSmoothAmount * 10f);
             }
-
         }
 
         private void CombatCamMovement(float deltaTime)

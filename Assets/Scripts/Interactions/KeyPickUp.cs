@@ -20,12 +20,12 @@ namespace CursedWoods
         private void Awake()
         {
             rotateAndBounce = GetComponentInChildren<RotateAndBounce>();
+            rotateAndBounce.SetOrigin(transform.position);
             hitbox = GetComponent<Collider>();
         }
 
         private void OnEnable()
         {
-            rotateAndBounce.SetOrigin(transform.position);
         }
 
         protected override void AfterInteraction()

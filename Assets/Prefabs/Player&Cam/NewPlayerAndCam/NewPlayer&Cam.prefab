@@ -480,6 +480,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  fakeGroundLayer:
+    serializedVersion: 2
+    m_Bits: 524288
 --- !u!114 &890857082744524840
 MonoBehaviour:
   m_ObjectHideFlags: 0

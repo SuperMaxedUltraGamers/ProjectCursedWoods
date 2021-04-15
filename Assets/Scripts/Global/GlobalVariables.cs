@@ -15,6 +15,8 @@
         public const int ENEMY_PROJECTILE_LAYER = 11;
         public const int PLAYER_MELEE_LAYER = 12;
         public const int INTERACTABLE_LAYER = 14;
+        public const int FAKE_GROUND_LAYER = 19;
+
 
         #endregion Collision tags
 
@@ -31,6 +33,12 @@
         public const string OPEN_SPELLMENU = "OpenSpellMenu";
         public const string CHANGE_CONTROL_TYPE = "ChangeControlType";
         public const string PAUSE = "Pause";
+
+        public const string ROT_CAM_RIGHT = "RotateCameraRight";
+        public const string ROT_CAM_LEFT = "RotateCameraLeft";
+        public const string MOUSE_SCROLL = "Mouse ScrollWheel";
+        public const string MOUSE_X = "Mouse X";
+        public const string MOUSE_Y = "Mouse Y";
 
         #endregion Input tags
 

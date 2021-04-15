@@ -27,6 +27,8 @@ namespace CursedWoods
                 spellUnlockInfo.Add((Spells)i, false);
             }
 
+            keyCollectInfo.Clear();
+
             for (int i = 0; i < Enum.GetNames(typeof(KeyType)).Length; i++)
             {
                 keyCollectInfo.Add((KeyType)i, false);

@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b244008ad5995f4b83073b70c70b290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectable: 12
+  collectable: 13
   spawnOnStart: 1
