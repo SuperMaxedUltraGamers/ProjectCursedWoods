@@ -23,6 +23,7 @@ namespace CursedWoods
         public event Action<float> SpellMenuTransIn;
         public event Action<float> SpellMenuTransOut;
         public event Action<Vector2, int> SelectionMoved;
+        public event Action<Spells, float> SpellCasted;
 
         public ISpell CurrentSpell
         {
@@ -169,6 +170,14 @@ namespace CursedWoods
             if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !controller.IsInSpellMenu)
             {
                 CurrentSpell.CastSpell();
+                if (SpellCasted != null)
+                {
+                    float reactivateTime = CurrentSpell.CoolDownTime + CurrentSpell.CastTime;
+                    if (reactivateTime > 0f)
+                    {
+                        SpellCasted(CurrentSpell.SpellType, reactivateTime);
+                    }
+                }
             }
         }
     }

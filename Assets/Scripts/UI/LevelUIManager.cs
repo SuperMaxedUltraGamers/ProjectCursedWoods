@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace CursedWoods.UI
 {
@@ -59,6 +60,11 @@ namespace CursedWoods.UI
         private GameObject bossHealthBarGO = null;
         private BossHealthBar bossHealthBar = null;
 
+        [SerializeField]
+        private Image[] spellCooldownIcons;
+        [SerializeField]
+        private TextMeshProUGUI[] spellCooldownText;
+
         private void Awake()
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
@@ -69,6 +75,15 @@ namespace CursedWoods.UI
             displayInfoText = displayInfoTextBG.GetComponentInChildren<TextMeshProUGUI>();
             displayInfoText.text = "";
             bossHealthBar = GetComponent<BossHealthBar>();
+
+            /*
+            int spellIconsAmount = spellCooldownIcons.Length;
+            for (int i = 0; i < spellIconsAmount; i++)
+            {
+                spellCooldownText[i] = spellCooldownIcons[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
+                spellCooldownText[i].text = "";
+            }
+            */
         }
 
         private void OnEnable()
@@ -76,6 +91,7 @@ namespace CursedWoods.UI
             playerSC.SpellMenuTransIn += SpellMenuTransIn;
             playerSC.SpellMenuTransOut += SpellMenuTransOut;
             playerSC.SelectionMoved += UpdateSpellMenu;
+            playerSC.SpellCasted += SpellCooldownGraphic;
             playerUnit.HealthChanged += OpenGameOverScreen;
         }
 
@@ -84,6 +100,7 @@ namespace CursedWoods.UI
             playerSC.SpellMenuTransIn -= SpellMenuTransIn;
             playerSC.SpellMenuTransOut -= SpellMenuTransOut;
             playerSC.SelectionMoved -= UpdateSpellMenu;
+            playerSC.SpellCasted -= SpellCooldownGraphic;
             playerUnit.HealthChanged -= OpenGameOverScreen;
         }
 
@@ -298,6 +315,44 @@ namespace CursedWoods.UI
                 gameOverMenu.SetActive(true);
                 bossHealthBarGO.SetActive(false);
             }
+        }
+
+        private void SpellCooldownGraphic(Spells spell, float cooldownTime)
+        {
+            int index = 0;
+            switch (spell)
+            {
+                case Spells.Fireball:
+                    index = 0;
+                    break;
+                case Spells.Shockwave:
+                    index = 1;
+                    break;
+                case Spells.IceRay:
+                    index = 2;
+                    break;
+                case Spells.MagicBeam:
+                    index = 3;
+                    break;
+            }
+
+            StartCoroutine(SpellCooldownIconFill(index, cooldownTime));
+        }
+
+        private IEnumerator SpellCooldownIconFill(int iconIndex, float cooldownTime)
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < cooldownTime)
+            {
+                elapsedTime += Time.deltaTime;
+                spellCooldownIcons[iconIndex].fillAmount = Mathf.Lerp(0f, 1f, elapsedTime / cooldownTime);
+                spellCooldownText[iconIndex].text = (cooldownTime - elapsedTime).ToString("F1");
+                yield return null;
+            }
+
+            spellCooldownText[iconIndex].text = "";
+            spellCooldownIcons[iconIndex].fillAmount = 1f;
         }
     }
 }
