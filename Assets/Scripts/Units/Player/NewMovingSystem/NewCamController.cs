@@ -316,6 +316,20 @@ namespace CursedWoods
         {
             // TODO: Maybe slerp the rotation
             float dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS);
+            if (Input.GetMouseButton(GlobalVariables.MOUSE_MIDDLE_BUTTON))
+            {
+                float width = Screen.width;
+                if (CharController.mousePos.x <= 1)
+                {
+                    dir = -1f;
+                }
+                else if (CharController.mousePos.x >= width - 1)
+                {
+                    dir = 1f;
+                }
+            }
+
+            /*
             if (Input.GetButton(GlobalVariables.ROT_CAM_RIGHT))
             {
                 dir = 1f;
@@ -324,6 +338,7 @@ namespace CursedWoods
             {
                 dir = -1f;
             }
+            */
 
             Quaternion rotation = Quaternion.Euler(0f, dir * Settings.Instance.CameraRotationSpeed * deltaTime, 0f);
             transform.rotation *= rotation;

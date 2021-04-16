@@ -36,6 +36,7 @@
 
         public const string ROT_CAM_RIGHT = "RotateCameraRight";
         public const string ROT_CAM_LEFT = "RotateCameraLeft";
+        public const int MOUSE_MIDDLE_BUTTON = 2;
         public const string MOUSE_SCROLL = "Mouse ScrollWheel";
         public const string MOUSE_X = "Mouse X";
         public const string MOUSE_Y = "Mouse Y";
