@@ -12,8 +12,8 @@ namespace CursedWoods
         private const float SLAM_ATTACK_MAX_ANGLE = 16f;
 
         private Animator animator;
-        //[SerializeField]
-        //private Collider[] hitboxes;
+
+        private Collider hitbox;
         [SerializeField]
         private TreeBossMeleeTrigger[] rightHandColls;
         [SerializeField]
@@ -65,6 +65,7 @@ namespace CursedWoods
         {
             base.Awake();
             animator = GetComponent<Animator>();
+            hitbox = GetComponent<MeshCollider>();
             gameObject.SetActive(false);
             eyeMat = meshRenderer.materials[1];
             eyeMat.SetColor("_EmissionColor", sleepEyeColor);
@@ -144,7 +145,8 @@ namespace CursedWoods
                 currentBehaviour = TreeBossBehaviours.Dead;
                 //HealthChanged -= TookDamage;
                 AwakeTreeBossTrigger.AwakeTreeBossEvent -= AwakeFromSleep;
-                gameObject.GetComponent<Collider>().enabled = false;
+                //hitbox.enabled = false;
+                gameObject.layer = 0; // Set layer to default to keep collisions
 
                 GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
                 GameMan.Instance.LevelUIManager.DisableBossHealthBar();
