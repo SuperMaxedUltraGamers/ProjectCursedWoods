@@ -122,7 +122,13 @@ namespace CursedWoods
             Collider[] units = Physics.OverlapSphere(transform.position, hitBox.radius, areaDmgLayerMask);
             for (int i = 0; i<units.Length; i++)
             {
-                units[i].GetComponent<IHealth>().DecreaseHealth(areaDamage, areaDamageType);
+                IHealth otherHealth = units[i].GetComponent<IHealth>();
+                if (otherHealth == null)
+                {
+                    otherHealth = units[i].GetComponentInParent<IHealth>();
+                }
+
+                otherHealth.DecreaseHealth(areaDamage, areaDamageType);
             }
 
             areaDamageIntervalTimer.Run();
@@ -135,7 +141,13 @@ namespace CursedWoods
                 int otherLayer = other.gameObject.layer;
                 if (otherLayer == GlobalVariables.ENEMY_LAYER || otherLayer == GlobalVariables.PLAYER_LAYER)
                 {
-                    other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    IHealth otherHealth = other.GetComponent<IHealth>();
+                    if (otherHealth == null)
+                    {
+                        otherHealth = other.GetComponentInParent<IHealth>();
+                    }
+
+                    otherHealth.DecreaseHealth(DamageAmount, DamageType);
                     OnHit();
                 }
                 else if (otherLayer == GlobalVariables.PLAYER_MELEE_LAYER)

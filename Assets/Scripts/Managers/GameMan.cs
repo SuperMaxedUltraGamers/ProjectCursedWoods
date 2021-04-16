@@ -132,6 +132,7 @@ namespace CursedWoods
             get;
             private set;
         }
+
         public LevelUIManager LevelUIManager
         {
             get;
@@ -225,6 +226,7 @@ namespace CursedWoods
                     break;
                 case GlobalVariables.GRAVEYARD:
                     //print("graveyard init");
+                    GraveyardInit();
 
 #if (UNITY_EDITOR)
                     if (PlayerManager == null)
@@ -242,10 +244,10 @@ namespace CursedWoods
                     AIManager.ResetProgress();
 #endif
 
-                    GraveyardInit();
                     break;
 #if (UNITY_EDITOR)
                 case "SampleScene 1":
+                    GraveyardInit();
                     if (PlayerManager == null)
                     {
                         PlayerManager = GetComponent<PlayerManager>();
@@ -260,7 +262,6 @@ namespace CursedWoods
 
                     AIManager.ResetProgress();
 
-                    GraveyardInit();
                     break;
 #endif
             }

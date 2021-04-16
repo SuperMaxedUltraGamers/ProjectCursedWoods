@@ -84,27 +84,58 @@ namespace CursedWoods
                         {
                             if (inputDir.x >= 0f && inputDir.y >= 0f)
                             {
-                                //print("Fireball selected");
                                 CurrentSpell = spellFireBall;
                                 spellGraphicIndex = 1;
                             }
                             else if (inputDir.x >= 0f && inputDir.y <= 0f)
                             {
-                                //print("IceRaySingle selected");
                                 CurrentSpell = spellIceRay;
                                 spellGraphicIndex = 2;
                             }
                             else if (inputDir.x <= 0f && inputDir.y <= 0f)
                             {
-                                //print("MagicBeam selected");
                                 CurrentSpell = spellMagicBeam;
                                 spellGraphicIndex = 3;
                             }
                             else if (inputDir.x <= 0f && inputDir.y >= 0f)
                             {
-                                //print("Shockwave selected");
                                 CurrentSpell = spellShockwave;
                                 spellGraphicIndex = 4;
+                            }
+
+                            if (SelectionMoved != null)
+                            {
+                                SelectionMoved(inputDir, spellGraphicIndex);
+                            }
+                        }
+                        else if (CharController.hasMouseMoved)
+                        {
+                            Vector2 mousePos = CharController.mousePos;
+                            float halfWidth = Screen.width * 0.5f;
+                            float halfHeight = Screen.height * 0.5f;
+                            if (mousePos.x >= halfWidth && mousePos.y >= halfHeight)
+                            {
+                                CurrentSpell = spellFireBall;
+                                spellGraphicIndex = 1;
+                                inputDir = new Vector2(1f, 1f);
+                            }
+                            else if (mousePos.x >= halfWidth && mousePos.y <= halfHeight)
+                            {
+                                CurrentSpell = spellIceRay;
+                                spellGraphicIndex = 2;
+                                inputDir = new Vector2(1f, -1f);
+                            }
+                            else if (mousePos.x <= halfWidth && mousePos.y <= halfHeight)
+                            {
+                                CurrentSpell = spellMagicBeam;
+                                spellGraphicIndex = 3;
+                                inputDir = new Vector2(-1f, -1f);
+                            }
+                            else if (mousePos.x <= halfWidth && mousePos.y >= halfHeight)
+                            {
+                                CurrentSpell = spellShockwave;
+                                spellGraphicIndex = 4;
+                                inputDir = new Vector2(-1f, 1f);
                             }
 
                             if (SelectionMoved != null)

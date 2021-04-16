@@ -102,7 +102,13 @@ namespace CursedWoods
                 {
                     hitColliders.Add(other);
 
-                    other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    IHealth otherHealth = other.GetComponent<IHealth>();
+                    if (otherHealth == null)
+                    {
+                        otherHealth = other.GetComponentInParent<IHealth>();
+                    }
+
+                    otherHealth.DecreaseHealth(DamageAmount, DamageType);
                 }
             }
         }

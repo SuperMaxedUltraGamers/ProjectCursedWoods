@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6683223927579199398}
   - component: {fileID: 8879871857154299056}
   m_Layer: 0
-  m_Name: Tree_009
+  m_Name: TreeCollider_009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +130,7 @@ CapsuleCollider:
   m_Radius: 1.98
   m_Height: 4.67
   m_Direction: 0
-  m_Center: {x: 0.1501044, y: 3.58, z: 0.21667826}
+  m_Center: {x: 0.1501044, y: 4.2, z: 0.21667826}
 --- !u!136 &8879871857154299056
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -144,4 +144,4 @@ CapsuleCollider:
   m_Radius: 1.29
   m_Height: 5.11
   m_Direction: 2
-  m_Center: {x: -0.86, y: 4.18, z: 0.08}
+  m_Center: {x: -0.86, y: 4.68, z: 0.08}

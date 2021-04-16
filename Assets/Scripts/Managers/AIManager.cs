@@ -9,13 +9,29 @@ namespace CursedWoods
         [SerializeField]
         private float fleeAffectorReduceRate = 2f;
         private Timer fleeAffectorReduceTimer;
+        private int enemiesKilledAmount;
         private int enemiesKilledFleeAffector;
 
-        public event Action<int> EnemyGotKilled;
+        public static event Action<int> EnemyGotKilled;
+        public static event Action<int> EnemyFleeAffectorChange;
 
         public int EnemiesAttackingAmount { get; set; }
 
-        public int EnemiesKilledAmount { get; private set; }
+        public int EnemiesKilledAmount 
+        { 
+            get
+            {
+                return enemiesKilledAmount;
+            }
+            private set 
+            {
+                enemiesKilledAmount = value;
+                if (EnemyGotKilled != null)
+                {
+                    EnemyGotKilled(enemiesKilledAmount);
+                }
+            } 
+        }
 
         public int EnemiesKilledFleeAffector
         {
@@ -27,9 +43,9 @@ namespace CursedWoods
             {
                 if (value > enemiesKilledFleeAffector)
                 {
-                    if (EnemyGotKilled != null)
+                    if (EnemyFleeAffectorChange != null)
                     {
-                        EnemyGotKilled(value);
+                        EnemyFleeAffectorChange(value);
                     }
 
                     // Add one to enemieskilled.

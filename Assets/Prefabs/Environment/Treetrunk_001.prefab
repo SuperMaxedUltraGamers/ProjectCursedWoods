@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8124985925660433609}
   - component: {fileID: 5252604302629172805}
   - component: {fileID: 7232231896997240852}
+  - component: {fileID: 4138980896076550798}
   m_Layer: 0
   m_Name: Treetrunk_001
   m_TagString: Untagged
@@ -109,3 +110,21 @@ CapsuleCollider:
   m_Height: 2.72
   m_Direction: 1
   m_Center: {x: -0.17200011, y: 1.0345734, z: 0.09027314}
+--- !u!205 &4138980896076550798
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764561823103614236}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1

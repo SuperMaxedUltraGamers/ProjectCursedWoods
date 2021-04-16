@@ -21,7 +21,12 @@ namespace CursedWoods
 
         private Collider interactCollider;
 
+        private Vector2 lastMousePos;
+
         public static event Action ControlTypeChanged;
+
+        public static Vector2 mousePos;
+        public static bool hasMouseMoved;
 
         public bool IsGrounded { get; private set; }
 
@@ -89,6 +94,10 @@ namespace CursedWoods
                         ControlTypeChanged();
                     }
                 }
+
+                mousePos = Input.mousePosition;
+                hasMouseMoved = lastMousePos != mousePos;
+                lastMousePos = mousePos;
             }
         }
 

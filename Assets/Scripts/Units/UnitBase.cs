@@ -187,7 +187,7 @@ namespace CursedWoods
                     SpawnDamageNumbers(dmgAmount, dmgNumberColor);
 
                     // Check if we die from the taken damage or just reduce health.
-                    if (CurrentHealth - dmgAmount < MinHealth)
+                    if (CurrentHealth - dmgAmount <= MinHealth)
                     {
                         CurrentHealth = MinHealth;
 
@@ -203,7 +203,7 @@ namespace CursedWoods
                         CurrentHealth -= dmgAmount;
 
                         // Check if the taken damage is large enough to cause the unit to stagger/knockback.
-                        if (dmgAmount > MinCauseStagger)
+                        if (dmgAmount >= MinCauseStagger)
                         {
                             // Invoke Staggered event if it has subscribers.
                             if (Staggered != null)

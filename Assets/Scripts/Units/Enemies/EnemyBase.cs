@@ -28,6 +28,9 @@ namespace CursedWoods
         [SerializeField]
         protected Canvas healthBar;
 
+        [SerializeField]
+        protected bool canSpawnHealthOnDeath = true;
+
         /// <summary>
         /// Determinates how enemy currently behaves. 
         /// </summary>
@@ -35,14 +38,13 @@ namespace CursedWoods
 
         protected Transform playerT;
 
-
         #endregion Protected fields
 
         #region Unity messages
 
         private void OnEnable()
         {
-            GameMan.Instance.AIManager.EnemyGotKilled += CheckFleePossibility;
+            AIManager.EnemyFleeAffectorChange += CheckFleePossibility;
             HealthChanged += TookDamage;
             Staggered += GotKnockedBack;
         }
@@ -78,7 +80,7 @@ namespace CursedWoods
         protected override void Die()
         {
             currentBehaviour = EnemyBehaviours.Dead;
-            GameMan.Instance.AIManager.EnemyGotKilled -= CheckFleePossibility;
+            AIManager.EnemyFleeAffectorChange -= CheckFleePossibility;
             HealthChanged -= TookDamage;
             Staggered -= GotKnockedBack;
             healthBar.enabled = false;

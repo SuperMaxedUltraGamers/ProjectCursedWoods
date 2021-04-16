@@ -119,7 +119,13 @@ namespace CursedWoods
                 int otherLayer = other.gameObject.layer;
                 if (otherLayer == GlobalVariables.ENEMY_LAYER || otherLayer == GlobalVariables.PLAYER_LAYER)
                 {
-                    other.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                    IHealth otherHealth = other.GetComponent<IHealth>();
+                    if (otherHealth == null)
+                    {
+                        otherHealth = other.GetComponentInParent<IHealth>();
+                    }
+
+                    otherHealth.DecreaseHealth(DamageAmount, DamageType);
                     OnHit();
                 }
                 else if (otherLayer == GlobalVariables.PLAYER_MELEE_LAYER)

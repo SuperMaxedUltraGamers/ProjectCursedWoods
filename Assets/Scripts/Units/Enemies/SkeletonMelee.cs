@@ -535,7 +535,14 @@ namespace CursedWoods
                 {
                     ParticleEffectBase hitParticles = (ParticleEffectBase)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MeleeHitParticles);
                     hitParticles.Activate(hit.point, Quaternion.identity);
-                    playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(attackDamageAmount, attackDmgType);
+                    //playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(attackDamageAmount, attackDmgType);
+                    IHealth otherHealth = playerT.GetComponent<IHealth>();
+                    if (otherHealth == null)
+                    {
+                        otherHealth = playerT.GetComponentInParent<IHealth>();
+                    }
+
+                    otherHealth.DecreaseHealth(attackDamageAmount, attackDmgType);
                 }
             }
         }
@@ -558,11 +565,15 @@ namespace CursedWoods
         private IEnumerator DieTimer()
         {
             isAscending = true;
-            int spawnHealthDecider = Random.Range(0, 100);
-            if (spawnHealthDecider < 15)
+
+            if (canSpawnHealthOnDeath)
             {
-                HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
-                health.Activate(transform.position, transform.rotation);
+                int spawnHealthDecider = Random.Range(0, 100);
+                if (spawnHealthDecider < 15)
+                {
+                    HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
+                    health.Activate(transform.position, transform.rotation);
+                }
             }
 
             yield return new WaitForSeconds(deactivationAfterDeathTime);

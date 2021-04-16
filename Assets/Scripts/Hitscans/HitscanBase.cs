@@ -146,7 +146,13 @@ namespace CursedWoods
                     GameObject hitGO = hit.collider.gameObject;
                     if (hitGO.layer == GlobalVariables.ENEMY_LAYER)
                     {
-                        hitGO.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                        IHealth otherHealth = hitGO.GetComponent<IHealth>();
+                        if (otherHealth == null)
+                        {
+                            otherHealth = hitGO.GetComponentInParent<IHealth>();
+                        }
+
+                        otherHealth.DecreaseHealth(DamageAmount, DamageType);
                     }
                     /*
                     if (hit.collider.gameObject.CompareTag(GlobalVariables.ENEMY_TAG))
@@ -174,7 +180,13 @@ namespace CursedWoods
                     GameObject hitGO = hit.collider.gameObject;
                     if (hitGO.layer == GlobalVariables.ENEMY_LAYER)
                     {
-                        hitGO.GetComponent<IHealth>().DecreaseHealth(DamageAmount, DamageType);
+                        IHealth otherHealth = hitGO.GetComponent<IHealth>();
+                        if (otherHealth == null)
+                        {
+                            otherHealth = hitGO.GetComponentInParent<IHealth>();
+                        }
+
+                        otherHealth.DecreaseHealth(DamageAmount, DamageType);
                     }
                     else if (hitGO.layer == GlobalVariables.ENEMY_PROJECTILE_LAYER)
                     {

@@ -540,7 +540,15 @@ namespace CursedWoods
                 {
                     ParticleEffectBase hitParticles = (ParticleEffectBase)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MeleeHitParticles);
                     hitParticles.Activate(hit.point, Quaternion.identity);
-                    playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(meleeDamageAmount, meleeAttackDmgType);
+                    //playerT.gameObject.GetComponent<IHealth>().DecreaseHealth(meleeDamageAmount, meleeAttackDmgType);
+
+                    IHealth otherHealth = playerT.GetComponent<IHealth>();
+                    if (otherHealth == null)
+                    {
+                        otherHealth = playerT.GetComponentInParent<IHealth>();
+                    }
+
+                    otherHealth.DecreaseHealth(meleeDamageAmount, meleeAttackDmgType);
                 }
             }
         }
@@ -624,16 +632,19 @@ namespace CursedWoods
         {
             isDescending = true;
 
-            int spawnHealthDecider = Random.Range(0, 100);
-            if (spawnHealthDecider < 10)
+            if (canSpawnHealthOnDeath)
             {
-                MaxHealthPickUp health = (MaxHealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MaxHealthPickUp);
-                health.Activate(transform.position, transform.rotation);
-            }
-            else if (spawnHealthDecider < 50)
-            {
-                HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
-                health.Activate(transform.position, transform.rotation);
+                int spawnHealthDecider = Random.Range(0, 100);
+                if (spawnHealthDecider < 10)
+                {
+                    MaxHealthPickUp health = (MaxHealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.MaxHealthPickUp);
+                    health.Activate(transform.position, transform.rotation);
+                }
+                else if (spawnHealthDecider < 50)
+                {
+                    HealthPickUp health = (HealthPickUp)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.HealthPickUp);
+                    health.Activate(transform.position, transform.rotation);
+                }
             }
 
             yield return new WaitForSeconds(deactivationAfterDeathTime);

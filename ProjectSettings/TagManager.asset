@@ -25,9 +25,9 @@ TagManager:
   - Interactable
   - SideTerrains
   - KillTrigger
-  - 
-  - 
-  - 
+  - EnemyMelee
+  - BossCollider
+  - FakeGround
   - 
   - 
   - 

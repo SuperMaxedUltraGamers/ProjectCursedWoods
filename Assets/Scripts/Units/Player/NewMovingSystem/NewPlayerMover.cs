@@ -26,6 +26,12 @@ namespace CursedWoods
         private delegate void CorrectDirectionsDel(float f);
         private CorrectDirectionsDel controlTypeDel;
 
+        private Ray cameraRay;
+        private RaycastHit cameraRayHit;
+        [SerializeField]
+        private LayerMask fakeGroundLayer;
+        private Camera mainCam;
+
         public Vector3 Velocity { get { return velocity; } }
 
         public CharacterController CharacterController { get { return characterController; } }
@@ -34,6 +40,7 @@ namespace CursedWoods
         {
             characterController = GetComponent<CharacterController>();
             charController = GetComponent<CharController>();
+            mainCam = Camera.main;
         }
 
         private void OnEnable()
@@ -232,11 +239,23 @@ namespace CursedWoods
             if (!charController.IgnoreCameraControl)
             {
                 Vector3 lookDirInput = new Vector3(Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS), 0f, Input.GetAxisRaw(GlobalVariables.VERTICAL_RS));
-                Vector3 correctLookDir = rightDir * lookDirInput.x + forwardDir * lookDirInput.z;
+
                 if (lookDirInput.magnitude != 0f)
                 {
+                    Vector3 correctLookDir = rightDir * lookDirInput.x + forwardDir * lookDirInput.z;
                     Vector3 transForward = transform.forward;
-                    transform.forward = Vector3.Lerp(transForward, correctLookDir.normalized, Time.deltaTime * Settings.Instance.CombatRotSmoothAmount * (Vector3.Angle(transForward, correctLookDir.normalized) + 1f));
+                    Vector3 correctLookDirNormalized = correctLookDir.normalized;
+                    transform.forward = Vector3.Lerp(transForward, correctLookDirNormalized, Time.deltaTime * Settings.Instance.CombatRotSmoothAmount * (Vector3.Angle(transForward, correctLookDirNormalized) + 1f));
+                }
+                else if (CharController.hasMouseMoved)
+                {
+                    cameraRay = mainCam.ScreenPointToRay(CharController.mousePos);
+
+                    if (Physics.Raycast(cameraRay, out cameraRayHit, 100f, fakeGroundLayer))
+                    {
+                        Vector3 targetPosition = new Vector3(cameraRayHit.point.x, transform.position.y, cameraRayHit.point.z);
+                        transform.LookAt(targetPosition);
+                    }
                 }
             }
 

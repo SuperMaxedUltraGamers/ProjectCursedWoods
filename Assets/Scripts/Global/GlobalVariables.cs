@@ -14,6 +14,9 @@
         public const int ENEMY_LAYER = 10;
         public const int ENEMY_PROJECTILE_LAYER = 11;
         public const int PLAYER_MELEE_LAYER = 12;
+        public const int INTERACTABLE_LAYER = 14;
+        public const int FAKE_GROUND_LAYER = 19;
+
 
         #endregion Collision tags
 
@@ -30,6 +33,12 @@
         public const string OPEN_SPELLMENU = "OpenSpellMenu";
         public const string CHANGE_CONTROL_TYPE = "ChangeControlType";
         public const string PAUSE = "Pause";
+
+        public const string ROT_CAM_RIGHT = "RotateCameraRight";
+        public const string ROT_CAM_LEFT = "RotateCameraLeft";
+        public const string MOUSE_SCROLL = "Mouse ScrollWheel";
+        public const string MOUSE_X = "Mouse X";
+        public const string MOUSE_Y = "Mouse Y";
 
         #endregion Input tags
 
@@ -54,6 +63,13 @@
         public const int ENEMY_ANIM_STAGGER = 3;
         public const int ENEMY_ANIM_DEATH = 4;
         public const int ENEMY_ANIM_RANGED_ATTACK = 5;
+
+        public const int TREEBOSS_ANIM_IDLE = 0;
+        public const int TREEBOSS_ANIM_SLAM_ATTACK = 1;
+        public const int TREEBOSS_ANIM_SWEEP_RIGHT = 2;
+        public const int TREEBOSS_ANIM_SWEEP_LEFT = 3;
+        public const int TREEBOSS_ANIM_DEATH = 4;
+        public const int TREEBOSS_ANIM_ROOT_ATTACK = 5;
 
         #endregion Animation values
 
