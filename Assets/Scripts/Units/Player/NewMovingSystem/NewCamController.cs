@@ -314,18 +314,31 @@ namespace CursedWoods
 
         private void ExploreCamMovement(float deltaTime)
         {
-            // TODO: Maybe slerp the rotation
-            float dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS);
-            if (Input.GetButton(GlobalVariables.ROT_CAM_RIGHT))
+            float dir;
+            if (Input.GetMouseButton(GlobalVariables.MOUSE_MIDDLE_BUTTON))
             {
-                dir = 1f;
+                dir = Input.GetAxisRaw(GlobalVariables.MOUSE_X) * 5f;
+                /*
+                float width = Screen.width;
+                if (CharController.mousePos.x <= 1)
+                {
+                    dir = -1f;
+                }
+                else if (CharController.mousePos.x >= width - 1)
+                {
+                    dir = 1f;
+                }
+                */
             }
-            else if (Input.GetButton(GlobalVariables.ROT_CAM_LEFT))
+            else
             {
-                dir = -1f;
+                dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS);
             }
 
             Quaternion rotation = Quaternion.Euler(0f, dir * Settings.Instance.CameraRotationSpeed * deltaTime, 0f);
+            // Maybe slerp the rotation
+            //rotation *= transform.rotation;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 100f);
             transform.rotation *= rotation;
 
             Vector3 camTPos = camT.position;
@@ -333,7 +346,7 @@ namespace CursedWoods
             float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * Settings.Instance.CameraZoomSpeed;
             if (moveAmount == 0f)
             {
-                moveAmount = Input.GetAxisRaw(GlobalVariables.MOUSE_SCROLL) * 750;
+                moveAmount = Input.GetAxisRaw(GlobalVariables.MOUSE_SCROLL) * 700f;
             }
 
             Vector3 newCamPos = camTPos + camT.forward * moveAmount * deltaTime;

@@ -17,7 +17,6 @@
         public const int INTERACTABLE_LAYER = 14;
         public const int FAKE_GROUND_LAYER = 19;
 
-
         #endregion Collision tags
 
         #region Input tags
@@ -34,8 +33,7 @@
         public const string CHANGE_CONTROL_TYPE = "ChangeControlType";
         public const string PAUSE = "Pause";
 
-        public const string ROT_CAM_RIGHT = "RotateCameraRight";
-        public const string ROT_CAM_LEFT = "RotateCameraLeft";
+        public const int MOUSE_MIDDLE_BUTTON = 2;
         public const string MOUSE_SCROLL = "Mouse ScrollWheel";
         public const string MOUSE_X = "Mouse X";
         public const string MOUSE_Y = "Mouse Y";
