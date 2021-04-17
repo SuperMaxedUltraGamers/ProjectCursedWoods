@@ -99,6 +99,22 @@ namespace CursedWoods
                 hasMouseMoved = lastMousePos != mousePos;
                 lastMousePos = mousePos;
             }
+
+#if (UNITY_EDITOR)
+
+            if (Input.GetKeyUp(KeyCode.K))
+            {
+                GameMan.Instance.PlayerManager.UnlockSpellByType(Spells.Fireball);
+                GameMan.Instance.PlayerManager.UnlockSpellByType(Spells.Shockwave);
+                GameMan.Instance.PlayerManager.UnlockSpellByType(Spells.IceRay);
+                GameMan.Instance.PlayerManager.UnlockSpellByType(Spells.MagicBeam);
+                for (int i=0; i < Enum.GetNames(typeof(KeyType)).Length; i++)
+                {
+                    GameMan.Instance.PlayerManager.CollectedKey((KeyType)i);
+                }
+            }
+
+#endif
         }
 
         protected override void Die()
