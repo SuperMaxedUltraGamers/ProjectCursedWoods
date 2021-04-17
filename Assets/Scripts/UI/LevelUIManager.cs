@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 namespace CursedWoods.UI
 {
@@ -93,6 +94,7 @@ namespace CursedWoods.UI
             playerSC.SelectionMoved += UpdateSpellMenu;
             playerSC.SpellCasted += SpellCooldownGraphic;
             playerUnit.HealthChanged += OpenGameOverScreen;
+            PlayerManager.SpellUnlocked += ActivateSpellIcons;
         }
 
         private void OnDisable()
@@ -102,6 +104,7 @@ namespace CursedWoods.UI
             playerSC.SelectionMoved -= UpdateSpellMenu;
             playerSC.SpellCasted -= SpellCooldownGraphic;
             playerUnit.HealthChanged -= OpenGameOverScreen;
+            PlayerManager.SpellUnlocked -= ActivateSpellIcons;
         }
 
         private void Update()
@@ -109,6 +112,24 @@ namespace CursedWoods.UI
             if (Input.GetButtonDown(GlobalVariables.PAUSE))
             {
                 TogglePauseMenu();
+            }
+        }
+
+        public void InitializeLevelUIManager(PlayerManager playerMan)
+        {
+            // Start from one because index 0 in Spells equals None.
+            for (int i = 1; i < Enum.GetNames(typeof(Spells)).Length; i++)
+            {
+                if (playerMan.GetSpellLockStatus((Spells)i))
+                {
+                    spellMenuSpellGraphics[i].gameObject.SetActive(true);
+                    spellCooldownIcons[i-1].gameObject.SetActive(true);
+                }
+                else
+                {
+                    spellMenuSpellGraphics[i + 1].gameObject.SetActive(false);
+                    spellCooldownIcons[i - 1].gameObject.SetActive(false);
+                }
             }
         }
 
@@ -337,6 +358,30 @@ namespace CursedWoods.UI
             }
 
             StartCoroutine(SpellCooldownIconFill(index, cooldownTime));
+        }
+
+        private void ActivateSpellIcons(Spells spell)
+        {
+            // TODO: FUCKING AWFUL HARDCODED BULLSHIT
+            switch (spell)
+            {
+                case Spells.Fireball:
+                    spellMenuSpellGraphics[1].gameObject.SetActive(true);
+                    spellCooldownIcons[0].gameObject.SetActive(true);
+                    break;
+                case Spells.Shockwave:
+                    spellMenuSpellGraphics[2].gameObject.SetActive(true);
+                    spellCooldownIcons[1].gameObject.SetActive(true);
+                    break;
+                case Spells.IceRay:
+                    spellMenuSpellGraphics[3].gameObject.SetActive(true);
+                    spellCooldownIcons[2].gameObject.SetActive(true);
+                    break;
+                case Spells.MagicBeam:
+                    spellMenuSpellGraphics[4].gameObject.SetActive(true);
+                    spellCooldownIcons[3].gameObject.SetActive(true);
+                    break;
+            }
         }
 
         private IEnumerator SpellCooldownIconFill(int iconIndex, float cooldownTime)

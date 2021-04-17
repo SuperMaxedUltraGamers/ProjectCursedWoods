@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace CursedWoods
 {
@@ -7,6 +8,9 @@ namespace CursedWoods
         [SerializeField]
         private GameObject[] disableObjects;
         private Collider hitbox;
+        [SerializeField]
+        private string displayInfoText = "";
+        private float fadeSpeed = 1.5f;
 
         private void Awake()
         {
@@ -15,13 +19,26 @@ namespace CursedWoods
 
         protected override void AfterInteraction()
         {
-            base.AfterInteraction();
+            GameMan.Instance.PlayerManager.UnlockSpellByType(Spells.Fireball);
+            StartCoroutine(DisplayInfoText());
             foreach (GameObject go in disableObjects)
             {
                 go.SetActive(false);
             }
 
             hitbox.enabled = false;
+            base.AfterInteraction();
+        }
+
+        private IEnumerator DisplayInfoText()
+        {
+            float alpha = 2.75f;
+            while (alpha > 0f)
+            {
+                alpha -= Time.deltaTime * fadeSpeed;
+                GameMan.Instance.LevelUIManager.DisplayInfoText(displayInfoText, alpha);
+                yield return null;
+            }
         }
     }
 }

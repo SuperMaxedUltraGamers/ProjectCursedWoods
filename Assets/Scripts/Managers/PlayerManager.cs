@@ -13,6 +13,9 @@ namespace CursedWoods
 
         public Dictionary<KeyType, bool> keyCollectInfo = new Dictionary<KeyType, bool>();
 
+        // LevelUI activates icons by subscribing to this.
+        public static event Action<Spells> SpellUnlocked;
+
         // TODO: add other progress info and load from here e.g. player health.
 
         public void Initialize()
@@ -38,6 +41,10 @@ namespace CursedWoods
         public void UnlockSpellByType(Spells spell)
         {
             spellUnlockInfo[spell] = true;
+            if (SpellUnlocked != null)
+            {
+                SpellUnlocked(spell);
+            }
         }
 
         public bool GetSpellLockStatus(Spells spell)

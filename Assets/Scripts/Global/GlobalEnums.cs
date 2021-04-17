@@ -20,9 +20,9 @@
     {
         None = 0,
         Fireball,
+        Shockwave,
         IceRay,
-        MagicBeam,
-        Shockwave
+        MagicBeam
     }
 
     /// <summary>

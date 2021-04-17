@@ -3,14 +3,17 @@ using UnityEngine;
 
 namespace CursedWoods
 {
-    public class MeleeUnlock : InteractionBase
-    {
+    public class SpellUnlock : InteractionBase
+   {
+        //[SerializeField]
+        //private GameObject[] disableObjects;
         [SerializeField]
-        private GameObject[] disableObjects;
-        private Collider hitbox;
+        private Spells unlockSpell;
         [SerializeField]
         private string displayInfoText = "";
         private float fadeSpeed = 1.5f;
+        private Collider hitbox;
+
 
         private void Awake()
         {
@@ -19,11 +22,15 @@ namespace CursedWoods
 
         protected override void AfterInteraction()
         {
+            GameMan.Instance.PlayerManager.UnlockSpellByType(unlockSpell);
             StartCoroutine(DisplayInfoText());
+
+            /*
             foreach (GameObject go in disableObjects)
             {
                 go.SetActive(false);
             }
+            */
 
             hitbox.enabled = false;
             base.AfterInteraction();
@@ -38,6 +45,8 @@ namespace CursedWoods
                 GameMan.Instance.LevelUIManager.DisplayInfoText(displayInfoText, alpha);
                 yield return null;
             }
+
+            gameObject.SetActive(false);
         }
     }
 }

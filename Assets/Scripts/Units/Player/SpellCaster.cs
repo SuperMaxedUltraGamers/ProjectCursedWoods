@@ -85,23 +85,35 @@ namespace CursedWoods
                         {
                             if (inputDir.x >= 0f && inputDir.y >= 0f)
                             {
-                                CurrentSpell = spellFireBall;
-                                spellGraphicIndex = 1;
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.Fireball))
+                                {
+                                    CurrentSpell = spellFireBall;
+                                    spellGraphicIndex = 1;
+                                }
                             }
                             else if (inputDir.x >= 0f && inputDir.y <= 0f)
                             {
-                                CurrentSpell = spellIceRay;
-                                spellGraphicIndex = 2;
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.Shockwave))
+                                {
+                                    CurrentSpell = spellShockwave;
+                                    spellGraphicIndex = 2;
+                                }
                             }
                             else if (inputDir.x <= 0f && inputDir.y <= 0f)
                             {
-                                CurrentSpell = spellMagicBeam;
-                                spellGraphicIndex = 3;
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.IceRay))
+                                {
+                                    CurrentSpell = spellIceRay;
+                                    spellGraphicIndex = 3;
+                                }
                             }
                             else if (inputDir.x <= 0f && inputDir.y >= 0f)
                             {
-                                CurrentSpell = spellShockwave;
-                                spellGraphicIndex = 4;
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.MagicBeam))
+                                {
+                                    CurrentSpell = spellMagicBeam;
+                                    spellGraphicIndex = 4;
+                                }
                             }
 
                             if (SelectionMoved != null)
@@ -116,27 +128,39 @@ namespace CursedWoods
                             float halfHeight = Screen.height * 0.5f;
                             if (mousePos.x >= halfWidth && mousePos.y >= halfHeight)
                             {
-                                CurrentSpell = spellFireBall;
-                                spellGraphicIndex = 1;
-                                inputDir = new Vector2(1f, 1f);
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.Fireball))
+                                {
+                                    CurrentSpell = spellFireBall;
+                                    spellGraphicIndex = 1;
+                                    inputDir = new Vector2(1f, 1f);
+                                }
                             }
                             else if (mousePos.x >= halfWidth && mousePos.y <= halfHeight)
                             {
-                                CurrentSpell = spellIceRay;
-                                spellGraphicIndex = 2;
-                                inputDir = new Vector2(1f, -1f);
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.Shockwave))
+                                {
+                                    CurrentSpell = spellShockwave;
+                                    spellGraphicIndex = 2;
+                                    inputDir = new Vector2(1f, -1f);
+                                }
                             }
                             else if (mousePos.x <= halfWidth && mousePos.y <= halfHeight)
                             {
-                                CurrentSpell = spellMagicBeam;
-                                spellGraphicIndex = 3;
-                                inputDir = new Vector2(-1f, -1f);
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.IceRay))
+                                {
+                                    CurrentSpell = spellIceRay;
+                                    spellGraphicIndex = 3;
+                                    inputDir = new Vector2(-1f, -1f);
+                                }
                             }
                             else if (mousePos.x <= halfWidth && mousePos.y >= halfHeight)
                             {
-                                CurrentSpell = spellShockwave;
-                                spellGraphicIndex = 4;
-                                inputDir = new Vector2(-1f, 1f);
+                                if (GameMan.Instance.PlayerManager.GetSpellLockStatus(Spells.MagicBeam))
+                                {
+                                    CurrentSpell = spellMagicBeam;
+                                    spellGraphicIndex = 4;
+                                    inputDir = new Vector2(-1f, 1f);
+                                }
                             }
 
                             if (SelectionMoved != null)

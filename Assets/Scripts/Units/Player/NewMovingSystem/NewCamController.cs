@@ -317,7 +317,8 @@ namespace CursedWoods
             float dir;
             if (Input.GetMouseButton(GlobalVariables.MOUSE_MIDDLE_BUTTON))
             {
-                dir = Input.GetAxisRaw(GlobalVariables.MOUSE_X) * 5f;
+                // Mouse input is already frame independent so we do not multiply it with deltatime.
+                dir = Input.GetAxisRaw(GlobalVariables.MOUSE_X) * 0.1f;
                 /*
                 float width = Screen.width;
                 if (CharController.mousePos.x <= 1)
@@ -332,10 +333,11 @@ namespace CursedWoods
             }
             else
             {
-                dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS);
+                // Controllers are frame depended so we multiply it with deltatime.
+                dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS) * deltaTime;
             }
 
-            Quaternion rotation = Quaternion.Euler(0f, dir * Settings.Instance.CameraRotationSpeed * deltaTime, 0f);
+            Quaternion rotation = Quaternion.Euler(0f, dir * Settings.Instance.CameraRotationSpeed, 0f);
             // Maybe slerp the rotation
             //rotation *= transform.rotation;
             //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 100f);

@@ -24,10 +24,6 @@ namespace CursedWoods
             hitbox = GetComponent<Collider>();
         }
 
-        private void OnEnable()
-        {
-        }
-
         protected override void AfterInteraction()
         {
             GameMan.Instance.PlayerManager.CollectedKey(keyType);

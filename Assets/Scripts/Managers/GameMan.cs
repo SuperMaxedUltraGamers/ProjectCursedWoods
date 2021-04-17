@@ -226,7 +226,6 @@ namespace CursedWoods
                     break;
                 case GlobalVariables.GRAVEYARD:
                     //print("graveyard init");
-                    GraveyardInit();
 
 #if (UNITY_EDITOR)
                     if (PlayerManager == null)
@@ -244,10 +243,10 @@ namespace CursedWoods
                     AIManager.ResetProgress();
 #endif
 
+                    GraveyardInit();
                     break;
 #if (UNITY_EDITOR)
                 case "SampleScene 1":
-                    GraveyardInit();
                     if (PlayerManager == null)
                     {
                         PlayerManager = GetComponent<PlayerManager>();
@@ -262,6 +261,7 @@ namespace CursedWoods
 
                     AIManager.ResetProgress();
 
+                    GraveyardInit();
                     break;
 #endif
             }
@@ -320,6 +320,8 @@ namespace CursedWoods
 
             CharController = FindObjectOfType<CharController>();
             LevelUIManager = FindObjectOfType<LevelUIManager>();
+            LevelUIManager.InitializeLevelUIManager(PlayerManager);
+
             PlayerT = CharController.gameObject.transform;
 
             //AudioSource audioSource = GetComponent<AudioSource>();
