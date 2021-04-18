@@ -20,6 +20,11 @@ namespace CursedWoods
             hitbox = GetComponent<Collider>();
         }
 
+        private void Start()
+        {
+            StartCoroutine(GotSpellAtStartCheck());
+        }
+
         protected override void AfterInteraction()
         {
             GameMan.Instance.PlayerManager.UnlockSpellByType(unlockSpell);
@@ -47,6 +52,18 @@ namespace CursedWoods
             }
 
             gameObject.SetActive(false);
+        }
+
+        private IEnumerator GotSpellAtStartCheck()
+        {
+            // Dirty way to wait for 2 frames to make sure loading is complete.
+            yield return null;
+            yield return null;
+
+            if (GameMan.Instance.PlayerManager.GetSpellLockStatus(unlockSpell))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

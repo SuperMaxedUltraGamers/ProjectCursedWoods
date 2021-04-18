@@ -17,6 +17,11 @@ namespace CursedWoods
             hitbox = GetComponent<Collider>();
         }
 
+        private void Start()
+        {
+            StartCoroutine(OpenAtStartCheck());
+        }
+
         protected override void AfterInteraction()
         {
             StartCoroutine(DisplayInfoText());
@@ -37,6 +42,24 @@ namespace CursedWoods
                 alpha -= Time.deltaTime * fadeSpeed;
                 GameMan.Instance.LevelUIManager.DisplayInfoText(displayInfoText, alpha);
                 yield return null;
+            }
+        }
+
+        private IEnumerator OpenAtStartCheck()
+        {
+            // Dirty way to wait for 2 frames to make sure loading is complete.
+            yield return null;
+            yield return null;
+
+            if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(GraveyardGateType.GraveyardBookGate))
+            {
+                foreach (GameObject go in disableObjects)
+                {
+                    go.SetActive(false);
+                }
+
+                hitbox.enabled = false;
+                base.AfterInteraction();
             }
         }
     }

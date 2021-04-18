@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
+using CursedWoods.SaveSystem;
 
 namespace CursedWoods.UI
 {
@@ -40,6 +41,8 @@ namespace CursedWoods.UI
 
         [SerializeField]
         private GameObject pauseMenu;
+        [SerializeField]
+        private Button pauseMenuLoadButton = null;
 
         [SerializeField]
         private GameObject controlsMenu;
@@ -52,6 +55,8 @@ namespace CursedWoods.UI
 
         [SerializeField]
         private GameObject gameOverMenu;
+        [SerializeField]
+        private Button gameOverMenuLoadButton = null;
 
         [SerializeField]
         private Image displayInfoTextBG = null;
@@ -127,10 +132,12 @@ namespace CursedWoods.UI
                 }
                 else
                 {
-                    spellMenuSpellGraphics[i + 1].gameObject.SetActive(false);
+                    spellMenuSpellGraphics[i].gameObject.SetActive(false);
                     spellCooldownIcons[i - 1].gameObject.SetActive(false);
                 }
             }
+
+
         }
 
         public void ConfigureBossHealthBar(UnitBase currentBoss, string bossName, int currentHealth, int maxHealth)
@@ -158,7 +165,8 @@ namespace CursedWoods.UI
 
         public void LoadGameButton()
         {
-            GameMan.Instance.LoadGame();
+            // TODO: Create loadmenu where we can choose saveslot if we want to have more than one savefile.
+            GameMan.Instance.LoadGame(SaveUtils.AUTOSAVE_SAVE_SLOT);
         }
 
         public void ControlsMenu()
@@ -316,6 +324,7 @@ namespace CursedWoods.UI
                     isPaused = true;
                     GameMan.Instance.CharController.IgnoreControl = true;
                     Time.timeScale = 0f;
+                    pauseMenuLoadButton.interactable = GameMan.Instance.SaveSystem.SaveFileExist(SaveUtils.AUTOSAVE_SAVE_SLOT);
                     pauseMenu.SetActive(true);
                     interactPromt.SetActive(false);
                 }
@@ -333,8 +342,9 @@ namespace CursedWoods.UI
                 controlsMenu.SetActive(false);
                 pauseMenu.SetActive(false);
                 spellMenu.SetActive(false);
-                gameOverMenu.SetActive(true);
                 bossHealthBarGO.SetActive(false);
+                gameOverMenuLoadButton.interactable = GameMan.Instance.SaveSystem.SaveFileExist(SaveUtils.AUTOSAVE_SAVE_SLOT);
+                gameOverMenu.SetActive(true);
             }
         }
 

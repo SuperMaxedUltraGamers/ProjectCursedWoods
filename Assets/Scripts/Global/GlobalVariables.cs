@@ -75,6 +75,7 @@
 
         public const string MAIN_MENU = "MainMenu";
         public const string GRAVEYARD = "Graveyard&more";
+        public const string CASTLE = "Castle";
 
         #endregion Scene tags
     }

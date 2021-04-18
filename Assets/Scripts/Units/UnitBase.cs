@@ -51,7 +51,7 @@ namespace CursedWoods
         /// The health amount the unit starts with.
         /// </summary>
         [SerializeField, Tooltip("The default/starting health, set to Max Health value if larger.")]
-        private int startingHealth = 100;
+        protected int startingHealth = 100;
 
         /// <summary>
         /// Unit's current maximum health.
@@ -62,7 +62,7 @@ namespace CursedWoods
         /// <summary>
         /// Unit's default maximum health, used if reseting the unit back to it's default values.
         /// </summary>
-        private int startingMaxHealth;
+        protected int startingMaxHealth;
 
         /// <summary>
         /// If unit's health is reduced to this or to a lower value, the unit dies.
@@ -94,9 +94,9 @@ namespace CursedWoods
 
         #region Properties
 
-        public int CurrentHealth { get; private set; }
+        public int CurrentHealth { get; protected set; }
 
-        public int MaxHealth { get { return maxHealth; } private set { maxHealth = value; } }
+        public int MaxHealth { get { return maxHealth; } protected set { maxHealth = value; } }
 
         public int MinHealth { get { return minHealth; } private set { minHealth = value; } }
 
@@ -271,7 +271,7 @@ namespace CursedWoods
         /// <summary>
         /// Hard-coded invoke for HealthChanged event with correct parameters.
         /// </summary>
-        private void InvokeHealthChangedEvent()
+        protected void InvokeHealthChangedEvent()
         {
             if (HealthChanged != null)
             {

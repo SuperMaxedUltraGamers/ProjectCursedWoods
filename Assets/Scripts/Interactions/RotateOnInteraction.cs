@@ -1,20 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace CursedWoods
 {
     public class RotateOnInteraction : InteractionHandlerArray
     {
-        private enum GraveyardGate
-        {
-            SwordGate = 0,
-            BookGate,
-            MiddleAreaGate
-        }
-
         //[SerializeField, Tooltip("Leave unassigned if no need to use!")]
         //private GraveyardManager graveyardMan;
         [SerializeField]
-        private GraveyardGate gateType;
+        private GraveyardGateType gateType;
         [SerializeField]
         private float rotateAmount = 90f;
         [SerializeField]
@@ -54,6 +48,11 @@ namespace CursedWoods
             }
 
             targetRot = orignalRot * addedRot;
+        }
+
+        private void Start()
+        {
+            StartCoroutine(OpenAtStartCheck());
         }
 
         protected override void OnEnable()
@@ -135,6 +134,18 @@ namespace CursedWoods
             }
 
             isRotating = true;
+        }
+
+        private IEnumerator OpenAtStartCheck()
+        {
+            // Dirty way to wait for 2 frames to make sure loading is complete.
+            yield return null;
+            yield return null;
+
+            if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(gateType))
+            {
+                InteractionCause();
+            }
         }
     }
 }

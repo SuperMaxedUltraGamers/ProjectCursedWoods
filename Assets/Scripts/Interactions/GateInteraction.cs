@@ -8,6 +8,8 @@ namespace CursedWoods
         [SerializeField]
         private KeyType neededKey;
         [SerializeField]
+        private GraveyardGateType gate;
+        [SerializeField]
         private string closedInfoText = "";
         [SerializeField]
         private string openInfoText = "";
@@ -20,12 +22,19 @@ namespace CursedWoods
             hitbox = GetComponent<Collider>();
         }
 
+        private void Start()
+        {
+            StartCoroutine(OpenAtStartCheck());
+        }
+
         public override float Interaction()
         {
             hasKey = GameMan.Instance.PlayerManager.GetKeyCollectedStatus(neededKey);
             hitbox.enabled = false;
             if (hasKey)
             {
+                GameMan.Instance.GraveyardManager.SetGateToOpenStatus(gate);
+                GameMan.Instance.AutoSave();
                 StartCoroutine(DisplayInfoText(openInfoText));
                 return base.Interaction();
             }
@@ -34,6 +43,11 @@ namespace CursedWoods
                 StartCoroutine(DisplayInfoText(closedInfoText));
                 return InteractionAnimation();
             }
+        }
+
+        protected override void AfterInteraction()
+        {
+            base.AfterInteraction();
         }
 
         private IEnumerator DisplayInfoText(string text)
@@ -53,6 +67,18 @@ namespace CursedWoods
             else
             {
                 hitbox.enabled = true;
+            }
+        }
+
+        private IEnumerator OpenAtStartCheck()
+        {
+            // Dirty way to wait for 2 frames to make sure loading is complete.
+            yield return null;
+            yield return null;
+
+            if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(gate))
+            {
+                gameObject.SetActive(false);
             }
         }
     }

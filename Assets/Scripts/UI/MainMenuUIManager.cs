@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using CursedWoods.SaveSystem;
 
 namespace CursedWoods.UI
 {
@@ -8,6 +9,8 @@ namespace CursedWoods.UI
     {
         [SerializeField]
         private GameObject mainMenu;
+        [SerializeField]
+        private Button loadGameButton = null;
 
         [SerializeField]
         private GameObject controlsMenu;
@@ -23,6 +26,11 @@ namespace CursedWoods.UI
             mainMenu.SetActive(true);
         }
 
+        private void Start()
+        {
+            loadGameButton.interactable = GameMan.Instance.SaveSystem.SaveFileExist(SaveUtils.AUTOSAVE_SAVE_SLOT);
+        }
+
         public void NewGameButton()
         {
             GameMan.Instance.NewGame();
@@ -30,7 +38,8 @@ namespace CursedWoods.UI
 
         public void LoadGameButton()
         {
-            GameMan.Instance.LoadGame();
+            // TODO: Create loadmenu where we can choose saveslot if we want to have more than one savefile.
+            GameMan.Instance.LoadGame(SaveUtils.AUTOSAVE_SAVE_SLOT);
         }
 
         public void ControlsMenuButton()

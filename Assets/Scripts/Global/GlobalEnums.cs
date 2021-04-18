@@ -124,4 +124,14 @@
         KeyS,
         KeyV
     }
+
+    public enum GraveyardGateType
+    {
+        None = 0,
+        GraveyardBookGate,
+        GraveyardMiddleAreaSouthGate,
+        GraveyardMiddleAreaNorthGate,
+        GraveyardGardenGate,
+        GraveyardCastleGate
+    }
 }

@@ -3,6 +3,10 @@ using UnityEngine.Audio;
 using CursedWoods.UI;
 using CursedWoods.Data;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System;
+using CursedWoods.SaveSystem;
+using System.Collections;
 
 namespace CursedWoods
 {
@@ -139,6 +143,14 @@ namespace CursedWoods
             private set;
         }
 
+        public GraveyardManager GraveyardManager
+        {
+            get;
+            private set;
+        }
+
+        public ISave SaveSystem { get; private set; }
+
         #endregion Properties
 
         #region Unity messages
@@ -174,6 +186,7 @@ namespace CursedWoods
             // TODO: load player unlocks from savefile and pass them to PlayerManager.
             */
 
+            InitializeSaveSystem();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -187,31 +200,73 @@ namespace CursedWoods
             SceneManager.sceneLoaded -= InitializeGameMan;
         }
 
+        #endregion Unity messages
+
         public void NewGame()
         {
+            // Delete savefile
+            SaveSystem.DeleteSaveFile(SaveUtils.AUTOSAVE_SAVE_SLOT);
+
             if (PlayerManager == null)
             {
                 PlayerManager = GetComponent<PlayerManager>();
             }
 
-            PlayerManager.Initialize();
+            PlayerManager.Initialize(SaveSystem, SaveUtils.PLAYER_MAN_PREFIX);
 
             if (AIManager == null)
             {
                 AIManager = GetComponent<AIManager>();
             }
 
-            AIManager.ResetProgress();
+            AIManager.Initialize(SaveSystem, SaveUtils.AI_MAN_PREFIX);
 
             // TODO: reset other progress
 
             SceneManager.LoadScene(GlobalVariables.GRAVEYARD);
         }
 
-        public void LoadGame()
+        public void LoadGame(string saveSlot)
         {
             // TODO: Load progress values from file.
             // TODO: load correct scene.
+            SaveSystem.Load(saveSlot);
+
+            string scene = SaveSystem.GetString(SaveUtils.GetKey(SaveUtils.GAME_MAN_PREFIX, SaveUtils.GAMEMAN_SCENE_NAME_KEY), GlobalVariables.GRAVEYARD);
+            SceneManager.LoadScene(scene);
+        }
+
+        public void AutoSave()
+        {
+            // TOOO: Add everything that needs to be saved.
+            // Save scene
+            SaveSystem.SetString(SaveUtils.GetKey(SaveUtils.GAME_MAN_PREFIX, SaveUtils.GAMEMAN_SCENE_NAME_KEY), SceneManager.GetActiveScene().name);
+
+            // Save player pos/rot
+            Vector3 playerPos = PlayerT.position;
+            float playerRot = PlayerT.rotation.eulerAngles.y;
+            SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_X_KEY), playerPos.x);
+            SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Y_KEY), playerPos.y);
+            SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Z_KEY), playerPos.z);
+            SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_ROT_KEY), playerRot);
+
+            // Save player health
+            CharController.Save(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
+
+            // Save player progress
+            PlayerManager.Save(SaveSystem, SaveUtils.PLAYER_MAN_PREFIX);
+
+            // Save AI manager
+            AIManager.Save(SaveSystem, SaveUtils.AI_MAN_PREFIX);
+
+            // Save GraveyardMan
+            if (GraveyardManager != null)
+            {
+                GraveyardManager.Save(SaveSystem, SaveUtils.GRAVEYARD_MAN_PREFIX);
+            }
+
+            SaveSystem.Save(SaveUtils.AUTOSAVE_SAVE_SLOT);
+            print("game saved");
         }
 
         private void InitializeGameMan(Scene scene, LoadSceneMode mode)
@@ -227,41 +282,61 @@ namespace CursedWoods
                 case GlobalVariables.GRAVEYARD:
                     //print("graveyard init");
 
-#if (UNITY_EDITOR)
+//#if (UNITY_EDITOR)
+                    // Load PlayerMan, move to GraveyardInit?
                     if (PlayerManager == null)
                     {
                         PlayerManager = GetComponent<PlayerManager>();
                     }
 
-                    PlayerManager.Initialize();
+                    PlayerManager.Initialize(SaveSystem, SaveUtils.PLAYER_MAN_PREFIX);
 
+                    // Load GraveyardMan
+                    if (GraveyardManager == null)
+                    {
+                        GraveyardManager = FindObjectOfType<GraveyardManager>();
+                    }
+
+                    GraveyardManager.Initialize(SaveSystem, SaveUtils.GRAVEYARD_MAN_PREFIX);
+
+                    // Load AIman, move to GraveyardInit?
                     if (AIManager == null)
                     {
                         AIManager = GetComponent<AIManager>();
                     }
 
-                    AIManager.ResetProgress();
-#endif
+                    AIManager.Initialize(SaveSystem, SaveUtils.AI_MAN_PREFIX);
+//#endif
 
-                    GraveyardInit();
+                    StartCoroutine(GraveyardInit());
                     break;
 #if (UNITY_EDITOR)
                 case "SampleScene 1":
+                    // Load PlayerMan, move to GraveyardInit?
                     if (PlayerManager == null)
                     {
                         PlayerManager = GetComponent<PlayerManager>();
                     }
 
-                    PlayerManager.Initialize();
+                    PlayerManager.Initialize(SaveSystem, SaveUtils.PLAYER_MAN_PREFIX);
 
+                    // Load GraveyardMan
+                    if (GraveyardManager == null)
+                    {
+                        GraveyardManager = FindObjectOfType<GraveyardManager>();
+                    }
+
+                    GraveyardManager.Initialize(SaveSystem, SaveUtils.GRAVEYARD_MAN_PREFIX);
+
+                    // Load AIman, move to GraveyardInit?
                     if (AIManager == null)
                     {
                         AIManager = GetComponent<AIManager>();
                     }
 
-                    AIManager.ResetProgress();
+                    AIManager.Initialize(SaveSystem, SaveUtils.AI_MAN_PREFIX);
 
-                    GraveyardInit();
+                    StartCoroutine(GraveyardInit());
                     break;
 #endif
             }
@@ -296,8 +371,9 @@ namespace CursedWoods
             }
         }
 
-        private void GraveyardInit()
+        private IEnumerator GraveyardInit()
         {
+
             if (ObjPoolMan == null)
             {
                 ObjPoolMan = GetComponent<ObjectPoolManager>();
@@ -319,17 +395,47 @@ namespace CursedWoods
             */
 
             CharController = FindObjectOfType<CharController>();
+
             LevelUIManager = FindObjectOfType<LevelUIManager>();
             LevelUIManager.InitializeLevelUIManager(PlayerManager);
 
+            ObjPoolMan.InitializeGraveyardObjectPool();
+
             PlayerT = CharController.gameObject.transform;
+
+            // Wait for one frame before loading some of the values.
+            yield return null;
+
+            // Load player pos/rot
+            Vector3 playerPos = PlayerT.position;
+            float playerRot = PlayerT.rotation.eulerAngles.y;
+            float posX = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_X_KEY), playerPos.x);
+            float posY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Y_KEY), playerPos.y);
+            float posZ = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Z_KEY), playerPos.z);
+            float rotY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_ROT_KEY), playerRot);
+
+            //print(new Vector3(posX, posY + 0.1f, posZ));
+            PlayerT.position = new Vector3(posX, posY + 0.1f, posZ);
+            PlayerT.rotation = Quaternion.Euler(0f, rotY, 0f);
+
+            // Load player health
+            CharController.Load(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
+
 
             //AudioSource audioSource = GetComponent<AudioSource>();
             //Audio = new AudioManager(audioSource, mixer, audioData);
-            ObjPoolMan.InitializeGraveyardObjectPool();
             //PlayerManager.IsAttackUnlocked = true;
             //PlayerManager.IsSpellCastUnlocked = true;
             // TODO: load player unlocks from savefile and pass them to PlayerManager.
+        }
+
+        private void InitializeSaveSystem()
+        {
+            string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string gameFolder = "Cursed Woods";
+            string saveFolder = Path.Combine(myDocuments, gameFolder);
+
+            SaveSystem = new BinarySaver(saveFolder);
         }
 
         /*
@@ -354,7 +460,5 @@ namespace CursedWoods
             isQuitting = true;
         }
         */
-
-#endregion Unity messages
     }
 }

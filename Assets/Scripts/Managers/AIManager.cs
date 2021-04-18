@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using CursedWoods.Utils;
+using CursedWoods.SaveSystem;
 
 namespace CursedWoods
 {
-    public class AIManager : MonoBehaviour
+    public class AIManager : MonoBehaviour, ISaveable
     {
         [SerializeField]
         private float fleeAffectorReduceRate = 2f;
@@ -74,11 +75,21 @@ namespace CursedWoods
             fleeAffectorReduceTimer.TimerCompleted -= ReduceFleeAffector;
         }
 
-        public void ResetProgress()
+        public void Save(ISave saveSystem, string keyPrefix)
+        {
+            saveSystem.SetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.AI_MAN_ENEMIES_KILLED_AMOUNT_KEY), enemiesKilledAmount);
+        }
+
+        public void Load(ISave saveSystem, string keyPrefix)
+        {
+            EnemiesKilledAmount = saveSystem.GetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.AI_MAN_ENEMIES_KILLED_AMOUNT_KEY), 0);
+        }
+
+        public void Initialize(ISave saveSystem, string keyPrefix)
         {
             fleeAffectorReduceRate = 2f;
             enemiesKilledFleeAffector = 0;
-            EnemiesKilledAmount = 0;
+            Load(saveSystem, keyPrefix);
         }
 
         private void ReduceFleeAffector()

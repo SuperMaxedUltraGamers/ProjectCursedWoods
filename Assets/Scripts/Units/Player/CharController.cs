@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using CursedWoods.Utils;
+using CursedWoods.SaveSystem;
 
 namespace CursedWoods
 {
-    public class CharController : UnitBase
+    public class CharController : UnitBase, ISaveable
     {
         private GroundCheck groundCheck;
         [SerializeField]
@@ -115,6 +116,28 @@ namespace CursedWoods
             }
 
 #endif
+        }
+
+        public void Save(ISave saveSystem, string keyPrefix)
+        {
+            saveSystem.SetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.PLAYER_MAX_HEALTH_KEY), MaxHealth);
+            saveSystem.SetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.PLAYER_CURRENT_HEALTH_KEY), CurrentHealth);
+        }
+
+        public void Load(ISave saveSystem, string keyPrefix)
+        {
+            MaxHealth = saveSystem.GetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.PLAYER_MAX_HEALTH_KEY), startingMaxHealth);
+            int loadedCurrentHealth = saveSystem.GetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.PLAYER_CURRENT_HEALTH_KEY), startingHealth);
+            if (loadedCurrentHealth < MaxHealth * 0.5f)
+            {
+                CurrentHealth = (int) (MaxHealth * 0.5f);
+            }
+            else
+            {
+                CurrentHealth = loadedCurrentHealth;
+            }
+
+            InvokeHealthChangedEvent();
         }
 
         protected override void Die()

@@ -999,6 +999,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1074522887980392406, guid: 30590377d91861446a7307877a8b29ba,
         type: 3}
+      propertyPath: gateType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074522887980392406, guid: 30590377d91861446a7307877a8b29ba,
+        type: 3}
       propertyPath: rotateAmount
       value: -90
       objectReference: {fileID: 0}
@@ -5567,7 +5572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactions:
   - {fileID: 103132347}
-  gateType: 2
+  gateType: 3
   rotateAmount: -90
   rotSpeed: 5
   rotationAxis: 1
@@ -12216,7 +12221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactions:
   - {fileID: 103132347}
-  gateType: 2
+  gateType: 3
   rotateAmount: 90
   rotSpeed: 5
   rotationAxis: 1
@@ -14365,6 +14370,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d1bf9afa2289d04baeb76f2c2a536b8, type: 3}
+--- !u!1 &475310756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8779050991390086733, guid: 2d1bf9afa2289d04baeb76f2c2a536b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 475310755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &475558825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3939894677068284359, guid: 7012e432079f36642bd260d1244f5e2c,
@@ -17382,6 +17393,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 696096716}
     m_Modifications:
+    - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
+        type: 3}
+      propertyPath: gate
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
         type: 3}
       propertyPath: neededKey
@@ -23591,55 +23607,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1737533295}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &781717381
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 781717383}
-  - component: {fileID: 781717382}
-  m_Layer: 0
-  m_Name: GraveyardManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &781717382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781717381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2800ac89dd1f340a77001970dca5b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  KillsToSpawnSwordGateKey: 3
-  KillsToSpawnGraveyardKey: 6
-  KillsToSpawnSkeletonBoss: 12
-  bookGateKey: {fileID: 114584135}
-  graveyardSouthKey: {fileID: 468646697}
-  skeletonBossSpawner: {fileID: 763747420}
---- !u!4 &781717383
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781717381}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &781762355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2574005296605507883, guid: 872dda80c9db02b43bd0ab08d8252f7c,
@@ -52039,6 +52006,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d1bf9afa2289d04baeb76f2c2a536b8, type: 3}
+--- !u!1 &1661873409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8779050991390086733, guid: 2d1bf9afa2289d04baeb76f2c2a536b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1661873408}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1664281919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53081,6 +53054,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d1bf9afa2289d04baeb76f2c2a536b8, type: 3}
+--- !u!1 &1696699872 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8779050991390086733, guid: 2d1bf9afa2289d04baeb76f2c2a536b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1696699871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1697316263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2574005296605507883, guid: 872dda80c9db02b43bd0ab08d8252f7c,
@@ -61155,6 +61134,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1074522887980392406, guid: 30590377d91861446a7307877a8b29ba,
         type: 3}
+      propertyPath: gateType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074522887980392406, guid: 30590377d91861446a7307877a8b29ba,
+        type: 3}
       propertyPath: rotateAmount
       value: 90
       objectReference: {fileID: 0}
@@ -62838,6 +62822,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 696096716}
     m_Modifications:
+    - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
+        type: 3}
+      propertyPath: gate
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
         type: 3}
       propertyPath: neededKey
@@ -66677,6 +66666,110 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fed8ac6acb964e04eb745093b25df0c6, type: 3}
+--- !u!1001 &1353080542796826610
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: bookGateKey
+      value: 
+      objectReference: {fileID: 114584135}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: graveyardSouthKey
+      value: 
+      objectReference: {fileID: 468646697}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: skeletonBossSpawner
+      value: 
+      objectReference: {fileID: 763747420}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: arenaEnemySpawners.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: arenaEnemySpawners.Array.data[0]
+      value: 
+      objectReference: {fileID: 1661873409}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: arenaEnemySpawners.Array.data[1]
+      value: 
+      objectReference: {fileID: 475310756}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: arenaEnemySpawners.Array.data[2]
+      value: 
+      objectReference: {fileID: 1696699872}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021111, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: m_Name
+      value: GraveyardManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7777524e5f8fa7849a52a720dd508a66, type: 3}
 --- !u!1 &2224332873411880074 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5286476395180566022, guid: 6389274bed1ed564aa83fbcb96d9d5ac,
@@ -67455,6 +67548,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 696096716}
     m_Modifications:
+    - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
+        type: 3}
+      propertyPath: gate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
         type: 3}
       propertyPath: openInfoText
