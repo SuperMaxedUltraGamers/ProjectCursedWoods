@@ -60,7 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1
-  interactionText: PICK UP MAX HEALTH INCREASE
+  interactionText: MAX HEALTH UP
+  disableAfterInteraction: 1
   maxHealthIncreasePercent: 0.1
 --- !u!1 &1576128210538767056
 GameObject:

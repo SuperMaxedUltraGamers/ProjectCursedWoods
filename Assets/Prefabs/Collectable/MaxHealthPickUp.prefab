@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1
-  interactionText: PICK UP MAX HEALTH
+  interactionText: TAKE MAX HEALTH
+  disableAfterInteraction: 1
 --- !u!1001 &3050375709641068854
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animTime: 1
-  interactionText: PICK UP HEALTH
+  interactionText: TAKE HEALTH
+  disableAfterInteraction: 1
   healthIncreaseAmount: 300
 --- !u!1001 &704414298397537708
 PrefabInstance:
