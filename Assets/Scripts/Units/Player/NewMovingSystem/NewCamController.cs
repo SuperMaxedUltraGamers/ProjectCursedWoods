@@ -348,7 +348,7 @@ namespace CursedWoods
             float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * Settings.Instance.CameraZoomSpeed;
             if (moveAmount == 0f)
             {
-                moveAmount = Input.GetAxisRaw(GlobalVariables.MOUSE_SCROLL) * 700f;
+                moveAmount = Input.GetAxisRaw(GlobalVariables.MOUSE_SCROLL) * 700f * deltaTime;
             }
 
             Vector3 newCamPos = camTPos + camT.forward * moveAmount * deltaTime;

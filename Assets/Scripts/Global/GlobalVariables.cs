@@ -68,6 +68,7 @@
         public const int TREEBOSS_ANIM_SWEEP_LEFT = 3;
         public const int TREEBOSS_ANIM_DEATH = 4;
         public const int TREEBOSS_ANIM_ROOT_ATTACK = 5;
+        public const int TREEBOSS_SLAM_DOWN_ATTACK = 6;
 
         #endregion Animation values
 

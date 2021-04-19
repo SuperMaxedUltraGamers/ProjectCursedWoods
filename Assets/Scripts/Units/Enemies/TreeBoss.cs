@@ -13,18 +13,18 @@ namespace CursedWoods
 
         private Animator animator;
 
-        private Collider hitbox;
         [SerializeField]
         private TreeBossMeleeTrigger[] rightHandColls;
         [SerializeField]
         private TreeBossMeleeTrigger[] leftHandColls;
         [SerializeField]
         private TreeBossRoots roots;
+        [SerializeField]
+        private TreeBossDropAttack dropAttack;
 
         private Transform playerT;
 
         private TreeBossBehaviours currentBehaviour = TreeBossBehaviours.Sleep;
-        private TreeBossBehaviours lastBehaviour = TreeBossBehaviours.Sleep;
 
         private float idleTime;
         private float elapsedIdleTime;
@@ -37,6 +37,8 @@ namespace CursedWoods
         private int sweepDamageAmount = 155;
         [SerializeField]
         private int rootDamageAmount = 315;
+        [SerializeField]
+        private int dropDamageAmount = 175;
         private int currentAttackDmg;
         private DamageType attacksDmgType = DamageType.Physical;
 
@@ -44,6 +46,7 @@ namespace CursedWoods
         private float slamTrackingSpeed = 0.2f;
 
         private float maxMeleeAttacksRange = 140f;
+        private float minDropAttackRange = 65f;
 
         private Quaternion newRotation;
 
@@ -65,10 +68,9 @@ namespace CursedWoods
         {
             base.Awake();
             animator = GetComponent<Animator>();
-            hitbox = GetComponent<MeshCollider>();
-            gameObject.SetActive(false);
             eyeMat = meshRenderer.materials[1];
             eyeMat.SetColor("_EmissionColor", sleepEyeColor);
+            gameObject.SetActive(false);
         }
 
         private void Start()
@@ -106,6 +108,9 @@ namespace CursedWoods
                 case TreeBossBehaviours.RootAttack:
                     RootAttack();
                     break;
+                case TreeBossBehaviours.DropAttack:
+                    DropAttack();
+                    break;
                 case TreeBossBehaviours.Dead:
                     Dead();
                     break;
@@ -126,7 +131,6 @@ namespace CursedWoods
             ResetValues();
             IsImmortal = true;
             currentBehaviour = TreeBossBehaviours.Sleep;
-            lastBehaviour = TreeBossBehaviours.Sleep;
             //SetCollidersEnable(hitboxes, true);
             hasTransitionedIn = false;
         }
@@ -187,8 +191,8 @@ namespace CursedWoods
             elapsedIdleTime += Time.deltaTime;
             if (elapsedIdleTime >= idleTime)
             {
-                int rootAttackRandomChance = Random.Range(0, 5);
-                if (rootAttackRandomChance == 0)
+                int randomAttackChance = Random.Range(0, 6);
+                if (randomAttackChance == 0)
                 {
                     SetNextBehaviour(TreeBossBehaviours.RootAttack);
                     return;
@@ -199,7 +203,25 @@ namespace CursedWoods
                 //print(angle);
                 float distanceToPlayer = GetDistanceToPlayer();
                 //print(distanceToPlayer);
-                if (GetDistanceToPlayer() > maxMeleeAttacksRange)
+                if (distanceToPlayer < minDropAttackRange)
+                {
+                    if (angle < SLAM_ATTACK_MAX_ANGLE && angle > -SLAM_ATTACK_MAX_ANGLE)
+                    {
+                        if (randomAttackChance < 3)
+                        {
+                            SetNextBehaviour(TreeBossBehaviours.SlamAttack);
+                        }
+                        else
+                        {
+                            SetNextBehaviour(TreeBossBehaviours.DropAttack);
+                        }
+                    }
+                    else
+                    {
+                        SetNextBehaviour(TreeBossBehaviours.DropAttack);
+                    }
+                }
+                else if (distanceToPlayer > maxMeleeAttacksRange)
                 {
                     SetNextBehaviour(TreeBossBehaviours.RootAttack);
                 }
@@ -250,6 +272,14 @@ namespace CursedWoods
             if (!hasTransitionedIn)
             {
                 TransitionIn(RootAttackTrans);
+            }
+        }
+
+        private void DropAttack()
+        {
+            if (!hasTransitionedIn)
+            {
+                TransitionIn(DropAttackTrans);
             }
         }
 
@@ -308,6 +338,11 @@ namespace CursedWoods
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_ROOT_ATTACK);
         }
 
+        private void DropAttackTrans()
+        {
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_SLAM_DOWN_ATTACK);
+        }
+
         private float GetDistanceToPlayer()
         {
             return MathUtils.GetDistanceToPlayer(transform.position);
@@ -354,7 +389,6 @@ namespace CursedWoods
 
         private void SetNextBehaviour(TreeBossBehaviours nextBehaviour)
         {
-            lastBehaviour = currentBehaviour;
             currentBehaviour = nextBehaviour;
             hasTransitionedIn = false;
         }
@@ -419,6 +453,18 @@ namespace CursedWoods
         private void RootEndAnimEvent()
         {
             roots.gameObject.SetActive(false);
+            SetNextBehaviour(TreeBossBehaviours.Idle);
+        }
+
+        private void DropStartAnimEvent()
+        {
+            dropAttack.gameObject.SetActive(true);
+            dropAttack.StartAttack(dropDamageAmount, attacksDmgType);
+        }
+
+        private void DropEndAnimEvent()
+        {
+            //dropAttack.gameObject.SetActive(false);
             SetNextBehaviour(TreeBossBehaviours.Idle);
         }
     }

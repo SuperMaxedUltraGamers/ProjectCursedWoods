@@ -106,6 +106,7 @@
         SweepRight,
         SweepLeft,
         RootAttack,
+        DropAttack,
         Dead
     }
 
