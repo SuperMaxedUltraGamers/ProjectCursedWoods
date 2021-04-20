@@ -34,7 +34,8 @@ namespace CursedWoods.Data
         public enum Music
         {
             Menu,
-            Ambient,
+            ForestAmbience,
+            CastleAmbience,
             Combat
         }
 

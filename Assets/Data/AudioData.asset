@@ -25,4 +25,12 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 55ee01cba9c1b4543b40e4e669991b80, type: 3}
   skeletonSounds: []
   miscSounds: []
-  musicClips: []
+  musicClips:
+  - music: 0
+    Clip: {fileID: 8300000, guid: bb8a60fc50002bb4ab873b14b35d7ec2, type: 3}
+  - music: 1
+    Clip: {fileID: 0}
+  - music: 2
+    Clip: {fileID: 8300000, guid: a0e1bd36096048b46b2a339724c88f46, type: 3}
+  - music: 3
+    Clip: {fileID: 8300000, guid: 614ed431085ecd64db838bcd5af6caa4, type: 3}

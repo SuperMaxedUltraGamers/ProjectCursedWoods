@@ -345,13 +345,18 @@ namespace CursedWoods
 
             Vector3 camTPos = camT.position;
             Vector3 transPos = transform.position;
+            Vector3 newCamPos;
             float moveAmount = Input.GetAxisRaw(GlobalVariables.VERTICAL_RS) * Settings.Instance.CameraZoomSpeed;
             if (moveAmount == 0f)
             {
-                moveAmount = Input.GetAxisRaw(GlobalVariables.MOUSE_SCROLL) * 700f * deltaTime;
+                moveAmount = Input.GetAxisRaw(GlobalVariables.MOUSE_SCROLL) * 7f;
+                newCamPos = camTPos + camT.forward * moveAmount;
+            }
+            else
+            {
+                newCamPos = camTPos + camT.forward * moveAmount * deltaTime;
             }
 
-            Vector3 newCamPos = camTPos + camT.forward * moveAmount * deltaTime;
             float maxCamHeight = transPos.y + MAX_HEIGHT_FROM_PLAYER;
             float minCamHeight = transPos.y + MIN_HEIGHT_FROM_PLAYER;
 

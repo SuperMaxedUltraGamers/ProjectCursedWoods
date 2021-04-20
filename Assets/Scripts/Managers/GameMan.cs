@@ -149,6 +149,12 @@ namespace CursedWoods
             private set;
         }
 
+        public CastleManager CastleManager
+        {
+            get;
+            private set;
+        }
+
         public ISave SaveSystem { get; private set; }
 
         #endregion Properties
@@ -158,17 +164,17 @@ namespace CursedWoods
         private void Awake()
         {
             if (instance == null)
-			{
-				// The one and the only instance of this class is not created yet
-				instance = this;
-			}
-			else if (instance != this)
-			{
-				// The instance already exists and I am not the instance!
-				// Destroy this object!
-				Destroy(gameObject);
-				return;
-			}
+            {
+                // The one and the only instance of this class is not created yet
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                // The instance already exists and I am not the instance!
+                // Destroy this object!
+                Destroy(gameObject);
+                return;
+            }
 
             /*
             ObjPoolMan = GetComponent<ObjectPoolManager>();
@@ -259,10 +265,17 @@ namespace CursedWoods
             // Save AI manager
             AIManager.Save(SaveSystem, SaveUtils.AI_MAN_PREFIX);
 
+            // TODO: better way to save levelmanagers.
             // Save GraveyardMan
             if (GraveyardManager != null)
             {
                 GraveyardManager.Save(SaveSystem, SaveUtils.GRAVEYARD_MAN_PREFIX);
+            }
+
+            // Save CastelMan
+            if (CastleManager != null)
+            {
+                CastleManager.Save(SaveSystem, SaveUtils.CASTLE_MAN_PREFIX);
             }
 
             SaveSystem.Save(SaveUtils.AUTOSAVE_SAVE_SLOT);
@@ -273,7 +286,7 @@ namespace CursedWoods
         {
             // TODO: load player unlocks from savefile and pass them to PlayerManager and other player progress and stuff.
             string scneneName = scene.name;
-            switch(scneneName)
+            switch (scneneName)
             {
                 case GlobalVariables.MAIN_MENU:
                     //print("mainmenu init");
@@ -282,7 +295,7 @@ namespace CursedWoods
                 case GlobalVariables.GRAVEYARD:
                     //print("graveyard init");
 
-//#if (UNITY_EDITOR)
+                    //#if (UNITY_EDITOR)
                     // Load PlayerMan, move to GraveyardInit?
                     if (PlayerManager == null)
                     {
@@ -306,9 +319,35 @@ namespace CursedWoods
                     }
 
                     AIManager.Initialize(SaveSystem, SaveUtils.AI_MAN_PREFIX);
-//#endif
+                    //#endif
 
                     StartCoroutine(GraveyardInit());
+                    break;
+                case GlobalVariables.CASTLE:
+                    if (PlayerManager == null)
+                    {
+                        PlayerManager = GetComponent<PlayerManager>();
+                    }
+
+                    PlayerManager.Initialize(SaveSystem, SaveUtils.PLAYER_MAN_PREFIX);
+
+                    // Load GraveyardMan
+                    if (CastleManager == null)
+                    {
+                        CastleManager = FindObjectOfType<CastleManager>();
+                    }
+
+                    CastleManager.Initialize(SaveSystem, SaveUtils.CASTLE_MAN_PREFIX);
+
+                    // Load AIman, move to GraveyardInit?
+                    if (AIManager == null)
+                    {
+                        AIManager = GetComponent<AIManager>();
+                    }
+
+                    AIManager.Initialize(SaveSystem, SaveUtils.AI_MAN_PREFIX);
+
+                    StartCoroutine(CastleInit());
                     break;
 #if (UNITY_EDITOR)
                 case "SampleScene 1":
@@ -344,6 +383,8 @@ namespace CursedWoods
 
         private void MainMenuInit()
         {
+            Time.timeScale = 1f;
+            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.Menu);
             if (CharController != null)
             {
                 //Destroy(CharController.transform.root);
@@ -400,6 +441,64 @@ namespace CursedWoods
             LevelUIManager.InitializeLevelUIManager(PlayerManager);
 
             ObjPoolMan.InitializeGraveyardObjectPool();
+
+            PlayerT = CharController.gameObject.transform;
+
+            // Wait for one frame before loading some of the values.
+            yield return null;
+
+            // Load player pos/rot
+            Vector3 playerPos = PlayerT.position;
+            float playerRot = PlayerT.rotation.eulerAngles.y;
+            float posX = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_X_KEY), playerPos.x);
+            float posY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Y_KEY), playerPos.y);
+            float posZ = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Z_KEY), playerPos.z);
+            float rotY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_ROT_KEY), playerRot);
+
+            //print(new Vector3(posX, posY + 0.1f, posZ));
+            PlayerT.position = new Vector3(posX, posY + 0.1f, posZ);
+            PlayerT.rotation = Quaternion.Euler(0f, rotY, 0f);
+
+            // Load player health
+            CharController.Load(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
+
+
+            //AudioSource audioSource = GetComponent<AudioSource>();
+            //Audio = new AudioManager(audioSource, mixer, audioData);
+            //PlayerManager.IsAttackUnlocked = true;
+            //PlayerManager.IsSpellCastUnlocked = true;
+            // TODO: load player unlocks from savefile and pass them to PlayerManager.
+        }
+
+        private IEnumerator CastleInit()
+        {
+
+            if (ObjPoolMan == null)
+            {
+                ObjPoolMan = GetComponent<ObjectPoolManager>();
+            }
+
+            /*
+            if (AIManager == null)
+            {
+                AIManager = GetComponent<AIManager>();
+            }
+            */
+
+            /*
+            if (PlayerManager == null)
+            {
+                PlayerManager = GetComponent<PlayerManager>();
+                PlayerManager.Initialize();
+            }
+            */
+
+            CharController = FindObjectOfType<CharController>();
+
+            LevelUIManager = FindObjectOfType<LevelUIManager>();
+            LevelUIManager.InitializeLevelUIManager(PlayerManager);
+
+            ObjPoolMan.InitializeCastleObjectPool();
 
             PlayerT = CharController.gameObject.transform;
 

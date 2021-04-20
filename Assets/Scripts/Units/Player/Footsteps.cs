@@ -29,7 +29,7 @@ namespace CursedWoods
             /*
             if (!footstepAudioSource.isPlaying)
             {
-                GameMan.Instance.Audio.PlayEffect(footstepAudioSource, Data.AudioContainer.PlayerSFX.Footstep);
+                Settings.Instance.Audio.PlayEffect(footstepAudioSource, Data.AudioContainer.PlayerSFX.Footstep);
             }
             */
             int sfxRandomiser = Random.Range(0, 3);
@@ -37,7 +37,7 @@ namespace CursedWoods
             {
                 case 0:
                     // TODO: play some footstep
-                    //GameMan.Instance.Audio.PlayEffect(footstepAudioSource, Data.AudioContainer.PlayerSFX.Footstep);
+                    //Settings.Instance.Audio.PlayEffect(footstepAudioSource, Data.AudioContainer.PlayerSFX.Footstep);
                     break;
                 case 1:
                     // TODO: play some other footstep

@@ -150,6 +150,35 @@ namespace CursedWoods
             }
         }
 
+        public void InitializeCastleObjectPool()
+        {
+            ClearPools();
+
+            // Add all the individual pools to the dictionary.
+            poolByType.Add(ObjectPoolType.Fireball, fireBallPool);
+            poolByType.Add(ObjectPoolType.Shockwave, shockwavePool);
+            poolByType.Add(ObjectPoolType.IceRay, iceRayPool);
+            poolByType.Add(ObjectPoolType.MagicBeam, magicBeamPool);
+            poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
+            poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
+            poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
+            poolByType.Add(ObjectPoolType.SkeletonBoss, skeletonBossPool);
+            poolByType.Add(ObjectPoolType.TreeBoss, treeBossPool);
+            poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
+            poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
+            poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
+            poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);
+            poolByType.Add(ObjectPoolType.MaxHealthIncrease, maxHealthIncreasePool);
+            poolByType.Add(ObjectPoolType.DamageNumber, damageNumberPool);
+            poolByType.Add(ObjectPoolType.MeleeHitParticles, meleeHitParticlePool);
+
+            // Populate each pool inside the dictionary.
+            foreach (var pool in poolByType)
+            {
+                pool.Value.CreateObjects();
+            }
+        }
+
         public void InitializeMainMenuObjectPool()
         {
             ClearPools();
