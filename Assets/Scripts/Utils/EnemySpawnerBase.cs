@@ -98,6 +98,32 @@ namespace CursedWoods.Utils
 
                     spawnSpaceRadius = 2f;
                     break;
+                case EnemyType.SkeletonMace:
+                    objectPoolType = ObjectPoolType.SkeletonMace;
+                    if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
+                    {
+                        ySpawnOffset = hit.distance - 0.01f;
+                    }
+                    else
+                    {
+                        ySpawnOffset = maxLinecastDistance;
+                    }
+
+                    spawnSpaceRadius = 0.5f;
+                    break;
+                case EnemyType.FinalBoss:
+                    objectPoolType = ObjectPoolType.FinalBoss;
+                    if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
+                    {
+                        ySpawnOffset = hit.distance - 0.01f;
+                    }
+                    else
+                    {
+                        ySpawnOffset = maxLinecastDistance;
+                    }
+
+                    spawnSpaceRadius = 0.75f;
+                    break;
             }
         }
 

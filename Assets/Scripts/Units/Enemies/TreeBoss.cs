@@ -146,7 +146,7 @@ namespace CursedWoods
         {
             if (currentBehaviour != TreeBossBehaviours.Dead)
             {
-                currentBehaviour = TreeBossBehaviours.Dead;
+                //currentBehaviour = TreeBossBehaviours.Dead;
                 //HealthChanged -= TookDamage;
                 AwakeTreeBossTrigger.AwakeTreeBossEvent -= AwakeFromSleep;
                 //hitbox.enabled = false;
@@ -154,6 +154,7 @@ namespace CursedWoods
 
                 GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
                 GameMan.Instance.LevelUIManager.DisableBossHealthBar();
+                Settings.Instance.Audio.StopMusic();
                 animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_DEATH);
                 elapsedEyeColorChangeTime = 0f;
                 SetNextBehaviour(TreeBossBehaviours.Dead);
@@ -185,12 +186,19 @@ namespace CursedWoods
             Vector3 playerPos = playerT.position;
             Vector3 transPos = transform.position;
 
-            newRotation = newRotation = MathUtils.GetLookRotationYAxis(playerPos, transPos, transform.up);
+            newRotation = MathUtils.GetLookRotationYAxis(playerPos, transPos, transform.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * idleTrackingSpeed);
 
             elapsedIdleTime += Time.deltaTime;
             if (elapsedIdleTime >= idleTime)
             {
+                /*
+                if (currentBehaviour == TreeBossBehaviours.Dead)
+                {
+                    return;
+                }
+                */
+
                 int randomAttackChance = Random.Range(0, 6);
                 if (randomAttackChance == 0)
                 {
@@ -247,7 +255,7 @@ namespace CursedWoods
                 TransitionIn(SlamTrans);
             }
 
-            newRotation = newRotation = MathUtils.GetLookRotationYAxis(playerT.position, transform.position, transform.up);
+            newRotation = MathUtils.GetLookRotationYAxis(playerT.position, transform.position, transform.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * slamTrackingSpeed);
         }
 
@@ -307,6 +315,13 @@ namespace CursedWoods
 
         private void IdleTrans()
         {
+            /*
+            if (currentBehaviour == TreeBossBehaviours.Dead)
+            {
+                return;
+            }
+            */
+
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_IDLE);
             idleTime = Random.Range(MIN_IDLE_TIME, MAX_IDLE_TIME);
             elapsedIdleTime = 0f;
@@ -340,7 +355,7 @@ namespace CursedWoods
 
         private void DropAttackTrans()
         {
-            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_SLAM_DOWN_ATTACK);
+            animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_SLAM_DOWN_ATTACK);
         }
 
         private float GetDistanceToPlayer()
@@ -389,8 +404,11 @@ namespace CursedWoods
 
         private void SetNextBehaviour(TreeBossBehaviours nextBehaviour)
         {
-            currentBehaviour = nextBehaviour;
-            hasTransitionedIn = false;
+            if (currentBehaviour != TreeBossBehaviours.Dead)
+            {
+                currentBehaviour = nextBehaviour;
+                hasTransitionedIn = false;
+            }
         }
 
         // ANIM EVENTS
@@ -447,7 +465,6 @@ namespace CursedWoods
         {
             roots.gameObject.SetActive(true);
             roots.StartAttack(rootDamageAmount, attacksDmgType);
-            // TODO: initialise roots
         }
 
         private void RootEndAnimEvent()

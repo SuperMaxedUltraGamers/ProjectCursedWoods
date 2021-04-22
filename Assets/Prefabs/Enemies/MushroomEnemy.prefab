@@ -1163,7 +1163,7 @@ NavMeshObstacle:
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
 --- !u!114 &7929561067789588137
 MonoBehaviour:
@@ -1199,6 +1199,7 @@ MonoBehaviour:
   minComfortRange: 5
   cowardnessValue: 20
   healthBar: {fileID: 7809620586056300499}
+  canSpawnHealthOnDeath: 1
   meleeDamageAmount: 80
   rangedDamageAmount: 8
   attackTrackingSpeed: 40

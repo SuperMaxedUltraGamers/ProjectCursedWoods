@@ -76,9 +76,15 @@ MonoBehaviour:
     type: 3}
   treeBossPool: {fileID: 8110730066985303513, guid: fec3e7ff0eaca364a8b794a6573bb113,
     type: 3}
+  skeletonMacePool: {fileID: 8746705742764684122, guid: 82b668ae1fca2f0449941747787c8323,
+    type: 3}
+  finalBossPool: {fileID: 2165552622467571300, guid: ebb11e00e74c32643b4cf28ae9aba15f,
+    type: 3}
   posTreeProjectilePool: {fileID: 1212084607700601560, guid: 056bfdbf3ac13434baf50d27a89217a4,
     type: 3}
   mushroomProjectilePool: {fileID: 119847959403396359, guid: 013ca7ab3e7e7344d851c76b7a89ebb6,
+    type: 3}
+  finalBossProjectilePool: {fileID: 5458587523556130579, guid: ab52371005af2da42a25b4d2ba6d30d5,
     type: 3}
   healthPickUpPool: {fileID: 4207342598645942877, guid: 3391b018925870246a48dc0094514bc1,
     type: 3}

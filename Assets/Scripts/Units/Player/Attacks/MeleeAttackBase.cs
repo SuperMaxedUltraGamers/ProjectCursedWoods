@@ -15,6 +15,7 @@ namespace CursedWoods
 
         [SerializeField]
         private MeleeWeaponBase meleeWeapon;
+        private TrailRenderer weaponTrail;
 
         public bool IsAttacking
         {
@@ -36,6 +37,7 @@ namespace CursedWoods
         private void Awake()
         {
             meleeWeapon.Initialize();
+            weaponTrail = meleeWeapon.GetComponentInChildren<TrailRenderer>();
 
             damageDelayTimer = gameObject.AddComponent<Timer>();
             damageTimer = gameObject.AddComponent<Timer>();
@@ -75,12 +77,14 @@ namespace CursedWoods
             // TODO: anims etc.
             meleeWeapon.ClearHitColliderList();
             meleeWeapon.ToggleHitBox(true);
+            weaponTrail.enabled = true;
             //damageTimer.Run();
         }
 
         private void CloseDamageWindowAnimEvent()
         {
             meleeWeapon.ToggleHitBox(false);
+            weaponTrail.enabled = false;
             //cooldownTimer.Run();
         }
 

@@ -134,6 +134,15 @@ namespace CursedWoods
             areaDamageIntervalTimer.Run();
         }
 
+        private IEnumerator DmgChange()
+        {
+            yield return 0;
+            if (!isHit)
+            {
+                DamageAmount *= 5;
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!isHit)
@@ -161,15 +170,6 @@ namespace CursedWoods
                 {
                     OnHit();
                 }
-            }
-        }
-
-        private IEnumerator DmgChange()
-        {
-            yield return 0;
-            if (!isHit)
-            {
-                DamageAmount *= 5;
             }
         }
     }

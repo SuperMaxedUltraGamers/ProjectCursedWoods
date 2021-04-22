@@ -52,10 +52,19 @@ namespace CursedWoods
         private TreeBossPool treeBossPool = null;
 
         [SerializeField]
+        private SkeletonMacePool skeletonMacePool = null;
+
+        [SerializeField]
+        private FinalBossPool finalBossPool = null;
+
+        [SerializeField]
         private PosTreeProjectilePool posTreeProjectilePool = null;
 
         [SerializeField]
         private MushroomProjectilePool mushroomProjectilePool = null;
+
+        [SerializeField]
+        private FinalBossProjectilePool finalBossProjectilePool = null;
 
         [SerializeField]
         private HealthPickUpPool healthPickUpPool = null;
@@ -135,13 +144,16 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
             poolByType.Add(ObjectPoolType.SkeletonBoss, skeletonBossPool);
             poolByType.Add(ObjectPoolType.TreeBoss, treeBossPool);
+            poolByType.Add(ObjectPoolType.FinalBoss, finalBossPool);
             poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
             poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
+            poolByType.Add(ObjectPoolType.FinalBossProjectile, finalBossProjectilePool);
             poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthIncrease, maxHealthIncreasePool);
             poolByType.Add(ObjectPoolType.DamageNumber, damageNumberPool);
             poolByType.Add(ObjectPoolType.MeleeHitParticles, meleeHitParticlePool);
+            poolByType.Add(ObjectPoolType.SkeletonMace, skeletonMacePool);
 
             // Populate each pool inside the dictionary.
             foreach (var pool in poolByType)
@@ -162,10 +174,12 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
             poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
             poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
+            poolByType.Add(ObjectPoolType.SkeletonMace, skeletonMacePool);
             poolByType.Add(ObjectPoolType.SkeletonBoss, skeletonBossPool);
-            poolByType.Add(ObjectPoolType.TreeBoss, treeBossPool);
+            poolByType.Add(ObjectPoolType.FinalBoss, finalBossPool);
             poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
             poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
+            poolByType.Add(ObjectPoolType.FinalBossProjectile, finalBossProjectilePool);
             poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthIncrease, maxHealthIncreasePool);
@@ -186,8 +200,7 @@ namespace CursedWoods
 
         #endregion Public API
 
-
-        #region
+        #region Private functionality
 
         private void ClearPools()
         {
@@ -200,6 +213,6 @@ namespace CursedWoods
             poolByType.Clear();
         }
 
-        #endregion
+        #endregion Private functionality
     }
 }

@@ -44,6 +44,8 @@
 
         public const string UNIQUE_ANIM_VALUE = "UniqueAnimValue";
 
+        public const string MAGIC_SCYTHE_ATTACK_ANIM = "ScytheAttack";
+
         #endregion Animation tags
 
         #region Animation values
@@ -68,7 +70,15 @@
         public const int TREEBOSS_ANIM_SWEEP_LEFT = 3;
         public const int TREEBOSS_ANIM_DEATH = 4;
         public const int TREEBOSS_ANIM_ROOT_ATTACK = 5;
-        public const int TREEBOSS_SLAM_DOWN_ATTACK = 6;
+        public const int TREEBOSS_ANIM_SLAM_DOWN_ATTACK = 6;
+
+        public const int FINALBOSS_ANIM_IDLE = 0;
+        public const int FINALBOSS_ANIM_WALK = 1;
+        public const int FINALBOSS_ANIM_DASH = 2;
+        public const int FINALBOSS_ANIM_MAGIC_SCYTHE = 3;
+        public const int FINALBOSS_ANIM_PROJECTILE = 4;
+        public const int FINALBOSS_ANIM_SCAN_LASER = 5;
+        public const int FINALBOSS_ANIM_DEATH = 6;
 
         #endregion Animation values
 

@@ -64,8 +64,11 @@
         MushroomEnemy,
         SkeletonBoss,
         TreeBoss,
+        SkeletonMace,
+        FinalBoss,
         TreeProjectile,
         MushroomProjectile,
+        FinalBossProjectile,
         HealthPickUp,
         MaxHealthPickUp,
         MaxHealthIncrease,
@@ -79,7 +82,9 @@
         PossessedTree,
         MushroomEnemy,
         SkeletonBoss,
-        TreeBoss
+        TreeBoss,
+        SkeletonMace,
+        FinalBoss
     }
 
     /// <summary>
@@ -107,6 +112,19 @@
         SweepLeft,
         RootAttack,
         DropAttack,
+        Dead
+    }
+
+    public enum FinalBossBehaviours
+    {
+        Sleep = 0,
+        Awaking,
+        Idle,
+        Walk,
+        Dash,
+        ScanLaser,
+        Projectile,
+        MagicScythe,
         Dead
     }
 

@@ -30,6 +30,7 @@ namespace CursedWoods
 
         [SerializeField]
         private float attackTrackingSpeed = 40;
+        [SerializeField]
         private float meleeAttackRangeRealUnits = 1.755f;
         private DamageType attackDmgType = DamageType.Physical;
 

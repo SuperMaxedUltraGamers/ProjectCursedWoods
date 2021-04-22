@@ -128,12 +128,14 @@ namespace CursedWoods
                     OnHit();
                     hitBox.enabled = false;
                 }
+                /*
                 else if (otherLayer == GlobalVariables.PLAYER_MELEE_LAYER)
                 {
                     gameObject.layer = GlobalVariables.PLAYER_PROJECTILE_LAYER;
                     transform.rotation = GameMan.Instance.PlayerT.rotation;
                     DamageAmount *= 5;
                 }
+                */
                 else
                 {
                     OnHit();

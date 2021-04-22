@@ -47,6 +47,14 @@ namespace CursedWoods
             }
         }
 
+        private void Update()
+        {
+            if (isMoving)
+            {
+                transform.position += transform.forward * projectileSpeed * Time.deltaTime;
+            }
+        }
+
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
@@ -87,11 +95,14 @@ namespace CursedWoods
             isMoving = true;
         }
 
-        private void Update()
+        private IEnumerator DmgChange()
         {
-            if (isMoving)
+            yield return 0;
+            if (!isHit)
             {
-                transform.position += transform.forward * projectileSpeed * Time.deltaTime;
+                DamageAmount *= 5;
+                lifeTimeTimer.Set(lifeTime);
+                lifeTimeTimer.Run();
             }
         }
 
@@ -138,15 +149,6 @@ namespace CursedWoods
                 {
                     OnHit();
                 }
-            }
-        }
-
-        private IEnumerator DmgChange()
-        {
-            yield return 0;
-            if (!isHit)
-            {
-                DamageAmount *= 5;
             }
         }
     }

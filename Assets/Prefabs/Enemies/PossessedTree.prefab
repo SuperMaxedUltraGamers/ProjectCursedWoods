@@ -1212,6 +1212,8 @@ MonoBehaviour:
   attackRange: 14
   minComfortRange: 5
   cowardnessValue: 15
+  healthBar: {fileID: 6794948632629438057}
+  canSpawnHealthOnDeath: 1
   meleeDamageAmount: 60
   rangedDamageAmount: 25
   attackTrackingSpeed: 40
@@ -1223,7 +1225,6 @@ MonoBehaviour:
   giveUpChaseDistance: 500
   fleeSpeed: 40
   fleeRotSpeed: 2
-  healthBar: {fileID: 6794948632629438057}
 --- !u!114 &6640184413995675538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,11 +1263,11 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.9, y: 0.5, z: 0.9}
+  m_Extents: {x: 0.9, y: 1, z: 0.9}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &5830259159577139081
 GameObject:
