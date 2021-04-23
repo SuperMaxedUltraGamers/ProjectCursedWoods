@@ -2755,6 +2755,7 @@ MonoBehaviour:
   minHealth: 0
   minCauseStagger: 1000
   dmgNumberSpawnYOffset: 2
+  dmgNumberForwardOffset: 2.5
   rightHandColls:
   - {fileID: 8487175845643256895}
   - {fileID: 1503628800733120353}

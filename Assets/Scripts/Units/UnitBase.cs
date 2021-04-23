@@ -83,6 +83,8 @@ namespace CursedWoods
 
         [SerializeField]
         private float dmgNumberSpawnYOffset = 2f;
+        [SerializeField]
+        private float dmgNumberForwardOffset = 0f;
 
         #endregion Private fields
 
@@ -283,7 +285,7 @@ namespace CursedWoods
         {
             // Spawn damage numbers
             DamageNumber dmgNumber = (DamageNumber)GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DamageNumber);
-            dmgNumber.Activate(transform.position + transform.up * dmgNumberSpawnYOffset, transform.rotation);
+            dmgNumber.Activate(transform.position + transform.up * dmgNumberSpawnYOffset + transform.forward * dmgNumberForwardOffset, transform.rotation);
             dmgNumber.SetDamageNumber(displayNumber, numberColor);
         }
         #endregion Private functionality
