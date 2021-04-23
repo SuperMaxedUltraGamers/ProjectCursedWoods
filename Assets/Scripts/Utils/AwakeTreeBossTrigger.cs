@@ -10,6 +10,7 @@ namespace CursedWoods.Utils
         {
             if (AwakeTreeBossEvent != null)
             {
+                Settings.Instance.Audio.PlayMusic(Data.AudioContainer.Music.Combat);
                 AwakeTreeBossEvent();
                 gameObject.SetActive(false);
             }

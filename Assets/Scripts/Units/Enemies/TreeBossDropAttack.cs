@@ -42,6 +42,11 @@ namespace CursedWoods
             }
         }
 
+        private void LateUpdate()
+        {
+            transform.rotation = Quaternion.identity;
+        }
+
         public void StartAttack(int dmgAmount, DamageType dmgType)
         {
             damageAmount = dmgAmount;

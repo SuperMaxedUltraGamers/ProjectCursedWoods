@@ -524,12 +524,14 @@ MonoBehaviour:
   minHealth: 0
   minCauseStagger: 50
   dmgNumberSpawnYOffset: 2
-  attackRange: 3
+  attackRange: 2.5
   minComfortRange: 2.4
   cowardnessValue: 30
   healthBar: {fileID: 9153612791139247587}
+  canSpawnHealthOnDeath: 1
   attackDamageAmount: 15
   attackTrackingSpeed: 40
+  meleeAttackRangeRealUnits: 0.8
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -588,7 +590,7 @@ NavMeshObstacle:
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &1912795074123072867
 GameObject:

@@ -33,6 +33,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_1F05C1DF:
+        m_Texture: {fileID: 2800000, guid: df5ffc1d02daa8745a7c4c91f6b118ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_866613EC:
+        m_Texture: {fileID: 2800000, guid: b894a1abf8c04c349a5284eae4beec9c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,6 +70,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_1AF288A9: 0.2
+    - Vector1_4DCF2EA: 0.5
+    - Vector1_60F296BB: 25
     - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0
@@ -98,10 +109,14 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _Transparency: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - Color_3418E365: {r: 2.270603, g: 0.76083034, b: 0, a: 1}
+    - Color_D8FCF2E1: {r: 1, g: 0, b: 1, a: 1}
+    - Vector2_1BA8D673: {r: -0.5, g: 0, b: 0, a: 0}
+    - Vector2_3B9664D3: {r: -0.7, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}

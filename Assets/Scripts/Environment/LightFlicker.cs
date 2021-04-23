@@ -7,7 +7,7 @@ namespace CursedWoods
         private Light lightObj;
         private float targetIntensity;
         private float targetRange;
-        private float changeSpeed = 8f;
+        private float changeSpeed = 10f;
         private float acceptedOffset = 0.1f;
 
         private void Awake()
@@ -27,7 +27,7 @@ namespace CursedWoods
                 if (intensity + acceptedOffset >= targetIntensity)
                 {
                     targetIntensity = Random.Range(0.1f, 1f);
-                    targetRange = Random.Range(0.1f, 0.3f);
+                    targetRange = Random.Range(0.2f, 0.4f);
                 }
             }
             else
@@ -35,7 +35,7 @@ namespace CursedWoods
                 if (intensity - acceptedOffset <= targetIntensity)
                 {
                     targetIntensity = Random.Range(0.1f, 1f);
-                    targetRange = Random.Range(0.1f, 0.3f);
+                    targetRange = Random.Range(0.2f, 0.4f);
                 }
             }
         }
