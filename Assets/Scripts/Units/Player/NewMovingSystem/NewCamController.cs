@@ -39,7 +39,9 @@ namespace CursedWoods
         private LayerMask raycastMask;
         [SerializeField]
         private Material transparentBlack;
-        private float fadeSpeed = 5f;
+        private float fadeInSpeed = 5f;
+        private float fadeBackSpeed = 2.5f;
+        private float fadeBackAlphaAmount = 0.4f;
         //private Color transparentMatColor;
 
         private List<Collider> currentColliders = new List<Collider>();
@@ -117,7 +119,7 @@ namespace CursedWoods
                 Collider hitCollider = hit.collider;
                 Collider[] hitGOColliders = hit.collider.GetComponentsInChildren<Collider>();
                 bool containsCollider = false;
-                for (int i = 0; i<hitGOColliders.Length; i++)
+                for (int i = 0; i < hitGOColliders.Length; i++)
                 {
                     if (lastColliders.Contains(hitGOColliders[i]))
                     {
@@ -129,20 +131,11 @@ namespace CursedWoods
                 if (containsCollider)
                 {
                     int index = lastColliders.IndexOf(hitCollider);
-                    
-                    /*
-                    if (lastRenderers[index].material.GetFloat("_AlphaValueInverse") <= 0f)
-                    {
-                        currentColliders.Add(lastColliders[index]);
-                        currentRenderers.Add(lastRenderers[index]);
-                        currentOgMats.Add(lastOgMats[index]);
-                    }
-                    */
-                    
+
                     currentColliders.Add(lastColliders[index]);
                     currentRenderers.Add(lastRenderers[index]);
                     currentOgMats.Add(lastOgMats[index]);
-                    
+
                 }
                 else
                 {
@@ -160,155 +153,80 @@ namespace CursedWoods
             {
                 if (alpha < 1f)
                 {
-                    alpha += Time.deltaTime * fadeSpeed;
+                    alpha += Time.deltaTime * fadeInSpeed;
                     if (alpha > 1f)
                     {
                         alpha = 1f;
                     }
                 }
-                /*
-                if (transparentMatColor.a > 0.3f)
-                {
-                    transparentMatColor.a -= Time.deltaTime * fadeSpeed;
-                }
-                */
-
-                //transparentBlack.color = transparentMatColor;
             }
             else
             {
-                /*
-                if (transparentMatColor.a < 0.8f)
-                {
-                    transparentMatColor.a = 0.8f;
-                    transparentBlack.color = transparentMatColor;
-                }
-                */
-
-                /*
                 alpha = transparentBlack.GetFloat("_AlphaValueInverse");
-                if (alpha > 0f)
+                if (alpha > fadeBackAlphaAmount)
                 {
-                    alpha -= Time.deltaTime * fadeSpeed;
-                    if (alpha < 0f)
+                    alpha -= Time.deltaTime * fadeBackSpeed;
+                    if (alpha < fadeBackAlphaAmount)
                     {
-                        alpha = 0f;
+                        alpha = fadeBackAlphaAmount;
                     }
-
-                    transparentBlack.SetFloat("_AlphaValueInverse", alpha);
                 }
-                */
-
-                alpha = 0f;
             }
 
             transparentBlack.SetFloat("_AlphaValueInverse", alpha);
 
-            for (int i = 0; i<lastColliders.Count; i++)
+            if (!(currentColliders.Count == 0 && lastColliders.Count == 1 && alpha > fadeBackAlphaAmount))
             {
-                if (lastColliders[i] != null)
+                for (int i = 0; i < lastColliders.Count; i++)
                 {
-                    lastRenderers[i] = lastColliders[i].GetComponentInChildren<Renderer>();
-                    lastRenderers[i].materials = lastOgMats[i];
-                }
-            }
-
-            for (int i = 0; i<currentOgMats.Count; i++)
-            {
-                int length = currentOgMats[i].Length;
-                Material[] tempMats = new Material[length];
-                for (int j = 0; j<length; j++)
-                {
-                    tempMats[j] = transparentBlack;
-                }
-
-                currentRenderers[i].materials = tempMats;
-            }
-
-            if (lastColliders.Count > currentColliders.Count)
-            {
-                for (int i = 0; i<lastColliders.Count; i++)
-                {
-                    if (!currentColliders.Contains(lastColliders[i]))
+                    if (lastColliders[i] != null)
                     {
+                        lastRenderers[i] = lastColliders[i].GetComponentInChildren<Renderer>();
                         lastRenderers[i].materials = lastOgMats[i];
-
-                        /*
-                        int length = lastOgMats[i].Length;
-                        Material[] tempMats = new Material[length];
-                        for (int j = 0; j<length; j++)
-                        {
-                            tempMats[j] = lastOgMats[i][j];
-                        }
-
-                        lastRenderers[i].materials = tempMats;
-                        */
                     }
                 }
-            }
 
-            /*
-            List<Collider> removeColls = new List<Collider>();
-            List<Renderer> removeRends = new List<Renderer>();
-            List<Material[]> removeMats = new List<Material[]>();
-            for (int i = 0; 1<lastRenderers.Count; i++)
-            {
-                if (lastRenderers[i].material.GetFloat("_AlphaValueInverse") <= 0)
+                for (int i = 0; i < currentOgMats.Count; i++)
                 {
-                    removeColls.Add(lastColliders[i]);
-                    removeRends.Add(lastRenderers[i]);
-                    removeMats.Add(lastOgMats[i]);
-                    //lastColliders.RemoveAt(i);
-                    //lastRenderers.RemoveAt(i);
-                    //lastOgMats.RemoveAt(i);
-                }
-            }
+                    int length = currentOgMats[i].Length;
+                    Material[] tempMats = new Material[length];
+                    for (int j = 0; j < length; j++)
+                    {
+                        tempMats[j] = transparentBlack;
+                    }
 
-            foreach (Collider coll in removeColls)
-            {
-                lastColliders.Remove(coll);
-            }
-
-            foreach (Renderer rend in removeRends)
-            {
-                lastRenderers.Remove(rend);
-            }
-
-            foreach (Material[] mats in removeMats)
-            {
-                lastOgMats.Remove(mats);
-            }
-            */
-
-            
-            lastColliders.Clear();
-            lastRenderers.Clear();
-            lastOgMats.Clear();
-            
-
-            for (int i = 0; i<currentColliders.Count; i++)
-            {
-                lastColliders.Add(currentColliders[i]);
-            }
-
-            for (int i = 0; i<currentRenderers.Count; i++)
-            {
-                lastRenderers.Add(currentRenderers[i]);
-            }
-
-            for (int i = 0; i<currentOgMats.Count; i++)
-            {
-                /*
-                int length = currentOgMats[i].Length;
-                Material[] tempMats = new Material[length];
-                for (int j = 0; j<length; j++)
-                {
-                    tempMats[j] = currentOgMats[i][j];
+                    currentRenderers[i].materials = tempMats;
                 }
 
-                lastOgMats.Add(tempMats);
-                */
-                lastOgMats.Add(currentOgMats[i]);
+                if (lastColliders.Count > currentColliders.Count)
+                {
+                    for (int i = 0; i < lastColliders.Count; i++)
+                    {
+                        if (!currentColliders.Contains(lastColliders[i]))
+                        {
+                            lastRenderers[i].materials = lastOgMats[i];
+                        }
+                    }
+                }
+
+                lastColliders.Clear();
+                lastRenderers.Clear();
+                lastOgMats.Clear();
+
+                for (int i = 0; i < currentColliders.Count; i++)
+                {
+                    lastColliders.Add(currentColliders[i]);
+                }
+
+                for (int i = 0; i < currentRenderers.Count; i++)
+                {
+                    lastRenderers.Add(currentRenderers[i]);
+                }
+
+                for (int i = 0; i < currentOgMats.Count; i++)
+                {
+                    lastOgMats.Add(currentOgMats[i]);
+                }
             }
         }
 
