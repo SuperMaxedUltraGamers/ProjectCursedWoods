@@ -46,7 +46,11 @@ namespace CursedWoods
         private MushroomEnemyPool mushroomEnemyPool = null;
 
         [SerializeField]
-        private SkeletonBossPool skeletonBossPool = null;
+        private SkeletonBossPool skeletonBoss1Pool = null;
+        [SerializeField]
+        private SkeletonBossPool skeletonBoss2Pool = null;
+        [SerializeField]
+        private SkeletonBossPool skeletonBoss3Pool = null;
 
         [SerializeField]
         private TreeBossPool treeBossPool = null;
@@ -142,7 +146,8 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
             poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
             poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
-            poolByType.Add(ObjectPoolType.SkeletonBoss, skeletonBossPool);
+            poolByType.Add(ObjectPoolType.SkeletonBoss1, skeletonBoss1Pool);
+            poolByType.Add(ObjectPoolType.SkeletonBoss2, skeletonBoss2Pool);
             poolByType.Add(ObjectPoolType.TreeBoss, treeBossPool);
             poolByType.Add(ObjectPoolType.FinalBoss, finalBossPool);
             poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
@@ -172,13 +177,14 @@ namespace CursedWoods
             poolByType.Add(ObjectPoolType.IceRay, iceRayPool);
             poolByType.Add(ObjectPoolType.MagicBeam, magicBeamPool);
             poolByType.Add(ObjectPoolType.SkeletonMelee, skeletonMeleePool);
-            poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
-            poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
+            //poolByType.Add(ObjectPoolType.PossessedTree, possessedTreePool);
+            //poolByType.Add(ObjectPoolType.MushroomEnemy, mushroomEnemyPool);
             poolByType.Add(ObjectPoolType.SkeletonMace, skeletonMacePool);
-            poolByType.Add(ObjectPoolType.SkeletonBoss, skeletonBossPool);
+            //poolByType.Add(ObjectPoolType.SkeletonBoss1, skeletonBossPool);
+            poolByType.Add(ObjectPoolType.SkeletonBoss3, skeletonBoss3Pool);
             poolByType.Add(ObjectPoolType.FinalBoss, finalBossPool);
-            poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
-            poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
+            //poolByType.Add(ObjectPoolType.TreeProjectile, posTreeProjectilePool);
+            //poolByType.Add(ObjectPoolType.MushroomProjectile, mushroomProjectilePool);
             poolByType.Add(ObjectPoolType.FinalBossProjectile, finalBossProjectilePool);
             poolByType.Add(ObjectPoolType.HealthPickUp, healthPickUpPool);
             poolByType.Add(ObjectPoolType.MaxHealthPickUp, maxHealthPickUpPool);

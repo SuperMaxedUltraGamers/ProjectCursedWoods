@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5778,7 +5778,7 @@ PrefabInstance:
     - target: {fileID: 7154924286365630721, guid: 464d415b18c3b144fa2f873eb8210913,
         type: 3}
       propertyPath: m_Name
-      value: FinalBossTrigger
+      value: FinalBossActivationTrigger
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 464d415b18c3b144fa2f873eb8210913, type: 3}
@@ -16301,7 +16301,7 @@ PrefabInstance:
     - target: {fileID: 2191658341416226052, guid: 32ebaa3a2944a294286ed51198ea243d,
         type: 3}
       propertyPath: enemyType
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2191658341416226052, guid: 32ebaa3a2944a294286ed51198ea243d,
         type: 3}
@@ -16401,7 +16401,7 @@ PrefabInstance:
     - target: {fileID: 8195478318880030377, guid: 32ebaa3a2944a294286ed51198ea243d,
         type: 3}
       propertyPath: m_Name
-      value: EnemySpawnerOnTrigger(Sphere)
+      value: FInalBossTriggerSpawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32ebaa3a2944a294286ed51198ea243d, type: 3}

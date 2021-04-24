@@ -2182,7 +2182,7 @@ PrefabInstance:
     - target: {fileID: 352039143273584020, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
       propertyPath: enemyType
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 352039143273584020, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
@@ -2271,7 +2271,7 @@ PrefabInstance:
     - target: {fileID: 352039143273584020, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
       propertyPath: enemyType
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 352039143273584020, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
@@ -3226,7 +3226,7 @@ PrefabInstance:
     - target: {fileID: 2191658341416226052, guid: 32ebaa3a2944a294286ed51198ea243d,
         type: 3}
       propertyPath: enemyType
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2191658341416226052, guid: 32ebaa3a2944a294286ed51198ea243d,
         type: 3}
@@ -6702,7 +6702,7 @@ PrefabInstance:
     - target: {fileID: 2191658341416226052, guid: 32ebaa3a2944a294286ed51198ea243d,
         type: 3}
       propertyPath: enemyType
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2191658341416226052, guid: 32ebaa3a2944a294286ed51198ea243d,
         type: 3}

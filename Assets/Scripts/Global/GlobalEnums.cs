@@ -62,7 +62,9 @@
         SkeletonMelee,
         PossessedTree,
         MushroomEnemy,
-        SkeletonBoss,
+        SkeletonBoss1,
+        SkeletonBoss2,
+        SkeletonBoss3,
         TreeBoss,
         SkeletonMace,
         FinalBoss,
@@ -81,7 +83,9 @@
         SkeletonMelee = 0,
         PossessedTree,
         MushroomEnemy,
-        SkeletonBoss,
+        SkeletonBoss1,
+        SkeletonBoss2,
+        SkeletonBoss3,
         TreeBoss,
         SkeletonMace,
         FinalBoss
@@ -137,11 +141,12 @@
 
     public enum KeyType
     {
-        KeyE = 0,
-        KeyJ,
-        KeyM,
-        KeyS,
-        KeyV
+        KeyBook = 0,
+        KeyGateSouth,
+        KeyGateNorth,
+        KeyGarden,
+        KeyCastle,
+        KeyFinalBoss
     }
 
     public enum GraveyardGateType
@@ -151,6 +156,23 @@
         GraveyardMiddleAreaSouthGate,
         GraveyardMiddleAreaNorthGate,
         GraveyardGardenGate,
-        GraveyardCastleGate
+        GraveyardCastleGate,
+        CastleFinalBossDoor
+    }
+
+    public enum FadeType
+    {
+        None = 0,
+        FadeIn,
+        FadeOut
+    }
+
+    public enum Level
+    {
+        MainMenu = 0,
+        Intro,
+        Graveyard,
+        Castle,
+        Outro
     }
 }

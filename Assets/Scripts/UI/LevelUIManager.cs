@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 using CursedWoods.SaveSystem;
+using CursedWoods.Utils;
 
 namespace CursedWoods.UI
 {
@@ -71,6 +72,8 @@ namespace CursedWoods.UI
         [SerializeField]
         private TextMeshProUGUI[] spellCooldownText;
 
+        private FadeInOut fader;
+
         private void Awake()
         {
             pointerImg = spellMenuPointer.GetComponent<Image>();
@@ -81,6 +84,7 @@ namespace CursedWoods.UI
             displayInfoText = displayInfoTextBG.GetComponentInChildren<TextMeshProUGUI>();
             displayInfoText.text = "";
             bossHealthBar = GetComponent<BossHealthBar>();
+            fader = GetComponent<FadeInOut>();
 
             /*
             int spellIconsAmount = spellCooldownIcons.Length;
@@ -226,6 +230,16 @@ namespace CursedWoods.UI
         public void RestartLevelButton()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void StartFade(FadeType fadeType)
+        {
+            fader.StartFade(fadeType);
+        }
+
+        public void StartFade(FadeType fadeType, Level levelToLoadAfterFade)
+        {
+            fader.StartFade(fadeType, levelToLoadAfterFade);
         }
 
         public void DisplayInfoText(string text, float transparency)

@@ -85,8 +85,10 @@
         #region Scene tags
 
         public const string MAIN_MENU = "MainMenu";
+        public const string INTRO = "Intro";
         public const string GRAVEYARD = "Graveyard&more";
         public const string CASTLE = "Castle";
+        public const string OUTRO = "Outro";
 
         #endregion Scene tags
     }

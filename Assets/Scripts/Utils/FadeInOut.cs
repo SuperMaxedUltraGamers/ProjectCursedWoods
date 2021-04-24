@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace CursedWoods.Utils
@@ -7,27 +9,146 @@ namespace CursedWoods.Utils
     {
         [SerializeField]
         private Image image;
-        private float fadeSpeed = 0.1f;
+        private float fadeSpeed = 0.002f;
         private float currentFadeSpeed;
+        private float currentAlpha = 1f;
+        private FadeType currentFadeType;
 
         private void Awake()
         {
             image.enabled = true;
         }
 
-        private void Update()
+        public void StartFade(FadeType fadeType)
         {
-            currentFadeSpeed += fadeSpeed / 50 * Time.deltaTime;
-            Color color = image.color;
-            color.a -= currentFadeSpeed;
-            image.color = color;
-            if (color.a <= 0f)
+            currentFadeType = fadeType;
+            currentFadeSpeed = 0f;
+            switch (currentFadeType)
             {
-                image.enabled = false;
-                this.enabled = false;
+                case FadeType.FadeIn:
+                    currentAlpha = 1f;
+                    break;
+                case FadeType.FadeOut:
+                    currentAlpha = 0f;
+                    break;
+            }
+
+            image.enabled = true;
+            StartCoroutine(Fading());
+        }
+
+        public void StartFade(FadeType fadeType, Level levelToLoadAfterFade)
+        {
+            currentFadeType = fadeType;
+            currentFadeSpeed = 0f;
+            switch (currentFadeType)
+            {
+                case FadeType.FadeIn:
+                    currentAlpha = 1f;
+                    break;
+                case FadeType.FadeOut:
+                    currentAlpha = 0f;
+                    break;
+            }
+
+            image.enabled = true;
+            StartCoroutine(Fading(levelToLoadAfterFade));
+        }
+
+        private IEnumerator Fading()
+        {
+            switch (currentFadeType)
+            {
+                case FadeType.FadeIn:
+                    while (currentAlpha > 0f)
+                    {
+                        FadeIn();
+                        yield return null;
+                    }
+
+                    break;
+                case FadeType.FadeOut:
+                    while (currentAlpha < 1f)
+                    {
+                        FadeOut();
+                        yield return null;
+                    }
+
+                    break;
             }
         }
 
-        // TODO: create methods for fade in and out and exposed boolean that determinates should we fade in or out.
+        private IEnumerator Fading(Level levelToLoad)
+        {
+            switch (currentFadeType)
+            {
+                case FadeType.FadeIn:
+                    while (currentAlpha > 0f)
+                    {
+                        FadeIn();
+                        yield return null;
+                    }
+
+                    break;
+                case FadeType.FadeOut:
+                    while (currentAlpha < 1f)
+                    {
+                        FadeOut();
+                        yield return null;
+                    }
+
+                    break;
+            }
+
+            string sceneToLoad = "";
+            switch (levelToLoad)
+            {
+                case Level.MainMenu:
+                    sceneToLoad = GlobalVariables.MAIN_MENU;
+                    break;
+                case Level.Intro:
+                    sceneToLoad = GlobalVariables.INTRO;
+                    break;
+                case Level.Graveyard:
+                    sceneToLoad = GlobalVariables.GRAVEYARD;
+                    break;
+                case Level.Castle:
+                    sceneToLoad = GlobalVariables.CASTLE;
+                    break;
+                case Level.Outro:
+                    sceneToLoad = GlobalVariables.OUTRO;
+                    break;
+            }
+
+            SceneManager.LoadScene(sceneToLoad);
+        }
+
+        private void FadeIn()
+        {
+            currentFadeSpeed += fadeSpeed * Time.deltaTime;
+            Color color = image.color;
+            currentAlpha = color.a - currentFadeSpeed;
+            color.a = currentAlpha;
+            image.color = color;
+            if (currentAlpha <= 0f)
+            {
+                image.enabled = false;
+                currentFadeType = FadeType.None;
+            }
+        }
+
+        private void FadeOut()
+        {
+            currentFadeSpeed += fadeSpeed * Time.deltaTime;
+            Color color = image.color;
+            currentAlpha = color.a + currentFadeSpeed;
+            color.a = currentAlpha;
+            image.color = color;
+            if (currentAlpha >= 1f)
+            {
+                //image.enabled = false;
+                currentFadeType = FadeType.None;
+            }
+        }
     }
 }

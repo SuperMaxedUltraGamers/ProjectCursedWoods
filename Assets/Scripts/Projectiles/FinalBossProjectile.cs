@@ -13,7 +13,7 @@ namespace CursedWoods
         private bool isMoving;
 
         /// <summary>
-        /// How long does the fireball live if no collision happens.
+        /// How long does the projectile live if no collision happens.
         /// </summary>
         private float lifeTime = 3.5f;
         private Timer lifeTimeTimer;
@@ -69,7 +69,7 @@ namespace CursedWoods
         }
 
         /// <summary>
-        /// What happens when the fireball hits something.
+        /// What happens when the projectile hits something.
         /// </summary>
         public override void OnHit()
         {
@@ -92,7 +92,7 @@ namespace CursedWoods
         }
 
         /// <summary>
-        /// The way fireball behaves when launching.
+        /// The way projectile behaves when launching.
         /// </summary>
         private void Launch()
         {

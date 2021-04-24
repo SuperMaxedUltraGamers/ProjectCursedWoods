@@ -213,6 +213,8 @@ namespace CursedWoods
             // Delete savefile
             SaveSystem.DeleteSaveFile(SaveUtils.AUTOSAVE_SAVE_SLOT);
 
+            // These should be called inside GameMan initialization
+            /*
             if (PlayerManager == null)
             {
                 PlayerManager = GetComponent<PlayerManager>();
@@ -226,6 +228,7 @@ namespace CursedWoods
             }
 
             AIManager.Initialize(SaveSystem, SaveUtils.AI_MAN_PREFIX);
+            */
 
             // TODO: reset other progress
 
@@ -379,6 +382,8 @@ namespace CursedWoods
                     break;
 #endif
             }
+
+            LevelUIManager.StartFade(FadeType.FadeIn);
         }
 
         private void MainMenuInit()

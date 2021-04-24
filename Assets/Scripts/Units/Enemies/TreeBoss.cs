@@ -157,6 +157,12 @@ namespace CursedWoods
                 Settings.Instance.Audio.StopMusic();
                 animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_DEATH);
                 elapsedEyeColorChangeTime = 0f;
+
+                DisableMeleeTriggers(rightHandColls);
+                DisableMeleeTriggers(leftHandColls);
+                roots.gameObject.SetActive(false);
+                dropAttack.gameObject.SetActive(false);
+
                 SetNextBehaviour(TreeBossBehaviours.Dead);
             }
         }

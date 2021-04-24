@@ -72,7 +72,11 @@ MonoBehaviour:
     type: 3}
   mushroomEnemyPool: {fileID: 2031236233875234133, guid: 85b202953d3522748bde876c01c099e0,
     type: 3}
-  skeletonBossPool: {fileID: 362738470847129337, guid: 5248dc299f029524d981ec0747a1cb8b,
+  skeletonBoss1Pool: {fileID: 362738470847129337, guid: 5248dc299f029524d981ec0747a1cb8b,
+    type: 3}
+  skeletonBoss2Pool: {fileID: 362738470847129337, guid: 67ca97c36dfcc3940aeac57c4f47e22a,
+    type: 3}
+  skeletonBoss3Pool: {fileID: 362738470847129337, guid: e3fd554eaeb68524d8ec1639c51143a0,
     type: 3}
   treeBossPool: {fileID: 8110730066985303513, guid: fec3e7ff0eaca364a8b794a6573bb113,
     type: 3}

@@ -19,7 +19,7 @@ namespace CursedWoods
 
         private void Start()
         {
-            StartCoroutine(OpenAtStartCheck());
+            StartCoroutine(CollectedAtStartCheck());
         }
 
         protected override void AfterInteraction()
@@ -46,21 +46,24 @@ namespace CursedWoods
             }
         }
 
-        private IEnumerator OpenAtStartCheck()
+        private IEnumerator CollectedAtStartCheck()
         {
             // Dirty way to wait for 2 frames to make sure loading is complete.
             yield return null;
             yield return null;
 
-            if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(GraveyardGateType.GraveyardMiddleAreaSouthGate))
+            if (GameMan.Instance.GraveyardManager != null)
             {
-                foreach (GameObject go in disableObjects)
+                if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(GraveyardGateType.GraveyardMiddleAreaSouthGate))
                 {
-                    go.SetActive(false);
-                }
+                    foreach (GameObject go in disableObjects)
+                    {
+                        go.SetActive(false);
+                    }
 
-                hitbox.enabled = false;
-                base.AfterInteraction();
+                    hitbox.enabled = false;
+                    base.AfterInteraction();
+                }
             }
         }
     }

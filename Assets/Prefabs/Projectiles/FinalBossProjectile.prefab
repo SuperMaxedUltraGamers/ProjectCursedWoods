@@ -14513,7 +14513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a413bd84618dfff44bcaef1d04296b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 7.5
+  projectileSpeed: 10
   audioSource: {fileID: 0}
   particles: {fileID: 6942981207453012277}
   hitParticles: {fileID: 3879866252954228207}

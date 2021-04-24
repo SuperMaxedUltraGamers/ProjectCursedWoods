@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3785681271315722240
+--- !u!1 &362738470847129339
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3785681271315722254}
-  - component: {fileID: 3785681271315722241}
+  - component: {fileID: 362738470847129336}
+  - component: {fileID: 362738470847129337}
   m_Layer: 0
-  m_Name: CollectableSpawner
+  m_Name: SkeletonBoss2Pool
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3785681271315722254
+--- !u!4 &362738470847129336
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3785681271315722240}
+  m_GameObject: {fileID: 362738470847129339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -54.32, y: 0, z: -188.27}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3785681271315722241
+--- !u!114 &362738470847129337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3785681271315722240}
+  m_GameObject: {fileID: 362738470847129339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b244008ad5995f4b83073b70c70b290, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c2d437948799da4f9182d887fd9fdf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectable: 18
-  spawnOnStart: 1
+  prefab: {fileID: 2616030453817967715, guid: 6fa7aced841ea2d4a9e4754978562939, type: 3}
+  poolStartSize: 1
