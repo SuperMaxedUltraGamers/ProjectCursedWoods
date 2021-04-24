@@ -157,7 +157,7 @@ namespace CursedWoods.Utils
                     //}
 
                     //spawnSpaceRadius = 0.75f;
-                    InitializeSpawning(ObjectPoolType.SkeletonMace, 0.01f, 0.75f);
+                    InitializeSpawning(ObjectPoolType.FinalBoss, 0.01f, 0.75f);
                     break;
             }
         }
