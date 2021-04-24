@@ -91,5 +91,14 @@
         public const string OUTRO = "Outro";
 
         #endregion Scene tags
+
+        #region Level start info
+
+        public const float CASTLE_PLAYER_POS_X = 4.27f;
+        public const float CASTLE_PLAYER_POS_Y = 0.2f;
+        public const float CASTLE_PLAYER_POS_Z = -7.58f;
+        public const float CASTLE_PLAYER_ROT_Y = 180f;
+
+        #endregion Level start info
     }
 }

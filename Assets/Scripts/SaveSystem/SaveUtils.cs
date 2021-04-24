@@ -23,6 +23,10 @@
 		public const string GRAVEYARD_SPAWN_SKELETON_BOSS_KEY = "SpawnSkeletonBoss";
 		public const string GRAVEYARD_GATE_OPEN_KEY = "GateOpen{0}";
 
+		// CastleMan
+		public const string CASTLE_USE_LEVEL_START_POS_KEY = "UseLevelStartPos";
+		public const string CASTLE_GATE_OPEN_KEY = "GateOpen{0}";
+
 		// PlayerTrans
 		public const string PLAYER_X_KEY = "X";
 		public const string PLAYER_Y_KEY = "Y";

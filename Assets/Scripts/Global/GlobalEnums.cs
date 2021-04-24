@@ -156,7 +156,12 @@
         GraveyardMiddleAreaSouthGate,
         GraveyardMiddleAreaNorthGate,
         GraveyardGardenGate,
-        GraveyardCastleGate,
+        GraveyardCastleGate
+    }
+
+    public enum CastleGateType
+    {
+        None = 0,
         CastleFinalBossDoor
     }
 

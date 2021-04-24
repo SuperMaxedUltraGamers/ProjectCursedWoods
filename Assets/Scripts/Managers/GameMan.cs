@@ -382,8 +382,6 @@ namespace CursedWoods
                     break;
 #endif
             }
-
-            LevelUIManager.StartFade(FadeType.FadeIn);
         }
 
         private void MainMenuInit()
@@ -468,11 +466,10 @@ namespace CursedWoods
             CharController.Load(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
 
 
+
+            LevelUIManager.StartFade(FadeType.FadeIn);
             //AudioSource audioSource = GetComponent<AudioSource>();
             //Audio = new AudioManager(audioSource, mixer, audioData);
-            //PlayerManager.IsAttackUnlocked = true;
-            //PlayerManager.IsSpellCastUnlocked = true;
-            // TODO: load player unlocks from savefile and pass them to PlayerManager.
         }
 
         private IEnumerator CastleInit()
@@ -511,26 +508,28 @@ namespace CursedWoods
             yield return null;
 
             // Load player pos/rot
-            Vector3 playerPos = PlayerT.position;
-            float playerRot = PlayerT.rotation.eulerAngles.y;
-            float posX = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_X_KEY), playerPos.x);
-            float posY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Y_KEY), playerPos.y);
-            float posZ = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Z_KEY), playerPos.z);
-            float rotY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_ROT_KEY), playerRot);
+            if (!CastleManager.UseStartPos)
+            {
+                Vector3 playerPos = PlayerT.position;
+                float playerRot = PlayerT.rotation.eulerAngles.y;
+                float posX = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_X_KEY), playerPos.x);
+                float posY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Y_KEY), playerPos.y);
+                float posZ = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Z_KEY), playerPos.z);
+                float rotY = SaveSystem.GetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_ROT_KEY), playerRot);
 
-            //print(new Vector3(posX, posY + 0.1f, posZ));
-            PlayerT.position = new Vector3(posX, posY + 0.1f, posZ);
-            PlayerT.rotation = Quaternion.Euler(0f, rotY, 0f);
+                //print(new Vector3(posX, posY + 0.1f, posZ));
+                PlayerT.position = new Vector3(posX, posY + 0.1f, posZ);
+                PlayerT.rotation = Quaternion.Euler(0f, rotY, 0f);
+            }
 
             // Load player health
             CharController.Load(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
 
 
+
+            LevelUIManager.StartFade(FadeType.FadeIn);
             //AudioSource audioSource = GetComponent<AudioSource>();
             //Audio = new AudioManager(audioSource, mixer, audioData);
-            //PlayerManager.IsAttackUnlocked = true;
-            //PlayerManager.IsSpellCastUnlocked = true;
-            // TODO: load player unlocks from savefile and pass them to PlayerManager.
         }
 
         private void InitializeSaveSystem()

@@ -7,26 +7,16 @@ namespace CursedWoods
 {
     public class CastleManager : MonoBehaviour, ISaveable
     {
-        
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        public bool UseStartPos { get; set; }
 
         public void Load(ISave saveSystem, string keyPrefix)
         {
+            UseStartPos = saveSystem.GetBool(SaveUtils.GetKey(keyPrefix, SaveUtils.CASTLE_USE_LEVEL_START_POS_KEY), true);
         }
 
         public void Save(ISave saveSystem, string keyPrefix)
         {
+            saveSystem.SetBool(SaveUtils.GetKey(keyPrefix, SaveUtils.CASTLE_USE_LEVEL_START_POS_KEY), UseStartPos);
         }
 
         public void Initialize(ISave saveSystem, string keyPrefix)
