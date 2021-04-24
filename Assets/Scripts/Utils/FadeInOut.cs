@@ -40,14 +40,15 @@ namespace CursedWoods.Utils
         public void StartFade(FadeType fadeType, Level levelToLoadAfterFade)
         {
             currentFadeType = fadeType;
-            currentFadeSpeed = 0f;
             switch (currentFadeType)
             {
                 case FadeType.FadeIn:
                     currentAlpha = 1f;
+                    currentFadeSpeed = 0f;
                     break;
                 case FadeType.FadeOut:
                     currentAlpha = 0f;
+                    currentFadeSpeed = 0.05f;
                     break;
             }
 

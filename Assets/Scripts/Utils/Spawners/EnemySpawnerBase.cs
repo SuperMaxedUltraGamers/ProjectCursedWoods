@@ -34,129 +34,30 @@ namespace CursedWoods.Utils
             switch (enemyType)
             {
                 case EnemyType.SkeletonMelee:
-                    //objectPoolType = ObjectPoolType.SkeletonMelee;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance - 0.01f;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.5f;
                     InitializeSpawning(ObjectPoolType.SkeletonMelee, 0.01f, 0.5f);
                     break;
                 case EnemyType.PossessedTree:
-                    //objectPoolType = ObjectPoolType.PossessedTree;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.6f;
                     InitializeSpawning(ObjectPoolType.PossessedTree, 0f, 0.6f);
                     break;
                 case EnemyType.MushroomEnemy:
-                    //objectPoolType = ObjectPoolType.MushroomEnemy;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.6f;
                     InitializeSpawning(ObjectPoolType.MushroomEnemy, 0f, 0.6f);
                     break;
                 case EnemyType.SkeletonBoss1:
-                    //objectPoolType = ObjectPoolType.SkeletonBoss1;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance - 0.01f;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.75f;
                     InitializeSpawning(ObjectPoolType.SkeletonBoss1, 0.01f, 0.75f);
                     break;
                 case EnemyType.SkeletonBoss2:
-                    //objectPoolType = ObjectPoolType.SkeletonBoss2;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance - 0.01f;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.75f;
                     InitializeSpawning(ObjectPoolType.SkeletonBoss2, 0.01f, 0.75f);
                     break;
                 case EnemyType.SkeletonBoss3:
-                    //objectPoolType = ObjectPoolType.SkeletonBoss3;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance - 0.01f;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.75f;
                     InitializeSpawning(ObjectPoolType.SkeletonBoss3, 0.01f, 0.75f);
                     break;
                 case EnemyType.TreeBoss:
-                    //objectPoolType = ObjectPoolType.TreeBoss;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance - 0.01f;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 2f;
                     InitializeSpawning(ObjectPoolType.TreeBoss, 0.01f, 2f);
                     break;
                 case EnemyType.SkeletonMace:
-                    objectPoolType = ObjectPoolType.SkeletonMace;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance - 0.01f;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.5f;
                     InitializeSpawning(ObjectPoolType.SkeletonMace, 0.01f, 0.5f);
                     break;
                 case EnemyType.FinalBoss:
-                    //objectPoolType = ObjectPoolType.FinalBoss;
-                    //if (Physics.Raycast(spawnPos, -Vector3.up, out hit, maxLinecastDistance, layerMask))
-                    //{
-                    //    ySpawnOffset = hit.distance - 0.01f;
-                    //}
-                    //else
-                    //{
-                    //    ySpawnOffset = maxLinecastDistance;
-                    //}
-
-                    //spawnSpaceRadius = 0.75f;
                     InitializeSpawning(ObjectPoolType.FinalBoss, 0.01f, 0.75f);
                     break;
             }
