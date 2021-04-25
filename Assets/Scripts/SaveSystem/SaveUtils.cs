@@ -20,12 +20,13 @@
 		public const string GAMEMAN_SCENE_NAME_KEY = "Scene";
 
 		// GraveyardMan
-		public const string GRAVEYARD_SPAWN_SKELETON_BOSS_KEY = "SpawnSkeletonBoss";
+		public const string GRAVEYARD_SPAWN_SKELETON_BOSS_1_KEY = "SpawnSkeletonBoss1";
+		public const string GRAVEYARD_SPAWN_MAX_HEALTH_INCREASE_KEY = "SpawnMaxHealthIncrease{0}";
 		public const string GRAVEYARD_GATE_OPEN_KEY = "GateOpen{0}";
 
 		// CastleMan
 		public const string CASTLE_USE_LEVEL_START_POS_KEY = "UseLevelStartPos";
-		public const string CASTLE_GATE_OPEN_KEY = "GateOpen{0}";
+		public const string CASTLE_FINAL_BOSS_DOOR_OPEN_KEY = "FinalBossDoorOpen";
 
 		// PlayerTrans
 		public const string PLAYER_X_KEY = "X";

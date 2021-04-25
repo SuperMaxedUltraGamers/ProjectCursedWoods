@@ -8,7 +8,7 @@ namespace CursedWoods
         private LayerMask raycastMask;
         private LineRenderer combatLine;
         private bool useCombatLine;
-        private float maxDrawDistance = 30f;
+        private float maxDrawDistance = 50f;
         //private CharController charController;
 
         private void Awake()

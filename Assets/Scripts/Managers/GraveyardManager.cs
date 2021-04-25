@@ -8,9 +8,6 @@ namespace CursedWoods
 {
     public class GraveyardManager : MonoBehaviour, ISaveable
     {
-        //private Timer checkKillsTimer;
-        //private float killsTimerInterval = 0.5f;
-
         [SerializeField]
         private int KillsToSpawnSwordGateKey = 3;
         [SerializeField]
@@ -22,13 +19,19 @@ namespace CursedWoods
         [SerializeField]
         private KeyPickUp graveyardSouthKey = null;
         [SerializeField]
-        private EnemySpawnerOnStart skeletonBossSpawner = null;
+        private EnemySpawnerOnStart skeletonBoss1Spawner = null;
+        [SerializeField]
+        private EnemySpawnerOnTrigger skeletonBoss2Spawner = null;
         [SerializeField]
         private GameObject[] arenaEnemySpawners;
 
+        [SerializeField]
+        private CollectableSpawner[] maxHealthIncreases;
+        private bool[] spawnMaxHealtIncreases;
+
         //private bool hasBookGateKeySpawned;
         //private bool hasGraveyardSouthKeySpawned;
-        private bool spawnSkeletonBoss;
+        private bool spawnSkeletonBoss1;
 
         private Dictionary<GraveyardGateType, bool> gateLockedInfo = new Dictionary<GraveyardGateType, bool>();
 
@@ -39,29 +42,26 @@ namespace CursedWoods
 
         private void Awake()
         {
-            //<checkKillsTimer = gameObject.AddComponent<Timer>();
-            //checkKillsTimer.Set(killsTimerInterval);
-        }
-
-        private void Start()
-        {
-            //checkKillsTimer.Run();
+            spawnMaxHealtIncreases = new bool[maxHealthIncreases.Length];
         }
 
         private void OnEnable()
         {
-            //checkKillsTimer.TimerCompleted += CheckKills;
             AIManager.EnemyGotKilled += CheckKills;
         }
         private void OnDisable()
         {
-            //checkKillsTimer.TimerCompleted -= CheckKills;
             AIManager.EnemyGotKilled -= CheckKills;
         }
 
         public void Save(ISave saveSystem, string keyPrefix)
         {
-            saveSystem.SetBool(SaveUtils.GetKey(keyPrefix, SaveUtils.GRAVEYARD_SPAWN_SKELETON_BOSS_KEY), spawnSkeletonBoss);
+            saveSystem.SetBool(SaveUtils.GetKey(keyPrefix, SaveUtils.GRAVEYARD_SPAWN_SKELETON_BOSS_1_KEY), spawnSkeletonBoss1);
+
+            for (int i = 0; i < maxHealthIncreases.Length; i++)
+            {
+                saveSystem.SetBool(SaveUtils.GetKey(keyPrefix, string.Format(SaveUtils.GRAVEYARD_SPAWN_MAX_HEALTH_INCREASE_KEY, i)), spawnMaxHealtIncreases[i]);
+            }
 
             for (int i = 0; i < gateLockedInfo.Count; i++)
             {
@@ -72,7 +72,12 @@ namespace CursedWoods
 
         public void Load(ISave saveSystem, string keyPrefix)
         {
-            spawnSkeletonBoss = saveSystem.GetBool(SaveUtils.GetKey(keyPrefix, SaveUtils.GRAVEYARD_SPAWN_SKELETON_BOSS_KEY), true);
+            spawnSkeletonBoss1 = saveSystem.GetBool(SaveUtils.GetKey(keyPrefix, SaveUtils.GRAVEYARD_SPAWN_SKELETON_BOSS_1_KEY), true);
+
+            for (int i = 0; i < maxHealthIncreases.Length; i++)
+            {
+                spawnMaxHealtIncreases[i] = saveSystem.GetBool(SaveUtils.GetKey(keyPrefix, string.Format(SaveUtils.GRAVEYARD_SPAWN_MAX_HEALTH_INCREASE_KEY, i)), true);
+            }
 
             gateLockedInfo.Clear();
 
@@ -89,9 +94,22 @@ namespace CursedWoods
 
             if (!GetGateOpenStatus(GraveyardGateType.GraveyardMiddleAreaNorthGate))
             {
-                for (int i=0; i<arenaEnemySpawners.Length; i++)
+                for (int i = 0; i < arenaEnemySpawners.Length; i++)
                 {
                     arenaEnemySpawners[i].SetActive(false);
+                }
+            }
+
+            if (!GetGateOpenStatus(GraveyardGateType.GraveyardGardenGate))
+            {
+                skeletonBoss2Spawner.gameObject.SetActive(false);
+            }
+
+            for (int i = 0; i < maxHealthIncreases.Length; i++)
+            {
+                if (!spawnMaxHealtIncreases[i])
+                {
+                    maxHealthIncreases[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -104,6 +122,16 @@ namespace CursedWoods
         public bool GetGateOpenStatus(GraveyardGateType gate)
         {
             return gateLockedInfo[gate];
+        }
+
+        public void DisableSpawMaxHealthIncrease(int collectibleId)
+        {
+            spawnMaxHealtIncreases[collectibleId] = false;
+        }
+
+        public bool GetMaxHealthIncreaseSpawnerStatus(int spawnerId)
+        {
+            return spawnMaxHealtIncreases[spawnerId];
         }
 
         private void CheckKills(int killAmount)
@@ -143,7 +171,7 @@ namespace CursedWoods
 
             if (killAmount >= KillsToSpawnSkeletonBoss)
             {
-                if (spawnSkeletonBoss)
+                if (spawnSkeletonBoss1)
                 {
                     /*
                     if (MiddleAreaGateEvent != null)
@@ -152,12 +180,10 @@ namespace CursedWoods
                     }
                     */
 
-                    skeletonBossSpawner.enabled = true;
-                    spawnSkeletonBoss = false;
+                    skeletonBoss1Spawner.enabled = true;
+                    spawnSkeletonBoss1 = false;
                 }
             }
-
-            //checkKillsTimer.Run();
         }
     }
 }

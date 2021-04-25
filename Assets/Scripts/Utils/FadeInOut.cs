@@ -9,7 +9,7 @@ namespace CursedWoods.Utils
     {
         [SerializeField]
         private Image image;
-        private float fadeSpeed = 0.002f;
+        private float fadeSpeed = 0.005f;
         private float currentFadeSpeed;
         private float currentAlpha = 1f;
         private FadeType currentFadeType;
@@ -22,14 +22,15 @@ namespace CursedWoods.Utils
         public void StartFade(FadeType fadeType)
         {
             currentFadeType = fadeType;
-            currentFadeSpeed = 0f;
             switch (currentFadeType)
             {
                 case FadeType.FadeIn:
-                    currentAlpha = 1f;
+                    currentAlpha = 2.2f;
+                    currentFadeSpeed = 0f;
                     break;
                 case FadeType.FadeOut:
                     currentAlpha = 0f;
+                    currentFadeSpeed = 0.05f;
                     break;
             }
 
@@ -43,7 +44,7 @@ namespace CursedWoods.Utils
             switch (currentFadeType)
             {
                 case FadeType.FadeIn:
-                    currentAlpha = 1f;
+                    currentAlpha = 2.2f;
                     currentFadeSpeed = 0f;
                     break;
                 case FadeType.FadeOut:
@@ -127,8 +128,9 @@ namespace CursedWoods.Utils
         private void FadeIn()
         {
             currentFadeSpeed += fadeSpeed * Time.deltaTime;
+            currentAlpha -= currentFadeSpeed;
             Color color = image.color;
-            currentAlpha = color.a - currentFadeSpeed;
+            //currentAlpha = color.a - currentFadeSpeed;
             color.a = currentAlpha;
             image.color = color;
             if (currentAlpha <= 0f)
@@ -141,13 +143,13 @@ namespace CursedWoods.Utils
         private void FadeOut()
         {
             currentFadeSpeed += fadeSpeed * Time.deltaTime;
+            currentAlpha += currentFadeSpeed;
             Color color = image.color;
-            currentAlpha = color.a + currentFadeSpeed;
+            //currentAlpha = color.a + currentFadeSpeed;
             color.a = currentAlpha;
             image.color = color;
             if (currentAlpha >= 1f)
             {
-                //image.enabled = false;
                 currentFadeType = FadeType.None;
             }
         }

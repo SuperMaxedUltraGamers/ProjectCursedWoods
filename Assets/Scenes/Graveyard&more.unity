@@ -9822,7 +9822,7 @@ PrefabInstance:
     - target: {fileID: 500558780494751997, guid: d4b5df3c2c428c0499816e1995985b65,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 47.86
+      value: 46.4
       objectReference: {fileID: 0}
     - target: {fileID: 500558780494751997, guid: d4b5df3c2c428c0499816e1995985b65,
         type: 3}
@@ -9832,7 +9832,7 @@ PrefabInstance:
     - target: {fileID: 500558780494751997, guid: d4b5df3c2c428c0499816e1995985b65,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 178.97
+      value: 80.9
       objectReference: {fileID: 0}
     - target: {fileID: 500558780494751997, guid: d4b5df3c2c428c0499816e1995985b65,
         type: 3}
@@ -48329,6 +48329,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1300963543}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1300963545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2756690246047733129, guid: 5e4d206f06ed6e34dac488cdf1aa8686,
+    type: 3}
+  m_PrefabInstance: {fileID: 1300963543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e1bd7b2d6ab78542b6776ff64629b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1305493709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6956534728435836838, guid: a56b5d80e8d14454aba5006e24f8fb6c,
@@ -61236,6 +61248,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1642988152}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1644051628 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3785681271315722241, guid: 73e6a3f415311ad46b54c478f2d67f8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3785681271324566438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b244008ad5995f4b83073b70c70b290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1644705140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78236,6 +78260,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 781e89d801c10454492c38f5d5a30d89, type: 3}
+--- !u!114 &2114865007 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3785681271315722241, guid: 73e6a3f415311ad46b54c478f2d67f8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 929176019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b244008ad5995f4b83073b70c70b290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2117001320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80572,13 +80608,38 @@ PrefabInstance:
       objectReference: {fileID: 468646697}
     - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
         type: 3}
+      propertyPath: maxHealthIncrease1
+      value: 
+      objectReference: {fileID: 2114865007}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: maxHealthIncrease2
+      value: 
+      objectReference: {fileID: 1644051628}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
       propertyPath: skeletonBossSpawner
       value: 
       objectReference: {fileID: 763747420}
     - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
         type: 3}
+      propertyPath: skeletonBoss1Spawner
+      value: 
+      objectReference: {fileID: 763747420}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: skeletonBoss2Spawner
+      value: 
+      objectReference: {fileID: 1300963545}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
       propertyPath: arenaEnemySpawners.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: maxHealthIncreases.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
         type: 3}
@@ -80595,6 +80656,16 @@ PrefabInstance:
       propertyPath: arenaEnemySpawners.Array.data[2]
       value: 
       objectReference: {fileID: 1696699872}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: maxHealthIncreases.Array.data[0]
+      value: 
+      objectReference: {fileID: 2114865007}
+    - target: {fileID: 1353080542488021108, guid: 7777524e5f8fa7849a52a720dd508a66,
+        type: 3}
+      propertyPath: maxHealthIncreases.Array.data[1]
+      value: 
+      objectReference: {fileID: 1644051628}
     - target: {fileID: 1353080542488021109, guid: 7777524e5f8fa7849a52a720dd508a66,
         type: 3}
       propertyPath: m_RootOrder
@@ -81464,6 +81535,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollectableSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 3785681271315722241, guid: 73e6a3f415311ad46b54c478f2d67f8a,
+        type: 3}
+      propertyPath: spawnerID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3785681271315722254, guid: 73e6a3f415311ad46b54c478f2d67f8a,
         type: 3}
       propertyPath: m_RootOrder
@@ -81882,7 +81958,7 @@ PrefabInstance:
     - target: {fileID: 5383002919021960286, guid: a748ea2b8b7fd0c44b44deead3c18352,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 197.5
+      value: 194
       objectReference: {fileID: 0}
     - target: {fileID: 5383002919021960286, guid: a748ea2b8b7fd0c44b44deead3c18352,
         type: 3}

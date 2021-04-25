@@ -7752,6 +7752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36db816958122624aada53cd79fed45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skeletonBoss3Spawner: {fileID: 1118954161}
 --- !u!4 &533523400
 Transform:
   m_ObjectHideFlags: 0
@@ -15440,7 +15441,7 @@ PrefabInstance:
     - target: {fileID: 352039143273584022, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
       propertyPath: m_Name
-      value: EnemySpawnerOnStart
+      value: SkeletonBoss3
       objectReference: {fileID: 0}
     - target: {fileID: 352039143273584023, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
         type: 3}
@@ -15499,6 +15500,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35, type: 3}
+--- !u!114 &1118954161 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 352039143273584020, guid: 289fe1f7ec3bd3645ad5e3e6ebc7aa35,
+    type: 3}
+  m_PrefabInstance: {fileID: 1118954160}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62b4303a5050a741beb7ad75c348f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1119377185
 PrefabInstance:
   m_ObjectHideFlags: 0
