@@ -72,7 +72,7 @@ namespace CursedWoods.UI
         [SerializeField]
         private TextMeshProUGUI[] spellCooldownText;
 
-        private FadeInOut fader;
+        private Fader fader;
 
         private void Awake()
         {
@@ -84,7 +84,7 @@ namespace CursedWoods.UI
             displayInfoText = displayInfoTextBG.GetComponentInChildren<TextMeshProUGUI>();
             displayInfoText.text = "";
             bossHealthBar = GetComponent<BossHealthBar>();
-            fader = GetComponent<FadeInOut>();
+            fader = GetComponent<Fader>();
 
             /*
             int spellIconsAmount = spellCooldownIcons.Length;

@@ -232,7 +232,7 @@ namespace CursedWoods
 
             // TODO: reset other progress
 
-            SceneManager.LoadScene(GlobalVariables.GRAVEYARD);
+            SceneManager.LoadScene(GlobalVariables.INTRO);
         }
 
         public void LoadGame(string saveSlot)

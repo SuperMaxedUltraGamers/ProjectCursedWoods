@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CursedWoods.Utils
 {
-    public class FadeInOut : MonoBehaviour
+    public class Fader : MonoBehaviour
     {
         [SerializeField]
         private Image image;
@@ -13,6 +13,8 @@ namespace CursedWoods.Utils
         private float currentFadeSpeed;
         private float currentAlpha = 1f;
         private FadeType currentFadeType;
+
+        public bool IsFading { get; private set; }
 
         private void Awake()
         {
@@ -35,6 +37,7 @@ namespace CursedWoods.Utils
             }
 
             image.enabled = true;
+            IsFading = true;
             StartCoroutine(Fading());
         }
 
@@ -54,7 +57,19 @@ namespace CursedWoods.Utils
             }
 
             image.enabled = true;
+            IsFading = true;
             StartCoroutine(Fading(levelToLoadAfterFade));
+        }
+
+        public void StartFade(Image disableImg, Image enableImg)
+        {
+            currentFadeType = FadeType.FadeIn;
+            currentAlpha = 1f;
+            currentFadeSpeed = 0f;
+
+            image.enabled = true;
+            IsFading = true;
+            StartCoroutine(Fading(disableImg, enableImg));
         }
 
         private IEnumerator Fading()
@@ -78,6 +93,8 @@ namespace CursedWoods.Utils
 
                     break;
             }
+
+            IsFading = false;
         }
 
         private IEnumerator Fading(Level levelToLoad)
@@ -102,6 +119,8 @@ namespace CursedWoods.Utils
                     break;
             }
 
+            IsFading = false;
+
             string sceneToLoad = "";
             switch (levelToLoad)
             {
@@ -125,17 +144,41 @@ namespace CursedWoods.Utils
             SceneManager.LoadScene(sceneToLoad);
         }
 
+        private IEnumerator Fading(Image fromImg, Image toImg)
+        {
+            currentFadeType = FadeType.FadeIn;
+            currentAlpha = 0f;
+
+            // Fade to black
+            while (currentAlpha < 1f)
+            {
+                FadeOut();
+                yield return null;
+            }
+
+            // Disable and enable pictures
+            fromImg.gameObject.SetActive(false);
+            toImg.gameObject.SetActive(true);
+
+            // Now fade back
+            while (currentAlpha > 0f)
+            {
+                FadeIn();
+                yield return null;
+            }
+
+            IsFading = false;
+        }
+
         private void FadeIn()
         {
             currentFadeSpeed += fadeSpeed * Time.deltaTime;
             currentAlpha -= currentFadeSpeed;
             Color color = image.color;
-            //currentAlpha = color.a - currentFadeSpeed;
             color.a = currentAlpha;
             image.color = color;
             if (currentAlpha <= 0f)
             {
-                image.enabled = false;
                 currentFadeType = FadeType.None;
             }
         }
@@ -145,7 +188,6 @@ namespace CursedWoods.Utils
             currentFadeSpeed += fadeSpeed * Time.deltaTime;
             currentAlpha += currentFadeSpeed;
             Color color = image.color;
-            //currentAlpha = color.a + currentFadeSpeed;
             color.a = currentAlpha;
             image.color = color;
             if (currentAlpha >= 1f)
