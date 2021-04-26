@@ -8,6 +8,8 @@ namespace CursedWoods
     {
         [SerializeField]
         private Image[] introImages;
+        [SerializeField]
+        private Level levelToLoad = Level.Graveyard;
         private int currentImgID;
         private Image currentImg;
         private Fader fader;
@@ -41,27 +43,12 @@ namespace CursedWoods
             {
                 currentImgID++;
                 fader.StartFade(currentImg, introImages[currentImgID]);
-                //ToggleFadeDir();
                 currentImg = introImages[currentImgID];
             }
             else
             {
-                fader.StartFade(FadeType.FadeOut, Level.Graveyard);
+                fader.StartFade(FadeType.FadeOut, levelToLoad);
             }
         }
-
-        /*
-        private void ToggleFadeDir()
-        {
-            if (fadeDir == FadeType.FadeIn)
-            {
-                fadeDir = FadeType.FadeOut;
-            }
-            else
-            {
-                fadeDir = FadeType.FadeIn;
-            }
-        }
-        */
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5383002919021960286}
   - component: {fileID: 5383002919021960287}
   - component: {fileID: 5383002919021960285}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: EndLevelTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,4 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29a497ead800b64abac2c2c945d7f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animTime: 1
+  interactionText: ENTER CASTLE
+  disableAfterInteraction: 1
   levelToLoad: 3

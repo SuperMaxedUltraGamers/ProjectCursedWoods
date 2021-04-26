@@ -13,11 +13,16 @@ namespace CursedWoods
         private string displayInfoText = "";
         private float fadeSpeed = 1.5f;
         private Collider hitbox;
-
+        //[SerializeField]
+        //private MeshRenderer meshRenderer;
+        //private Material[] materials;
+        //private Material runestoneMat;
 
         private void Awake()
         {
             hitbox = GetComponent<Collider>();
+            //materials = meshRenderer.materials;
+            //runestoneMat = materials[1];
         }
 
         private void Start()
@@ -51,6 +56,7 @@ namespace CursedWoods
                 yield return null;
             }
 
+            //meshRenderer.materials[0] = runestoneMat;
             gameObject.SetActive(false);
         }
 

@@ -32,11 +32,11 @@ namespace CursedWoods.Utils
                     break;
                 case FadeType.FadeOut:
                     currentAlpha = 0f;
-                    currentFadeSpeed = 0.05f;
+                    currentFadeSpeed = 0f;
                     break;
             }
 
-            image.enabled = true;
+            image.gameObject.SetActive(true);
             IsFading = true;
             StartCoroutine(Fading());
         }
@@ -52,11 +52,11 @@ namespace CursedWoods.Utils
                     break;
                 case FadeType.FadeOut:
                     currentAlpha = 0f;
-                    currentFadeSpeed = 0.05f;
+                    currentFadeSpeed = 0f;
                     break;
             }
 
-            image.enabled = true;
+            image.gameObject.SetActive(true);
             IsFading = true;
             StartCoroutine(Fading(levelToLoadAfterFade));
         }
@@ -67,7 +67,7 @@ namespace CursedWoods.Utils
             currentAlpha = 1f;
             currentFadeSpeed = 0f;
 
-            image.enabled = true;
+            image.gameObject.SetActive(true);
             IsFading = true;
             StartCoroutine(Fading(disableImg, enableImg));
         }
@@ -179,6 +179,7 @@ namespace CursedWoods.Utils
             image.color = color;
             if (currentAlpha <= 0f)
             {
+                image.gameObject.SetActive(false);
                 currentFadeType = FadeType.None;
             }
         }
