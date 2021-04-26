@@ -2512,7 +2512,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 50.000004, y: -30.000002, z: -335.71}
 --- !u!1001 &125282186
 PrefabInstance:
@@ -7391,7 +7391,7 @@ Transform:
   - {fileID: 948746761}
   - {fileID: 1170124975}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &423356070 stripped
 Transform:
