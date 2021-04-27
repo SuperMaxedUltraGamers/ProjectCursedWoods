@@ -281,6 +281,7 @@ namespace CursedWoods
 
         private void Dead()
         {
+            DisableAttacks();
             float deltaTime = Time.deltaTime;
             elapsedEyeColorChangeTime += deltaTime;
             if (elapsedEyeColorChangeTime >= eyeColorChangeTime)
