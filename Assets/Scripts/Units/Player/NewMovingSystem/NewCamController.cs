@@ -1,6 +1,7 @@
 ﻿using CursedWoods.SaveSystem;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CursedWoods
 {
@@ -113,8 +114,18 @@ namespace CursedWoods
         {
             saveSystem.SetFloat(SaveUtils.GetKey(keyPrefix, SaveUtils.CAMERA_ROT_Y_KEY), transform.rotation.eulerAngles.y);
         }
+
         public void Load(ISave saveSystem, string keyPrefix)
         {
+            Scene currentScene = SceneManager.GetActiveScene();
+            if (currentScene.name.Equals(GlobalVariables.CASTLE))
+            {
+                if (GameMan.Instance.CastleManager.UseStartPos)
+                {
+                    return;
+                }
+            }
+
             float rotY = saveSystem.GetFloat(SaveUtils.GetKey(keyPrefix, SaveUtils.CAMERA_ROT_Y_KEY), transform.rotation.eulerAngles.y);
             transform.rotation = Quaternion.Euler(0f, rotY, 0f);
         }
