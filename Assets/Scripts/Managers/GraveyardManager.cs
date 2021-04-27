@@ -33,7 +33,7 @@ namespace CursedWoods
         //private bool hasGraveyardSouthKeySpawned;
         private bool spawnSkeletonBoss1;
 
-        private Dictionary<GraveyardGateType, bool> gateLockedInfo = new Dictionary<GraveyardGateType, bool>();
+        private Dictionary<GateType, bool> gateLockedInfo = new Dictionary<GateType, bool>();
 
         [SerializeField]
         private GameObject[] barriers;
@@ -71,7 +71,7 @@ namespace CursedWoods
 
             for (int i = 0; i < gateLockedInfo.Count; i++)
             {
-                bool isOpen = gateLockedInfo[(GraveyardGateType)i];
+                bool isOpen = gateLockedInfo[(GateType)i];
                 saveSystem.SetBool(SaveUtils.GetKey(keyPrefix, string.Format(SaveUtils.GRAVEYARD_GATE_OPEN_KEY, i)), isOpen);
             }
         }
@@ -87,10 +87,10 @@ namespace CursedWoods
 
             gateLockedInfo.Clear();
 
-            for (int i = 0; i < Enum.GetNames(typeof(GraveyardGateType)).Length; i++)
+            for (int i = 0; i < Enum.GetNames(typeof(GateType)).Length; i++)
             {
                 bool isOpen = saveSystem.GetBool(SaveUtils.GetKey(keyPrefix, string.Format(SaveUtils.GRAVEYARD_GATE_OPEN_KEY, i)), true);
-                gateLockedInfo.Add((GraveyardGateType)i, isOpen);
+                gateLockedInfo.Add((GateType)i, isOpen);
             }
         }
 
@@ -98,7 +98,7 @@ namespace CursedWoods
         {
             Load(saveSystem, keyPrefix);
 
-            if (!GetGateOpenStatus(GraveyardGateType.GraveyardMiddleAreaNorthGate))
+            if (!GetGateOpenStatus(GateType.GraveyardMiddleAreaNorthGate))
             {
                 for (int i = 0; i < arenaEnemySpawners.Length; i++)
                 {
@@ -106,12 +106,12 @@ namespace CursedWoods
                 }
             }
 
-            if (!GetGateOpenStatus(GraveyardGateType.GraveyardGardenGate))
+            if (!GetGateOpenStatus(GateType.GraveyardGardenGate))
             {
                 skeletonBoss2Spawner.gameObject.SetActive(false);
             }
 
-            if (!GetGateOpenStatus(GraveyardGateType.GraveyardMiddleAreaNorthGate))
+            if (!GetGateOpenStatus(GateType.GraveyardMiddleAreaNorthGate))
             {
                 middleAreaBarrierTrigger.gameObject.SetActive(false);
             }
@@ -125,12 +125,12 @@ namespace CursedWoods
             }
         }
 
-        public void SetGateToOpenStatus(GraveyardGateType gate)
+        public void SetGateToOpenStatus(GateType gate)
         {
             gateLockedInfo[gate] = false;
         }
 
-        public bool GetGateOpenStatus(GraveyardGateType gate)
+        public bool GetGateOpenStatus(GateType gate)
         {
             return gateLockedInfo[gate];
         }
@@ -160,7 +160,7 @@ namespace CursedWoods
             //int killAmount = GameMan.Instance.AIManager.EnemiesKilledAmount;
             if (killAmount >= KillsToSpawnSwordGateKey)
             {
-                if (gateLockedInfo[GraveyardGateType.GraveyardBookGate])
+                if (gateLockedInfo[GateType.GraveyardBookGate])
                 {
                     /*
                     if (SwordGateEvent != null)
@@ -176,7 +176,7 @@ namespace CursedWoods
 
             if (killAmount >= KillsToSpawnGraveyardKey)
             {
-                if (gateLockedInfo[GraveyardGateType.GraveyardMiddleAreaSouthGate])
+                if (gateLockedInfo[GateType.GraveyardMiddleAreaSouthGate])
                 {
                     /*
                     if (SpellbookGateEvent != null)

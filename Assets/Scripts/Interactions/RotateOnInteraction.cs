@@ -5,10 +5,10 @@ namespace CursedWoods
 {
     public class RotateOnInteraction : InteractionHandlerArray
     {
-        //[SerializeField, Tooltip("Leave unassigned if no need to use!")]
-        //private GraveyardManager graveyardMan;
         [SerializeField]
-        private GraveyardGateType gateType;
+        private Level levelGateIsIn = Level.Graveyard;
+        [SerializeField]
+        private GateType gateType;
         [SerializeField]
         private float rotateAmount = 90f;
         [SerializeField]
@@ -149,9 +149,20 @@ namespace CursedWoods
             yield return null;
             yield return null;
 
-            if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(gateType))
+            switch (levelGateIsIn)
             {
-                InteractionCause();
+                case Level.Graveyard:
+                    if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(gateType))
+                    {
+                        InteractionCause();
+                    }
+                    break;
+                case Level.Castle:
+                    if (GameMan.Instance.CastleManager.FinalBossDoorOpen)
+                    {
+                        InteractionCause();
+                    }
+                    break;
             }
         }
 

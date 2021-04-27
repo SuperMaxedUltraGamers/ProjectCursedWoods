@@ -6,10 +6,12 @@ namespace CursedWoods
     public class NewCamController : MonoBehaviour
     {
         private const float MAX_HEIGHT_FROM_PLAYER = 8f;
-        private const float MIN_HEIGHT_FROM_PLAYER = 2f;
+        private const float MIN_HEIGHT_FROM_PLAYER = 1f;
         private const float CAM_PARENT_Y_OFFSET = 2f;
         private const float COMBAT_MIN_DIST_FROM_PLAYER = 81.5f; //81.5f if not using sqrtmag then 9f
         private const float COMBAT_MAX_DIST_FROM_PLAYER = 196f; //196f if not using sqrtmag then 14f
+
+        //private const float CHECK_SPHERE_RADIUS = 0.25f;
 
         [SerializeField]
         private Transform playerT;
@@ -278,6 +280,8 @@ namespace CursedWoods
             float maxCamHeight = transPos.y + MAX_HEIGHT_FROM_PLAYER;
             float minCamHeight = transPos.y + MIN_HEIGHT_FROM_PLAYER;
 
+            //newCamPos = CheckCamCollision(newCamPos);
+
             if (newCamPos.y < maxCamHeight && newCamPos.y > minCamHeight)
             {
                 camT.position = newCamPos;
@@ -355,5 +359,17 @@ namespace CursedWoods
                 controlTypeFollowPlayerDel = ExploreFollowPlayer;
             }
         }
+
+        /*
+        private Vector3 CheckCamCollision(Vector3 pos)
+        {
+            if (Physics.CheckSphere(pos, CHECK_SPHERE_RADIUS))
+            {
+                return pos + camT.forward * CHECK_SPHERE_RADIUS;
+            }
+
+            return pos;
+        }
+        */
     }
 }

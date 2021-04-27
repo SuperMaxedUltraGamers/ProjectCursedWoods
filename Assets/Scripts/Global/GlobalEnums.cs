@@ -149,19 +149,14 @@
         KeyFinalBoss
     }
 
-    public enum GraveyardGateType
+    public enum GateType
     {
         None = 0,
         GraveyardBookGate,
         GraveyardMiddleAreaSouthGate,
         GraveyardMiddleAreaNorthGate,
         GraveyardGardenGate,
-        GraveyardCastleGate
-    }
-
-    public enum CastleGateType
-    {
-        None = 0,
+        GraveyardCastleGate,
         CastleFinalBossDoor
     }
 

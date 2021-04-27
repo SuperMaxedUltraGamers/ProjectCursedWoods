@@ -6540,6 +6540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactions:
   - {fileID: 103132347}
+  levelGateIsIn: 2
   gateType: 3
   rotateAmount: -90
   rotSpeed: 1
@@ -14747,6 +14748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactions:
   - {fileID: 103132347}
+  levelGateIsIn: 2
   gateType: 3
   rotateAmount: 90
   rotSpeed: 1
@@ -60112,6 +60114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactions:
   - {fileID: 2069134756}
+  levelGateIsIn: 2
   gateType: 2
   rotateAmount: -90
   rotSpeed: 1
@@ -78641,6 +78644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactions:
   - {fileID: 2069134756}
+  levelGateIsIn: 2
   gateType: 2
   rotateAmount: 90
   rotSpeed: 1

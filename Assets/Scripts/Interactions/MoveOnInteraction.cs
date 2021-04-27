@@ -6,7 +6,7 @@ namespace CursedWoods
     public class MoveOnInteraction : InteractionHandlerArray
     {
         [SerializeField]
-        private GraveyardGateType gateType;
+        private GateType gateType;
         [SerializeField]
         private float raiseAmount = 4f;
         [SerializeField]

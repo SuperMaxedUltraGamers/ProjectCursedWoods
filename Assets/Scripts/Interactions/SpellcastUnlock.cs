@@ -54,7 +54,7 @@ namespace CursedWoods
 
             if (GameMan.Instance.GraveyardManager != null)
             {
-                if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(GraveyardGateType.GraveyardMiddleAreaSouthGate))
+                if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(GateType.GraveyardMiddleAreaSouthGate))
                 {
                     foreach (GameObject go in disableObjects)
                     {

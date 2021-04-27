@@ -6,9 +6,11 @@ namespace CursedWoods
     public class GateInteraction : InteractionBase
     {
         [SerializeField]
+        private Level levelGateIsIn = Level.Graveyard;
+        [SerializeField]
         private KeyType neededKey;
         [SerializeField]
-        private GraveyardGateType gate;
+        private GateType gate;
         [SerializeField]
         private string closedInfoText = "";
         [SerializeField]
@@ -33,7 +35,17 @@ namespace CursedWoods
             hitbox.enabled = false;
             if (hasKey)
             {
-                GameMan.Instance.GraveyardManager.SetGateToOpenStatus(gate);
+                switch (levelGateIsIn)
+                {
+                    case Level.Graveyard:
+                        GameMan.Instance.GraveyardManager.SetGateToOpenStatus(gate);
+                        break;
+                    case Level.Castle:
+                        GameMan.Instance.CastleManager.FinalBossDoorOpen = true;
+                        GameMan.Instance.CastleManager.UseStartPos = false;
+                        break;
+                }
+
                 GameMan.Instance.AutoSave();
                 StartCoroutine(DisplayInfoText(openInfoText));
                 return base.Interaction();
@@ -76,9 +88,20 @@ namespace CursedWoods
             yield return null;
             yield return null;
 
-            if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(gate))
+            switch (levelGateIsIn)
             {
-                gameObject.SetActive(false);
+                case Level.Graveyard:
+                    if (!GameMan.Instance.GraveyardManager.GetGateOpenStatus(gate))
+                    {
+                        gameObject.SetActive(false);
+                    }
+                    break;
+                case Level.Castle:
+                    if (GameMan.Instance.CastleManager.FinalBossDoorOpen)
+                    {
+                        gameObject.SetActive(false);
+                    }
+                    break;
             }
         }
     }
