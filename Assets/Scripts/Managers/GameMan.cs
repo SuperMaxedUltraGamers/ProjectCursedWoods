@@ -237,8 +237,6 @@ namespace CursedWoods
 
         public void LoadGame(string saveSlot)
         {
-            // TODO: Load progress values from file.
-            // TODO: load correct scene.
             SaveSystem.Load(saveSlot);
 
             string scene = SaveSystem.GetString(SaveUtils.GetKey(SaveUtils.GAME_MAN_PREFIX, SaveUtils.GAMEMAN_SCENE_NAME_KEY), GlobalVariables.GRAVEYARD);
@@ -247,7 +245,6 @@ namespace CursedWoods
 
         public void AutoSave()
         {
-            // TOOO: Add everything that needs to be saved.
             // Save scene
             SaveSystem.SetString(SaveUtils.GetKey(SaveUtils.GAME_MAN_PREFIX, SaveUtils.GAMEMAN_SCENE_NAME_KEY), SceneManager.GetActiveScene().name);
 
@@ -259,7 +256,7 @@ namespace CursedWoods
             SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Z_KEY), playerPos.z);
             SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_ROT_KEY), playerRot);
 
-            // Save player health
+            // Save player health and camera rotation
             CharController.Save(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
 
             // Save player progress
@@ -462,7 +459,7 @@ namespace CursedWoods
             PlayerT.position = new Vector3(posX, posY + 0.1f, posZ);
             PlayerT.rotation = Quaternion.Euler(0f, rotY, 0f);
 
-            // Load player health
+            // Load player health and camera rotation
             CharController.Load(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
 
 
@@ -522,7 +519,7 @@ namespace CursedWoods
                 PlayerT.rotation = Quaternion.Euler(0f, rotY, 0f);
             }
 
-            // Load player health
+            // Load player health and camera rotation
             CharController.Load(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
 
 

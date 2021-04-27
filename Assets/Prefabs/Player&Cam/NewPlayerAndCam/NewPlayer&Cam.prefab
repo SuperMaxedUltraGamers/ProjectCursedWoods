@@ -179,12 +179,14 @@ MonoBehaviour:
   minHealth: 0
   minCauseStagger: 50
   dmgNumberSpawnYOffset: 1
+  dmgNumberForwardOffset: 0
   spellBook: {fileID: 4914559584412895347}
   sword: {fileID: 4601184151410948396}
   interactableMask:
     serializedVersion: 2
     m_Bits: 16384
   damageDeathAudioSource: {fileID: 3054164371769590256}
+  camController: {fileID: 7353845378812090322}
 --- !u!114 &500558781997053094
 MonoBehaviour:
   m_ObjectHideFlags: 0

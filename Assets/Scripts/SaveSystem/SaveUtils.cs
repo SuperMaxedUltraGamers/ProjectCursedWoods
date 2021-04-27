@@ -13,6 +13,7 @@
 		public const string CHAR_CONTROLLER_PREFIX = "CharController";
 		public const string PLAYER_MAN_PREFIX = "PlayerMan";
 		public const string AI_MAN_PREFIX = "AIManager";
+		public const string CAMERA_PREFIX = "MainCamera";
 
 		// Save keys
 
@@ -46,6 +47,9 @@
 
 		// AIManager
 		public const string AI_MAN_ENEMIES_KILLED_AMOUNT_KEY = "EnemiesKilledAmount";
+
+		// Camera
+		public const string CAMERA_ROT_Y_KEY = "Rotation";
 
 		public static string GetKey(string prefix, string variableKey)
 		{

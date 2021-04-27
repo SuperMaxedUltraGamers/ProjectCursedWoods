@@ -24,6 +24,9 @@ namespace CursedWoods
 
         private Vector2 lastMousePos;
 
+        [SerializeField]
+        private NewCamController camController;
+
         public static event Action ControlTypeChanged;
 
         public static Vector2 mousePos;
@@ -122,6 +125,8 @@ namespace CursedWoods
         {
             saveSystem.SetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.PLAYER_MAX_HEALTH_KEY), MaxHealth);
             saveSystem.SetInt(SaveUtils.GetKey(keyPrefix, SaveUtils.PLAYER_CURRENT_HEALTH_KEY), CurrentHealth);
+
+            camController.Save(saveSystem, SaveUtils.CAMERA_PREFIX);
         }
 
         public void Load(ISave saveSystem, string keyPrefix)
@@ -138,6 +143,8 @@ namespace CursedWoods
             }
 
             InvokeHealthChangedEvent();
+
+            camController.Load(saveSystem, SaveUtils.CAMERA_PREFIX);
         }
 
         protected override void Die()

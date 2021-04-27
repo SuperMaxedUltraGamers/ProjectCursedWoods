@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using CursedWoods.SaveSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CursedWoods
 {
-    public class NewCamController : MonoBehaviour
+    public class NewCamController : MonoBehaviour, ISaveable
     {
         private const float MAX_HEIGHT_FROM_PLAYER = 8f;
         private const float MIN_HEIGHT_FROM_PLAYER = 1f;
@@ -106,6 +107,16 @@ namespace CursedWoods
             }
 
             LinecastToPlayer();
+        }
+
+        public void Save(ISave saveSystem, string keyPrefix)
+        {
+            saveSystem.SetFloat(SaveUtils.GetKey(keyPrefix, SaveUtils.CAMERA_ROT_Y_KEY), transform.rotation.eulerAngles.y);
+        }
+        public void Load(ISave saveSystem, string keyPrefix)
+        {
+            float rotY = saveSystem.GetFloat(SaveUtils.GetKey(keyPrefix, SaveUtils.CAMERA_ROT_Y_KEY), transform.rotation.eulerAngles.y);
+            transform.rotation = Quaternion.Euler(0f, rotY, 0f);
         }
 
         private void LinecastToPlayer()
