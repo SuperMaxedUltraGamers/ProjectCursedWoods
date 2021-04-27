@@ -4249,6 +4249,7 @@ MonoBehaviour:
   interactions:
   - {fileID: 1567280954}
   - {fileID: 1216137081}
+  levelGateIsIn: 2
   gateType: 0
   rotateAmount: 90
   rotSpeed: 5
@@ -5236,6 +5237,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CollectableSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785681271315722240, guid: 73e6a3f415311ad46b54c478f2d67f8a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3785681271315722254, guid: 73e6a3f415311ad46b54c478f2d67f8a,
         type: 3}
