@@ -35,6 +35,12 @@ namespace CursedWoods
 
         private Dictionary<GraveyardGateType, bool> gateLockedInfo = new Dictionary<GraveyardGateType, bool>();
 
+        [SerializeField]
+        private GameObject[] barriers;
+
+        [SerializeField]
+        private EnableBarrierTrigger middleAreaBarrierTrigger;
+
         //Events that are invoked depending on how many enemies are killed.
         //public event Action SwordGateEvent;
         //public event Action SpellbookGateEvent;
@@ -105,6 +111,11 @@ namespace CursedWoods
                 skeletonBoss2Spawner.gameObject.SetActive(false);
             }
 
+            if (!GetGateOpenStatus(GraveyardGateType.GraveyardMiddleAreaNorthGate))
+            {
+                middleAreaBarrierTrigger.gameObject.SetActive(false);
+            }
+
             for (int i = 0; i < maxHealthIncreases.Length; i++)
             {
                 if (!spawnMaxHealtIncreases[i])
@@ -132,6 +143,16 @@ namespace CursedWoods
         public bool GetMaxHealthIncreaseSpawnerStatus(int spawnerId)
         {
             return spawnMaxHealtIncreases[spawnerId];
+        }
+
+        public void EnableBarrier(int index)
+        {
+            barriers[index].SetActive(true);
+        }
+
+        public void DisableBarrier(int index)
+        {
+            barriers[index].SetActive(false);
         }
 
         private void CheckKills(int killAmount)

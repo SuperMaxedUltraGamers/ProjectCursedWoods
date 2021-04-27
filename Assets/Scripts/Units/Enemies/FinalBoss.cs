@@ -69,7 +69,7 @@ namespace CursedWoods
         private ParticleSystem deathExplosionParticles = null;
 
         [SerializeField]
-        protected AudioSource audioSource;
+        private AudioSource audioSource;
 
         private delegate void TransitionDel();
 
@@ -142,7 +142,6 @@ namespace CursedWoods
             ResetValues();
             IsImmortal = true;
             currentBehaviour = FinalBossBehaviours.Sleep;
-            //SetCollidersEnable(hitboxes, true);
             hasTransitionedIn = false;
             DisableAttacks();
         }
@@ -150,6 +149,7 @@ namespace CursedWoods
         public void AwakeFromSleep()
         {
             SetNextBehaviour(FinalBossBehaviours.Awaking);
+            GameMan.Instance.CastleManager.EnableBarrier(GlobalVariables.CASTLE_FINAL_BOSS_BARRIER);
             elapsedEyeColorChangeTime = 0f;
             GameMan.Instance.LevelUIManager.ConfigureBossHealthBar(this, bossName, CurrentHealth, MaxHealth);
         }
@@ -158,10 +158,8 @@ namespace CursedWoods
         {
             if (currentBehaviour != FinalBossBehaviours.Dead)
             {
-                //currentBehaviour = FinalBossBehaviours.Dead;
                 //HealthChanged -= TookDamage;
                 AwakeFinalBossTrigger.AwakeFinalBossEvent -= AwakeFromSleep;
-                //gameObject.layer = 0; // Set layer to default to keep collisions
                 DisableAttacks();
                 GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
                 GameMan.Instance.LevelUIManager.DisableBossHealthBar();
@@ -169,6 +167,7 @@ namespace CursedWoods
                 elapsedEyeColorChangeTime = 0f;
                 deathStaticParticle.Play();
                 deathSprayParticles.Play();
+                GameMan.Instance.CastleManager.DisableBarrier(GlobalVariables.CASTLE_FINAL_BOSS_BARRIER);
                 SetNextBehaviour(FinalBossBehaviours.Dead);
             }
         }
@@ -314,13 +313,11 @@ namespace CursedWoods
         private void WalkTrans()
         {
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.FINALBOSS_ANIM_WALK);
-            //isTriggered = false;
         }
 
         private void DashTrans()
         {
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.FINALBOSS_ANIM_DASH);
-            //isTriggered = false;
         }
 
         private void ScanLaserTrans()
@@ -331,23 +328,16 @@ namespace CursedWoods
 
             currentLaserRotSpeed = laserSetupRotSpeed;
             targetRot = Quaternion.Euler(0f, scanLaserStartAngle, 0f);
-            //currentAttackDmg = scanLaserDamageAmount;
-            //currentAttakDmgType = DamageType.Magic;
-            //isTriggered = false;
         }
 
         private void MagicScytheTrans()
         {
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.FINALBOSS_ANIM_PROJECTILE);
-            //currentAttackDmg = projectileDamageAmount;
-            //currentAttakDmgType = DamageType.Shock;
         }
 
         private void ProjectileTrans()
         {
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.FINALBOSS_ANIM_MAGIC_SCYTHE);
-            //currentAttackDmg = magicScytheDamageAmount;
-            //currentAttakDmgType = DamageType.Magic;
         }
 
         private void YAxisKillCheck()
@@ -432,7 +422,6 @@ namespace CursedWoods
             hitbox.enabled = false;
             meshRenderer.enabled = false;
             Settings.Instance.Audio.StopMusic();
-            // TODO: set death explosion particles active
         }
     }
 }

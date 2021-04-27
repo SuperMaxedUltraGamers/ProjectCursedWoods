@@ -12,6 +12,9 @@ namespace CursedWoods
         [SerializeField]
         private EnemySpawnerOnStart skeletonBoss3Spawner = null;
 
+        [SerializeField]
+        private GameObject[] barriers;
+
         public void Load(ISave saveSystem, string keyPrefix)
         {
             UseStartPos = saveSystem.GetBool(SaveUtils.GetKey(keyPrefix, SaveUtils.CASTLE_USE_LEVEL_START_POS_KEY), true);
@@ -32,6 +35,16 @@ namespace CursedWoods
             {
                 skeletonBoss3Spawner.gameObject.SetActive(false);
             }
+        }
+
+        public void EnableBarrier(int index)
+        {
+            barriers[index].SetActive(true);
+        }
+
+        public void DisableBarrier(int index)
+        {
+            barriers[index].SetActive(false);
         }
     }
 }

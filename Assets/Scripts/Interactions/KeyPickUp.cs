@@ -34,6 +34,11 @@ namespace CursedWoods
                 go.SetActive(false);
             }
 
+            if (keyType == KeyType.KeyGateNorth)
+            {
+                GameMan.Instance.GraveyardManager.DisableBarrier(GlobalVariables.GRAVEYARD_MIDDLE_BARRIER);
+            }
+
             hitbox.enabled = false;
         }
 

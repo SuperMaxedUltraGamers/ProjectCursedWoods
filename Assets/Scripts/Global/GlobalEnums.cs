@@ -180,4 +180,14 @@
         Castle,
         Outro
     }
+
+    public enum Barrier
+    {
+        None = 0,
+        Sword,
+        Book,
+        MiddleArena,
+        Garden,
+        FinalBoss
+    }
 }

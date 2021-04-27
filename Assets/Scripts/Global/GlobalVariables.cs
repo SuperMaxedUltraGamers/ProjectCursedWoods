@@ -100,5 +100,19 @@
         public const float CASTLE_PLAYER_ROT_Y = 180f;
 
         #endregion Level start info
+
+        #region Barrier indexes
+
+        // GRAVEYARD
+        public const int GRAVEYARD_SWORD_BARRIER = 0;
+        public const int GRAVEYARD_BOOK_BARRIER = 1;
+        public const int GRAVEYARD_MIDDLE_BARRIER = 2;
+        public const int GRAVEYARD_GARDEN_BARRIER = 3;
+
+        // CASTLE
+        public const int CASTLE_FINAL_BOSS_BARRIER = 0;
+
+
+        #endregion Barrier indexes
     }
 }

@@ -138,6 +138,7 @@ namespace CursedWoods
         public void AwakeFromSleep()
         {
             SetNextBehaviour(TreeBossBehaviours.Awaking);
+            GameMan.Instance.GraveyardManager.EnableBarrier(GlobalVariables.GRAVEYARD_GARDEN_BARRIER);
             elapsedEyeColorChangeTime = 0f;
             GameMan.Instance.LevelUIManager.ConfigureBossHealthBar(this, bossName, CurrentHealth, MaxHealth);
         }
@@ -149,7 +150,6 @@ namespace CursedWoods
                 //currentBehaviour = TreeBossBehaviours.Dead;
                 //HealthChanged -= TookDamage;
                 AwakeTreeBossTrigger.AwakeTreeBossEvent -= AwakeFromSleep;
-                //hitbox.enabled = false;
                 gameObject.layer = 0; // Set layer to default to keep collisions
 
                 GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
@@ -162,6 +162,7 @@ namespace CursedWoods
                 DisableMeleeTriggers(leftHandColls);
                 roots.gameObject.SetActive(false);
                 dropAttack.gameObject.SetActive(false);
+                GameMan.Instance.GraveyardManager.DisableBarrier(GlobalVariables.GRAVEYARD_GARDEN_BARRIER);
 
                 SetNextBehaviour(TreeBossBehaviours.Dead);
             }
