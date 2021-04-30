@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using CursedWoods.Utils;
+using System.Collections;
 
 namespace CursedWoods
 {
@@ -9,17 +10,28 @@ namespace CursedWoods
         private float maxHealthIncreasePercent = 0.1f;
         private int spawnerID = 1;
 
+        [SerializeField]
+        private GameObject[] disableObjects;
+        private Collider hitbox;
         private RotateAndBounce rotateAndBounce;
+        private float sfxLength = 2f;
 
         protected override void Awake()
         {
             rotateAndBounce = GetComponentInChildren<RotateAndBounce>();
+            hitbox = GetComponent<Collider>();
             base.Awake();
         }
 
         public override void Activate(Vector3 pos, Quaternion rot)
         {
             base.Activate(pos, rot);
+            foreach (GameObject go in disableObjects)
+            {
+                go.SetActive(true);
+            }
+
+            hitbox.enabled = true;
             rotateAndBounce.SetOrigin(pos);
         }
 
@@ -32,6 +44,19 @@ namespace CursedWoods
         {
             GameMan.Instance.CharController.IncreaseMaxHealth((int) (GameMan.Instance.CharController.MaxHealth * maxHealthIncreasePercent));
             GameMan.Instance.GraveyardManager.DisableSpawMaxHealthIncrease(spawnerID);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.HealthPickUp);
+            foreach (GameObject go in disableObjects)
+            {
+                go.SetActive(false);
+            }
+
+            hitbox.enabled = false;
+            StartCoroutine(DisableGO());
+        }
+
+        private IEnumerator DisableGO()
+        {
+            yield return new WaitForSeconds(sfxLength);
             Deactivate();
         }
     }

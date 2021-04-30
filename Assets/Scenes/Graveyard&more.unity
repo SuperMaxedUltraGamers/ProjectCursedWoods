@@ -84732,11 +84732,6 @@ PrefabInstance:
       propertyPath: closedInfoText
       value: LOCKED (MAUSOLEUM KEY)
       objectReference: {fileID: 0}
-    - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
-        type: 3}
-      propertyPath: interactionText
-      value: OPEN GATE (KEY REQUIRED)
-      objectReference: {fileID: 0}
     - target: {fileID: 5323211154199038395, guid: 7cab33097481b8f4c922b59771af90dd,
         type: 3}
       propertyPath: m_Name

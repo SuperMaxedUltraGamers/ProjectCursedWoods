@@ -15,8 +15,8 @@ namespace CursedWoods
         protected float rayMaxDistance;
         protected float currentFadeOffAmount = 1f;
 
-        [SerializeField]
-        protected AudioSource audioSource;
+        //[SerializeField]
+        //protected AudioSource audioSource;
 
         public bool IsHoldingType
         {
@@ -162,10 +162,10 @@ namespace CursedWoods
                     */
 
                     // TODO: MAKE GLOBAL ENUM FOR AUDIOEFFECTS AND MAKE VARIABLE OUT OF THAT AND DO SWITCH CHECK HERE WHICH AUDIO TO PLAY!
-                    if (!audioSource.isPlaying)
-                    {
-                        Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.MagicBeam);
-                    }
+                    //if (!audioSource.isPlaying)
+                    //{
+                    //    Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.MagicBeam);
+                    //}
 
                     holdRayTimer.Run();
                 }
@@ -194,7 +194,7 @@ namespace CursedWoods
                     }
 
                     // TODO: MAKE GLOBAL ENUM FOR AUDIOEFFECTS AND MAKE VARIABLE OUT OF THAT AND DO SWITCH CHECK HERE WHICH AUDIO TO PLAY!
-                    Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.IceRay);
+                    //Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.IceRay);
                 }
 
                 float hitDistance = hit.distance;

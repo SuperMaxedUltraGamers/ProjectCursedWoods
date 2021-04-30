@@ -24,10 +24,13 @@ namespace CursedWoods
         private float hitParticleSFXLength = 2f;
         private Collider hitBox;
 
+        private AudioSource audioSource;
+
         protected override void Awake()
         {
             base.Awake();
             hitBox = GetComponent<Collider>();
+            audioSource = GetComponent<AudioSource>();
             lifeTimeTimer = gameObject.AddComponent<Timer>();
             lifeTimeTimer.Set(lifeTime);
         }
@@ -74,6 +77,7 @@ namespace CursedWoods
             lifeTimeTimer.Set(hitParticleSFXLength);
             lifeTimeTimer.Run();
             hitParticles.Play();
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.FireballHit);
             //lifeTimeTimer.Stop();
             //Deactivate();
         }
@@ -91,7 +95,6 @@ namespace CursedWoods
         private void Launch()
         {
             isMoving = true;
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
         }
 
         private void OnTriggerEnter(Collider other)

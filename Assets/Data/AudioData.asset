@@ -13,23 +13,95 @@ MonoBehaviour:
   m_Name: AudioData
   m_EditorClassIdentifier: 
   playerSounds:
-  - Effect: 3
+  - Effect: 0
+    Clip: {fileID: 8300000, guid: 55ee01cba9c1b4543b40e4e669991b80, type: 3}
+  - Effect: 1
+    Clip: {fileID: 8300000, guid: 957a2139015cd3f449a9b3eb562cd502, type: 3}
+  - Effect: 2
     Clip: {fileID: 8300000, guid: 8f01803cb4295b847b0f05cf2b423126, type: 3}
+  - Effect: 3
+    Clip: {fileID: 8300000, guid: cdd0baa98dcde5e43a8c461f49047f5d, type: 3}
   - Effect: 4
     Clip: {fileID: 8300000, guid: 30b4f91899c937a4da4b701c4a1d296e, type: 3}
   - Effect: 5
-    Clip: {fileID: 8300000, guid: 757aa7ff0b3f3a644a456d9d55f7d2c7, type: 3}
+    Clip: {fileID: 8300000, guid: 957a2139015cd3f449a9b3eb562cd502, type: 3}
   - Effect: 6
     Clip: {fileID: 8300000, guid: 95f8dba64be3a14418a4bdbf668a25c1, type: 3}
+  - Effect: 7
+    Clip: {fileID: 8300000, guid: 2a0a47fa0cfef3a4182bf8973b6852b7, type: 3}
+  - Effect: 8
+    Clip: {fileID: 8300000, guid: a01d7d5da69602a4f9ffa0664a1b212a, type: 3}
+  - Effect: 9
+    Clip: {fileID: 8300000, guid: 38ca7b1e132530e43aa4a18ab802412a, type: 3}
+  skeletonSounds:
   - Effect: 0
-    Clip: {fileID: 8300000, guid: 55ee01cba9c1b4543b40e4e669991b80, type: 3}
-  skeletonSounds: []
-  miscSounds: []
+    Clip: {fileID: 8300000, guid: 76fb6ba91777cdc409afb1ce1c3e1385, type: 3}
+  - Effect: 1
+    Clip: {fileID: 8300000, guid: 0500d7cbb3ee2ab49893b9ac7f9ada82, type: 3}
+  posTreeSounds:
+  - Effect: 0
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  - Effect: 1
+    Clip: {fileID: 8300000, guid: fd4d897865e660d4ca324ab3162d9fa5, type: 3}
+  - Effect: 2
+    Clip: {fileID: 8300000, guid: fd4d897865e660d4ca324ab3162d9fa5, type: 3}
+  mushroomSounds:
+  - Effect: 0
+    Clip: {fileID: 8300000, guid: 74ba2a19b2ea49741870f17c73ea35cc, type: 3}
+  - Effect: 1
+    Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
+  - Effect: 2
+    Clip: {fileID: 8300000, guid: cdd0baa98dcde5e43a8c461f49047f5d, type: 3}
+  treeBossSounds:
+  - Effect: 0
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  - Effect: 1
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  - Effect: 2
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  - Effect: 3
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  - Effect: 4
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  - Effect: 5
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  - Effect: 6
+    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+  finalBossSounds:
+  - Effect: 0
+    Clip: {fileID: 8300000, guid: 25570bf2e8c40f6499dd7ff242f667e7, type: 3}
+  - Effect: 1
+    Clip: {fileID: 8300000, guid: cdd0baa98dcde5e43a8c461f49047f5d, type: 3}
+  - Effect: 2
+    Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
+  - Effect: 3
+    Clip: {fileID: 8300000, guid: 74ba2a19b2ea49741870f17c73ea35cc, type: 3}
+  - Effect: 4
+    Clip: {fileID: 8300000, guid: 76fb6ba91777cdc409afb1ce1c3e1385, type: 3}
+  - Effect: 5
+    Clip: {fileID: 8300000, guid: a01d7d5da69602a4f9ffa0664a1b212a, type: 3}
+  miscSounds:
+  - Effect: 0
+    Clip: {fileID: 8300000, guid: a70ebbb1072279040901be61ddeb963e, type: 3}
+  - Effect: 1
+    Clip: {fileID: 8300000, guid: 74ba2a19b2ea49741870f17c73ea35cc, type: 3}
+  - Effect: 2
+    Clip: {fileID: 8300000, guid: 3ca4621911a10564c9dcde9054ae1017, type: 3}
+  - Effect: 3
+    Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
+  - Effect: 4
+    Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
+  - Effect: 5
+    Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
+  - Effect: 6
+    Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
+  - Effect: 7
+    Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
   musicClips:
   - music: 0
     Clip: {fileID: 8300000, guid: bb8a60fc50002bb4ab873b14b35d7ec2, type: 3}
   - music: 1
-    Clip: {fileID: 0}
+    Clip: {fileID: 8300000, guid: 14c902a1581537f4e9e1e00e5c5e5705, type: 3}
   - music: 2
     Clip: {fileID: 8300000, guid: a0e1bd36096048b46b2a339724c88f46, type: 3}
   - music: 3

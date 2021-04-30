@@ -14,6 +14,7 @@ namespace CursedWoods
         private Vector3 dashDir;
 
         private PlayerParticleManager particleManager;
+        private AudioSource audioSource;
 
         public override PlayerInputType Type
         {
@@ -36,6 +37,7 @@ namespace CursedWoods
             }
 
             particleManager = GetComponent<PlayerParticleManager>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -90,9 +92,8 @@ namespace CursedWoods
                 dashDir = transform.forward;
             }
 
-            //IPoolObject dashparticles = GameMan.Instance.ObjPoolMan.GetObjectFromPool(ObjectPoolType.DashParticle);
-            //dashparticles.Activate(transform.position + transform.forward, transform.rotation);
             particleManager.DashParticles.Play();
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Dash);
             StartCoroutine(DashHoldTimer());
         }
 

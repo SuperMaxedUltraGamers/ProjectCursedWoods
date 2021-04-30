@@ -18,7 +18,7 @@ namespace CursedWoods
             Effect
         }
 
-        private readonly Dictionary<SoundGroup, string> soundGroupNames = new Dictionary<SoundGroup, string>()
+        public readonly Dictionary<SoundGroup, string> soundGroupNames = new Dictionary<SoundGroup, string>()
         {
             {SoundGroup.Music, "MusicVolume"},
             {SoundGroup.Effect, "EffectVolume"}
@@ -45,6 +45,58 @@ namespace CursedWoods
         }
 
         public float PlayEffect(AudioSource source, AudioContainer.SkeletonSFX effect)
+        {
+            float length = 0f;
+            AudioClip clip = audioData.GetSoundClip(effect);
+            if (clip != null)
+            {
+                source.PlayOneShot(clip);
+                length = clip.length;
+            }
+
+            return length;
+        }
+
+        public float PlayEffect(AudioSource source, AudioContainer.PosTreeSFX effect)
+        {
+            float length = 0f;
+            AudioClip clip = audioData.GetSoundClip(effect);
+            if (clip != null)
+            {
+                source.PlayOneShot(clip);
+                length = clip.length;
+            }
+
+            return length;
+        }
+
+        public float PlayEffect(AudioSource source, AudioContainer.MushroomSFX effect)
+        {
+            float length = 0f;
+            AudioClip clip = audioData.GetSoundClip(effect);
+            if (clip != null)
+            {
+                source.PlayOneShot(clip);
+                length = clip.length;
+            }
+
+            return length;
+        }
+
+        public float PlayEffect(AudioSource source, AudioContainer.TreeBossSFX effect)
+        {
+            float length = 0f;
+            AudioClip clip = audioData.GetSoundClip(effect);
+            if (clip != null)
+            {
+                source.PlayOneShot(clip);
+                length = clip.length;
+            }
+
+            return length;
+        }
+
+        public float PlayEffect(AudioSource source, AudioContainer.FinalBossSFX effect)
         {
             float length = 0f;
             AudioClip clip = audioData.GetSoundClip(effect);

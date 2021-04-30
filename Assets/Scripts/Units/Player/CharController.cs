@@ -17,9 +17,6 @@ namespace CursedWoods
         private LayerMask interactableMask;
         private Timer interActionTimer;
 
-        [SerializeField]
-        private AudioSource damageDeathAudioSource;
-
         private Collider interactCollider;
 
         private Vector2 lastMousePos;
@@ -50,8 +47,6 @@ namespace CursedWoods
 
         public Animator PlayerAnim { get; private set; }
 
-        public AudioSource AudioSource { get; private set; }
-
         public GameObject SpellBook { get { return spellBook; } }
 
         public GameObject Sword { get { return sword; } }
@@ -61,7 +56,6 @@ namespace CursedWoods
             base.Awake();
             groundCheck = GetComponent<GroundCheck>();
             PlayerAnim = GetComponentInChildren<Animator>();
-            AudioSource = damageDeathAudioSource;
 
             interActionTimer = gameObject.AddComponent<Timer>();
             interActionTimer.Set(0.25f);
@@ -147,11 +141,22 @@ namespace CursedWoods
             camController.Load(saveSystem, SaveUtils.CAMERA_PREFIX);
         }
 
+        public override void DecreaseHealth(int amount, DamageType damageType)
+        {
+            base.DecreaseHealth(amount, damageType);
+            if (CurrentHealth > 0)
+            {
+                Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.TakeDamage);
+            }
+        }
+
         protected override void Die()
         {
             PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_DEATH);
             IgnoreControl = true;
-            GetComponent<CapsuleCollider>().enabled = false;
+            //GetComponent<CapsuleCollider>().enabled = false;
+            gameObject.layer = 0;
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Death);
             //GetComponent<Rigidbody>().isKinematic = true;
         }
 
@@ -168,18 +173,6 @@ namespace CursedWoods
                 CanInteract = false;
                 GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: false, "");
             }
-            /*
-            if (Physics.CheckSphere(transform.position, InteractRadius, interactableMask))
-            {
-                CanInteract = true;
-                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: true);
-            }
-            else
-            {
-                CanInteract = false;
-                GameMan.Instance.LevelUIManager.SetInteractPromtVisibility(visible: false);
-            }
-            */
 
             interActionTimer.Run();
         }

@@ -9687,7 +9687,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 20
-  audioSource: {fileID: 2015218235623618310}
   particles: {fileID: 6942981207453012277}
   hitParticles: {fileID: 3879866252954228207}
 --- !u!54 &5890449143112714933
@@ -9763,7 +9762,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.9
       inSlope: 0
       outSlope: 0
       tangentMode: 0

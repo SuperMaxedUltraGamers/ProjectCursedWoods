@@ -92,6 +92,8 @@ namespace CursedWoods
 
         protected Color dmgNumberColor = Color.white;
 
+        protected AudioSource audioSource;
+
         #endregion Protected fields
 
         #region Properties
@@ -143,6 +145,8 @@ namespace CursedWoods
             CurrentHealth = startingHealth;
             startingMinCauseStagger = minCauseStagger;
             startingMaxHealth = maxHealth;
+
+            audioSource = GetComponent<AudioSource>();
         }
 
         #endregion Unity messages
@@ -168,7 +172,7 @@ namespace CursedWoods
             InvokeHealthChangedEvent();
         }
 
-        public void DecreaseHealth(int amount, DamageType damageType)
+        public virtual void DecreaseHealth(int amount, DamageType damageType)
         {
             // Check if unit is immortal and no damage should be taken.
             if (!IsImmortal)

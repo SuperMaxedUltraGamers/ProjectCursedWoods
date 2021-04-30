@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using CursedWoods.Utils;
+using CursedWoods.Data;
 
 namespace CursedWoods
 {
@@ -135,6 +136,15 @@ namespace CursedWoods
             hasTransitionedIn = false;
         }
 
+        public override void DecreaseHealth(int amount, DamageType damageType)
+        {
+            base.DecreaseHealth(amount, damageType);
+            if (CurrentHealth > 0)
+            {
+                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.TakeDamage);
+            }
+        }
+
         public void AwakeFromSleep()
         {
             SetNextBehaviour(TreeBossBehaviours.Awaking);
@@ -154,7 +164,8 @@ namespace CursedWoods
 
                 GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
                 GameMan.Instance.LevelUIManager.DisableBossHealthBar();
-                Settings.Instance.Audio.StopMusic();
+                Settings.Instance.Audio.PlayMusic(AudioContainer.Music.ForestAmbience);
+                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.Death);
                 animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_DEATH);
                 elapsedEyeColorChangeTime = 0f;
 
@@ -163,6 +174,7 @@ namespace CursedWoods
                 roots.gameObject.SetActive(false);
                 dropAttack.gameObject.SetActive(false);
                 GameMan.Instance.GraveyardManager.DisableBarrier(GlobalVariables.GRAVEYARD_GARDEN_BARRIER);
+                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.Death);
 
                 SetNextBehaviour(TreeBossBehaviours.Dead);
             }
@@ -423,6 +435,7 @@ namespace CursedWoods
         {
             ActivateMeleeTriggers(rightHandColls);
             ActivateMeleeTriggers(leftHandColls);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.FrontAttack);
             hasMeleeHit = false;
         }
         private void SlamCloseDmgWindowAnimEvent()
@@ -439,6 +452,7 @@ namespace CursedWoods
         private void SweepRightOpenDmgWindowAnimEvent()
         {
             ActivateMeleeTriggers(rightHandColls);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.SideAttack);
             hasMeleeHit = false;
         }
 
@@ -455,6 +469,7 @@ namespace CursedWoods
         private void SweepLeftOpenDmgWindowAnimEvent()
         {
             ActivateMeleeTriggers(leftHandColls);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.SideAttack);
             hasMeleeHit = false;
         }
 
@@ -471,6 +486,7 @@ namespace CursedWoods
         private void RootStartAnimEvent()
         {
             roots.gameObject.SetActive(true);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.RootAttackStart);
             roots.StartAttack(rootDamageAmount, attacksDmgType);
         }
 
@@ -483,6 +499,7 @@ namespace CursedWoods
         private void DropStartAnimEvent()
         {
             dropAttack.gameObject.SetActive(true);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.DropAttack);
             dropAttack.StartAttack(dropDamageAmount, attacksDmgType);
         }
 

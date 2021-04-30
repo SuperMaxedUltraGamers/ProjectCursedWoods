@@ -186,6 +186,15 @@ namespace CursedWoods
             spawnPoint = pos;
         }
 
+        public override void DecreaseHealth(int amount, DamageType damageType)
+        {
+            base.DecreaseHealth(amount, damageType);
+            if (CurrentHealth > 0)
+            {
+                Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MushroomSFX.TakeDamage);
+            }
+        }
+
         protected override void TookDamage(int currentHealth, int maxHealth)
         {
             if (currentBehaviour == EnemyBehaviours.Idle || currentBehaviour == EnemyBehaviours.Patrol)
@@ -227,6 +236,7 @@ namespace CursedWoods
             agent.enabled = false;
             obstacle.enabled = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_DEATH);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MushroomSFX.Death);
             currentBehaviour = EnemyBehaviours.Dead;
             //StartCoroutine(DieTimer());
         }

@@ -17,8 +17,9 @@ namespace CursedWoods
         private Renderer meshRenderer;
         private Material glowyMat;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             hitbox = GetComponent<Collider>();
             glowyMat = meshRenderer.materials[0];
         }
@@ -31,6 +32,7 @@ namespace CursedWoods
         protected override void AfterInteraction()
         {
             GameMan.Instance.PlayerManager.UnlockSpellByType(unlockSpell);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.RunestoneInteract);
             StartCoroutine(DisplayInfoText());
 
             /*

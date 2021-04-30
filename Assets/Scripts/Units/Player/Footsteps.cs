@@ -4,8 +4,12 @@ namespace CursedWoods
 {
     public class Footsteps : MonoBehaviour
     {
-        [SerializeField]
-        AudioSource footstepAudioSource;
+        private AudioSource audioSource;
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
 
         private void PlayWalkingFootstep()
         {

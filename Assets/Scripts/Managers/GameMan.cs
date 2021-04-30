@@ -378,6 +378,9 @@ namespace CursedWoods
                     StartCoroutine(GraveyardInit());
                     break;
 #endif
+                case GlobalVariables.OUTRO:
+                    Settings.Instance.Audio.PlayMusic(AudioContainer.Music.Menu);
+                    break;
             }
         }
 
@@ -414,7 +417,7 @@ namespace CursedWoods
 
         private IEnumerator GraveyardInit()
         {
-
+            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.ForestAmbience);
             if (ObjPoolMan == null)
             {
                 ObjPoolMan = GetComponent<ObjectPoolManager>();
@@ -471,7 +474,7 @@ namespace CursedWoods
 
         private IEnumerator CastleInit()
         {
-
+            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.CastleAmbience);
             if (ObjPoolMan == null)
             {
                 ObjPoolMan = GetComponent<ObjectPoolManager>();

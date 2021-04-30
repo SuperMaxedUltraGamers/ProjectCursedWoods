@@ -12,8 +12,9 @@ namespace CursedWoods
         private string displayInfoText = "";
         private float fadeSpeed = 1.5f;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             hitbox = GetComponent<Collider>();
         }
 
@@ -25,6 +26,7 @@ namespace CursedWoods
         protected override void AfterInteraction()
         {
             GameMan.Instance.PlayerManager.UnlockSpellByType(Spells.Fireball);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.GeneralPickUp);
             StartCoroutine(DisplayInfoText());
             foreach (GameObject go in disableObjects)
             {

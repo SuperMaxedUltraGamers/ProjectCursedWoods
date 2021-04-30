@@ -24,6 +24,8 @@ namespace CursedWoods
         private ParticleSystem hitParticles;
         private float hitParticleSFXLength = 2f;
 
+        private AudioSource audioSource;
+
         protected override void Awake()
         {
             base.Awake();
@@ -32,6 +34,7 @@ namespace CursedWoods
             lifeTimeTimer.Set(lifeTime);
             hitParticles = GetComponentInChildren<ParticleSystem>();
             meshRenderer = GetComponentInChildren<MeshRenderer>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void OnEnable()
@@ -79,6 +82,7 @@ namespace CursedWoods
             lifeTimeTimer.Set(hitParticleSFXLength);
             lifeTimeTimer.Run();
             hitParticles.Play();
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PosTreeSFX.RockHit);
             //Deactivate();
         }
 

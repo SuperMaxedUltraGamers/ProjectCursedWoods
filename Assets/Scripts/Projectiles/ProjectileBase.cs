@@ -7,9 +7,6 @@ namespace CursedWoods
         [SerializeField]
         protected float projectileSpeed = 10f;
 
-        [SerializeField]
-        protected AudioSource audioSource;
-
         public DamageType DamageType { get; protected set; }
 
         public int DamageAmount { get; protected set; }

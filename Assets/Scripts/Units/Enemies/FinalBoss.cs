@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using CursedWoods.Utils;
+using CursedWoods.Data;
 
 namespace CursedWoods
 {
@@ -67,9 +68,6 @@ namespace CursedWoods
         private ParticleSystem.ShapeModule deathStaticParticleShape;
         [SerializeField]
         private ParticleSystem deathExplosionParticles = null;
-
-        [SerializeField]
-        private AudioSource audioSource;
 
         private delegate void TransitionDel();
 
@@ -146,6 +144,15 @@ namespace CursedWoods
             DisableAttacks();
         }
 
+        public override void DecreaseHealth(int amount, DamageType damageType)
+        {
+            base.DecreaseHealth(amount, damageType);
+            if (CurrentHealth > 0)
+            {
+                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.TakeDamage);
+            }
+        }
+
         public void AwakeFromSleep()
         {
             SetNextBehaviour(FinalBossBehaviours.Awaking);
@@ -168,6 +175,7 @@ namespace CursedWoods
                 deathStaticParticle.Play();
                 deathSprayParticles.Play();
                 GameMan.Instance.CastleManager.DisableBarrier(GlobalVariables.CASTLE_FINAL_BOSS_BARRIER);
+                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.Death);
                 SetNextBehaviour(FinalBossBehaviours.Dead);
             }
         }
@@ -370,6 +378,8 @@ namespace CursedWoods
             targetRot = Quaternion.Euler(0f, scanLaserEndAngle, 0f);
             laser.gameObject.SetActive(true);
             laser.Initialize(scanLaserDamageAmount, DamageType.Fire);
+
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.Laser);
         }
 
         private void DisableLaserAnimEvent()
@@ -390,7 +400,7 @@ namespace CursedWoods
                 projectileSpawners[i].Initialize(projectileDamageAmount, DamageType.Magic);
             }
 
-            //Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.ProjectileLaunch);
         }
 
         private void ProjectileEndAnimEvent()
@@ -407,6 +417,8 @@ namespace CursedWoods
         {
             magicScythe.gameObject.SetActive(true);
             magicScythe.StartAttack(magicScytheDamageAmount, DamageType.Ice);
+
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.MagicScythe);
         }
 
         private void MagicScytheEndAnimEvent()
@@ -422,7 +434,7 @@ namespace CursedWoods
             deathExplosionParticles.Play();
             hitbox.enabled = false;
             meshRenderer.enabled = false;
-            Settings.Instance.Audio.StopMusic();
+            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.CastleAmbience);
         }
     }
 }

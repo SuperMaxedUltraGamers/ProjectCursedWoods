@@ -13,9 +13,16 @@ namespace CursedWoods
         [SerializeField]
         protected bool disableAfterInteraction = true;
 
+        protected AudioSource audioSource;
+
         public override string InteractionText { get { return interactionText; } }
 
         public event Action Interacted;
+
+        protected virtual void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
 
         public override float Interaction()
         {

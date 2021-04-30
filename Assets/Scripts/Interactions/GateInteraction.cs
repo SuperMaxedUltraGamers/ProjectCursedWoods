@@ -19,8 +19,9 @@ namespace CursedWoods
         private Collider hitbox;
         private bool hasKey;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             hitbox = GetComponent<Collider>();
         }
 
@@ -39,8 +40,10 @@ namespace CursedWoods
                 {
                     case Level.Graveyard:
                         GameMan.Instance.GraveyardManager.SetGateToOpenStatus(gate);
+                        Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.GateOpen);
                         break;
                     case Level.Castle:
+                        Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.DoorOpen);
                         GameMan.Instance.CastleManager.FinalBossDoorOpen = true;
                         GameMan.Instance.CastleManager.UseStartPos = false;
                         break;
@@ -52,6 +55,7 @@ namespace CursedWoods
             }
             else
             {
+                Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.Locked);
                 StartCoroutine(DisplayInfoText(closedInfoText));
                 return InteractionAnimation();
             }

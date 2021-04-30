@@ -17,16 +17,23 @@ namespace CursedWoods
 
         private RotateAndBounce rotateAndBounce;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             rotateAndBounce = GetComponentInChildren<RotateAndBounce>();
             rotateAndBounce.SetOrigin(transform.position);
             hitbox = GetComponent<Collider>();
         }
 
+        private void OnEnable()
+        {
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.KeySpawn);
+        }
+
         protected override void AfterInteraction()
         {
             GameMan.Instance.PlayerManager.CollectedKey(keyType);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.KeyPickUp);
             StartCoroutine(DisplayInfoText());
 
             foreach (GameObject go in disableObjects)

@@ -58,7 +58,6 @@ namespace CursedWoods
             scaleSpeed = startScaleSpeed;
             isDecreasing = false;
             transform.localScale = new Vector3(currentScale, currentScale, currentScale);
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Shockwave);
             particles.Play();
         }
 
@@ -85,7 +84,8 @@ namespace CursedWoods
                 scaleSpeed *= Time.deltaTime * 2f + 1f;
                 currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed / 2f * deltaTime);
                 transform.localScale = Vector3.one * currentScale;
-                if (!audioSource.isPlaying)
+
+                if (currentScale <= 0f)
                 {
                     Deactivate();
                 }

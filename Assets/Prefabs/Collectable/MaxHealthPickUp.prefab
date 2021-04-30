@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 546614989608622355}
   - component: {fileID: 546614989608622364}
   - component: {fileID: 7187385738366126454}
+  - component: {fileID: 6056724408107685053}
   m_Layer: 14
   m_Name: MaxHealthPickUp
   m_TagString: Untagged
@@ -157,6 +158,106 @@ MonoBehaviour:
   animTime: 1
   interactionText: TAKE MAX HEALTH
   disableAfterInteraction: 1
+  disableObjects:
+  - {fileID: 546614989139779779}
+  - {fileID: 6403974931321120924}
+--- !u!82 &6056724408107685053
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546614989608622365}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -7176463180078376623, guid: 0b99380f8bc7cc3478dcf393572abdb3,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.9
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &3050375709641068854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -246,6 +347,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 004218b74edff4849bf0b1aeecdf7ee1, type: 3}
+--- !u!1 &6403974931321120924 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8253516808515238314, guid: 004218b74edff4849bf0b1aeecdf7ee1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3050375709641068854}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6403974931321120927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8253516808515238313, guid: 004218b74edff4849bf0b1aeecdf7ee1,

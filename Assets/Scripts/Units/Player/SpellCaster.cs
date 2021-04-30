@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CursedWoods.Data;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +22,8 @@ namespace CursedWoods
         private float fadeSpeed = 20f;
         private int spellGraphicIndex;
 
+        private AudioSource audioSource;
+
         public event Action<float> SpellMenuTransIn;
         public event Action<float> SpellMenuTransOut;
         public event Action<Vector2, int> SelectionMoved;
@@ -37,6 +41,7 @@ namespace CursedWoods
             spellIceRay = GetComponent<SpellIceRay>();
             spellMagicBeam = GetComponent<SpellMagicBeam>();
             spellShockwave = GetComponent<SpellShockwave>();
+            audioSource = GetComponent<AudioSource>();
             //SpellFireBall spellFireBall = gameObject.AddComponent<SpellFireBall>();
             //or maybe this
             //ISpell spellFireBall = gameObject.AddComponent<SpellFireBall>();
@@ -190,8 +195,7 @@ namespace CursedWoods
 
         public void CastSpell()
         {
-            CharController controller = GameMan.Instance.CharController;
-            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !controller.IsInSpellMenu)
+            if (!CurrentSpell.IsCasting && !CurrentSpell.IsInCoolDown && !GameMan.Instance.CharController.IsInSpellMenu)
             {
                 CurrentSpell.CastSpell();
                 if (SpellCasted != null)
@@ -199,9 +203,33 @@ namespace CursedWoods
                     float reactivateTime = CurrentSpell.CoolDownTime + CurrentSpell.CastTime;
                     if (reactivateTime > 0f)
                     {
-                        SpellCasted(CurrentSpell.SpellType, reactivateTime);
+                        Spells spell = CurrentSpell.SpellType;
+                        SpellCasted(spell, reactivateTime);
+
+                        StartCoroutine(PlaySpellAudio(spell));
                     }
                 }
+            }
+        }
+
+        private IEnumerator PlaySpellAudio(Spells spell)
+        {
+            yield return new WaitForSeconds(CurrentSpell.CastTime);
+
+            switch (spell)
+            {
+                case Spells.Fireball:
+                    Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.PlayerSFX.FireballLaunch);
+                    break;
+                case Spells.Shockwave:
+                    Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.PlayerSFX.Shockwave);
+                    break;
+                case Spells.IceRay:
+                    Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.PlayerSFX.IceRay);
+                    break;
+                case Spells.MagicBeam:
+                    Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.PlayerSFX.MagicBeam);
+                    break;
             }
         }
     }

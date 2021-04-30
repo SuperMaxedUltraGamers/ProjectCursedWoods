@@ -27,6 +27,8 @@ namespace CursedWoods
         private ParticleSystem poisonCloud;
         private ParticleSystem.ShapeModule poisonCloudShape;
 
+        private AudioSource audioSource;
+
         protected override void Awake()
         {
             base.Awake();
@@ -40,6 +42,7 @@ namespace CursedWoods
             areaDmgLayerMask |= 1 << 10;
             poisonCloud = GetComponentInChildren<ParticleSystem>();
             poisonCloudShape = poisonCloud.shape;
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void OnEnable()
@@ -96,11 +99,11 @@ namespace CursedWoods
             areaDamageIntervalTimer.Run();
             poisonCloud.Play();
             lifeTimeTimer.Run();
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MushroomSFX.PoisonCloud);
         }
 
         private void Launch(Vector3 pos)
         {
-            //Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Fireball);
             playerDistance = MathUtils.GetDistanceToPlayer(pos);
             //projectileSpeed = playerDistance / 100f + 5f;
             //projectileLaunchVerticalSpeed = playerDistance / 1000f;
