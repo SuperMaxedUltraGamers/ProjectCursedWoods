@@ -379,7 +379,7 @@ namespace CursedWoods
                     break;
 #endif
                 case GlobalVariables.OUTRO:
-                    Settings.Instance.Audio.PlayMusic(AudioContainer.Music.Menu);
+                    Settings.Instance.Audio.ChangeMusic(AudioContainer.Music.Menu);
                     break;
             }
         }
@@ -387,7 +387,7 @@ namespace CursedWoods
         private void MainMenuInit()
         {
             Time.timeScale = 1f;
-            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.Menu);
+            Settings.Instance.Audio.ChangeMusic(AudioContainer.Music.Menu);
             if (CharController != null)
             {
                 //Destroy(CharController.transform.root);
@@ -417,7 +417,7 @@ namespace CursedWoods
 
         private IEnumerator GraveyardInit()
         {
-            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.ForestAmbience);
+            Settings.Instance.Audio.ChangeMusic(AudioContainer.Music.ForestAmbience);
             if (ObjPoolMan == null)
             {
                 ObjPoolMan = GetComponent<ObjectPoolManager>();
@@ -474,7 +474,7 @@ namespace CursedWoods
 
         private IEnumerator CastleInit()
         {
-            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.CastleAmbience);
+            Settings.Instance.Audio.ChangeMusic(AudioContainer.Music.CastleAmbience);
             if (ObjPoolMan == null)
             {
                 ObjPoolMan = GetComponent<ObjectPoolManager>();

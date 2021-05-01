@@ -94,6 +94,7 @@ namespace CursedWoods
             }
         }
 
+        /*
         public override void TransitionIn()
         {
             if (!caster.CurrentSpell.IsInCoolDown)
@@ -102,6 +103,7 @@ namespace CursedWoods
             }
             //GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.PLAYER_ANIM_TORSO_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_SPELLCAST);
         }
+        */
 
         public override void TransitionOut()
         {

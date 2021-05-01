@@ -2,11 +2,15 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using CursedWoods.Data;
+using System.Collections;
 
 namespace CursedWoods
 {
-    public class AudioManager
+    public class AudioManager : MonoBehaviour
     {
+        private const float MUSIC_DEFAUL_FADE_SPEED = 1f;
+
+        private float musicSourceOgVol;
         private AudioSource source;
         private AudioMixer mixer;
         private AudioContainer audioData;
@@ -24,7 +28,7 @@ namespace CursedWoods
             {SoundGroup.Effect, "EffectVolume"}
         };
 
-        public AudioManager(AudioSource source, AudioMixer mixer, AudioContainer audioData)
+        public void InitAudioManager(AudioSource source, AudioMixer mixer, AudioContainer audioData)
         {
             this.source = source;
             this.mixer = mixer;
@@ -134,6 +138,11 @@ namespace CursedWoods
             }
         }
 
+        public void ChangeMusic(AudioContainer.Music music, float fadeSpeed = MUSIC_DEFAUL_FADE_SPEED)
+        {
+            StartCoroutine(FadeMusicOut(music, fadeSpeed));
+        }
+
         public void StopMusic()
         {
             source.Stop();
@@ -195,6 +204,21 @@ namespace CursedWoods
 
             volume = 0f;
             return false;
+        }
+
+        private IEnumerator FadeMusicOut(AudioContainer.Music music, float fadeSpeed)
+        {
+            musicSourceOgVol = source.volume;
+            float fadingVol = musicSourceOgVol;
+            while (fadingVol > 0)
+            {
+                fadingVol -= Time.deltaTime * fadeSpeed;
+                source.volume = fadingVol;
+                yield return null;
+            }
+
+            source.volume = musicSourceOgVol;
+            PlayMusic(music);
         }
     }
 }

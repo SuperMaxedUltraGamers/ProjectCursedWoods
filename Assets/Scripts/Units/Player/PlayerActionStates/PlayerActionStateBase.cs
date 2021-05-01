@@ -22,13 +22,9 @@ namespace CursedWoods
 
         public virtual void HandleInput() { }
 
-        public virtual void TransitionIn()
-        {
-        }
+        public virtual void TransitionIn() { }
 
-        public virtual void TransitionOut()
-        {
-        }
+        public virtual void TransitionOut() { }
 
         public void Init(PlayerActionStateManager actionStateMan)
         {

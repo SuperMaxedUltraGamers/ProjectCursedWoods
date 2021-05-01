@@ -434,7 +434,7 @@ namespace CursedWoods
             deathExplosionParticles.Play();
             hitbox.enabled = false;
             meshRenderer.enabled = false;
-            Settings.Instance.Audio.PlayMusic(AudioContainer.Music.CastleAmbience);
+            Settings.Instance.Audio.ChangeMusic(AudioContainer.Music.CastleAmbience);
         }
     }
 }

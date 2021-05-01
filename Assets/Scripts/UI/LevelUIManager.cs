@@ -74,8 +74,9 @@ namespace CursedWoods.UI
 
         private Fader fader;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             pointerImg = spellMenuPointer.GetComponent<Image>();
             interactText = interactPromt.GetComponentInChildren<TextMeshProUGUI>();
             playerUnit = playerSC.GetComponent<CharController>();
@@ -178,6 +179,7 @@ namespace CursedWoods.UI
             eventSystem.SetSelectedGameObject(null);
             controlsMenu.SetActive(true);
             pauseMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
         public void OptionsButton()
@@ -185,6 +187,7 @@ namespace CursedWoods.UI
             eventSystem.SetSelectedGameObject(null);
             optionsMenu.SetActive(true);
             pauseMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
         public void QuitMenuButton()
@@ -193,6 +196,7 @@ namespace CursedWoods.UI
             quitMenu.SetActive(true);
             pauseMenu.SetActive(false);
             gameOverMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
         public void MainMenuButton()
@@ -219,18 +223,23 @@ namespace CursedWoods.UI
                 quitMenu.SetActive(false);
                 controlsMenu.SetActive(false);
             }
+
+            PlayButtonSFX();
         }
 
         public void BackOutToGameOverMenu()
         {
             gameOverMenu.SetActive(true);
             quitMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
+        /*
         public void RestartLevelButton()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        */
 
         public void StartFade(FadeType fadeType)
         {
@@ -343,6 +352,8 @@ namespace CursedWoods.UI
                     interactPromt.SetActive(false);
                 }
             }
+
+            PlayButtonSFX();
         }
 
         private void OpenGameOverScreen(int currentHealth, int maxHealth)

@@ -24,6 +24,13 @@ namespace CursedWoods.UI
         [SerializeField]
         protected Toggle combatLineToggle = null;
 
+        protected AudioSource audioSource;
+
+        protected virtual void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         private void Start()
         {
             musicVolumeSlider.onValueChanged.AddListener(delegate { MusicVolValCheck(); });
@@ -64,6 +71,11 @@ namespace CursedWoods.UI
         protected void CombatRotSmoothValueCheck()
         {
             Settings.Instance.CombatRotSmoothAmount = combatRotSmoothSlider.value;
+        }
+
+        protected void PlayButtonSFX()
+        {
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.ButtonPress);
         }
 
         private void InitializeVolumeSlider(Slider volumeSlider, AudioManager.SoundGroup soundGroup)

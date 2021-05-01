@@ -164,7 +164,7 @@ namespace CursedWoods
 
                 GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
                 GameMan.Instance.LevelUIManager.DisableBossHealthBar();
-                Settings.Instance.Audio.PlayMusic(AudioContainer.Music.ForestAmbience);
+                Settings.Instance.Audio.ChangeMusic(AudioContainer.Music.ForestAmbience);
                 Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.Death);
                 animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_DEATH);
                 elapsedEyeColorChangeTime = 0f;

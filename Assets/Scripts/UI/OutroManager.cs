@@ -20,12 +20,14 @@ namespace CursedWoods
         private Level levelToLoad = Level.MainMenu;
         private Fader fader;
         private bool isEndingChosen;
+        private AudioSource audioSource;
 
         private void Awake()
         {
             currentImg = startImg;
             startImg.gameObject.SetActive(true);
             fader = GetComponent<Fader>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -49,6 +51,7 @@ namespace CursedWoods
             chosenEndingImgs = goodEndingImgs;
             isEndingChosen = true;
             ChangePicture();
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.ButtonPress);
         }
 
         public void BadEndingButton()
@@ -56,6 +59,7 @@ namespace CursedWoods
             chosenEndingImgs = badEndingImgs;
             isEndingChosen = true;
             ChangePicture();
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.ButtonPress);
         }
 
         private void ChangePicture()

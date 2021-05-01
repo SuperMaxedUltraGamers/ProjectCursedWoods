@@ -24,7 +24,7 @@ MonoBehaviour:
   - Effect: 4
     Clip: {fileID: 8300000, guid: 30b4f91899c937a4da4b701c4a1d296e, type: 3}
   - Effect: 5
-    Clip: {fileID: 8300000, guid: 957a2139015cd3f449a9b3eb562cd502, type: 3}
+    Clip: {fileID: 8300000, guid: fcbbe0f22199c364c9bf7474d6d6854d, type: 3}
   - Effect: 6
     Clip: {fileID: 8300000, guid: 95f8dba64be3a14418a4bdbf668a25c1, type: 3}
   - Effect: 7
@@ -97,6 +97,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
   - Effect: 7
     Clip: {fileID: 8300000, guid: 1bad03048a889de4986b3af3c979fee1, type: 3}
+  - Effect: 8
+    Clip: {fileID: 8300000, guid: 957a2139015cd3f449a9b3eb562cd502, type: 3}
   musicClips:
   - music: 0
     Clip: {fileID: 8300000, guid: bb8a60fc50002bb4ab873b14b35d7ec2, type: 3}

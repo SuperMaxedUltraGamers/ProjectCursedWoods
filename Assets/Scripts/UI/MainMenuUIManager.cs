@@ -21,8 +21,9 @@ namespace CursedWoods.UI
         [SerializeField]
         private GameObject quitMenu;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             mainMenu.SetActive(true);
         }
 
@@ -46,18 +47,21 @@ namespace CursedWoods.UI
         {
             controlsMenu.SetActive(true);
             mainMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
         public void QuitMenuButton()
         {
             quitMenu.SetActive(true);
             mainMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
         public void OptionsMenuButton()
         {
             optionsMenu.SetActive(true);
             mainMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
         public void BackOutToMainMenu()
@@ -66,6 +70,7 @@ namespace CursedWoods.UI
             optionsMenu.SetActive(false);
             quitMenu.SetActive(false);
             controlsMenu.SetActive(false);
+            PlayButtonSFX();
         }
 
         public void QuitButton()

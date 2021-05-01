@@ -109,7 +109,8 @@ namespace CursedWoods
             }
 
             AudioSource audioSource = GetComponent<AudioSource>();
-            Audio = new AudioManager(audioSource, mixer, audioData);
+            Audio = gameObject.AddComponent<AudioManager>();
+            Audio.InitAudioManager(audioSource, mixer, audioData);
 
             DontDestroyOnLoad(gameObject);
         }

@@ -23,6 +23,8 @@ namespace CursedWoods
         private int spellGraphicIndex;
 
         private AudioSource audioSource;
+        [SerializeField]
+        private AudioSource magicBeamAudio;
 
         public event Action<float> SpellMenuTransIn;
         public event Action<float> SpellMenuTransOut;
@@ -201,13 +203,13 @@ namespace CursedWoods
                 if (SpellCasted != null)
                 {
                     float reactivateTime = CurrentSpell.CoolDownTime + CurrentSpell.CastTime;
+                    Spells spell = CurrentSpell.SpellType;
                     if (reactivateTime > 0f)
                     {
-                        Spells spell = CurrentSpell.SpellType;
                         SpellCasted(spell, reactivateTime);
-
-                        StartCoroutine(PlaySpellAudio(spell));
                     }
+
+                    StartCoroutine(PlaySpellAudio(spell));
                 }
             }
         }
@@ -228,7 +230,10 @@ namespace CursedWoods
                     Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.PlayerSFX.IceRay);
                     break;
                 case Spells.MagicBeam:
-                    Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.PlayerSFX.MagicBeam);
+                    if (!magicBeamAudio.isPlaying)
+                    {
+                        Settings.Instance.Audio.PlayEffect(magicBeamAudio, AudioContainer.PlayerSFX.MagicBeam);
+                    }
                     break;
             }
         }

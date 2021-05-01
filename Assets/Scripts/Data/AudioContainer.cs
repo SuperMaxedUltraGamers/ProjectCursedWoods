@@ -75,7 +75,8 @@ namespace CursedWoods.Data
             KeyPickUp,
             HealthPickUp,
             GeneralPickUp,
-            RunestoneInteract
+            RunestoneInteract,
+            ButtonPress
         }
 
         public enum Music
