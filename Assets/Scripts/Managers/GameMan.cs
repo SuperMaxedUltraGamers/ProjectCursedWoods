@@ -535,7 +535,7 @@ namespace CursedWoods
         private void InitializeSaveSystem()
         {
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string gameFolder = "Cursed Woods";
+            string gameFolder = "Cursed of The Amulet";
             string saveFolder = Path.Combine(myDocuments, gameFolder);
 
             SaveSystem = new BinarySaver(saveFolder);

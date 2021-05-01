@@ -1196,7 +1196,7 @@ MonoBehaviour:
   - type: 0
     resistance: 2
   - type: 1
-    resistance: 77
+    resistance: 63
   - type: 2
     resistance: 68
   - type: 3
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   meleeDamageAmount: 60
   rangedDamageAmount: 25
   attackTrackingSpeed: 40
-  rangedAttackRange: 400
+  rangedAttackRange: 600
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256

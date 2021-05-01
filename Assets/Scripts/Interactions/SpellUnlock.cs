@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CursedWoods
 {
     public class SpellUnlock : InteractionBase
-   {
+    {
         //[SerializeField]
         //private GameObject[] disableObjects;
         [SerializeField]
