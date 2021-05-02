@@ -19,6 +19,26 @@ namespace CursedWoods
         //private static object lockObj = new object();
 
         private bool useCombatLineRenderer = true;
+        private bool cameraRotInvertBool;
+
+        public float MusicInitVol { get; private set; }
+        public float SfxInitVol { get; private set; }
+
+        public float CameraRotationSpeed { get; set; } = 100f;
+        public float CameraZoomSpeed { get; set; } = 6f;
+        public float CameraRotInvert { get; private set; } = 1f;
+        public bool CameraRotInvertBool
+        {
+            get { return cameraRotInvertBool; }
+            set
+            {
+                cameraRotInvertBool = value;
+                CameraRotInvert = value ? -1f : 1f;
+            }
+        }
+
+        public float CombatRotSmoothAmount { get; set; } = 0.25f;
+
 
         public static Settings Instance
         {
@@ -74,10 +94,6 @@ namespace CursedWoods
             private set;
         }
 
-        public float CameraRotationSpeed { get; set; } = 100f;
-        public float CameraZoomSpeed { get; set; } = 6f;
-
-        public float CombatRotSmoothAmount { get; set; } = 0.25f;
         public bool UseCombatLineRenderer
         {
             get { return useCombatLineRenderer; }
@@ -112,6 +128,8 @@ namespace CursedWoods
             Audio = gameObject.AddComponent<AudioManager>();
             Audio.InitAudioManager(audioSource, mixer, audioData);
 
+            LoadPlayerPrefs();
+
             DontDestroyOnLoad(gameObject);
         }
 
@@ -137,5 +155,47 @@ namespace CursedWoods
             isQuitting = true;
         }
         */
+
+        public void SavePlayerPrefs()
+        {
+            float musicVol;
+            Audio.GetVolume(AudioManager.SoundGroup.Music, out musicVol);
+            PlayerPrefs.SetFloat(GlobalVariables.MUSIC_VOL_KEY, musicVol);
+            MusicInitVol = musicVol;
+
+            float sfxVol;
+            Audio.GetVolume(AudioManager.SoundGroup.Effect, out sfxVol);
+            PlayerPrefs.SetFloat(GlobalVariables.SFX_VOL_KEY, sfxVol);
+            SfxInitVol = sfxVol;
+
+            PlayerPrefs.SetFloat(GlobalVariables.CAM_ROT_SPEED_KEY, CameraRotationSpeed);
+            PlayerPrefs.SetFloat(GlobalVariables.CAM_ZOOM_SPEED_KEY, CameraZoomSpeed);
+            PlayerPrefs.SetInt(GlobalVariables.CAM_INVERT_ROT_KEY, CameraRotInvertBool ? 1 : 0);
+
+            PlayerPrefs.SetFloat(GlobalVariables.COMBAT_ROT_SMOOTH_KEY, CombatRotSmoothAmount);
+            PlayerPrefs.SetInt(GlobalVariables.COMBAT_LINE_ENABLE_KEY, UseCombatLineRenderer ? 1 : 0);
+        }
+
+        private void LoadPlayerPrefs()
+        {
+            float musicVol;
+            Audio.GetVolume(AudioManager.SoundGroup.Music, out musicVol);
+            musicVol = PlayerPrefs.GetFloat(GlobalVariables.MUSIC_VOL_KEY, musicVol);
+            Audio.SetVolume(musicVol, AudioManager.SoundGroup.Music);
+            MusicInitVol = musicVol;
+
+            float sfxVol;
+            Audio.GetVolume(AudioManager.SoundGroup.Effect, out sfxVol);
+            sfxVol = PlayerPrefs.GetFloat(GlobalVariables.SFX_VOL_KEY, sfxVol);
+            Audio.SetVolume(sfxVol, AudioManager.SoundGroup.Effect);
+            SfxInitVol = sfxVol;
+
+            CameraRotationSpeed = PlayerPrefs.GetFloat(GlobalVariables.CAM_ROT_SPEED_KEY, CameraRotationSpeed);
+            CameraZoomSpeed = PlayerPrefs.GetFloat(GlobalVariables.CAM_ZOOM_SPEED_KEY, CameraZoomSpeed);
+            CameraRotInvertBool = PlayerPrefs.GetInt(GlobalVariables.CAM_INVERT_ROT_KEY, CameraRotInvertBool ? 1 : 0) == 1;
+
+            CombatRotSmoothAmount = PlayerPrefs.GetFloat(GlobalVariables.COMBAT_ROT_SMOOTH_KEY, CombatRotSmoothAmount);
+            UseCombatLineRenderer = PlayerPrefs.GetInt(GlobalVariables.COMBAT_LINE_ENABLE_KEY, UseCombatLineRenderer ? 1 : 0) == 1;
+        }
     }
 }

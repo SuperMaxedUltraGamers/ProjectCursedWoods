@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using CursedWoods.SaveSystem;
 
@@ -9,14 +8,12 @@ namespace CursedWoods.UI
     {
         [SerializeField]
         private GameObject mainMenu;
+
         [SerializeField]
         private Button loadGameButton = null;
 
         [SerializeField]
         private GameObject controlsMenu;
-
-        [SerializeField]
-        private GameObject optionsMenu;
 
         [SerializeField]
         private GameObject quitMenu;
@@ -27,8 +24,9 @@ namespace CursedWoods.UI
             mainMenu.SetActive(true);
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             loadGameButton.interactable = GameMan.Instance.SaveSystem.SaveFileExist(SaveUtils.AUTOSAVE_SAVE_SLOT);
         }
 
@@ -70,6 +68,7 @@ namespace CursedWoods.UI
             optionsMenu.SetActive(false);
             quitMenu.SetActive(false);
             controlsMenu.SetActive(false);
+            Settings.Instance.SavePlayerPrefs();
             PlayButtonSFX();
         }
 

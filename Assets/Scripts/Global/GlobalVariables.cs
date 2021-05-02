@@ -112,7 +112,18 @@
         // CASTLE
         public const int CASTLE_FINAL_BOSS_BARRIER = 0;
 
-
         #endregion Barrier indexes
+
+        #region Setting tags
+
+        public const string MUSIC_VOL_KEY = "MusicVolume";
+        public const string SFX_VOL_KEY = "SFXVolume";
+        public const string CAM_ROT_SPEED_KEY = "CamRotSpeed";
+        public const string CAM_ZOOM_SPEED_KEY = "CamZoomSpeed";
+        public const string CAM_INVERT_ROT_KEY = "CamInvertRot";
+        public const string COMBAT_ROT_SMOOTH_KEY = "CombatRotSmoothing";
+        public const string COMBAT_LINE_ENABLE_KEY = "CombatLineEnable";
+
+        #endregion Setting tags
     }
 }

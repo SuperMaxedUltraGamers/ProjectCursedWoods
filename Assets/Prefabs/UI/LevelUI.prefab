@@ -110,6 +110,11 @@ PrefabInstance:
       propertyPath: unitBase
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1715024219407767655, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 5180601771759401800}
     - target: {fileID: 2523859928835140621, guid: e910e36bf1748c247b30022b1d4746b7,
         type: 3}
       propertyPath: eventSystem
@@ -245,6 +250,11 @@ PrefabInstance:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 5180601771759401800}
+    - target: {fileID: 7306936799631703173, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 5180601771759401800}
     - target: {fileID: 7551352143144716651, guid: e910e36bf1748c247b30022b1d4746b7,
         type: 3}
       propertyPath: playerSC
@@ -365,6 +375,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7884007450169510576, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 5180601771759401800}
+    - target: {fileID: 8982282138295259706, guid: e910e36bf1748c247b30022b1d4746b7,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 5180601771759401800}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e910e36bf1748c247b30022b1d4746b7, type: 3}
 --- !u!224 &5180601773245378150 stripped

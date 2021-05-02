@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -15,9 +14,6 @@ namespace CursedWoods.UI
         [SerializeField]
         private SpellCaster playerSC;
         private UnitBase playerUnit;
-
-        [SerializeField]
-        private EventSystem eventSystem;
 
         [SerializeField]
         private GameObject spellMenu;
@@ -50,9 +46,6 @@ namespace CursedWoods.UI
 
         [SerializeField]
         private GameObject quitMenu;
-
-        [SerializeField]
-        private GameObject optionsMenu;
 
         [SerializeField]
         private GameObject gameOverMenu;
@@ -220,6 +213,9 @@ namespace CursedWoods.UI
             {
                 pauseMenu.SetActive(true);
                 optionsMenu.SetActive(false);
+                cameraOptions.SetActive(false);
+                combatOptions.SetActive(false);
+                audioOptions.SetActive(false);
                 quitMenu.SetActive(false);
                 controlsMenu.SetActive(false);
             }
@@ -336,6 +332,7 @@ namespace CursedWoods.UI
                     isPaused = false;
                     GameMan.Instance.CharController.IgnoreControl = false;
                     Time.timeScale = 1f;
+                    Settings.Instance.SavePlayerPrefs();
                     eventSystem.SetSelectedGameObject(null);
                     optionsMenu.SetActive(false);
                     quitMenu.SetActive(false);

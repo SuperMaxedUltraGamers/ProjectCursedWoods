@@ -8,7 +8,7 @@ namespace CursedWoods
     public class NewCamController : MonoBehaviour, ISaveable
     {
         private const float MAX_HEIGHT_FROM_PLAYER = 8f;
-        private const float MIN_HEIGHT_FROM_PLAYER = 1f;
+        private const float MIN_HEIGHT_FROM_PLAYER = 1.5f;
         private const float CAM_PARENT_Y_OFFSET = 2f;
         private const float COMBAT_MIN_DIST_FROM_PLAYER = 81.5f; //81.5f if not using sqrtmag then 9f
         private const float COMBAT_MAX_DIST_FROM_PLAYER = 196f; //196f if not using sqrtmag then 14f
@@ -279,6 +279,7 @@ namespace CursedWoods
                 dir = Input.GetAxisRaw(GlobalVariables.HORIZONTAL_RS) * deltaTime;
             }
 
+            dir *= Settings.Instance.CameraRotInvert;
             Quaternion rotation = Quaternion.Euler(0f, dir * Settings.Instance.CameraRotationSpeed, 0f);
             // Maybe slerp the rotation
             //rotation *= transform.rotation;
