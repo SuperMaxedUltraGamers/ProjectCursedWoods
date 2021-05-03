@@ -103,8 +103,8 @@ MonoBehaviour:
   - music: 0
     Clip: {fileID: 8300000, guid: bb8a60fc50002bb4ab873b14b35d7ec2, type: 3}
   - music: 1
-    Clip: {fileID: 8300000, guid: 14c902a1581537f4e9e1e00e5c5e5705, type: 3}
+    Clip: {fileID: 8300000, guid: 288e999f19ed2cb4a93928b7204ae4b8, type: 3}
   - music: 2
-    Clip: {fileID: 8300000, guid: a0e1bd36096048b46b2a339724c88f46, type: 3}
+    Clip: {fileID: 8300000, guid: d8dd1dce4b316914285b0e1956cfb2d1, type: 3}
   - music: 3
     Clip: {fileID: 8300000, guid: 614ed431085ecd64db838bcd5af6caa4, type: 3}
