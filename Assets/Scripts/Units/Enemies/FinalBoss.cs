@@ -421,9 +421,13 @@ namespace CursedWoods
             Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.MagicScythe);
         }
 
-        private void MagicScytheEndAnimEvent()
+        private void MagicScytheCloseDmgWindowAnimEvent()
         {
             magicScythe.gameObject.SetActive(false);
+        }
+
+        private void MagicScytheEndAnimEvent()
+        {
             SetNextBehaviour(FinalBossBehaviours.Idle);
         }
 

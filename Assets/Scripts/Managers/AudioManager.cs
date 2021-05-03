@@ -9,6 +9,8 @@ namespace CursedWoods
     public class AudioManager : MonoBehaviour
     {
         private const float MUSIC_DEFAUL_FADE_SPEED = 1f;
+        private const float MAX_SFX_PITCH = 1f;
+        private const float MIN_SFX_PITCH = 0.95f;
 
         private float musicSourceOgVol;
         private AudioSource source;
@@ -41,6 +43,7 @@ namespace CursedWoods
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
+                RandomizePitch(source);
                 source.PlayOneShot(clip);
                 length = clip.length;
             }
@@ -54,6 +57,7 @@ namespace CursedWoods
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
+                RandomizePitch(source);
                 source.PlayOneShot(clip);
                 length = clip.length;
             }
@@ -67,6 +71,7 @@ namespace CursedWoods
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
+                RandomizePitch(source);
                 source.PlayOneShot(clip);
                 length = clip.length;
             }
@@ -80,6 +85,7 @@ namespace CursedWoods
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
+                RandomizePitch(source);
                 source.PlayOneShot(clip);
                 length = clip.length;
             }
@@ -93,6 +99,7 @@ namespace CursedWoods
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
+                RandomizePitch(source);
                 source.PlayOneShot(clip);
                 length = clip.length;
             }
@@ -106,6 +113,7 @@ namespace CursedWoods
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
+                RandomizePitch(source);
                 source.PlayOneShot(clip);
                 length = clip.length;
             }
@@ -119,6 +127,7 @@ namespace CursedWoods
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
+                RandomizePitch(source);
                 source.PlayOneShot(clip);
                 length = clip.length;
             }
@@ -126,6 +135,10 @@ namespace CursedWoods
             return length;
         }
 
+        private void RandomizePitch(AudioSource source)
+        {
+            source.pitch = Random.Range(MIN_SFX_PITCH, MAX_SFX_PITCH);
+        }
 
         public void PlayMusic(AudioContainer.Music music)
         {
