@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c821d1683677e748a9a14aaf3522d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animTime: 1
+  animTime: 1.35
   interactionText: TOUCH STONE
   disableAfterInteraction: 1
   unlockSpell: 2
@@ -168,7 +168,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

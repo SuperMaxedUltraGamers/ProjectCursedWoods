@@ -249,12 +249,12 @@ namespace CursedWoods.UI
 
         public void DisplayInfoText(string text, float transparency)
         {
-            if (transparency >= 1f)
+            if (transparency > 0.01f)
             {
                 displayInfoText.text = text;
                 displayInfoTextBG.gameObject.SetActive(true);
             }
-            else if (transparency < 0.01f)
+            else// if (transparency < 0.01f)
             {
                 displayInfoTextBG.gameObject.SetActive(false);
             }
