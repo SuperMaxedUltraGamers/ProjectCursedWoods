@@ -7,23 +7,23 @@ namespace CursedWoods
     public class IntroManager : MonoBehaviour
     {
         [SerializeField]
-        private Image[] introImages;
+        private GameObject[] introVideos;
         [SerializeField]
         private Level levelToLoad = Level.Graveyard;
-        private int currentImgID;
-        private Image currentImg;
+        private int currentVidID;
+        private GameObject currentVid;
         private Fader fader;
 
         private void Awake()
         {
-            currentImg = introImages[0];
-            currentImg.gameObject.SetActive(true);
+            currentVid = introVideos[0];
+            currentVid.gameObject.SetActive(true);
             fader = GetComponent<Fader>();
         }
 
         private void Start()
         {
-            fader.StartFade(FadeType.FadeIn);
+            fader.StartFade(FadeType.FadeOut);
         }
 
         private void Update()
@@ -39,15 +39,15 @@ namespace CursedWoods
 
         private void ChangePicture()
         {
-            if (currentImgID < introImages.Length - 1)
+            if (currentVidID < introVideos.Length - 1)
             {
-                currentImgID++;
-                fader.StartFade(currentImg, introImages[currentImgID]);
-                currentImg = introImages[currentImgID];
+                currentVidID++;
+                fader.StartFade(currentVid, introVideos[currentVidID]);
+                currentVid = introVideos[currentVidID];
             }
             else
             {
-                fader.StartFade(FadeType.FadeOut, levelToLoad);
+                fader.StartFade(FadeType.FadeIn, levelToLoad);
             }
         }
     }

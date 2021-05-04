@@ -18,6 +18,8 @@ namespace CursedWoods
         private float fadeSpeed = 1f;
         private Collider hitbox;
         private bool hasKey;
+        [SerializeField]
+        private float sfxFinishWaitTime = 0f;
 
         protected override void Awake()
         {
@@ -78,7 +80,7 @@ namespace CursedWoods
 
             if (hasKey)
             {
-                gameObject.SetActive(false);
+                StartCoroutine(DisableAfterSfxFinish());
             }
             else
             {
@@ -107,6 +109,12 @@ namespace CursedWoods
                     }
                     break;
             }
+        }
+
+        private IEnumerator DisableAfterSfxFinish()
+        {
+            yield return new WaitForSeconds(sfxFinishWaitTime);
+            gameObject.SetActive(false);
         }
     }
 }

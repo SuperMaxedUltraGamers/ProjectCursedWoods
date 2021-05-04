@@ -2781,10 +2781,10 @@ MonoBehaviour:
   - {fileID: 8058245671252525367}
   roots: {fileID: 3959836136979870994}
   dropAttack: {fileID: 8445251627345738694}
-  slamDamageAmount: 205
-  sweepDamageAmount: 140
-  rootDamageAmount: 245
-  dropDamageAmount: 175
+  slamDamageAmount: 204
+  sweepDamageAmount: 166
+  rootDamageAmount: 241
+  dropDamageAmount: 182
   bossName: Daddy of All Trees
   meshRenderer: {fileID: 1298282412561806604}
 --- !u!114 &8560338477866099082
@@ -2886,7 +2886,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -31,7 +31,7 @@ namespace CursedWoods
 
             hitbox.enabled = false;
             StartCoroutine(DisableGO());
-            GameMan.Instance.LevelUIManager.StartFade(FadeType.FadeOut, Level.Outro);
+            GameMan.Instance.LevelUIManager.StartFade(FadeType.FadeIn, Level.Outro);
         }
 
         private IEnumerator DisableGO()

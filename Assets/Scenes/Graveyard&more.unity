@@ -6872,7 +6872,7 @@ MonoBehaviour:
   levelGateIsIn: 2
   gateType: 3
   rotateAmount: -90
-  rotSpeed: 1
+  rotSpeed: 0.25
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!1001 &194450456
@@ -7580,6 +7580,11 @@ PrefabInstance:
         type: 3}
       propertyPath: gateType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4871301453689526675, guid: b2b999acdd6602d45a04e4c6310335be,
+        type: 3}
+      propertyPath: rotSpeed
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4871301453689526675, guid: b2b999acdd6602d45a04e4c6310335be,
         type: 3}
@@ -10759,6 +10764,11 @@ PrefabInstance:
         type: 3}
       propertyPath: gateType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074522887980392406, guid: 30590377d91861446a7307877a8b29ba,
+        type: 3}
+      propertyPath: rotSpeed
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1074522887980392406, guid: 30590377d91861446a7307877a8b29ba,
         type: 3}
@@ -15080,7 +15090,7 @@ MonoBehaviour:
   levelGateIsIn: 2
   gateType: 3
   rotateAmount: 90
-  rotSpeed: 1
+  rotSpeed: 0.25
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!4 &417206522 stripped
@@ -37658,6 +37668,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3809733452869832088, guid: 6c453dada0e32f04b99990195bb2ca1e,
         type: 3}
+      propertyPath: rotSpeed
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809733452869832088, guid: 6c453dada0e32f04b99990195bb2ca1e,
+        type: 3}
       propertyPath: interaction
       value: 
       objectReference: {fileID: 4693573817662748455}
@@ -37820,6 +37835,11 @@ PrefabInstance:
         type: 3}
       propertyPath: gateType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189171963928028043, guid: 6c453dada0e32f04b99990195bb2ca1e,
+        type: 3}
+      propertyPath: rotSpeed
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6189171963928028043, guid: 6c453dada0e32f04b99990195bb2ca1e,
         type: 3}
@@ -61356,7 +61376,7 @@ MonoBehaviour:
   levelGateIsIn: 2
   gateType: 2
   rotateAmount: -90
-  rotSpeed: 1
+  rotSpeed: 0.25
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!65 &1599600679
@@ -80830,7 +80850,7 @@ MonoBehaviour:
   levelGateIsIn: 2
   gateType: 2
   rotateAmount: 90
-  rotSpeed: 1
+  rotSpeed: 0.25
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!65 &2108319527

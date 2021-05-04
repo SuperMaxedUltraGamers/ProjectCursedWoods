@@ -26,11 +26,11 @@ namespace CursedWoods.Utils
             currentFadeType = fadeType;
             switch (currentFadeType)
             {
-                case FadeType.FadeIn:
+                case FadeType.FadeOut:
                     currentAlpha = 2.2f;
                     currentFadeSpeed = 0f;
                     break;
-                case FadeType.FadeOut:
+                case FadeType.FadeIn:
                     currentAlpha = 0f;
                     currentFadeSpeed = 0f;
                     break;
@@ -46,11 +46,11 @@ namespace CursedWoods.Utils
             currentFadeType = fadeType;
             switch (currentFadeType)
             {
-                case FadeType.FadeIn:
+                case FadeType.FadeOut:
                     currentAlpha = 2.2f;
                     currentFadeSpeed = 0f;
                     break;
-                case FadeType.FadeOut:
+                case FadeType.FadeIn:
                     currentAlpha = 0f;
                     currentFadeSpeed = 0f;
                     break;
@@ -61,9 +61,9 @@ namespace CursedWoods.Utils
             StartCoroutine(Fading(levelToLoadAfterFade));
         }
 
-        public void StartFade(Image disableImg, Image enableImg)
+        public void StartFade(GameObject disableImg, GameObject enableImg)
         {
-            currentFadeType = FadeType.FadeIn;
+            currentFadeType = FadeType.FadeOut;
             currentAlpha = 1f;
             currentFadeSpeed = 0f;
 
@@ -76,18 +76,18 @@ namespace CursedWoods.Utils
         {
             switch (currentFadeType)
             {
-                case FadeType.FadeIn:
+                case FadeType.FadeOut:
                     while (currentAlpha > 0f)
                     {
-                        FadeIn();
+                        FadeOut();
                         yield return null;
                     }
 
                     break;
-                case FadeType.FadeOut:
+                case FadeType.FadeIn:
                     while (currentAlpha < 1f)
                     {
-                        FadeOut();
+                        FadeIn();
                         yield return null;
                     }
 
@@ -101,18 +101,18 @@ namespace CursedWoods.Utils
         {
             switch (currentFadeType)
             {
-                case FadeType.FadeIn:
+                case FadeType.FadeOut:
                     while (currentAlpha > 0f)
                     {
-                        FadeIn();
+                        FadeOut();
                         yield return null;
                     }
 
                     break;
-                case FadeType.FadeOut:
+                case FadeType.FadeIn:
                     while (currentAlpha < 1f)
                     {
-                        FadeOut();
+                        FadeIn();
                         yield return null;
                     }
 
@@ -144,33 +144,33 @@ namespace CursedWoods.Utils
             SceneManager.LoadScene(sceneToLoad);
         }
 
-        private IEnumerator Fading(Image fromImg, Image toImg)
+        private IEnumerator Fading(GameObject fromImg, GameObject toImg)
         {
-            currentFadeType = FadeType.FadeIn;
+            currentFadeType = FadeType.FadeOut;
             currentAlpha = 0f;
 
-            // Fade to black
+            // Fade from black
             while (currentAlpha < 1f)
             {
-                FadeOut();
+                FadeIn();
                 yield return null;
             }
 
-            // Disable and enable pictures
-            fromImg.gameObject.SetActive(false);
-            toImg.gameObject.SetActive(true);
+            // Disable and enable videos/pictures
+            fromImg.SetActive(false);
+            toImg.SetActive(true);
 
             // Now fade back
             while (currentAlpha > 0f)
             {
-                FadeIn();
+                FadeOut();
                 yield return null;
             }
 
             IsFading = false;
         }
 
-        private void FadeIn()
+        private void FadeOut()
         {
             currentFadeSpeed += fadeSpeed * Time.deltaTime;
             currentAlpha -= currentFadeSpeed;
@@ -184,7 +184,7 @@ namespace CursedWoods.Utils
             }
         }
 
-        private void FadeOut()
+        private void FadeIn()
         {
             currentFadeSpeed += fadeSpeed * Time.deltaTime;
             currentAlpha += currentFadeSpeed;

@@ -1797,6 +1797,11 @@ PrefabInstance:
       propertyPath: interactionText
       value: OPEN DOOR (KEY REQUIRED)
       objectReference: {fileID: 0}
+    - target: {fileID: 5323211154199038394, guid: 7cab33097481b8f4c922b59771af90dd,
+        type: 3}
+      propertyPath: sfxFinishWaitTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5323211154199038395, guid: 7cab33097481b8f4c922b59771af90dd,
         type: 3}
       propertyPath: m_Name
@@ -24306,7 +24311,7 @@ MonoBehaviour:
   levelGateIsIn: 3
   gateType: 6
   rotateAmount: 90
-  rotSpeed: 0.1
+  rotSpeed: 0.015
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!65 &1066386923
@@ -44660,7 +44665,7 @@ MonoBehaviour:
   levelGateIsIn: 3
   gateType: 6
   rotateAmount: -90
-  rotSpeed: 0.1
+  rotSpeed: 0.015
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!65 &2026108844

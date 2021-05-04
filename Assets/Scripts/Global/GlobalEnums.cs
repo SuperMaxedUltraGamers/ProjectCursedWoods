@@ -163,8 +163,8 @@
     public enum FadeType
     {
         None = 0,
-        FadeIn,
-        FadeOut
+        FadeOut,
+        FadeIn
     }
 
     public enum Level

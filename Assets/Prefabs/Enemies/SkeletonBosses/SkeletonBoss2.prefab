@@ -904,7 +904,7 @@ MonoBehaviour:
   startingHealth: 700
   maxHealth: 700
   minHealth: 0
-  minCauseStagger: 100
+  minCauseStagger: 200
   dmgNumberSpawnYOffset: 3
   dmgNumberForwardOffset: 0
   attackRange: 4.5
@@ -912,7 +912,7 @@ MonoBehaviour:
   cowardnessValue: 0
   healthBar: {fileID: 5302696603955114388}
   canSpawnHealthOnDeath: 0
-  attackDamageAmount: 75
+  attackDamageAmount: 77
   attackTrackingSpeed: 40
   meleeAttackRangeRealUnits: 1.755
   playerLayerMask:
@@ -1046,7 +1046,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

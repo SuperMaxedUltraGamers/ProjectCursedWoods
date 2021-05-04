@@ -164,6 +164,7 @@ namespace CursedWoods.UI
         public void LoadGameButton()
         {
             // TODO: Create loadmenu where we can choose saveslot if we want to have more than one savefile.
+            PlayButtonSFX();
             GameMan.Instance.LoadGame(SaveUtils.AUTOSAVE_SAVE_SLOT);
         }
 
@@ -194,6 +195,7 @@ namespace CursedWoods.UI
 
         public void MainMenuButton()
         {
+            PlayButtonSFX();
             SceneManager.LoadScene(GlobalVariables.MAIN_MENU);
         }
 
@@ -218,9 +220,8 @@ namespace CursedWoods.UI
                 audioOptions.SetActive(false);
                 quitMenu.SetActive(false);
                 controlsMenu.SetActive(false);
+                PlayButtonSFX();
             }
-
-            PlayButtonSFX();
         }
 
         public void BackOutToGameOverMenu()
@@ -254,7 +255,7 @@ namespace CursedWoods.UI
                 displayInfoText.text = text;
                 displayInfoTextBG.gameObject.SetActive(true);
             }
-            else// if (transparency < 0.01f)
+            else
             {
                 displayInfoTextBG.gameObject.SetActive(false);
             }

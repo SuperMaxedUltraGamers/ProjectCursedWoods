@@ -1202,8 +1202,8 @@ MonoBehaviour:
   cowardnessValue: 20
   healthBar: {fileID: 7809620586056300499}
   canSpawnHealthOnDeath: 1
-  meleeDamageAmount: 80
-  rangedDamageAmount: 8
+  meleeDamageAmount: 81
+  rangedDamageAmount: 17
   attackTrackingSpeed: 40
   rangedAttackRange: 150
   playerLayerMask:
@@ -1288,7 +1288,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

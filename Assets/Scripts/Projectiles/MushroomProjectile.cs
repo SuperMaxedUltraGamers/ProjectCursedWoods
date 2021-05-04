@@ -14,7 +14,7 @@ namespace CursedWoods
         private float ogRadius;
         private float scaleSpeed = 1f;
         private float lifeTimeAfterHit = 6f;
-        private int areaDamage = 5;
+        private int areaDamage = 7;
         private DamageType areaDamageType = DamageType.Poison;
         private SphereCollider hitBox;
         private Timer lifeTimeTimer;

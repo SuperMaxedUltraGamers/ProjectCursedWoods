@@ -7,14 +7,14 @@ namespace CursedWoods
     public class OutroManager : MonoBehaviour
     {
         [SerializeField]
-        private Image startImg;
-        private Image[] chosenEndingImgs;
+        private GameObject startVid;
+        private GameObject[] chosenEndingVids;
         [SerializeField]
-        private Image[] goodEndingImgs;
+        private GameObject[] goodEndingVids;
         [SerializeField]
-        private Image[] badEndingImgs;
-        private Image currentImg;
-        private int currentImgID;
+        private GameObject[] badEndingVids;
+        private GameObject currentVid;
+        private int currentVidID;
         [SerializeField]
         private Level levelToLoad = Level.MainMenu;
         private Fader fader;
@@ -23,15 +23,15 @@ namespace CursedWoods
 
         private void Awake()
         {
-            currentImg = startImg;
-            startImg.gameObject.SetActive(true);
+            currentVid = startVid;
+            startVid.gameObject.SetActive(true);
             fader = GetComponent<Fader>();
             audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
         {
-            fader.StartFade(FadeType.FadeIn);
+            fader.StartFade(FadeType.FadeOut);
         }
 
         private void Update()
@@ -47,7 +47,7 @@ namespace CursedWoods
 
         public void GoodEndingButton()
         {
-            chosenEndingImgs = goodEndingImgs;
+            chosenEndingVids = goodEndingVids;
             isEndingChosen = true;
             ChangePicture();
             Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.ButtonPress);
@@ -55,7 +55,7 @@ namespace CursedWoods
 
         public void BadEndingButton()
         {
-            chosenEndingImgs = badEndingImgs;
+            chosenEndingVids = badEndingVids;
             isEndingChosen = true;
             ChangePicture();
             Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.ButtonPress);
@@ -63,19 +63,19 @@ namespace CursedWoods
 
         private void ChangePicture()
         {
-            if (currentImgID < chosenEndingImgs.Length - 1)
+            if (currentVidID < chosenEndingVids.Length - 1)
             {
-                if (currentImg != startImg)
+                if (currentVid != startVid)
                 {
-                    currentImgID++;
+                    currentVidID++;
                 }
 
-                fader.StartFade(currentImg, chosenEndingImgs[currentImgID]);
-                currentImg = chosenEndingImgs[currentImgID];
+                fader.StartFade(currentVid, chosenEndingVids[currentVidID]);
+                currentVid = chosenEndingVids[currentVidID];
             }
             else
             {
-                fader.StartFade(FadeType.FadeOut, levelToLoad);
+                fader.StartFade(FadeType.FadeIn, levelToLoad);
             }
         }
     }

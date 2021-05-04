@@ -18,7 +18,7 @@ namespace CursedWoods.Utils
             //}
 
             //hitbox.enabled = false;
-            GameMan.Instance.LevelUIManager.StartFade(FadeType.FadeOut, levelToLoad);
+            GameMan.Instance.LevelUIManager.StartFade(FadeType.FadeIn, levelToLoad);
             gameObject.SetActive(false);
         }
 

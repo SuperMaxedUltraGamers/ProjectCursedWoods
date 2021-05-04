@@ -14808,9 +14808,9 @@ MonoBehaviour:
   minCauseStagger: 1000
   dmgNumberSpawnYOffset: 6
   dmgNumberForwardOffset: 0
-  scanLaserDamageAmount: 175
-  projectileDamageAmount: 145
-  magicScytheDamageAmount: 205
+  scanLaserDamageAmount: 172
+  projectileDamageAmount: 143
+  magicScytheDamageAmount: 204
   laser: {fileID: 972504911446071710}
   projectileSpawners:
   - {fileID: 5468105190957858643}
@@ -14897,7 +14897,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -467,7 +467,7 @@ namespace CursedWoods
 
 
 
-            LevelUIManager.StartFade(FadeType.FadeIn);
+            LevelUIManager.StartFade(FadeType.FadeOut);
             //AudioSource audioSource = GetComponent<AudioSource>();
             //Audio = new AudioManager(audioSource, mixer, audioData);
         }
@@ -527,7 +527,7 @@ namespace CursedWoods
 
 
 
-            LevelUIManager.StartFade(FadeType.FadeIn);
+            LevelUIManager.StartFade(FadeType.FadeOut);
             //AudioSource audioSource = GetComponent<AudioSource>();
             //Audio = new AudioManager(audioSource, mixer, audioData);
         }
@@ -535,7 +535,7 @@ namespace CursedWoods
         private void InitializeSaveSystem()
         {
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string gameFolder = "Cursed of The Amulet";
+            string gameFolder = "Curse of The Amulet";
             string saveFolder = Path.Combine(myDocuments, gameFolder);
 
             SaveSystem = new BinarySaver(saveFolder);
