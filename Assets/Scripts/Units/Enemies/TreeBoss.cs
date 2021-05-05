@@ -165,7 +165,6 @@ namespace CursedWoods
                 GameMan.Instance.AIManager.EnemiesKilledFleeAffector++;
                 GameMan.Instance.LevelUIManager.DisableBossHealthBar();
                 Settings.Instance.Audio.ChangeMusic(AudioContainer.Music.ForestAmbience);
-                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.Death);
                 animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.TREEBOSS_ANIM_DEATH);
                 elapsedEyeColorChangeTime = 0f;
 
@@ -174,7 +173,7 @@ namespace CursedWoods
                 roots.gameObject.SetActive(false);
                 dropAttack.gameObject.SetActive(false);
                 GameMan.Instance.GraveyardManager.DisableBarrier(GlobalVariables.GRAVEYARD_GARDEN_BARRIER);
-                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.Death);
+                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.Death, 3f);
 
                 SetNextBehaviour(TreeBossBehaviours.Dead);
             }
@@ -499,7 +498,7 @@ namespace CursedWoods
         private void DropStartAnimEvent()
         {
             dropAttack.gameObject.SetActive(true);
-            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.DropAttack);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.TreeBossSFX.DropAttack, 2f);
             dropAttack.StartAttack(dropDamageAmount, attacksDmgType);
         }
 

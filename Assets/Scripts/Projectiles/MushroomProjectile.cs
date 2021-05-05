@@ -99,7 +99,7 @@ namespace CursedWoods
             areaDamageIntervalTimer.Run();
             poisonCloud.Play();
             lifeTimeTimer.Run();
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MushroomSFX.PoisonCloud);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MushroomSFX.PoisonCloud, 4f);
         }
 
         private void Launch(Vector3 pos)

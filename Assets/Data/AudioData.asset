@@ -47,26 +47,26 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: fd4d897865e660d4ca324ab3162d9fa5, type: 3}
   mushroomSounds:
   - Effect: 0
-    Clip: {fileID: 8300000, guid: 74ba2a19b2ea49741870f17c73ea35cc, type: 3}
+    Clip: {fileID: 8300000, guid: c18de9f067b96b540ad5d9e33a994790, type: 3}
   - Effect: 1
     Clip: {fileID: 8300000, guid: 0f3bdd904b34c4d44bd48277b8ae1524, type: 3}
   - Effect: 2
     Clip: {fileID: 8300000, guid: f766c9cb05637d044a25ae90055796bf, type: 3}
   treeBossSounds:
   - Effect: 0
-    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+    Clip: {fileID: 8300000, guid: ca7e25513aae08a449ebb8c60b2714e8, type: 3}
   - Effect: 1
-    Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
+    Clip: {fileID: 8300000, guid: ca7e25513aae08a449ebb8c60b2714e8, type: 3}
   - Effect: 2
     Clip: {fileID: 8300000, guid: 75d253cf10476d04990abd0804bf4281, type: 3}
   - Effect: 3
-    Clip: {fileID: 8300000, guid: 56216e9a40627d44eb767bd7f31287d3, type: 3}
+    Clip: {fileID: 8300000, guid: bbe4f6bbbd443994697837905e42af78, type: 3}
   - Effect: 4
-    Clip: {fileID: 8300000, guid: 56216e9a40627d44eb767bd7f31287d3, type: 3}
+    Clip: {fileID: 8300000, guid: bbe4f6bbbd443994697837905e42af78, type: 3}
   - Effect: 5
     Clip: {fileID: 8300000, guid: f5363f62139add34aaab6c670de0a38a, type: 3}
   - Effect: 6
-    Clip: {fileID: 8300000, guid: a22fed7ce4742f5449818566a6af22aa, type: 3}
+    Clip: {fileID: 8300000, guid: 7df8111cf20d6c44788e8e2a6d6c67d1, type: 3}
   finalBossSounds:
   - Effect: 0
     Clip: {fileID: 8300000, guid: d47d316b6d6c7e34c864300af8e880ff, type: 3}

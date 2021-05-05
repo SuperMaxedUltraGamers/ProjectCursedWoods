@@ -37,14 +37,15 @@ namespace CursedWoods
             this.audioData = audioData;
         }
 
-        public float PlayEffect(AudioSource source, AudioContainer.PlayerSFX effect)
+        public float PlayEffect(AudioSource source, AudioContainer.PlayerSFX effect, float volMultiplier = 1f)
         {
             float length = 0f;
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
                 RandomizePitch(source);
-                source.PlayOneShot(clip);
+                GetVolume(SoundGroup.Effect, out float mixerVol);
+                source.PlayOneShot(clip, mixerVol * volMultiplier);
                 length = clip.length;
             }
 
@@ -79,42 +80,45 @@ namespace CursedWoods
             return length;
         }
 
-        public float PlayEffect(AudioSource source, AudioContainer.MushroomSFX effect)
+        public float PlayEffect(AudioSource source, AudioContainer.MushroomSFX effect, float volMultiplier = 1f)
         {
             float length = 0f;
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
                 RandomizePitch(source);
-                source.PlayOneShot(clip);
+                GetVolume(SoundGroup.Effect, out float mixerVol);
+                source.PlayOneShot(clip, mixerVol * volMultiplier);
                 length = clip.length;
             }
 
             return length;
         }
 
-        public float PlayEffect(AudioSource source, AudioContainer.TreeBossSFX effect)
+        public float PlayEffect(AudioSource source, AudioContainer.TreeBossSFX effect, float volMultiplier = 1f)
         {
             float length = 0f;
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
                 RandomizePitch(source);
-                source.PlayOneShot(clip);
+                GetVolume(SoundGroup.Effect, out float mixerVol);
+                source.PlayOneShot(clip, mixerVol * volMultiplier);
                 length = clip.length;
             }
 
             return length;
         }
 
-        public float PlayEffect(AudioSource source, AudioContainer.FinalBossSFX effect)
+        public float PlayEffect(AudioSource source, AudioContainer.FinalBossSFX effect, float volMultiplier = 1f)
         {
             float length = 0f;
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
                 RandomizePitch(source);
-                source.PlayOneShot(clip);
+                GetVolume(SoundGroup.Effect, out float mixerVol);
+                source.PlayOneShot(clip, mixerVol * volMultiplier);
                 length = clip.length;
             }
 

@@ -419,7 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastMask:
     serializedVersion: 2
-    m_Bits: 20225
+    m_Bits: 1068801
 --- !u!95 &478478342708921044
 Animator:
   serializedVersion: 3

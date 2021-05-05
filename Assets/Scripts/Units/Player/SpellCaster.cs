@@ -12,7 +12,8 @@ namespace CursedWoods
         //private Dictionary<Spells, ISpell> spellKeyValuePairs = new Dictionary<Spells, ISpell>();
 
         // TODO: get rid of these and make some sort dictionary that holds the spells,
-        //       problem is that you need to also attach the projectile etc. prefabs that the spells, maybe create data type for that?
+        //       problem is that you need to also attach the projectile etc. prefabs that the spells, 
+        //       maybe create data type, or scriptable object for that?
         private SpellFireBall spellFireBall;
         private SpellIceRay spellIceRay;
         private SpellMagicBeam spellMagicBeam;

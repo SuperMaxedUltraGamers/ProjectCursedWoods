@@ -45,6 +45,9 @@ namespace CursedWoods.UI
         private GameObject controlsMenu;
 
         [SerializeField]
+        private GameObject[] controlsGraphics;
+
+        [SerializeField]
         private GameObject quitMenu;
 
         [SerializeField]
@@ -173,6 +176,20 @@ namespace CursedWoods.UI
             eventSystem.SetSelectedGameObject(null);
             controlsMenu.SetActive(true);
             pauseMenu.SetActive(false);
+            PlayButtonSFX();
+        }
+
+        public void MouseAndKbButton()
+        {
+            controlsGraphics[0].SetActive(true);
+            controlsGraphics[1].SetActive(false);
+            PlayButtonSFX();
+        }
+
+        public void ControllerButton()
+        {
+            controlsGraphics[1].SetActive(true);
+            controlsGraphics[0].SetActive(false);
             PlayButtonSFX();
         }
 

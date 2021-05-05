@@ -49,6 +49,7 @@ namespace CursedWoods
             layers[3] = 10;
             layers[4] = 11;
             //layers[5] = 14; interactable
+            layers[5] = 20; //barrier
 
             // Create layermask from all the layers.
             foreach (int i in layers)
