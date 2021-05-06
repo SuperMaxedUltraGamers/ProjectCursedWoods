@@ -27,7 +27,7 @@ namespace CursedWoods
 
         private void OnEnable()
         {
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.KeySpawn);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.KeySpawn, 5f);
         }
 
         protected override void AfterInteraction()

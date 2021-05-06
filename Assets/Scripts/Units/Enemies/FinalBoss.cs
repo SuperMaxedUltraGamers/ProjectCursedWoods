@@ -175,7 +175,7 @@ namespace CursedWoods
                 deathStaticParticle.Play();
                 deathSprayParticles.Play();
                 GameMan.Instance.CastleManager.DisableBarrier(GlobalVariables.CASTLE_FINAL_BOSS_BARRIER);
-                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.Death);
+                Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.Death, 3f);
                 SetNextBehaviour(FinalBossBehaviours.Dead);
             }
         }
@@ -379,7 +379,7 @@ namespace CursedWoods
             laser.gameObject.SetActive(true);
             laser.Initialize(scanLaserDamageAmount, DamageType.Fire);
 
-            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.Laser);
+            Settings.Instance.Audio.PlayEffect(audioSource, AudioContainer.FinalBossSFX.Laser, 2f);
         }
 
         private void DisableLaserAnimEvent()

@@ -93,7 +93,7 @@ namespace CursedWoods
             }
 
             particleManager.DashParticles.Play();
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Dash);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Dash, 5f); // 1.5f if using Dash2, 5f if using DashEdited
             StartCoroutine(DashHoldTimer());
         }
 

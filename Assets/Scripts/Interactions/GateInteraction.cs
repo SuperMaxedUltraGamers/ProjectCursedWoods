@@ -45,7 +45,7 @@ namespace CursedWoods
                         Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.GateOpen);
                         break;
                     case Level.Castle:
-                        Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.DoorOpen);
+                        Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.DoorOpen, 2f);
                         GameMan.Instance.CastleManager.FinalBossDoorOpen = true;
                         GameMan.Instance.CastleManager.UseStartPos = false;
                         break;
