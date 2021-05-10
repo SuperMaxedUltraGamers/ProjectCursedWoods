@@ -14802,8 +14802,8 @@ MonoBehaviour:
     resistance: 37
   - type: 5
     resistance: 100
-  startingHealth: 200
-  maxHealth: 200
+  startingHealth: 2000
+  maxHealth: 2000
   minHealth: 0
   minCauseStagger: 1000
   dmgNumberSpawnYOffset: 6
