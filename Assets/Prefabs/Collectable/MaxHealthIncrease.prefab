@@ -63,7 +63,7 @@ MonoBehaviour:
   animTime: 1
   interactionText: MAX HEALTH UP
   disableAfterInteraction: 1
-  maxHealthIncreasePercent: 0.1
+  maxHealthIncreasePercent: 0.22
   disableObjects:
   - {fileID: 1576128210538767056}
   - {fileID: 8612592488067947342}
