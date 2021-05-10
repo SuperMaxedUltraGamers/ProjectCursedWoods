@@ -229,6 +229,7 @@ namespace CursedWoods.SaveSystem
 
 		public bool DeleteSaveFile(string saveSlot)
 		{
+			Reset();
 			string filePath = GetSavePath(saveSlot);
 			if (File.Exists(filePath))
             {

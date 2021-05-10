@@ -1,19 +1,19 @@
 ﻿using CursedWoods.Utils;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Video;
 
 namespace CursedWoods
 {
     public class OutroManager : MonoBehaviour
     {
         [SerializeField]
-        private GameObject startVid;
-        private GameObject[] chosenEndingVids;
+        private VideoPlayer startVid;
+        private VideoPlayer[] chosenEndingVids;
         [SerializeField]
-        private GameObject[] goodEndingVids;
+        private VideoPlayer[] goodEndingVids;
         [SerializeField]
-        private GameObject[] badEndingVids;
-        private GameObject currentVid;
+        private VideoPlayer[] badEndingVids;
+        private VideoPlayer currentVid;
         private int currentVidID;
         [SerializeField]
         private Level levelToLoad = Level.MainMenu;
@@ -31,7 +31,7 @@ namespace CursedWoods
 
         private void Start()
         {
-            fader.StartFade(FadeType.FadeOut);
+            fader.StartFade(FadeType.FadeOut, 1f);
         }
 
         private void Update()
@@ -40,7 +40,7 @@ namespace CursedWoods
             {
                 if (Input.anyKeyDown)
                 {
-                    ChangePicture();
+                    ChangeVid();
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace CursedWoods
         {
             chosenEndingVids = goodEndingVids;
             isEndingChosen = true;
-            ChangePicture();
+            ChangeVid();
             Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.ButtonPress);
         }
 
@@ -57,11 +57,11 @@ namespace CursedWoods
         {
             chosenEndingVids = badEndingVids;
             isEndingChosen = true;
-            ChangePicture();
+            ChangeVid();
             Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.ButtonPress);
         }
 
-        private void ChangePicture()
+        private void ChangeVid()
         {
             if (currentVidID < chosenEndingVids.Length - 1)
             {

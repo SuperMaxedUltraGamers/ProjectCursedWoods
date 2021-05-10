@@ -51,8 +51,7 @@ namespace CursedWoods
                         break;
                 }
 
-                GameMan.Instance.AutoSave();
-                StartCoroutine(DisplayInfoText(openInfoText));
+                StartCoroutine(StartSave());
                 return base.Interaction();
             }
             else
@@ -63,9 +62,19 @@ namespace CursedWoods
             }
         }
 
+        // Why is this even overridden if we only call the base method?
         protected override void AfterInteraction()
         {
             base.AfterInteraction();
+        }
+
+        private IEnumerator StartSave()
+        {
+            yield return null;
+            GameMan.Instance.AutoSave();
+            yield return null;
+
+            StartCoroutine(DisplayInfoText(openInfoText));
         }
 
         private IEnumerator DisplayInfoText(string text)
@@ -101,12 +110,14 @@ namespace CursedWoods
                     {
                         gameObject.SetActive(false);
                     }
+
                     break;
                 case Level.Castle:
                     if (GameMan.Instance.CastleManager.FinalBossDoorOpen)
                     {
                         gameObject.SetActive(false);
                     }
+
                     break;
             }
         }

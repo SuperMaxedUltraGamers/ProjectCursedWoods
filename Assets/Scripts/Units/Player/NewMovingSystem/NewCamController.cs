@@ -142,34 +142,37 @@ namespace CursedWoods
             {
                 Collider hitCollider = hit.collider;
                 Collider[] hitGOColliders = hit.collider.GetComponentsInChildren<Collider>();
-                bool containsCollider = false;
                 for (int i = 0; i < hitGOColliders.Length; i++)
                 {
-                    if (lastColliders.Contains(hitGOColliders[i]))
+                    Renderer rnd = hitGOColliders[i].GetComponent<Renderer>();
+                    if (rnd != null)
                     {
-                        hitCollider = hitGOColliders[i];
-                        containsCollider = true;
+                        bool containsCollider = false;
+                        if (lastColliders.Contains(hitGOColliders[i]))
+                        {
+                            hitCollider = hitGOColliders[i];
+                            containsCollider = true;
+                        }
+
+                        if (containsCollider)
+                        {
+                            int index = lastColliders.IndexOf(hitCollider);
+
+                            currentColliders.Add(lastColliders[index]);
+                            currentRenderers.Add(lastRenderers[index]);
+                            currentOgMats.Add(lastOgMats[index]);
+                        }
+                        else
+                        {
+                            currentColliders.Add(hitGOColliders[i]);
+                            Renderer hitRenderer = hitGOColliders[i].GetComponent<Renderer>();
+                            currentRenderers.Add(hitRenderer);
+                            currentOgMats.Add(hitRenderer.materials);
+                        }
                     }
                 }
 
-                if (containsCollider)
-                {
-                    int index = lastColliders.IndexOf(hitCollider);
-
-                    currentColliders.Add(lastColliders[index]);
-                    currentRenderers.Add(lastRenderers[index]);
-                    currentOgMats.Add(lastOgMats[index]);
-
-                }
-                else
-                {
-                    currentColliders.Add(hitCollider);
-                    Renderer hitRenderer = hitCollider.GetComponentInChildren<Renderer>();
-                    currentRenderers.Add(hitRenderer);
-                    currentOgMats.Add(hitRenderer.materials);
-                }
-
-                castStartPos = hit.point + camT.forward * 0.2f;
+                castStartPos = hit.point + camT.forward * 0.02f;
             }
 
             float alpha = transparentBlack.GetFloat("_AlphaValueInverse");
@@ -205,7 +208,7 @@ namespace CursedWoods
                 {
                     if (lastColliders[i] != null)
                     {
-                        lastRenderers[i] = lastColliders[i].GetComponentInChildren<Renderer>();
+                        lastRenderers[i] = lastColliders[i].GetComponent<Renderer>();
                         lastRenderers[i].materials = lastOgMats[i];
                     }
                 }

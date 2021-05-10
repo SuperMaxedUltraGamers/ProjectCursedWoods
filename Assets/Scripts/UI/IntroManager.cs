@@ -1,6 +1,5 @@
 ﻿using CursedWoods.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CursedWoods
 {
@@ -23,7 +22,7 @@ namespace CursedWoods
 
         private void Start()
         {
-            fader.StartFade(FadeType.FadeOut);
+            fader.StartFade(FadeType.FadeOut, 2f);
         }
 
         private void Update()

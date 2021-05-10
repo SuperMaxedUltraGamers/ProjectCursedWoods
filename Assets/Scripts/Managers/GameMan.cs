@@ -247,6 +247,7 @@ namespace CursedWoods
         {
             // Save scene
             SaveSystem.SetString(SaveUtils.GetKey(SaveUtils.GAME_MAN_PREFIX, SaveUtils.GAMEMAN_SCENE_NAME_KEY), SceneManager.GetActiveScene().name);
+            print("Scene saved");
 
             // Save player pos/rot
             Vector3 playerPos = PlayerT.position;
@@ -255,29 +256,38 @@ namespace CursedWoods
             SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Y_KEY), playerPos.y);
             SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_Z_KEY), playerPos.z);
             SaveSystem.SetFloat(SaveUtils.GetKey(SaveUtils.PLAYER_TRANS_PREFIX, SaveUtils.PLAYER_ROT_KEY), playerRot);
+            print("Player pos/rot saved");
 
             // Save player health and camera rotation
             CharController.Save(SaveSystem, SaveUtils.CHAR_CONTROLLER_PREFIX);
+            print("Health and cam rot saved");
 
             // Save player progress
             PlayerManager.Save(SaveSystem, SaveUtils.PLAYER_MAN_PREFIX);
+            print("Player progress saved");
 
             // Save AI manager
             AIManager.Save(SaveSystem, SaveUtils.AI_MAN_PREFIX);
+            print("AI manager saved");
 
             // TODO: better way to save levelmanagers.
             // Save GraveyardMan
             if (GraveyardManager != null)
             {
+                print("GraveyardMan not null, saving");
                 GraveyardManager.Save(SaveSystem, SaveUtils.GRAVEYARD_MAN_PREFIX);
+                print("GraveyardMan saved");
             }
 
             // Save CastelMan
             if (CastleManager != null)
             {
+                print("CastleMan not null, saving");
                 CastleManager.Save(SaveSystem, SaveUtils.CASTLE_MAN_PREFIX);
+                print("CastleMan saved");
             }
 
+            print("Calling savesystem to actually save shit");
             SaveSystem.Save(SaveUtils.AUTOSAVE_SAVE_SLOT);
             print("game saved");
         }
