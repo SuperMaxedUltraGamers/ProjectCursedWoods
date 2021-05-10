@@ -2785,7 +2785,7 @@ MonoBehaviour:
   sweepDamageAmount: 166
   rootDamageAmount: 241
   dropDamageAmount: 182
-  bossName: Daddy of All Trees
+  bossName: Old Castle Guard
   meshRenderer: {fileID: 1298282412561806604}
 --- !u!114 &8560338477866099082
 MonoBehaviour:
