@@ -68,6 +68,9 @@ namespace CursedWoods.UI
         [SerializeField]
         private TextMeshProUGUI[] spellCooldownText;
 
+        [SerializeField]
+        private Image dashBar = null;
+
         private Fader fader;
 
         protected override void Awake()
@@ -101,6 +104,7 @@ namespace CursedWoods.UI
             playerSC.SpellCasted += SpellCooldownGraphic;
             playerUnit.HealthChanged += OpenGameOverScreen;
             PlayerManager.SpellUnlocked += ActivateSpellIcons;
+            DashState.Dashed += StartDashBarIconFill;
         }
 
         private void OnDisable()
@@ -111,6 +115,7 @@ namespace CursedWoods.UI
             playerSC.SpellCasted -= SpellCooldownGraphic;
             playerUnit.HealthChanged -= OpenGameOverScreen;
             PlayerManager.SpellUnlocked -= ActivateSpellIcons;
+            DashState.Dashed -= StartDashBarIconFill;
         }
 
         private void Update()
@@ -434,6 +439,11 @@ namespace CursedWoods.UI
             }
         }
 
+        private void StartDashBarIconFill(float cooldownTime)
+        {
+            StartCoroutine(DashCoolDownBarFill(cooldownTime));
+        }
+
         private IEnumerator SpellCooldownIconFill(int iconIndex, float cooldownTime)
         {
             float elapsedTime = 0f;
@@ -448,6 +458,20 @@ namespace CursedWoods.UI
 
             spellCooldownText[iconIndex].text = "";
             spellCooldownIcons[iconIndex].fillAmount = 1f;
+        }
+
+        private IEnumerator DashCoolDownBarFill(float cooldownTime)
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < cooldownTime)
+            {
+                elapsedTime += Time.deltaTime;
+                dashBar.fillAmount = Mathf.Lerp(0f, 1f, elapsedTime / cooldownTime);
+                yield return null;
+            }
+
+            dashBar.fillAmount = 1f;
         }
     }
 }

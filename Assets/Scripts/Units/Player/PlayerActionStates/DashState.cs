@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace CursedWoods
@@ -15,6 +16,9 @@ namespace CursedWoods
 
         private PlayerParticleManager particleManager;
         private AudioSource audioSource;
+
+        // Used to notify UI
+        public static event Action<float> Dashed;
 
         public override PlayerInputType Type
         {
@@ -94,6 +98,12 @@ namespace CursedWoods
 
             particleManager.DashParticles.Play();
             Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PlayerSFX.Dash, 5f); // 1.5f if using Dash2, 5f if using DashEdited
+
+            if (Dashed != null)
+            {
+                Dashed(dashCoolDownTime + dashHoldTime);
+            }
+
             StartCoroutine(DashHoldTimer());
         }
 
