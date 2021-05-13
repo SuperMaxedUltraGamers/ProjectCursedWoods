@@ -25933,7 +25933,7 @@ MonoBehaviour:
   levelGateIsIn: 3
   gateType: 6
   rotateAmount: 90
-  rotSpeed: 0.015
+  rotSpeed: 0.27
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!65 &1066386923
@@ -37450,6 +37450,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pile w sword
       objectReference: {fileID: 0}
+    - target: {fileID: 138223771972830168, guid: dcd4c8fc8af35f346ac8199a0c5bdfb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 765824577552308578, guid: dcd4c8fc8af35f346ac8199a0c5bdfb7,
         type: 3}
       propertyPath: m_RootOrder
@@ -48139,7 +48144,7 @@ MonoBehaviour:
   levelGateIsIn: 3
   gateType: 6
   rotateAmount: -90
-  rotSpeed: 0.015
+  rotSpeed: 0.27
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!65 &2026108844
@@ -48863,6 +48868,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pile w book
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214427761538968642, guid: 05fecc740cc366547b3b34b93acd7ed5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4601676866525480008, guid: 05fecc740cc366547b3b34b93acd7ed5,
         type: 3}

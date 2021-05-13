@@ -13,7 +13,7 @@ namespace CursedWoods
         private GameObject[] disableObjects;
         private Collider hitbox;
         private RotateAndBounce rotateAndBounce;
-        private float sfxLength = 2f;
+        private float sfxLength = 2.75f;
 
         protected override void Awake()
         {
@@ -37,7 +37,7 @@ namespace CursedWoods
         protected override void AfterInteraction()
         {
             GameMan.Instance.CharController.IncreaseHealth(healthIncreaseAmount);
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.HealthPickUp);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.HealthPickUp, 4f);
             foreach (GameObject go in disableObjects)
             {
                 go.SetActive(false);

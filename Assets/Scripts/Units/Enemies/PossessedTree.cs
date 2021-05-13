@@ -208,7 +208,7 @@ namespace CursedWoods
             agent.enabled = false;
             obstacle.enabled = false;
             animator.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.ENEMY_ANIM_DEATH);
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PosTreeSFX.Death);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.PosTreeSFX.Death, 3f);
             currentBehaviour = EnemyBehaviours.Dead;
             //StartCoroutine(DieTimer());
         }

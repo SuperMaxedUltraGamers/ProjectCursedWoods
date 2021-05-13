@@ -39,7 +39,6 @@ namespace CursedWoods
             GameMan.Instance.CharController.PlayerAnim.SetInteger(GlobalVariables.UNIQUE_ANIM_VALUE, GlobalVariables.PLAYER_ANIM_INTERACT);
             //StartCoroutine(AfterInteractionTimer());
             AfterInteraction();
-            print("yeaeh");
             return animTime;
         }
 

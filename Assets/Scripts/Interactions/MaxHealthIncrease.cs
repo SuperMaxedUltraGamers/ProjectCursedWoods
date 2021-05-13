@@ -14,7 +14,7 @@ namespace CursedWoods
         private GameObject[] disableObjects;
         private Collider hitbox;
         private RotateAndBounce rotateAndBounce;
-        private float sfxLength = 2f;
+        private float sfxLength = 2.75f;
 
         protected override void Awake()
         {
@@ -44,7 +44,7 @@ namespace CursedWoods
         {
             GameMan.Instance.CharController.IncreaseMaxHealth((int) (GameMan.Instance.CharController.MaxHealth * maxHealthIncreasePercent));
             GameMan.Instance.GraveyardManager.DisableSpawMaxHealthIncrease(spawnerID);
-            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.HealthPickUp);
+            Settings.Instance.Audio.PlayEffect(audioSource, Data.AudioContainer.MiscSFX.HealthPickUp, 4f);
             foreach (GameObject go in disableObjects)
             {
                 go.SetActive(false);

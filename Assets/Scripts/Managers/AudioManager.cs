@@ -66,14 +66,15 @@ namespace CursedWoods
             return length;
         }
 
-        public float PlayEffect(AudioSource source, AudioContainer.PosTreeSFX effect)
+        public float PlayEffect(AudioSource source, AudioContainer.PosTreeSFX effect, float volMultiplier = 1f)
         {
             float length = 0f;
             AudioClip clip = audioData.GetSoundClip(effect);
             if (clip != null)
             {
                 RandomizePitch(source);
-                source.PlayOneShot(clip);
+                GetVolume(SoundGroup.Effect, out float mixerVol);
+                source.PlayOneShot(clip, mixerVol * volMultiplier);
                 length = clip.length;
             }
 

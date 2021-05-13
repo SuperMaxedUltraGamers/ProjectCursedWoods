@@ -95,9 +95,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactions:
   - {fileID: 0}
+  levelGateIsIn: 2
   gateType: 0
   rotateAmount: 90
-  rotSpeed: 1
+  rotSpeed: 0.8
   rotationAxis: 1
   toggleRotationDirAfter: 1
 --- !u!1 &8828705338833327990

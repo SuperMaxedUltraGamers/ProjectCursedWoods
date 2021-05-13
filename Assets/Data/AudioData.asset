@@ -32,7 +32,7 @@ MonoBehaviour:
   - Effect: 8
     Clip: {fileID: 8300000, guid: 68b655545bebb354c979feb73d3839ed, type: 3}
   - Effect: 9
-    Clip: {fileID: 8300000, guid: 17851aa87276aab4ba4a1075a3980e31, type: 3}
+    Clip: {fileID: 8300000, guid: 7d0a8c7855b7b9b40a5812761216771a, type: 3}
   skeletonSounds:
   - Effect: 0
     Clip: {fileID: 8300000, guid: 76fb6ba91777cdc409afb1ce1c3e1385, type: 3}
@@ -92,7 +92,7 @@ MonoBehaviour:
   - Effect: 4
     Clip: {fileID: 8300000, guid: 65a58dd206c41c549a72ee418de24fef, type: 3}
   - Effect: 5
-    Clip: {fileID: 8300000, guid: 8d6f3d59b7b8e684fa2d9165818bc44d, type: 3}
+    Clip: {fileID: 8300000, guid: 791a1f9518a45f3448fae1c8082fdc72, type: 3}
   - Effect: 6
     Clip: {fileID: 8300000, guid: 39ccf2da190241e4398aef6823997809, type: 3}
   - Effect: 7

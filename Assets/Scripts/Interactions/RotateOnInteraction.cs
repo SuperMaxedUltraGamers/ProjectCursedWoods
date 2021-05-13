@@ -171,7 +171,7 @@ namespace CursedWoods
             while (currentLerpPos < 1f - acceptedOffMargin)
             {
                 currentLerpPos += Time.deltaTime * rotSpeed;
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, currentLerpPos);
+                transform.rotation = Quaternion.Slerp(orignalRot, targetRot, currentLerpPos);
                 /*
                 if (currentLerpPos >= 1f - acceptedOffMargin)
                 {
